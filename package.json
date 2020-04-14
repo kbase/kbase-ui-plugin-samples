@@ -1,0 +1,25 @@
+{
+    "name": "kbase-ui-plugin-sampleview",
+    "version": "1.0.0",
+    "description": "description of your plugin",
+    "main": "index.js",
+    "devDependencies": {
+        "bluebird": "3.7.2",
+        "fs-extra": "9.0.0",
+        "tar": "6.0.1"
+    },
+    "scripts": {
+        "build": "bash scripts/build-plugin.bash",
+        "dist": "node scripts/build-dist.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kbase/kbase-ui-plugin-sampleview.git"
+    },
+    "author": "KBase Developers",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "bugs": {
+        "url": "https://github.com/kbase/kbase-ui-plugin-sampleview/issues"
+    },
+    "homepage": "https://github.com/kbase/kbase-ui-plugin-sampleview#readme"
+}

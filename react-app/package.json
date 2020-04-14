@@ -1,0 +1,54 @@
+{
+    "name": "react-app",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@craco/craco": "5.6.4",
+        "@kbase/ui-components": "0.2.1-alpha.16",
+        "@kbase/ui-lib": "0.2.1-alpha.3",
+        "@testing-library/jest-dom": "5.5.0",
+        "@testing-library/react": "10.0.2",
+        "@testing-library/user-event": "10.0.1",
+        "@types/jest": "25.2.1",
+        "@types/node": "13.11.1",
+        "@types/react": "16.9.34",
+        "@types/react-dom": "16.9.6",
+        "@types/react-redux": "7.1.7",
+        "antd": "4.1.3",
+        "craco-antd": "1.14.1",
+        "react": "16.13.1",
+        "react-dom": "16.13.1",
+        "react-redux": "7.2.0",
+        "react-scripts": "3.4.1",
+        "redux": "4.0.5",
+        "redux-thunk": "2.3.0",
+        "typescript": "3.8.3"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "startx": "nodemon -w ./craco.config.js -w ./node_modules/@kbase/ui-lib/lib/custom/antd/theme.less --exec 'craco start'",
+        "buildx": "craco build",
+        "build": "react-scripts build",
+        "test": "react-scripts test"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "homepage": "./",
+    "proxy": "https://ci.kbase.us",
+    "devDependencies": {
+        "nodemon": "2.0.3"
+    }
+}
