@@ -1,13 +1,73 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+
+.InfoTable {
+    display: flex;
+    flex-direction: column;
+}
+
+.InfoTable>div {
+    display: flex;
+    flex-direction: row;
+}
+
+.InfoTable>div:nth-child(odd) {
+    /* background-color: rgba(200, 200, 200, 0.5); */
+}
+
+.InfoTable>div+div {
+    margin-top: -1px;
+}
+
+.InfoTable>div>div {
+    padding: 4px;
+}
+
+.InfoTable.-bordered>div>div {
+    border: 1px solid silver;
+}
+
+.InfoTable.-bordered>div>div+div {
+    margin-left: -1px;
+}
+
+.InfoTable>div>div:nth-child(1) {
+    flex: 0 0 5em;
+    font-weight: bold;
+    color: rgba(150, 150, 150, 1);
+}
+
+.InfoTable>div>div:nth-child(2) {
+    flex: 1 1 0px;
+    text-align: left;
+}
+
+.SectionLabel {
+    font-weight: bold;
+    color: gray;
+    margin: 20px 0 0 0;
+}
+
+.Grouper {
+    border: 1px silver solid;
+    padding: 4px;
+
+}
+
+.root {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
 }

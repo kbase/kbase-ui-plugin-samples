@@ -1,0 +1,24 @@
+.Sample {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Sample .ant-row {
+    flex: 1 1 0px;
+}
+
+.Nav-item {
+    border: 1px silver solid;
+    padding: 4px;
+}
+
+.Nav-item:hover {
+    background-color: silver;
+    cursor: pointer;
+}
+
+.InfoTable.UserMetadata>div>div:nth-child(1) {
+    /* flex: 0.5 1 0px; */
+    flex: 0 0 20em;
+}

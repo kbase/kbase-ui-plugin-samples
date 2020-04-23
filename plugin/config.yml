@@ -6,7 +6,10 @@ package:
   type: iframe
 install:
   routes:
-    - path: ["sampleview"]
+    - path:
+        - sampleview
+        - type: param
+          name: sampleId
       view: main
       widget: kb_iframe_loader
       authorization: true

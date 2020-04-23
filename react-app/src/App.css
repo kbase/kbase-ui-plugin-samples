@@ -1,1 +1,9 @@
-.App {}
+.App {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
+    /* Just for the demo, need to scroll in tabs, but that probably
+        requires some tricky css overrides, i think
+     */
+    overflow: auto;
+}
