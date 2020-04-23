@@ -6,6 +6,7 @@ import NavigationComponent from './Navigation';
 import { RootState } from '@kbase/ui-components';
 import { StoreState, NavigationView } from '../redux/store';
 import { navigate } from '../redux/actions';
+import { Navigation } from '@kbase/ui-components/lib/redux/integration/store';
 // import { navigate } from '../redux/actions';
 
 interface OwnProps { }
@@ -14,6 +15,7 @@ interface StateProps {
     rootState: RootState;
     navigationView: NavigationView;
     trigger: number;
+    navigation: Navigation;
 }
 
 interface DispatchProps {
@@ -24,11 +26,11 @@ interface DispatchProps {
 function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     const {
         root: { state: rootState },
-        // app: {
-        //     runtime: {
-        //         navigation
-        //     }
-        // }
+        app: {
+            runtime: {
+                navigation
+            }
+        },
         // navigation,
         // trigger
         navigationView
@@ -43,7 +45,7 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     // const trigger: number = 1;
     // return { rootState, navigation, trigger };
     const trigger: number = 1;
-    return { rootState, navigationView, trigger };
+    return { rootState, navigationView, trigger, navigation };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {

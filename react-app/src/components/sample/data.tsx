@@ -11,6 +11,7 @@ export interface DataProps {
     serviceWizardURL: string;
     token: string;
     sampleId: SampleId;
+    setTitle: (title: string) => void;
 }
 
 interface DataState {
@@ -101,7 +102,7 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(sample: Sample) {
-        return <Component sample={sample} />;
+        return <Component sample={sample} setTitle={this.props.setTitle} />;
     }
 
     render() {

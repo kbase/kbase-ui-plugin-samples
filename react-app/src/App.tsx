@@ -7,7 +7,8 @@ import Dispatcher from "./dispatcher";
 import Navigation from "./navigation";
 import { Unsubscribe } from "redux";
 import { SyncViewStatus } from "./redux/store/view";
-import { Params } from "./redux/actions";
+import { Params, navigate } from "./redux/actions";
+import { Nav } from "./redux/store/navigation";
 
 interface AppProps { }
 
@@ -112,7 +113,65 @@ export default class App<AppProps, AppState> extends React.Component {
             </Provider>
         );
     }
+
+    setupNavDev() {
+
+    }
+    setupNavProd() {
+
+    }
     componentDidMount() {
+        let last: {
+            view: string | null;
+            params: { [key: string]: string; };
+        } = {
+            view: null,
+            params: {}
+        };
+        this.storeUnsubscribe = store.subscribe(() => {
+            const state = store.getState();
+            if (!state) {
+                return;
+            }
+            const {
+                app: {
+                    runtime: { navigation }
+                },
+                auth: { userAuthorization }
+            } = state;
+
+            // This is a bit of a cheat.
+            if (!userAuthorization) {
+                return;
+            }
+
+            const view = navigation.view;
+            const params = navigation.params as { [key: string]: string; };
+
+            if (
+                view !== last.view ||
+                last.params === null ||
+                Object.keys(params).some((key) => {
+                    return params[key] !== last.params[key];
+                })
+            ) {
+                last.params = params;
+                last.view = view;
+                // TODO: store may change but there is not navigation yet.
+                if (params['sampleId']) {
+                    // TODO the new internal nav considers params to be query
+                    // params only.
+                    const nav: Nav = {
+                        path: [params['sampleId']],
+                        params
+                    };
+                    store.dispatch(navigate(nav));
+                    // store.dispatch(navigate(params['relationEngineID']) as any);
+                }
+            }
+        });
+    }
+    componentDidMountx() {
         let last: NavigationView | null = null;
         this.storeUnsubscribe = store.subscribe(() => {
             const state = store.getState();
@@ -120,9 +179,10 @@ export default class App<AppProps, AppState> extends React.Component {
                 return;
             }
             const {
-                // app: {
-                //     runtime: { navigation }
-                // },
+                root: { state: rootState },
+                app: {
+                    runtime: { navigation }
+                },
                 navigationView,
                 auth: { userAuthorization }
             } = state;
@@ -161,15 +221,17 @@ export default class App<AppProps, AppState> extends React.Component {
                 }
             };
 
-            // console.log('CHANGED: ', changed());
 
-            // const path = navigationView.state.path;
-            // const params = navigationView.state.params;
+
+            const path = navigationView.state.path;
+            const params = navigationView.state.params;
 
             // Currently we only do one thing when navigating, select a new sample id.
 
             // Updating views should be as simple as updating the current view. We do this of 
             // course via actions.
+
+
 
 
             // if (

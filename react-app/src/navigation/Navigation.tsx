@@ -3,19 +3,18 @@ import { Unsubscribe } from 'redux';
 import { RootState } from '@kbase/ui-components';
 import { Nav } from '../redux/store/navigation';
 import { NavigationView } from '../redux/store';
+import { Navigation } from '@kbase/ui-components/lib/redux/integration/store';
 
 export interface NavigationListenerProps {
     rootState: RootState;
     navigationView: NavigationView;
     trigger: number;
+    navigation: Navigation;
     navigate: (nav: Nav) => void;
 }
 
 interface NavigationListenerState {
-
 }
-
-
 
 interface Params {
     [k: string]: string;
@@ -135,6 +134,7 @@ export default class NavigationListener extends React.Component<NavigationListen
             // return;
 
             const hash = window.location.hash;
+            // console.log('in hash', hash, window.location);
             if (hash) {
                 const {
                     pluginId,
@@ -145,6 +145,7 @@ export default class NavigationListener extends React.Component<NavigationListen
                 // if (nav === null) {
                 //     return;
                 // }
+                // console.log('initial hash', pluginId, path, params);
                 const nav: Nav = {
                     path,
                     params
@@ -167,6 +168,7 @@ export default class NavigationListener extends React.Component<NavigationListen
 
     }
     render() {
+        // console.log('navigation', this.props.navigation);
         return this.props.children;
     }
 }

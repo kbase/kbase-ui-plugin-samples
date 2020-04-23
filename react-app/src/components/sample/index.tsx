@@ -2,6 +2,7 @@ import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { StoreState } from '../../redux/store';
 import Component from './data';
+import { sendTitle } from '@kbase/ui-components';
 
 export interface OwnProps {
 }
@@ -11,7 +12,9 @@ interface StateProps {
     serviceWizardURL: string;
 }
 
-interface DispatchProps { }
+interface DispatchProps {
+    setTitle: (title: string) => void;
+}
 
 function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     const {
@@ -36,7 +39,11 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {
-    return {};
+    return {
+        setTitle(title: string) {
+            dispatch(sendTitle(title) as any);
+        }
+    };
 }
 
 export default connect<StateProps, DispatchProps, OwnProps, StoreState>(

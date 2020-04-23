@@ -5,6 +5,7 @@ import './style.css';
 
 export interface SampleViewerProps {
     sample: Sample;
+    setTitle: (title: string) => void;
 }
 
 interface SampleViewerState {
@@ -194,10 +195,10 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     render() {
+        // must be better place for this...
+        const title = `Sample View for "${this.props.sample.name}"`;
+        this.props.setTitle(title);
         return <div className='Sample'>
-            <div className="SectionLabel">
-                KBase Sample Object
-            </div>
             {this.renderOverview()}
             <Row>
                 <Col span={24}>

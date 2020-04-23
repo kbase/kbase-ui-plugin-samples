@@ -8,7 +8,7 @@ install:
   routes:
     - path:
         - sampleview
-        - type: params
+        - type: param
           name: sampleId
       view: main
       widget: kb_iframe_loader
