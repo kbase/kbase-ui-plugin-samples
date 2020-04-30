@@ -1,17 +1,23 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
-import SampleServiceClient, { Sample, SampleId, SampleVersion, GetDataLinksFromSampleResult, DataLink } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import SampleServiceClient, {
+    SampleId, SampleVersion, DataLink
+} from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
+import { WorkspaceClient, ObjectInfo } from '../../lib/comm/coreServices/Workspace';
 
 export interface DataLink2 extends DataLink {
     key: string;
+    objectType: string;
+    objectName: string;
 }
 
 export interface DataProps {
     serviceWizardURL: string;
+    workspaceURL: string;
     token: string;
     sampleId: SampleId;
     version: SampleVersion;
@@ -45,10 +51,38 @@ export default class Data extends React.Component<DataProps, DataState> {
                 version: this.props.version
             });
 
+            const objectRefs = dataLinks.links.map((dataLink) => {
+                return dataLink.upa;
+            });
+
+            const workspaceClient = new WorkspaceClient({
+                authorization: this.props.token,
+                url: this.props.workspaceURL,
+                timeout: 10000
+            });
+            const objectInfos = await workspaceClient.get_object_info3({
+                includeMetadata: 1,
+                objects: objectRefs.map((ref) => {
+                    return { ref };
+                })
+            });
+            const objectMap = objectInfos.infos.reduce((objectMap, info) => {
+                const [objectId, , , , version, , workspaceId, , , ,] = info;
+                const ref = [workspaceId, objectId, version].join('/');
+                objectMap.set(ref, info);
+                return objectMap;
+            }, new Map<string, ObjectInfo>());
+
             const dataLinksWithKey: Array<DataLink2> = dataLinks.links.map((dataLink) => {
+                const objectInfo = objectMap.get(dataLink.upa);
+                if (!objectInfo) {
+                    throw new Error('Object not found: ' + dataLink.upa);
+                }
                 return {
                     ...dataLink,
-                    key: dataLink.upa
+                    key: dataLink.upa,
+                    objectName: objectInfo[1],
+                    objectType: objectInfo[2]
                 };
             });
 
