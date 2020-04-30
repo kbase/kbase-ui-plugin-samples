@@ -10,6 +10,7 @@ export interface OwnProps {
 interface StateProps {
     token: string;
     serviceWizardURL: string;
+    workspaceURL: string;
     baseURL: string;
 }
 
@@ -23,7 +24,8 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         app: {
             config: {
                 services: {
-                    ServiceWizard: { url: serviceWizardURL }
+                    ServiceWizard: { url: serviceWizardURL },
+                    Workspace: { url: workspaceURL }
                 },
                 baseUrl: baseURL
             }
@@ -37,7 +39,7 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         token = userAuthorization.token;
     }
     console.log('base url', baseURL);
-    return { token, serviceWizardURL, baseURL };
+    return { token, serviceWizardURL, workspaceURL, baseURL };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {

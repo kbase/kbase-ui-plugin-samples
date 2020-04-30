@@ -44,6 +44,21 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                                 {name}
                             </div>
                         </div>
+
+                    </div>
+                </Col>
+                <Col span={12}>
+                    <div className="InfoTable">
+
+                        <div>
+                            <div>
+                                User
+                            </div>
+                            <div>
+                                {user}
+                            </div>
+                        </div>
+
                         <div>
                             <div>
                                 Saved
@@ -58,19 +73,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                                     second: 'numeric',
                                     timeZoneName: 'short'
                                 }).format(save_date)}
-                            </div>
-                        </div>
-                    </div>
-                </Col>
-                <Col span={12}>
-                    <div className="InfoTable">
-
-                        <div>
-                            <div>
-                                User
-                            </div>
-                            <div>
-                                {user}
                             </div>
                         </div>
 

@@ -109,7 +109,7 @@ export default class NavigationListener extends React.Component<NavigationListen
                     throw new Error('no hash!');
                 }
                 const {
-                    pluginId,
+                    // pluginId,
                     path,
                     params
                 } = this.parseHash(hash);
@@ -137,7 +137,7 @@ export default class NavigationListener extends React.Component<NavigationListen
             // console.log('in hash', hash, window.location);
             if (hash) {
                 const {
-                    pluginId,
+                    // pluginId,
                     path,
                     params
                 } = this.parseHash(hash);
