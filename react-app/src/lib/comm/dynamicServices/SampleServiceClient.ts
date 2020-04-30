@@ -1,4 +1,4 @@
-import { DynamicServiceClient } from '../JSONRPC11/DynamicServiceClient';
+import { DynamicServiceClient } from '../JSONRPC11x/DynamicServiceClient';
 
 export interface StatusResult {
     state: string;
@@ -22,6 +22,9 @@ export type EpochTimeMS = number;
 
 export type SampleNodeType = 'BioReplicate' | 'TechReplicate' | 'SubSample';
 
+export type WSUPA = string;
+export type WorkspaceUniquePermanentAddress = WSUPA;
+
 export interface UserMetadata {
     [k: string]: MetadataValue;
 }
@@ -37,11 +40,6 @@ export interface ControlledMetadata {
     [k: string]: MetadataValue;
 }
 
-export interface GetSampleParams {
-    id: SampleId;
-    version?: number;
-    as_admin?: SDKBoolean;
-}
 
 export interface SampleNode {
     id: SampleNodeId;
@@ -60,7 +58,39 @@ export interface Sample {
     version: SampleVersion;
 }
 
+/* Types for the get_sample method*/
+export interface GetSampleParams {
+    id: SampleId;
+    version?: number;
+    as_admin?: SDKBoolean;
+}
+
 export type GetSampleResult = Sample;
+
+/* Types for the get_data_links_from_sample method */
+export interface GetDataLinksFromSampleParams {
+    id: SampleId;
+    version: SampleVersion;
+    effective_time?: EpochTimeMS;
+}
+
+export type DataId = string;
+
+export interface DataLink {
+    upa: WSUPA;
+    dataid: DataId;
+    id: SampleId;
+    version: SampleVersion;
+    node: SampleNodeId;
+    created: EpochTimeMS;
+    expiredby: Username;
+    expired: EpochTimeMS;
+
+}
+
+export interface GetDataLinksFromSampleResult {
+    links: Array<DataLink>;
+}
 
 export default class SampleServiceClient extends DynamicServiceClient {
     static module: string = 'SampleService';
@@ -72,6 +102,11 @@ export default class SampleServiceClient extends DynamicServiceClient {
 
     async get_sample(params: GetSampleParams): Promise<GetSampleResult> {
         const [result] = await this.callFunc<[GetSampleParams], [GetSampleResult]>('get_sample', [params]);
+        return result;
+    }
+
+    async get_data_links_from_sample(params: GetDataLinksFromSampleParams): Promise<GetDataLinksFromSampleResult> {
+        const [result] = await this.callFunc<[GetDataLinksFromSampleParams], [GetDataLinksFromSampleResult]>('get_data_links_from_sample', [params]);
         return result;
     }
 }

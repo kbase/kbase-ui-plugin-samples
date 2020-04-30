@@ -2,6 +2,7 @@ import React from 'react';
 import { Sample, SampleNode } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { Row, Col, Tabs, Collapse } from 'antd';
 import './style.css';
+import DataLinks from '../DataLinks';
 
 export interface SampleViewerProps {
     sample: Sample;
@@ -207,7 +208,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                             {this.renderBody()}
                         </Tabs.TabPane>
                         <Tabs.TabPane tab="Linked Data" key="linkeddata">
-                            coming soon...
+                            <DataLinks sampleId={this.props.sample.id} version={this.props.sample.version} />
                         </Tabs.TabPane>
                     </Tabs>
 

@@ -1,5 +1,5 @@
-import { ServiceClient } from '../ServiceClient';
-import { JSONRPC11Error } from '../JSONRPC11';
+import { ServiceClient } from '../JSONRPC11/ServiceClient';
+import { JSONRPC11Error } from '../JSONRPC11/JSONRPC11';
 
 type Job_ID = string;
 

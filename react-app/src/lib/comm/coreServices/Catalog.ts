@@ -1,4 +1,4 @@
-import { ServiceClient } from '../ServiceClient';
+import { ServiceClient } from '../JSONRPC11/ServiceClient';
 
 // interface IsAdminParam {
 //     username?: string;
