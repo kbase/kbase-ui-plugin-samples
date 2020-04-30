@@ -1,4 +1,4 @@
-import { DynamicServiceClient, DynamicServiceClientParams } from '../DynamicServiceClient';
+import { DynamicServiceClient, DynamicServiceClientParams } from '../JSONRPC11/DynamicServiceClient';
 
 // Metrics client --
 // TODO: move

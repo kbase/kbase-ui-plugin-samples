@@ -1,10 +1,10 @@
-import {
-    HTTPClient, GeneralError,
-    RequestOptions, HTTPHeader
-} from './HTTPClient';
+import HTTPClient, {
+    GeneralError, RequestOptions, HTTPHeader
+} from '../HTTPClient';
 
 import { v4 as uuid } from 'uuid';
-import { JSONValue } from '../json';
+import { JSONValue } from '../../json';
+
 
 export interface JSONRPCRequestOptions {
     func: string,

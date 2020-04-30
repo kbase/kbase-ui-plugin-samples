@@ -1,12 +1,26 @@
-import { ServiceWizardClient, GetServiceStatusResult } from '../coreServices/ServiceWizard';
-import { AuthorizedGenericClient } from './GenericClient';
+import { ServiceWizardClient, GetServiceStatusResult, ServiceStatus } from '../coreServices/ServiceWizard';
+import { ServiceClient, ServiceClientParams } from './ServiceClient';
 import Cache from '../Cache';
 
-var moduleCache = new Cache<any>({
-    itemLifetime: 1800000,
-    monitoringFrequency: 60000,
-    waiterTimeout: 30000,
-    waiterFrequency: 100
+const ITEM_LIFETIME = 1800000;
+const MONITORING_FREQUENCY = 60000;
+const WAITER_TIMEOUT = 30000;
+const WAITER_FREQUENCY = 100;
+
+// now import the service wizard, and one auth generic client
+
+// type Promise<T> = Promise<T>
+
+interface ModuleInfo {
+
+    module_name: string;
+}
+
+var moduleCache = new Cache<ServiceStatus>({
+    itemLifetime: ITEM_LIFETIME,
+    monitoringFrequency: MONITORING_FREQUENCY,
+    waiterTimeout: WAITER_TIMEOUT,
+    waiterFrequency: WAITER_FREQUENCY
 });
 
 /*
@@ -20,70 +34,40 @@ var moduleCache = new Cache<any>({
  * rpcContext
  */
 
-export interface DynamicServiceClientParams {
-    token: string;
-    url: string;
+export interface DynamicServiceClientParams extends ServiceClientParams {
     version?: string;
-    timeout?: number;
-    rpcContext?: any;
-    urlBaseOverride?: string;
-    urlBase?: string;
+    // module: string;
 }
 
-const DEFAULT_TIMEOUT = 10000;
 
-export interface ServiceCallResult<T> {
-    version: '1.1',
-    id: string,
-    result: T;
-}
-
-export class DynamicServiceClient {
-    token: string;
-    timeout: number;
-    rpcContext: any;
-    url: string;
+export abstract class DynamicServiceClient extends ServiceClient {
     version: string | null;
-    urlBaseOverride: string | null;
 
-    static module: string;
+    abstract module: string;
 
-    constructor({ token, url, version, timeout, rpcContext, urlBaseOverride }: DynamicServiceClientParams) {
-        // Establish an auth object which has properties token and user_id.
-        this.token = token;
-        this.timeout = timeout || DEFAULT_TIMEOUT;
-        this.rpcContext = rpcContext || null;
-        this.urlBaseOverride = urlBaseOverride || null;
+    serviceDiscoveryURL: string;
+    serviceDiscoveryModule: string = 'ServiceWizard';
 
-        if (!url) {
-            throw new Error('The service discovery url was not provided');
-        }
-        this.url = url;
+    constructor(params: DynamicServiceClientParams) {
+        super(params);
+        const { version } = params;
+
 
         this.version = version || null;
-        if (version === 'auto') {
+        if (this.version === 'auto') {
             this.version = null;
         }
-    }
 
-    private options() {
-        return {
-            timeout: this.timeout,
-            authorization: this.token,
-            rpcContext: this.rpcContext
-        };
-    }
-
-    private getModule() {
-        return (this.constructor as typeof DynamicServiceClient).module;
+        this.serviceDiscoveryURL = params.url;
+        // this.module = module;
     }
 
     private moduleId() {
         let moduleId;
         if (!this.version) {
-            moduleId = this.getModule() + ':auto';
+            moduleId = this.module + ':auto';
         } else {
-            moduleId = this.getModule() + ':' + this.version;
+            moduleId = this.module + ':' + this.version;
         }
         return moduleId;
     }
@@ -101,41 +85,48 @@ export class DynamicServiceClient {
 
     // TODO: Promise<any> -> Promise<ServiceStatusResult>
     private async lookupModule(): Promise<GetServiceStatusResult> {
-        return this.getCached(
+        const moduleInfo = await this.getCached(
             (): Promise<GetServiceStatusResult> => {
                 const client = new ServiceWizardClient({
-                    url: this.url,
-                    authorization: this.token,
+                    url: this.serviceDiscoveryURL!,
+                    authorization: this.authorization,
                     timeout: this.timeout
                 });
                 // NB wrapped in promise.resolve because the promise we have 
                 // here is bluebird, which supports cancellation, which we need.
                 return Promise.resolve(
                     client.getServiceStatus({
-                        module_name: this.getModule(),
+                        module_name: this.module,
                         version: this.version
                     })
                 );
             }
         );
+        this.module = moduleInfo.module_name;
+        this.url = moduleInfo.url;
+        return moduleInfo;
     }
 
-    protected async callFunc<P, T>(funcName: string, params: P): Promise<T> {
-        const { url, module_name } = await this.lookupModule();
-        // let url: string;
-        // if (this.urlBaseOverride !== null) {
-        // url = moduleInfo.url.replace(/^http[s]?:\/\/[^\/]*/, this.urlBaseOverride);
-        // } else {
-        //     url = moduleInfo.url;
-        // }
-        // url = moduleInfo.url.replace(/^http[s]?:\/\/[^\/]*/, window.location.origin);
-        const client = new AuthorizedGenericClient({
-            module: module_name,
-            url,
-            token: this.token,
-            timeout: this.timeout
-        });
+    // private async syncModule()
 
-        return await client.callFunc<P, T>(funcName, params);
+    // async callFunc<P, T>(funcName: string, params: P): Promise<T> {
+    //     const moduleInfo = await this.lookupModule();
+    //     const client = new ServiceClient({
+    //         module: moduleInfo.module_name,
+    //         url: moduleInfo.url,
+    //         token: this.token
+    //     });
+
+    //     return await client.callFunc<P, T>(funcName, params);
+    // }
+
+    async callFunc<ParamType, ReturnType>(funcName: string, params: ParamType): Promise<ReturnType> {
+        await this.lookupModule();
+        return super.callFunc(funcName, params);
+    }
+    async callFuncEmptyResult<ParamType, ReturnType>(funcName: string, params: ParamType): Promise<void> {
+        await this.lookupModule();
+        return super.callFuncEmptyResult(funcName, params);
     }
 }
+

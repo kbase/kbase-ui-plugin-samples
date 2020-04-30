@@ -1,4 +1,7 @@
-import axios from 'axios';
+// import axios from 'axios';
+import HTTPClient, { HTTPHeader, RequestOptions } from '../HTTPClient';
+import { JSONObject, JSONValue } from '../../json';
+import { isJSONObject } from '../../../redux/store/json';
 
 export interface GenericClientParams {
     url: string;
@@ -17,10 +20,9 @@ export interface JSONPayload<T> {
 }
 
 export interface JSONRPCError {
-    name: string;
     code: number;
     message: string;
-    error: string;
+    data: JSONObject;
 }
 
 export interface MethodSuccessResult<T> {
@@ -46,15 +48,12 @@ export type JSONRPCResponse<T> =
     | [null, null, JSONRPCError];
 
 export class JSONRPCException extends Error {
-    name: string;
     code: number;
-    // message: string
-    error: string;
-    constructor({ name, code, message, error }: JSONRPCError) {
+    data: JSONObject;
+    constructor({ code, message, data }: JSONRPCError) {
         super(message);
-        this.name = name;
         this.code = code;
-        this.error = error;
+        this.data = data;
     }
 }
 
@@ -64,15 +63,19 @@ export class classJSONRPCServerException extends Error {
     // }
 }
 
+export interface GenericClientOptions {
+    timeout?: number;
+}
+
 export class GenericClient {
     url: string;
-    token: string | null;
+    token?: string;
     module: string;
-    timeout?: number;
+    timeout: number;
 
     constructor({ url, token, module, timeout }: GenericClientParams) {
         this.url = url;
-        this.token = token || null;
+        this.token = token;
         this.module = module;
         this.timeout = timeout || DEFAULT_TIMEOUT;
     }
@@ -141,50 +144,64 @@ export class GenericClient {
     //     // return this.processResponse<T>(response);
     // }
 
-    async callFunc<P, R>(func: string, param: P): Promise<R> {
-        // axios headers are ... any
-        const headers: any = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
+    async callFunc<P, R>(func: string, param: P, options?: GenericClientOptions): Promise<R> {
+        const header: HTTPHeader = new HTTPHeader();
+        header.setHeader('Content-Type', 'application/json');
+        header.setHeader('Accept', 'application/json');
         if (this.token) {
-            headers['Authorization'] = this.token;
+            header.setHeader('Authorization', this.token);
         }
-        const params = this.makePayload<P>(func, param);
-        const response = await axios.post(this.url, params, {
-            headers,
-            timeout: this.timeout
-        });
-        return response.data.result as R;
-    }
-}
 
-export interface AuthorizedGenericClientParams extends GenericClientParams {
-    token: string;
-}
+        const http = new HTTPClient();
+        const payload = this.makePayload<P>(func, param);
 
-export class AuthorizedGenericClient extends GenericClient {
-    token: string;
-
-    constructor(params: AuthorizedGenericClientParams) {
-        super(params);
-        if (!params.token) {
-            throw new Error('Authorized client requires token');
+        const requestOptions: RequestOptions = {
+            method: 'POST',
+            url: this.url,
+            timeout: options?.timeout || this.timeout,
+            data: JSON.stringify(payload),
+            header
+        };
+        const response = await http.request<string>(requestOptions);
+        let jsonResponse: JSONValue;
+        try {
+            jsonResponse = (JSON.parse(response.response) as unknown) as JSONValue;
+        } catch (ex) {
+            throw new JSONRPCException({
+                code: 100,
+                message: 'The response from the service could not be parsed as JSON',
+                data: {
+                    message: ex.message,
+                    text: response.response
+                }
+            });
         }
-        this.token = params.token;
-    }
 
-    async callFunc<P, R>(func: string, param: P): Promise<R> {
-        const params = this.makePayload<P>(func, param);
-        const headers: any = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': this.token
+        // ensure jsonrpc 11 response.
+        if (isJSONObject(jsonResponse) &&
+            'version' in jsonResponse &&
+            typeof jsonResponse.version === 'string' &&
+            jsonResponse.version === '1.1') {
+            if ('result' in jsonResponse) {
+                return (jsonResponse.result as unknown) as R;
+            }
+            if ('error' in jsonResponse) {
+                const error = jsonResponse.error;
+                if (isJSONObject(error) &&
+                    'code' in error &&
+                    'message' in error &&
+                    typeof error.message === 'string') {
+                    throw new JSONRPCException({
+                        code: 200,
+                        message: error.message || 'Unknown error',
+                        data: {
+                            error: error.error
+                        }
+                    });
+                }
+                throw new Error('Invalid error response for JSONRPC 1.1');
+            }
         }
-        const response = await axios.post(this.url, params, {
-            headers,
-            timeout: this.timeout
-        });
-        return response.data.result as R;
+        throw new Error('Invalid JSONRPC 1.1 response');
     }
 }
