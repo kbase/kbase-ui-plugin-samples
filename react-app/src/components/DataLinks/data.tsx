@@ -55,17 +55,29 @@ export default class Data extends React.Component<DataProps, DataState> {
                 return dataLink.upa;
             });
 
+            if (objectRefs.length === 0) {
+                this.setState({
+                    loadingState: {
+                        status: AsyncProcessStatus.SUCCESS,
+                        state: []
+                    }
+                });
+                return;
+            }
+
             const workspaceClient = new WorkspaceClient({
                 authorization: this.props.token,
                 url: this.props.workspaceURL,
                 timeout: 10000
             });
+
             const objectInfos = await workspaceClient.get_object_info3({
                 includeMetadata: 1,
                 objects: objectRefs.map((ref) => {
                     return { ref };
                 })
             });
+
             const objectMap = objectInfos.infos.reduce((objectMap, info) => {
                 const [objectId, , , , version, , workspaceId, , , ,] = info;
                 const ref = [workspaceId, objectId, version].join('/');
