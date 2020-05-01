@@ -38,7 +38,6 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     } else {
         token = userAuthorization.token;
     }
-    console.log('base url', baseURL);
     return { token, serviceWizardURL, workspaceURL, baseURL };
 }
 
