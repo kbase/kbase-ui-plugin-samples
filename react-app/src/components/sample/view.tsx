@@ -33,35 +33,20 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                                 ID
                         </div>
                             <div>
-                                {id} (v{version})
+                                {id}
                             </div>
                         </div>
                         <div>
                             <div>
-                                Name
-                            </div>
+                                Version
+                        </div>
                             <div>
-                                {name}
+                                {version}
                             </div>
                         </div>
-
-                    </div>
-                </Col>
-                <Col span={12}>
-                    <div className="InfoTable">
-
                         <div>
                             <div>
-                                User
-                            </div>
-                            <div>
-                                {user}
-                            </div>
-                        </div>
-
-                        <div>
-                            <div>
-                                Saved
+                                Created
                             </div>
                             <div>
                                 {Intl.DateTimeFormat('en-US', {
@@ -76,11 +61,31 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                             </div>
                         </div>
 
+
+                    </div>
+                </Col>
+                <Col span={12}>
+                    <div className="InfoTable">
+                        <div>
+                            <div>
+                                Name
+                            </div>
+                            <div>
+                                {name}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                Owner
+                            </div>
+                            <div>
+                                {user}
+                            </div>
+                        </div>
                     </div>
                 </Col>
             </Row>
         </div>;
-
     }
 
     renderParent() {
