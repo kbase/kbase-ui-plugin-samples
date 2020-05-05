@@ -22,3 +22,8 @@
     /* flex: 0.5 1 0px; */
     flex: 0 0 20em;
 }
+
+.InfoTable.ControlledMetadata>div>div:nth-child(1) {
+    /* flex: 0.5 1 0px; */
+    flex: 0 0 20em;
+}
