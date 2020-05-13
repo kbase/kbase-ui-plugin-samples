@@ -27,3 +27,8 @@
     /* flex: 0.5 1 0px; */
     flex: 0 0 20em;
 }
+
+.map-marker {
+    color: red;
+    font-size: 20px;
+}
