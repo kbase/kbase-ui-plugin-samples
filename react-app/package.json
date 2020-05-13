@@ -32,7 +32,8 @@
         "react-scripts": "3.4.1",
         "redux": "4.0.5",
         "redux-thunk": "2.3.0",
-        "typescript": "3.9.2"
+        "typescript": "3.9.2",
+        "react-dom-server": "0.0.5"
     },
     "scripts": {
         "start": "nodemon -w ./config-overrides.js --exec 'react-app-rewired start'",

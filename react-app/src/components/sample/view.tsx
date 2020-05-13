@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sample, SampleNode, UserMetadata } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import { Sample, SampleNode, UserMetadata, ControlledMetadata } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { Row, Col, Tabs, Collapse, Radio, Alert } from 'antd';
 import './style.css';
 import DataLinks from '../DataLinks';
@@ -11,7 +11,7 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
 import { PushpinFilled } from '@ant-design/icons';
-import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
 
 // delete L.Icon.Default.prototype.;
 
@@ -234,28 +234,28 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
 
     }
 
-    renderControlledMetadata() {
-        if (!this.state.selectedSampleNode) {
-            return;
-        }
-        const metadata = Object.entries(this.state.selectedSampleNode.meta_controlled);
-        if (metadata.length === 0) {
-            return <div style={{ fontStyle: 'italic' }}>Sorry, no controlled metadata</div>;
-        }
-        const rows = Array.from(metadata)
-            .sort(([akey,], [bkey,]) => {
-                return akey.localeCompare(bkey);
-            })
-            .map(([key, value]) => {
-                return <div key={key}>
-                    <div>{key}</div>
-                    <div>{value.value} <i>{value.units}</i></div>
-                </div>;
-            });
-        return <div className="InfoTable -bordered ControlledMetadata">
-            {rows}
-        </div>;
-    }
+    // renderControlledMetadata() {
+    //     if (!this.state.selectedSampleNode) {
+    //         return;
+    //     }
+    //     const metadata = Object.entries(this.state.selectedSampleNode.meta_controlled);
+    //     if (metadata.length === 0) {
+    //         return <div style={{ fontStyle: 'italic' }}>Sorry, no controlled metadata</div>;
+    //     }
+    //     const rows = Array.from(metadata)
+    //         .sort(([akey,], [bkey,]) => {
+    //             return akey.localeCompare(bkey);
+    //         })
+    //         .map(([key, value]) => {
+    //             return <div key={key}>
+    //                 <div>{key}</div>
+    //                 <div>{value.value} <i>{value.units}</i></div>
+    //             </div>;
+    //         });
+    //     return <div className="InfoTable -bordered ControlledMetadata">
+    //         {rows}
+    //     </div>;
+    // }
 
     renderUserMetadataAlpha(sample: SampleNode) {
         const metadata = Object.entries(sample.meta_user);
@@ -277,7 +277,32 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </div>;
     }
 
-    renderGroupExtras(data: UserMetadata, group: LayoutGroup) {
+
+
+    // renderGroupExtras(data: UserMetadata, group: LayoutGroup) {
+    //     switch (group.key) {
+    //         case 'location':
+    //             const { Latitude, Longitude } = data;
+    //             if (typeof Latitude === 'undefined' || typeof Longitude === 'undefined') {
+    //                 return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
+    //             }
+    //             // <GoogleMapReact center={{lat: latitude.
+    //             // <GoogleMapReact center={{ lat: Latitude.value, lng: Longitude.value }}
+    //             //         zoom={11} />
+    //             const lat = Latitude.value as number;
+    //             const lng = Longitude.value as number;
+    //             // const pin = <div lat={lat} lng={lng} text="Pin!"><PushpinOutlined /></div>
+    //             return <div style={{ width: '400px', height: '400px' }}>
+    //                 <GoogleMapReact center={{ lat, lng }}
+    //                     zoom={11}>
+    //                     <Pin lat={lat} lng={lng} text="Location" />
+    //                 </GoogleMapReact>
+
+    //             </div>;
+    //     }
+    // }
+
+    renderUserMetadataGroupExtras(data: UserMetadata, group: LayoutGroup) {
         switch (group.key) {
             case 'geolocation':
                 const { Latitude, Longitude } = data;
@@ -286,10 +311,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 }
                 const lat = Latitude.value as number;
                 const lng = Longitude.value as number;
-                const node = document.createElement('div');
-                ReactDOM.render(<PushpinFilled />, node);
+                const componentString = ReactDOMServer.renderToString(<PushpinFilled />);
                 const icon = L.divIcon({
-                    html: node as HTMLElement,
+                    html: componentString,
                     className: 'map-marker',
                     iconSize: L.point(20, 20),
                     tooltipAnchor: L.point(0, 10)
@@ -323,29 +347,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         }
     }
 
-    // renderGroupExtras(data: UserMetadata, group: LayoutGroup) {
-    //     switch (group.key) {
-    //         case 'location':
-    //             const { Latitude, Longitude } = data;
-    //             if (typeof Latitude === 'undefined' || typeof Longitude === 'undefined') {
-    //                 return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
-    //             }
-    //             // <GoogleMapReact center={{lat: latitude.
-    //             // <GoogleMapReact center={{ lat: Latitude.value, lng: Longitude.value }}
-    //             //         zoom={11} />
-    //             const lat = Latitude.value as number;
-    //             const lng = Longitude.value as number;
-    //             // const pin = <div lat={lat} lng={lng} text="Pin!"><PushpinOutlined /></div>
-    //             return <div style={{ width: '400px', height: '400px' }}>
-    //                 <GoogleMapReact center={{ lat, lng }}
-    //                     zoom={11}>
-    //                     <Pin lat={lat} lng={lng} text="Location" />
-    //                 </GoogleMapReact>
-
-    //             </div>;
-    //     }
-    // }
-
     renderUserMetadataGrouped(sample: SampleNode) {
         // const metadata = Object.entries(sample.meta_user);
         // if (metadata.length === 0) {
@@ -377,12 +378,28 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 .filter((row) => {
                     return row ? true : false;
                 });
-            return <Collapse.Panel header={group.label} key={group.key}>
-                <div className="InfoTable -bordered UserMetadata">
-                    {fields}
-                </div>
-                {this.renderGroupExtras(metadata, group)}
 
+            // return <Collapse.Panel header={group.label} key={group.key}>
+            //     <div className="InfoTable -bordered UserMetadata">
+            //         {fields.length ? fields : <div style={{ fontStyle: 'italic' }}>No data</div>}
+            //     </div>
+            //     {this.renderControlledMetadataGroupExtras(metadata, group)}
+            // </Collapse.Panel>;
+
+
+            let content;
+            if (fields.length) {
+                content = <div className="InfoTable -bordered ControlledMetadata">
+                    {fields}
+                </div>;
+            } else {
+                content = <div style={{ fontStyle: 'italic' }}>No data</div>;
+            }
+            return <Collapse.Panel header={group.label} key={group.key}>
+                {content}
+                <div style={{ marginTop: '10px' }}>
+                    {this.renderControlledMetadataGroupExtras(metadata, group)}
+                </div>
             </Collapse.Panel>;
         });
 
@@ -402,6 +419,141 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 return this.renderUserMetadataAlpha(this.state.selectedSampleNode);
             case 'grouped':
                 return this.renderUserMetadataGrouped(this.state.selectedSampleNode);
+        }
+    }
+
+    renderControlledMetadataGroupExtras(data: ControlledMetadata, group: LayoutGroup) {
+        switch (group.key) {
+            case 'geolocation':
+                const { Latitude, Longitude } = data;
+                if (typeof Latitude === 'undefined' || typeof Longitude === 'undefined') {
+                    if (typeof Latitude === 'undefined' && typeof Longitude === 'undefined') {
+                        return;
+                    }
+                    return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
+                }
+                const lat = Latitude.value as number;
+                const lng = Longitude.value as number;
+                const componentString = ReactDOMServer.renderToString(<PushpinFilled />);
+                const icon = L.divIcon({
+                    html: componentString,
+                    className: 'map-marker',
+                    iconSize: L.point(20, 20),
+                    tooltipAnchor: L.point(0, 10)
+                });
+                // const OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                //     maxZoom: 17,
+                //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                // });
+                // const OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //     maxZoom: 19,
+                //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                // });
+                return <div style={{ width: '400px', height: '400px' }}>
+                    <Map center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
+                        <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                        />
+                        <TileLayer
+                            attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                            url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                        />
+                        <Marker position={[lat, lng]} icon={icon}>
+                            <Popup>
+                                <div>Location</div>
+                                <div>Latitude: {lat}</div>
+                                <div>Longitude: {lng}</div></Popup>
+                        </Marker>
+                    </Map>
+                </div>;
+        }
+    }
+
+    renderControlledMetadataAlpha(sample: SampleNode) {
+        const metadata = Object.entries(sample.meta_controlled);
+        if (metadata.length === 0) {
+            return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
+        }
+        const rows = Array.from(metadata)
+            .sort(([akey,], [bkey,]) => {
+                return akey.localeCompare(bkey);
+            })
+            .map(([key, value]) => {
+                return <div key={key}>
+                    <div>{key}</div>
+                    <div>{value.value} <i>{value.units}</i></div>
+                </div>;
+            });
+        return <div className="InfoTable -bordered ControlledMetadata">
+            {rows}
+        </div>;
+    }
+
+    renderControlledMetadataGrouped(sample: SampleNode) {
+        // const metadata = Object.entries(sample.meta_user);
+        // if (metadata.length === 0) {
+        //     return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
+        // }
+        const metadata = sample.meta_controlled;
+
+        const groupKeys = groupLayout.map((group) => {
+            return group.key;
+        });
+
+        const rows = groupLayout.map((group) => {
+            const fields = group.layout.map((fieldName) => {
+                const field = group.fields[fieldName];
+                if (!field) {
+                    console.warn('Field not found: ' + fieldName);
+                    return null;
+                }
+                if (field.key in metadata) {
+                    const value = metadata[field.key];
+                    return <div key={field.key}>
+                        <div>{field.key}</div>
+                        <div>{value.value} <i>{value.units}</i></div>
+                    </div>;
+                } else {
+                    return null;
+                }
+            })
+                .filter((row) => {
+                    return row ? true : false;
+                });
+
+            let content;
+            if (fields.length) {
+                content = <div className="InfoTable -bordered ControlledMetadata">
+                    {fields}
+                </div>;
+            } else {
+                content = <div style={{ fontStyle: 'italic' }}>No data</div>;
+            }
+            return <Collapse.Panel header={group.label} key={group.key}>
+                {content}
+                <div style={{ marginTop: '10px' }}>
+                    {this.renderControlledMetadataGroupExtras(metadata, group)}
+                </div>
+            </Collapse.Panel>;
+        });
+
+        return <Collapse defaultActiveKey={groupKeys}
+            bordered={false}
+            style={{ backgroundColor: "transparent" }}>
+            {rows}
+        </Collapse>;
+    }
+
+    renderControlledMetadata() {
+        if (!this.state.selectedSampleNode) {
+            return;
+        }
+        switch (this.state.view) {
+            case 'alpha':
+                return this.renderControlledMetadataAlpha(this.state.selectedSampleNode);
+            case 'grouped':
+                return this.renderControlledMetadataGrouped(this.state.selectedSampleNode);
         }
     }
 
