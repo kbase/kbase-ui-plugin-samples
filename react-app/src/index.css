@@ -30,9 +30,17 @@ code {
     padding: 4px;
 }
 
-.InfoTable.-bordered>div>div {
-    border: 1px solid silver;
+.InfoTable.-bordered>div {
+    border-bottom: 1px solid silver;
 }
+
+.InfoTable.-bordered>div:first-child {
+    border-top: 1px solid silver;
+}
+
+/* .InfoTable.-bordered>div>div {
+    border-bottom: 1px solid silver;
+} */
 
 .InfoTable.-bordered>div>div+div {
     margin-left: -1px;
