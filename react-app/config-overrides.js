@@ -10,11 +10,11 @@ module.exports = override(
            javascriptEnabled: true,
            modifyVars: {
                // see: https://ant.design/docs/react/customize-theme
-               '@primary-color': '#2e618d',           // primary color for all components
+               '@primary-color': '#1064b3',           // primary color for all components
                '@link-color': '@primary-color',                     // link color
-               '@success-color': '#3c763',                         // success state color
-               '@warning-color': '#8a6d3b',                         // warning state color
-               '@error-color': '#a94442',              // error state color
+                //    '@success-color': '#3c763',                         // success state color
+                //    '@warning-color': '#fcf8e3',                         // warning state color
+                //    '@error-color': '#a94442',              // error state color
                '@font-size-base': '14px',                           // major text font size
                '@heading-color': 'rgba(0,0,0,0.85)',                // heading text color
                '@text-color': 'rgba(0, 0, 0, 1.0)',                 // major text color
