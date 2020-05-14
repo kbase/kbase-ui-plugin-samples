@@ -76,7 +76,6 @@ export default class App<AppProps, AppState> extends React.Component {
             <Provider store={store}>
                 <AppBase>
                     <div className="App">
-
                         <Navigation>
                             <Dispatcher />
                         </Navigation>

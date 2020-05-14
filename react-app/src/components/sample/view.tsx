@@ -576,9 +576,13 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         });
     }
 
-    renderSampleNode(sampleNode: SampleNode) {
-        return <div>
-            <Row>
+    renderSample() {
+        if (!this.state.selectedSampleNode) {
+            return;
+        }
+        const sampleNode = this.state.selectedSampleNode;
+        return <>
+            <Row style={{ flex: '0 0 auto' }}>
                 <Col span={12}>
                     <div className="InfoTable">
                         <div>
@@ -610,23 +614,17 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                     </Radio.Group>
                 </Col>
             </Row>
-            <Collapse defaultActiveKey={['1', '2']} bordered={false} style={{ backgroundColor: "transparent" }}>
-                <Collapse.Panel header="Controlled Metadata" key='1'>
-                    {this.renderControlledMetadata()}
-                </Collapse.Panel>
-                <Collapse.Panel header="User Metadata" key='2'>
-                    {this.renderUserMetadata()}
-                </Collapse.Panel>
-            </Collapse>
-
-        </div>;
-    }
-
-    renderCurrentSampleNode() {
-        if (!this.state.selectedSampleNode) {
-            return;
-        }
-        return this.renderSampleNode(this.state.selectedSampleNode);
+            <div className="col -full-height -scrollable">
+                <Collapse defaultActiveKey={['1', '2']} bordered={false} style={{ backgroundColor: "transparent" }}>
+                    <Collapse.Panel header="Controlled Metadata" key='1'>
+                        {this.renderControlledMetadata()}
+                    </Collapse.Panel>
+                    <Collapse.Panel header="User Metadata" key='2'>
+                        {this.renderUserMetadata()}
+                    </Collapse.Panel>
+                </Collapse>
+            </div>
+        </>;
     }
 
     clickNavItem(sampleNode: SampleNode) {
@@ -641,37 +639,19 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </div>;
     }
 
-    renderSampleNodes() {
-        return this.props.sample.node_tree.map((sampleNode) => {
-            return this.renderSampleNode(sampleNode);
-        });
-    }
-
-
-    renderBody() {
-        return <div>
-            {this.renderCurrentSampleNode()}
-        </div>;
-    }
-
     render() {
         // must be better place for this...
 
         return <div className='Sample'>
             {this.renderOverview()}
-            <Row>
-                <Col span={24}>
-                    <Tabs type="card">
-                        <Tabs.TabPane tab="Sample" key="sample" >
-                            {this.renderBody()}
-                        </Tabs.TabPane>
-                        <Tabs.TabPane tab="Linked Data" key="linkeddata">
-                            <DataLinks sampleId={this.props.sample.id} version={this.props.sample.version} />
-                        </Tabs.TabPane>
-                    </Tabs>
-
-                </Col>
-            </Row>
+            <Tabs type="card" className="FullHeight-tabs">
+                <Tabs.TabPane tab="Sample" key="sample" >
+                    {this.renderSample()}
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="Linked Data" key="linkeddata">
+                    <DataLinks sampleId={this.props.sample.id} version={this.props.sample.version} />
+                </Tabs.TabPane>
+            </Tabs>
         </div>;
     }
 }

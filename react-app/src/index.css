@@ -1,3 +1,5 @@
+@import url('antd.css');
+
 body {
     margin: 0;
 }
@@ -64,9 +66,20 @@ code {
 }
 
 .Grouper {
-    border: 1px silver solid;
+    /* border: 1px silver solid; */
     padding: 4px;
 
+}
+
+.col.-full-height {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.col.-scrollable {
+    overflow-y: auto;
 }
 
 .root {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Tooltip } from 'antd';
 import { DataLink2 } from './data';
+import './style.css';
 
 export interface DataLinksProps {
     dataLinks: Array<DataLink2>;
@@ -29,7 +30,11 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
     renderDataLinks() {
         return <Table<DataLink2>
             dataSource={this.props.dataLinks}
+            className="AntTable-FullHeight"
             rowKey="upa"
+            size="small"
+            scroll={{ y: '100%' }}
+            pagination={false}
         >
             <Table.Column
                 title='Object Ref'

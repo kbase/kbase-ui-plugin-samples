@@ -22,7 +22,8 @@ module.exports = override(
                '@disabled-color': 'rgba(0, 0, 0, 0.25)',            // disable state color
                '@border-radius-base': '4px',                        // major border radius
                '@border-color-base': '#d9d9d9',                     // major border color
-               '@box-shadow-base': '9 2px 8px rgba(0, 0, 0, 0.15)'  // major shadow for layers
+               '@box-shadow-base': '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',  // major shadow for layers
+               '@border-color-split': 'hsv(0, 0, 80%)'
            }
        }
    })
