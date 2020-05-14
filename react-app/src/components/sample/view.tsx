@@ -389,13 +389,13 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
 
             let content;
             if (fields.length) {
-                content = <div className="InfoTable -bordered ControlledMetadata">
+                content = <div className="InfoTable  -bordered ControlledMetadata">
                     {fields}
                 </div>;
             } else {
                 content = <div style={{ fontStyle: 'italic' }}>No data</div>;
             }
-            return <Collapse.Panel header={group.label} key={group.key}>
+            return <Collapse.Panel header={group.label} key={group.key} showArrow={false}>
                 {content}
                 <div style={{ marginTop: '10px' }}>
                     {this.renderControlledMetadataGroupExtras(metadata, group)}
@@ -404,8 +404,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         });
 
         return <Collapse defaultActiveKey={groupKeys}
-            bordered={false}
-            style={{ backgroundColor: "transparent" }}>
+            bordered={true}
+        // style={{ backgroundColor: "transparent" }
+        >
             {rows}
         </Collapse>;
     }
@@ -530,7 +531,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             } else {
                 content = <div style={{ fontStyle: 'italic' }}>No data</div>;
             }
-            return <Collapse.Panel header={group.label} key={group.key}>
+            return <Collapse.Panel header={group.label} key={group.key} showArrow={false}>
                 {content}
                 <div style={{ marginTop: '10px' }}>
                     {this.renderControlledMetadataGroupExtras(metadata, group)}
@@ -539,8 +540,10 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         });
 
         return <Collapse defaultActiveKey={groupKeys}
-            bordered={false}
-            style={{ backgroundColor: "transparent" }}>
+            bordered={true}
+
+        // style={{ backgroundColor: "transparent" }}
+        >
             {rows}
         </Collapse>;
     }
@@ -615,11 +618,14 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 </Col>
             </Row>
             <div className="col -full-height -scrollable">
-                <Collapse defaultActiveKey={['1', '2']} bordered={false} style={{ backgroundColor: "transparent" }}>
-                    <Collapse.Panel header="Controlled Metadata" key='1'>
+                <Collapse defaultActiveKey={['1', '2']}
+                    bordered={true}
+                // style={{ backgroundColor: "transparent" }}
+                >
+                    <Collapse.Panel header="Controlled Metadata" key='1' showArrow={false}>
                         {this.renderControlledMetadata()}
                     </Collapse.Panel>
-                    <Collapse.Panel header="User Metadata" key='2'>
+                    <Collapse.Panel header="User Metadata" key='2' showArrow={false}>
                         {this.renderUserMetadata()}
                     </Collapse.Panel>
                 </Collapse>
@@ -640,8 +646,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     render() {
-        // must be better place for this...
-
         return <div className='Sample'>
             {this.renderOverview()}
             <Tabs type="card" className="FullHeight-tabs">
@@ -655,4 +659,3 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </div>;
     }
 }
-
