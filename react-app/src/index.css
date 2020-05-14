@@ -33,11 +33,11 @@ code {
 }
 
 .InfoTable.-bordered>div {
-    border-bottom: 1px solid silver;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .InfoTable.-bordered>div:first-child {
-    border-top: 1px solid silver;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* .InfoTable.-bordered>div>div {
