@@ -2,6 +2,7 @@
     flex: 1 1 0px;
     display: flex;
     flex-direction: column;
+    min-height: 0;
     /* Just for the demo, need to scroll in tabs, but that probably
         requires some tricky css overrides, i think
      */
