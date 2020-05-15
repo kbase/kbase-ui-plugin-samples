@@ -1,17 +1,22 @@
 import React from 'react';
-import { Sample, SampleNode, UserMetadata, ControlledMetadata } from '../../lib/comm/dynamicServices/SampleServiceClient';
-import { Row, Col, Tabs, Collapse, Radio, Alert } from 'antd';
+import {
+    Sample, SampleNode, UserMetadata, ControlledMetadata, MetadataValue
+} from '../../lib/comm/dynamicServices/SampleServiceClient';
+import {
+    Row, Col, Tabs, Collapse, Radio, Alert, Table
+} from 'antd';
 import './style.css';
 import DataLinks from '../DataLinks';
 // import GoogleMapReact from 'google-map-react';
 import { RadioChangeEvent } from 'antd/lib/radio';
 // import Pin from './Pin';
 // import 'leaflet/dist/leaflet.css';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
 import { PushpinFilled } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
+
 
 // delete L.Icon.Default.prototype.;
 
@@ -21,13 +26,57 @@ import ReactDOMServer from 'react-dom/server';
 //     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 // });
 
+export interface FieldFormatBase {
 
-export interface LayoutField {
+}
+
+export interface FloatFieldFormat extends FieldFormatBase {
+    precision?: number;
+    showThousandsSeparator?: boolean;
+}
+
+export interface IntegerFieldFormat extends FieldFormatBase {
+    showThousandsSeparator?: boolean;
+}
+
+export interface StringFieldFormat extends FieldFormatBase {
+}
+
+export interface DateFieldFormat extends FieldFormatBase {
+}
+
+export type FieldFormat = FloatFieldFormat | IntegerFieldFormat | StringFieldFormat | DateFieldFormat;
+
+export type FieldType = 'integer' | 'float' | 'string' | 'date';
+
+export interface LayoutFieldBase {
+    type: FieldType;
     key: string;
     description?: string;
-    type: string;
     units?: Array<string>;
 }
+
+export interface FloatField extends LayoutFieldBase {
+    type: 'float';
+    format?: FloatFieldFormat;
+}
+
+export interface IntegerField extends LayoutFieldBase {
+    type: 'integer';
+    format?: IntegerFieldFormat;
+}
+
+export interface StringField extends LayoutFieldBase {
+    type: 'string';
+    format?: StringFieldFormat;
+}
+
+export interface DateField extends LayoutFieldBase {
+    type: 'date';
+    format?: DateFieldFormat;
+}
+
+export type LayoutField = IntegerField | FloatField | StringField | DateField;
 
 export interface LayoutGroup {
     key: string;
@@ -39,6 +88,189 @@ export interface LayoutGroup {
 }
 
 export type GroupLayout = Array<LayoutGroup>;
+
+export interface GroupSchema {
+    title: string;
+    layout: Array<string>;
+}
+
+export interface GroupsSchema {
+    description: GroupSchema;
+    collection: GroupSchema;
+    curation: GroupSchema;
+    geolocation: GroupSchema;
+}
+
+// TODO: 
+export type Unit = string;
+
+export interface FieldSchema {
+    key: string;
+    type: string;
+    group: string;
+    description?: string;
+    units?: Array<Unit>;
+    format?: any;
+}
+
+export interface FieldsSchema {
+    [k: string]: FieldSchema;
+}
+
+export interface Schema {
+    groups: GroupsSchema,
+    fields: FieldsSchema;
+}
+
+const spreadsheetView = [
+    'Sample Name',
+    'IGSN',
+    'Parent IGSN',
+    'Release date',
+    'Material',
+    'Field name(informal classification)',
+    'Location Description',
+    'Locality Description',
+    'Collection method',
+    'Purpose',
+    'Latitude',
+    'Longitude',
+    'Coordinate Precision?',
+    'Elevation start',
+    'Elevation unit',
+    'Navigation type',
+    'Primary physiographic feature',
+    'Name of physiographic feature',
+    'Field program/cruise',
+    'Collector/Chief Scientist',
+    'Collection date',
+    'Collection date precision',
+    'Current archive',
+    'Current archive contact',
+    'Related Identifiers',
+    'Relation Type'
+];
+
+export interface TemplateDataSource {
+    order: number;
+    key: string;
+    type: string | null;
+    value: string | number | boolean | null;
+    units: string | null;
+}
+
+export interface WrappedMetadataValue {
+    type: string,
+    field: MetadataValue;
+}
+
+const schema: Schema = {
+    groups: {
+        description: {
+            title: 'Description',
+            layout: ['Purpose', 'Material']
+        },
+        collection: {
+            title: 'Collection',
+            layout: ['Collection date', 'Collector/Chief Scientist', 'Collection method']
+        },
+        curation: {
+            title: 'Curation',
+            layout: ['Current archive', 'Current archive contact']
+        },
+        geolocation: {
+            title: 'Geolocation',
+            layout: ['Coordinate precision', 'Latitude', 'Longitude', 'Navigation type',
+                'Locality Description', 'Location Description', 'Name of physiographic feature',
+                'Primary physiographic feature']
+        }
+    },
+    fields: {
+        'Purpose': {
+            key: 'Purpose',
+            type: 'string',
+            group: 'description'
+        },
+        'Material': {
+            key: 'Material',
+            type: 'string',
+            group: 'description'
+        },
+        'Collection date': {
+            key: 'Collection date',
+            type: 'date',
+            description: 'Date upon which the sample was collected',
+            group: 'collection'
+        },
+        'Collector/Chief Scientist': {
+            key: 'Collector/Chief Scientist',
+            type: 'string',
+            group: 'collection'
+        },
+        'Collection method': {
+            key: 'Collection method',
+            type: 'string',
+            group: 'collection'
+        },
+        'Current archive': {
+            key: 'Current archive',
+            type: 'string',
+            group: 'curation'
+        },
+        'Current archive contact': {
+            key: 'Current archive contact',
+            type: 'string',
+            group: 'curation'
+        },
+        'Coordinate precision': {
+            key: 'Coordinate precision',
+            type: 'integer',
+            group: 'geolocation'
+        },
+        'Latitude': {
+            key: 'Latitude',
+            type: 'float',
+            units: ['degrees'],
+            format: {
+                precision: 5
+            },
+            group: 'geolocation'
+        },
+        'Longitude': {
+            key: 'Longitude',
+            type: 'float',
+            format: {
+                precision: 5
+            },
+            group: 'geolocation'
+        },
+        'Navigation type': {
+            key: 'Navigation type',
+            type: 'string',
+            group: 'geolocation'
+        },
+        'Locality Description': {
+            key: 'Locality Description',
+            type: 'string',
+            group: 'geolocation'
+        },
+        'Location Description': {
+            key: 'Location Description',
+            type: 'string',
+            group: 'geolocation'
+        },
+        'Name of physiographic feature': {
+            key: 'Name of physiographic feature',
+            type: 'string',
+            group: 'geolocation'
+        },
+        'Primary physiographic feature': {
+            key: 'Primary physiographic feature',
+            type: 'string',
+            group: 'geolocation'
+        }
+    }
+};
 
 const groupLayout: GroupLayout = [
     {
@@ -105,12 +337,18 @@ const groupLayout: GroupLayout = [
             },
             'Latitude': {
                 key: 'Latitude',
-                type: 'integer',
-                units: ['degrees']
+                type: 'float',
+                units: ['degrees'],
+                format: {
+                    precision: 5
+                }
             },
             'Longitude': {
                 key: 'Longitude',
-                type: 'integer'
+                type: 'float',
+                format: {
+                    precision: 5
+                }
             },
             'Navigation type': {
                 key: 'Navigation type',
@@ -146,7 +384,7 @@ export interface SampleViewerProps {
 
 interface SampleViewerState {
     selectedSampleNode: SampleNode | null;
-    view: 'alpha' | 'grouped';
+    view: 'alpha' | 'grouped' | 'template';
 }
 
 export default class SampleViewer extends React.Component<SampleViewerProps, SampleViewerState> {
@@ -154,7 +392,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         super(props);
         this.state = {
             selectedSampleNode: props.sample.node_tree[0],
-            view: 'alpha'
+            view: 'template'
         };
     }
 
@@ -230,33 +468,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </div>;
     }
 
-    renderParent() {
-
-    }
-
-    // renderControlledMetadata() {
-    //     if (!this.state.selectedSampleNode) {
-    //         return;
-    //     }
-    //     const metadata = Object.entries(this.state.selectedSampleNode.meta_controlled);
-    //     if (metadata.length === 0) {
-    //         return <div style={{ fontStyle: 'italic' }}>Sorry, no controlled metadata</div>;
-    //     }
-    //     const rows = Array.from(metadata)
-    //         .sort(([akey,], [bkey,]) => {
-    //             return akey.localeCompare(bkey);
-    //         })
-    //         .map(([key, value]) => {
-    //             return <div key={key}>
-    //                 <div>{key}</div>
-    //                 <div>{value.value} <i>{value.units}</i></div>
-    //             </div>;
-    //         });
-    //     return <div className="InfoTable -bordered ControlledMetadata">
-    //         {rows}
-    //     </div>;
-    // }
-
     renderUserMetadataAlpha(sample: SampleNode) {
         const metadata = Object.entries(sample.meta_user);
         if (metadata.length === 0) {
@@ -276,31 +487,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             {rows}
         </div>;
     }
-
-
-
-    // renderGroupExtras(data: UserMetadata, group: LayoutGroup) {
-    //     switch (group.key) {
-    //         case 'location':
-    //             const { Latitude, Longitude } = data;
-    //             if (typeof Latitude === 'undefined' || typeof Longitude === 'undefined') {
-    //                 return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
-    //             }
-    //             // <GoogleMapReact center={{lat: latitude.
-    //             // <GoogleMapReact center={{ lat: Latitude.value, lng: Longitude.value }}
-    //             //         zoom={11} />
-    //             const lat = Latitude.value as number;
-    //             const lng = Longitude.value as number;
-    //             // const pin = <div lat={lat} lng={lng} text="Pin!"><PushpinOutlined /></div>
-    //             return <div style={{ width: '400px', height: '400px' }}>
-    //                 <GoogleMapReact center={{ lat, lng }}
-    //                     zoom={11}>
-    //                     <Pin lat={lat} lng={lng} text="Location" />
-    //                 </GoogleMapReact>
-
-    //             </div>;
-    //     }
-    // }
 
     renderUserMetadataGroupExtras(data: UserMetadata, group: LayoutGroup) {
         switch (group.key) {
@@ -327,7 +513,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 // });
                 return <div style={{ width: '400px', height: '400px' }}>
-                    <Map center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
+                    <LeafletMap center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
                         <TileLayer
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -342,16 +528,19 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                                 <div>Latitude: {lat}</div>
                                 <div>Longitude: {lng}</div></Popup>
                         </Marker>
-                    </Map>
+                    </LeafletMap>
                 </div>;
         }
     }
 
+    // renderField(field: LayoutField, value: any) {
+    //     switch (field.type) {
+    //         case 'string':
+    //             return field.
+    //     }
+    // }
+
     renderUserMetadataGrouped(sample: SampleNode) {
-        // const metadata = Object.entries(sample.meta_user);
-        // if (metadata.length === 0) {
-        //     return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
-        // }
         const metadata = sample.meta_user;
 
         const groupKeys = groupLayout.map((group) => {
@@ -379,14 +568,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                     return row ? true : false;
                 });
 
-            // return <Collapse.Panel header={group.label} key={group.key}>
-            //     <div className="InfoTable -bordered UserMetadata">
-            //         {fields.length ? fields : <div style={{ fontStyle: 'italic' }}>No data</div>}
-            //     </div>
-            //     {this.renderControlledMetadataGroupExtras(metadata, group)}
-            // </Collapse.Panel>;
-
-
             let content;
             if (fields.length) {
                 content = <div className="InfoTable  -bordered ControlledMetadata">
@@ -405,7 +586,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
 
         return <Collapse defaultActiveKey={groupKeys}
             bordered={true}
-        // style={{ backgroundColor: "transparent" }
         >
             {rows}
         </Collapse>;
@@ -451,7 +631,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 // });
                 return <div style={{ width: '400px', height: '400px' }}>
-                    <Map center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
+                    <LeafletMap center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
                         <TileLayer
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -466,7 +646,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                                 <div>Latitude: {lat}</div>
                                 <div>Longitude: {lng}</div></Popup>
                         </Marker>
-                    </Map>
+                    </LeafletMap>
                 </div>;
         }
     }
@@ -562,8 +742,11 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
 
     onViewChange(change: RadioChangeEvent) {
         const changedView = change.target.value;
-        let view: 'alpha' | 'grouped';
+        let view: 'alpha' | 'grouped' | 'template';
         switch (changedView) {
+            case 'template':
+                view = 'template';
+                break;
             case 'alpha':
                 view = 'alpha';
                 break;
@@ -577,6 +760,162 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         this.setState({
             view
         });
+    }
+
+    renderViewLabel() {
+        switch (this.state.view) {
+            case 'template':
+                return 'Fields ordered as per the upload template';
+            case 'alpha':
+                return 'Fields ordered in alphabetic order';
+            case 'grouped':
+                return 'Fields grouped';
+        }
+    }
+
+    renderNoCellData() {
+        return <div style={{
+            fontStyle: 'italic',
+            color: 'silver'
+        }}>-</div>;
+    }
+
+    renderTemplateMetadata() {
+        if (!this.state.selectedSampleNode) {
+            return;
+        }
+        const sample = this.state.selectedSampleNode;
+        const controlledMetadata = Object.entries(sample.meta_controlled).map(([k, v]) => {
+            const x: [string, WrappedMetadataValue] = [k, {
+                type: 'Controlled',
+                field: v
+            }];
+            return x;
+        });
+
+        const userMetadata = Object.entries(sample.meta_user).map(([k, v]) => {
+            const x: [string, WrappedMetadataValue] = [k, {
+                type: 'User',
+                field: v
+            }];
+            return x;
+        });
+
+        const metadata = controlledMetadata.concat(userMetadata);
+        const metaDb = new Map<string, WrappedMetadataValue>(metadata);
+
+        const dataSource: Array<TemplateDataSource> = [];
+        spreadsheetView.forEach((key, order) => {
+            const field = metaDb.get(key);
+            if (!field) {
+                dataSource.push({
+                    order,
+                    key,
+                    type: null,
+                    value: null,
+                    units: null
+                });
+                return;
+            }
+
+            dataSource.push({
+                order,
+                key,
+                type: field.type,
+                value: field.field.value,
+                units: field.field.units
+            });
+        });
+
+        return <Table<TemplateDataSource>
+            dataSource={dataSource}
+            rowKey="key"
+            className="AntTable-FullHeight"
+            size="small"
+            scroll={{ y: '100%' }}
+            pagination={false}
+        >
+            <Table.Column dataIndex="order"
+                key="order"
+                title="Order"
+                width="5em"
+                sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
+                    return a.order - b.order;
+                }}
+            />
+            <Table.Column dataIndex="key"
+                key="key"
+                title="Field"
+                width="20em"
+                sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
+                    return a.key.localeCompare(b.key);
+                }}
+            />
+            <Table.Column
+                dataIndex="type"
+                key="type"
+                title="Type"
+                width="5em"
+                sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
+                    if (a.type === null) {
+                        return -1;
+                    }
+                    if (b.type === null) {
+                        return 1;
+                    }
+                    return a.type.localeCompare(b.type);
+                }}
+                render={(type: string | null, row: TemplateDataSource) => {
+                    if (type === null) {
+                        return this.renderNoCellData();
+                    }
+                    return type;
+                }}
+            />
+            <Table.Column
+                dataIndex="value"
+                key="value"
+                title="Value"
+                render={(value: string | number | null, row: TemplateDataSource) => {
+                    if (value === null) {
+                        return this.renderNoCellData();
+                    }
+                    return value;
+                }}
+            />
+            <Table.Column
+                dataIndex="units"
+                key="units"
+                title="Units"
+                width="5em"
+                render={(units: string | null, row: TemplateDataSource) => {
+                    if (!units) {
+                        return this.renderNoCellData();
+                    }
+                    return units;
+                }}
+            />
+        </Table>;
+    }
+
+    renderMetadata() {
+        switch (this.state.view) {
+            case 'template':
+                return this.renderTemplateMetadata();
+            default:
+                return <Collapse
+                    defaultActiveKey={['1', '2']}
+                    bordered={true}>
+
+                    <Collapse.Panel header="Controlled Metadata" key='1' showArrow={false}>
+                        {this.renderControlledMetadata()}
+                    </Collapse.Panel>
+                    <Collapse.Panel header="User Metadata" key='2' showArrow={false}>
+                        {this.renderUserMetadata()}
+                    </Collapse.Panel>
+                </Collapse>;
+        }
+
     }
 
     renderSample() {
@@ -608,6 +947,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 </Col>
                 <Col span={12}>
                     View: <Radio.Group value={this.state.view} onChange={this.onViewChange.bind(this)}>
+                        <Radio.Button value="template">
+                            template
+                        </Radio.Button>
                         <Radio.Button value="alpha">
                             alpha
                         </Radio.Button>
@@ -615,20 +957,15 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                             grouped
                         </Radio.Button>
                     </Radio.Group>
+                    <div style={{ fontStyle: 'italic', marginLeft: '3em' }}>
+                        {this.renderViewLabel()}
+                    </div>
                 </Col>
             </Row>
             <div className="col -full-height -scrollable">
-                <Collapse defaultActiveKey={['1', '2']}
-                    bordered={true}
-                // style={{ backgroundColor: "transparent" }}
-                >
-                    <Collapse.Panel header="Controlled Metadata" key='1' showArrow={false}>
-                        {this.renderControlledMetadata()}
-                    </Collapse.Panel>
-                    <Collapse.Panel header="User Metadata" key='2' showArrow={false}>
-                        {this.renderUserMetadata()}
-                    </Collapse.Panel>
-                </Collapse>
+
+                {this.renderMetadata()}
+
             </div>
         </>;
     }
