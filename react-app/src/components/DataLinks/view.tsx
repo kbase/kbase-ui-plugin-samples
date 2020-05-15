@@ -42,7 +42,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 dataIndex="upa"
                 width="8em"
                 render={(upa: string, row: DataLink2) => {
-                    return <a href={`/#dataview/${upa}`} target="_parent">
+                    return <a href={`/#dataview/${upa}`} target="_blank">
                         {upa}
                     </a>;
                 }} />
@@ -56,7 +56,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 }}
                 render={(objectName: string, row: DataLink2) => {
                     return <Tooltip title={objectName}>
-                        <a href={`/#dataview/${row.upa}`} target="_parent">
+                        <a href={`/#dataview/${row.upa}`} target="_blank">
                             {objectName}
                         </a>
                     </Tooltip>;
@@ -72,7 +72,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                     return <Tooltip title={objectType}>
                         <a
                             href={`/#typeview/type/${objectType}`}
-                            target="_parent">
+                            target="_blank">
                             {typeName}
                         </a>
                     </Tooltip>;
