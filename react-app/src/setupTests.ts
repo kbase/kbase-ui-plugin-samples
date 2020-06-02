@@ -3,3 +3,16 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
+window.matchMedia = (query: string) => {
+    const result: MediaQueryList = {
+        matches: true,
+        media: '',
+        onchange: () => { },
+        addListener: () => { },
+        removeListener: () => { },
+        addEventListener: () => { },
+        removeEventListener: () => { },
+        dispatchEvent: (event: Event) => { return true; }
+    };
+    return result;
+};

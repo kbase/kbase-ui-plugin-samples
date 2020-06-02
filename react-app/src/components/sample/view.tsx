@@ -3,28 +3,18 @@ import {
     Sample, SampleNode, UserMetadata, ControlledMetadata, MetadataValue
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import {
-    Row, Col, Tabs, Collapse, Radio, Alert, Table
+    Row, Col, Tabs, Collapse, Radio, Alert
 } from 'antd';
 import './style.css';
 import DataLinks from '../DataLinks';
-// import GoogleMapReact from 'google-map-react';
 import { RadioChangeEvent } from 'antd/lib/radio';
-// import Pin from './Pin';
-// import 'leaflet/dist/leaflet.css';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
 import { PushpinFilled } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
-
-
-// delete L.Icon.Default.prototype.;
-
-// L.Icon.Default.mergeOptions({
-//     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-//     iconUrl: require('leaflet/dist/images/marker-icon.png'),
-//     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-// });
+import Overview from './Overview';
+import TemplateMetadata from './TemplateMetadata';
 
 export interface FieldFormatBase {
 
@@ -122,34 +112,6 @@ export interface Schema {
     fields: FieldsSchema;
 }
 
-const spreadsheetView = [
-    'Sample Name',
-    'IGSN',
-    'Parent IGSN',
-    'Release date',
-    'Material',
-    'Field name(informal classification)',
-    'Location Description',
-    'Locality Description',
-    'Collection method',
-    'Purpose',
-    'Latitude',
-    'Longitude',
-    'Coordinate Precision?',
-    'Elevation start',
-    'Elevation unit',
-    'Navigation type',
-    'Primary physiographic feature',
-    'Name of physiographic feature',
-    'Field program/cruise',
-    'Collector/Chief Scientist',
-    'Collection date',
-    'Collection date precision',
-    'Current archive',
-    'Current archive contact',
-    'Related Identifiers',
-    'Relation Type'
-];
 
 export interface TemplateDataSource {
     order: number;
@@ -164,113 +126,113 @@ export interface WrappedMetadataValue {
     field: MetadataValue;
 }
 
-const schema: Schema = {
-    groups: {
-        description: {
-            title: 'Description',
-            layout: ['Purpose', 'Material']
-        },
-        collection: {
-            title: 'Collection',
-            layout: ['Collection date', 'Collector/Chief Scientist', 'Collection method']
-        },
-        curation: {
-            title: 'Curation',
-            layout: ['Current archive', 'Current archive contact']
-        },
-        geolocation: {
-            title: 'Geolocation',
-            layout: ['Coordinate precision', 'Latitude', 'Longitude', 'Navigation type',
-                'Locality Description', 'Location Description', 'Name of physiographic feature',
-                'Primary physiographic feature']
-        }
-    },
-    fields: {
-        'Purpose': {
-            key: 'Purpose',
-            type: 'string',
-            group: 'description'
-        },
-        'Material': {
-            key: 'Material',
-            type: 'string',
-            group: 'description'
-        },
-        'Collection date': {
-            key: 'Collection date',
-            type: 'date',
-            description: 'Date upon which the sample was collected',
-            group: 'collection'
-        },
-        'Collector/Chief Scientist': {
-            key: 'Collector/Chief Scientist',
-            type: 'string',
-            group: 'collection'
-        },
-        'Collection method': {
-            key: 'Collection method',
-            type: 'string',
-            group: 'collection'
-        },
-        'Current archive': {
-            key: 'Current archive',
-            type: 'string',
-            group: 'curation'
-        },
-        'Current archive contact': {
-            key: 'Current archive contact',
-            type: 'string',
-            group: 'curation'
-        },
-        'Coordinate precision': {
-            key: 'Coordinate precision',
-            type: 'integer',
-            group: 'geolocation'
-        },
-        'Latitude': {
-            key: 'Latitude',
-            type: 'float',
-            units: ['degrees'],
-            format: {
-                precision: 5
-            },
-            group: 'geolocation'
-        },
-        'Longitude': {
-            key: 'Longitude',
-            type: 'float',
-            format: {
-                precision: 5
-            },
-            group: 'geolocation'
-        },
-        'Navigation type': {
-            key: 'Navigation type',
-            type: 'string',
-            group: 'geolocation'
-        },
-        'Locality Description': {
-            key: 'Locality Description',
-            type: 'string',
-            group: 'geolocation'
-        },
-        'Location Description': {
-            key: 'Location Description',
-            type: 'string',
-            group: 'geolocation'
-        },
-        'Name of physiographic feature': {
-            key: 'Name of physiographic feature',
-            type: 'string',
-            group: 'geolocation'
-        },
-        'Primary physiographic feature': {
-            key: 'Primary physiographic feature',
-            type: 'string',
-            group: 'geolocation'
-        }
-    }
-};
+// const schema: Schema = {
+//     groups: {
+//         description: {
+//             title: 'Description',
+//             layout: ['Purpose', 'Material']
+//         },
+//         collection: {
+//             title: 'Collection',
+//             layout: ['Collection date', 'Collector/Chief Scientist', 'Collection method']
+//         },
+//         curation: {
+//             title: 'Curation',
+//             layout: ['Current archive', 'Current archive contact']
+//         },
+//         geolocation: {
+//             title: 'Geolocation',
+//             layout: ['Coordinate precision', 'Latitude', 'Longitude', 'Navigation type',
+//                 'Locality Description', 'Location Description', 'Name of physiographic feature',
+//                 'Primary physiographic feature']
+//         }
+//     },
+//     fields: {
+//         'Purpose': {
+//             key: 'Purpose',
+//             type: 'string',
+//             group: 'description'
+//         },
+//         'Material': {
+//             key: 'Material',
+//             type: 'string',
+//             group: 'description'
+//         },
+//         'Collection date': {
+//             key: 'Collection date',
+//             type: 'date',
+//             description: 'Date upon which the sample was collected',
+//             group: 'collection'
+//         },
+//         'Collector/Chief Scientist': {
+//             key: 'Collector/Chief Scientist',
+//             type: 'string',
+//             group: 'collection'
+//         },
+//         'Collection method': {
+//             key: 'Collection method',
+//             type: 'string',
+//             group: 'collection'
+//         },
+//         'Current archive': {
+//             key: 'Current archive',
+//             type: 'string',
+//             group: 'curation'
+//         },
+//         'Current archive contact': {
+//             key: 'Current archive contact',
+//             type: 'string',
+//             group: 'curation'
+//         },
+//         'Coordinate precision': {
+//             key: 'Coordinate precision',
+//             type: 'integer',
+//             group: 'geolocation'
+//         },
+//         'Latitude': {
+//             key: 'Latitude',
+//             type: 'float',
+//             units: ['degrees'],
+//             format: {
+//                 precision: 5
+//             },
+//             group: 'geolocation'
+//         },
+//         'Longitude': {
+//             key: 'Longitude',
+//             type: 'float',
+//             format: {
+//                 precision: 5
+//             },
+//             group: 'geolocation'
+//         },
+//         'Navigation type': {
+//             key: 'Navigation type',
+//             type: 'string',
+//             group: 'geolocation'
+//         },
+//         'Locality Description': {
+//             key: 'Locality Description',
+//             type: 'string',
+//             group: 'geolocation'
+//         },
+//         'Location Description': {
+//             key: 'Location Description',
+//             type: 'string',
+//             group: 'geolocation'
+//         },
+//         'Name of physiographic feature': {
+//             key: 'Name of physiographic feature',
+//             type: 'string',
+//             group: 'geolocation'
+//         },
+//         'Primary physiographic feature': {
+//             key: 'Primary physiographic feature',
+//             type: 'string',
+//             group: 'geolocation'
+//         }
+//     }
+// };
 
 const groupLayout: GroupLayout = [
     {
@@ -401,72 +363,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         this.props.setTitle(title);
     }
 
-    renderOverview() {
-        const { id, user, name, save_date, version } = this.props.sample;
 
-        return <div className="Grouper">
-            <Row>
-                <Col span={12}>
-                    <div className="InfoTable">
-                        <div>
-                            <div>
-                                ID
-                        </div>
-                            <div>
-                                {id}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Version
-                        </div>
-                            <div>
-                                {version}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Created
-                            </div>
-                            <div>
-                                {Intl.DateTimeFormat('en-US', {
-                                    year: 'numeric',
-                                    month: 'numeric',
-                                    day: 'numeric',
-                                    hour: 'numeric',
-                                    minute: 'numeric',
-                                    second: 'numeric',
-                                    timeZoneName: 'short'
-                                }).format(save_date)}
-                            </div>
-                        </div>
-
-
-                    </div>
-                </Col>
-                <Col span={12}>
-                    <div className="InfoTable">
-                        <div>
-                            <div>
-                                Name
-                            </div>
-                            <div>
-                                {name}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Owner
-                            </div>
-                            <div>
-                                {user}
-                            </div>
-                        </div>
-                    </div>
-                </Col>
-            </Row>
-        </div>;
-    }
 
     renderUserMetadataAlpha(sample: SampleNode) {
         const metadata = Object.entries(sample.meta_user);
@@ -784,118 +681,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         if (!this.state.selectedSampleNode) {
             return;
         }
-        const sample = this.state.selectedSampleNode;
-        const controlledMetadata = Object.entries(sample.meta_controlled).map(([k, v]) => {
-            const x: [string, WrappedMetadataValue] = [k, {
-                type: 'Controlled',
-                field: v
-            }];
-            return x;
-        });
-
-        const userMetadata = Object.entries(sample.meta_user).map(([k, v]) => {
-            const x: [string, WrappedMetadataValue] = [k, {
-                type: 'User',
-                field: v
-            }];
-            return x;
-        });
-
-        const metadata = controlledMetadata.concat(userMetadata);
-        const metaDb = new Map<string, WrappedMetadataValue>(metadata);
-
-        const dataSource: Array<TemplateDataSource> = [];
-        spreadsheetView.forEach((key, order) => {
-            const field = metaDb.get(key);
-            if (!field) {
-                dataSource.push({
-                    order,
-                    key,
-                    type: null,
-                    value: null,
-                    units: null
-                });
-                return;
-            }
-
-            dataSource.push({
-                order,
-                key,
-                type: field.type,
-                value: field.field.value,
-                units: field.field.units
-            });
-        });
-
-        return <Table<TemplateDataSource>
-            dataSource={dataSource}
-            rowKey="key"
-            className="AntTable-FullHeight"
-            size="small"
-            scroll={{ y: '100%' }}
-            pagination={false}
-        >
-            <Table.Column dataIndex="order"
-                key="order"
-                title="Order"
-                width="5em"
-                sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
-                    return a.order - b.order;
-                }}
-            />
-            <Table.Column dataIndex="key"
-                key="key"
-                title="Field"
-                width="20em"
-                sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
-                    return a.key.localeCompare(b.key);
-                }}
-            />
-            <Table.Column
-                dataIndex="type"
-                key="type"
-                title="Type"
-                width="5em"
-                sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
-                    if (a.type === null) {
-                        return -1;
-                    }
-                    if (b.type === null) {
-                        return 1;
-                    }
-                    return a.type.localeCompare(b.type);
-                }}
-                render={(type: string | null, row: TemplateDataSource) => {
-                    if (type === null) {
-                        return this.renderNoCellData();
-                    }
-                    return type;
-                }}
-            />
-            <Table.Column
-                dataIndex="value"
-                key="value"
-                title="Value"
-                render={(value: string | number | null, row: TemplateDataSource) => {
-                    if (value === null) {
-                        return this.renderNoCellData();
-                    }
-                    return value;
-                }}
-            />
-            <Table.Column
-                dataIndex="units"
-                key="units"
-                title="Units"
-                width="5em"
-                render={(units: string | null, row: TemplateDataSource) => {
-                    if (!units) {
-                        return this.renderNoCellData();
-                    }
-                    return units;
-                }}
-            />
-        </Table>;
+        return <TemplateMetadata sampleNode={this.state.selectedSampleNode} />;
     }
 
     renderMetadata() {
@@ -984,7 +770,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
 
     render() {
         return <div className='Sample'>
-            {this.renderOverview()}
+            <Overview sample={this.props.sample} />
             <Tabs type="card" className="FullHeight-tabs">
                 <Tabs.TabPane tab="Sample" key="sample" >
                     {this.renderSample()}

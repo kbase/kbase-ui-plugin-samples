@@ -8,6 +8,8 @@ import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { WorkspaceClient, ObjectInfo } from '../../lib/comm/coreServices/Workspace';
+import { UPSTREAM_TIMEOUT } from '../../constants';
+import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 
 export interface DataLink2 extends DataLink {
     key: string;
@@ -22,6 +24,7 @@ export interface DataProps {
     sampleId: SampleId;
     version: SampleVersion;
     baseURL: string;
+    sampleServiceConfig: DynamicServiceConfig;
     setTitle: (title: string) => void;
 }
 
@@ -43,7 +46,9 @@ export default class Data extends React.Component<DataProps, DataState> {
         try {
             const client = new SampleServiceClient({
                 token: this.props.token,
-                url: this.props.serviceWizardURL
+                url: this.props.serviceWizardURL,
+                timeout: UPSTREAM_TIMEOUT,
+                version: this.props.sampleServiceConfig.version
             });
 
             const dataLinks = await client.get_data_links_from_sample({
@@ -68,7 +73,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             const workspaceClient = new WorkspaceClient({
                 authorization: this.props.token,
                 url: this.props.workspaceURL,
-                timeout: 10000
+                timeout: UPSTREAM_TIMEOUT
             });
 
             const objectInfos = await workspaceClient.get_object_info3({
