@@ -1,6 +1,6 @@
 import { ServiceClient } from "../JSONRPC11/ServiceClient";
-import { JSONObjectOf } from "../../../redux/store/json";
 import { EpochTime, SDKBoolean } from "../JSONRPC11/types";
+import { JSONObjectOf } from "../../json";
 
 
 export interface ObjectIdentity {

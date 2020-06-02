@@ -1,7 +1,6 @@
 // import axios from 'axios';
 import HTTPClient, { HTTPHeader, RequestOptions } from '../HTTPClient';
-import { JSONObject, JSONValue } from '../../json';
-import { isJSONObject } from '../../../redux/store/json';
+import { JSONObject, JSONValue, isJSONObject } from '../../json';
 
 export interface GenericClientParams {
     url: string;

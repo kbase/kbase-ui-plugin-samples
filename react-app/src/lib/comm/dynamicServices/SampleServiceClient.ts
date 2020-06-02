@@ -31,7 +31,7 @@ export interface UserMetadata {
 
 export interface MetadataValue {
     value: string | number | boolean;
-    units: "degrees" | "day";
+    units: string;
 }
 
 // TODO: interfaces for specific controlled metadata.
@@ -43,7 +43,7 @@ export interface ControlledMetadata {
 
 export interface SampleNode {
     id: SampleNodeId;
-    parent: SampleNodeId;
+    parent: SampleNodeId | null;
     type: SampleNodeType;
     meta_controlled: ControlledMetadata;
     meta_user: UserMetadata;

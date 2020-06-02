@@ -5,6 +5,7 @@ import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
+import { UPSTREAM_TIMEOUT } from '../../constants';
 
 
 export interface DataProps {
@@ -32,7 +33,8 @@ export default class Data extends React.Component<DataProps, DataState> {
         try {
             const client = new SampleServiceClient({
                 token: this.props.token,
-                url: this.props.serviceWizardURL
+                url: this.props.serviceWizardURL,
+                timeout: UPSTREAM_TIMEOUT
             });
 
             const sample = await client.get_sample({
