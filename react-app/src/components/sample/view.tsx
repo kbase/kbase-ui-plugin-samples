@@ -1,9 +1,6 @@
 import React from 'react';
-// import {
-//     Sample, SampleNode, Metadata, MetadataValue
-// } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import {
-    Row, Col, Tabs, Collapse, Radio, Alert
+    Tabs, Collapse, Radio, Alert
 } from 'antd';
 import './style.css';
 import DataLinks from '../DataLinks';
@@ -649,7 +646,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderTemplateMetadata() {
-
         return <TemplateMetadata sample={this.props.sample} />;
     }
 
@@ -658,47 +654,26 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             case 'template':
                 return this.renderTemplateMetadata();
             default:
-                return <Collapse
-                    defaultActiveKey={['1', '2']}
-                    bordered={true}>
-
-                    <Collapse.Panel header="Controlled Metadata" key='1' showArrow={false}>
-                        {this.renderControlledMetadata()}
-                    </Collapse.Panel>
-                    <Collapse.Panel header="User Metadata" key='2' showArrow={false}>
-                        {this.renderUserMetadata()}
-                    </Collapse.Panel>
-                </Collapse>;
+                return <div className="Col -stretch -autoscroll">
+                    <Collapse
+                        defaultActiveKey={['1', '2']}
+                        bordered={true}>
+                        <Collapse.Panel header="Controlled Metadata" key='1' showArrow={true}>
+                            {this.renderControlledMetadata()}
+                        </Collapse.Panel>
+                        <Collapse.Panel header="User Metadata" key='2' showArrow={true}>
+                            {this.renderUserMetadata()}
+                        </Collapse.Panel>
+                    </Collapse>
+                </div >;
         }
 
     }
 
     renderSample() {
-
-        const sample = this.props.sample;
-        return <>
-            <Row style={{ flex: '0 0 auto' }}>
-                <Col span={12}>
-                    <div className="InfoTable">
-                        <div>
-                            <div>
-                                ID
-                            </div>
-                            <div>
-                                {sample.id}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Type
-                            </div>
-                            <div>
-                                {sample.type}
-                            </div>
-                        </div>
-                    </div>
-                </Col>
-                <Col span={12}>
+        return <div className="Col -stretch">
+            <div className="Row" style={{ marginBottom: '10px', alignItems: 'center' }}>
+                <div>
                     View: <Radio.Group value={this.state.view} onChange={this.onViewChange.bind(this)}>
                         <Radio.Button value="template">
                             template
@@ -710,30 +685,17 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                             grouped
                         </Radio.Button>
                     </Radio.Group>
-                    <div style={{ fontStyle: 'italic', marginLeft: '3em' }}>
-                        {this.renderViewLabel()}
-                    </div>
-                </Col>
-            </Row>
-            <div className="col -full-height -scrollable">
 
-                {this.renderMetadata()}
-
+                </div>
+                <div style={{ fontStyle: 'italic', marginLeft: '1em' }}>
+                    {this.renderViewLabel()}
+                </div>
             </div>
-        </>;
+            <div className="Col -stretch">
+                {this.renderMetadata()}
+            </div>
+        </div>;
     }
-
-    // clickNavItem(sampleNode: Sample) {
-    //     this.setState({
-    //         selectedSampleNode: sampleNode
-    //     });
-    // }
-
-    // renderSampleNodeNav(sampleNode: SampleNode) {
-    //     return <div className="Nav-item" onClick={() => { this.clickNavItem(sampleNode); }}>
-    //         {sampleNode.id}
-    //     </div>;
-    // }
 
     render() {
         return <div className='Sample'>

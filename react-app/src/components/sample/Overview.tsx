@@ -11,7 +11,7 @@ interface OverviewState {
 
 export default class Overview extends React.Component<OverviewProps, OverviewState> {
     render() {
-        const { id, owner, name, savedAt, version } = this.props.sample;
+        const { type, id, owner, name, savedAt, version } = this.props.sample;
 
         return <div className="Grouper">
             <Row>
@@ -53,6 +53,14 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                 </Col>
                 <Col span={12}>
                     <div className="InfoTable">
+                        <div>
+                            <div>
+                                Type
+                            </div>
+                            <div data-testid="type">
+                                {type}
+                            </div>
+                        </div>
                         <div>
                             <div>
                                 Name
