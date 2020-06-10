@@ -17,7 +17,7 @@ export interface WrappedMetadataValue {
 }
 
 const spreadsheetView = [
-    'sample_name',
+    'name',
     'IGSN',
     'Parent IGSN',
     'Release date',
@@ -135,6 +135,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
             size="small"
             scroll={{ y: '100%' }}
             pagination={false}
+            showSorterTooltip={false}
         >
             <Table.Column dataIndex="order"
                 key="order"
@@ -168,7 +169,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 dataIndex="type"
                 key="type"
                 title="Type"
-                width="5em"
+                width="10em"
                 sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
                     if (a.type === null) {
                         return -1;
