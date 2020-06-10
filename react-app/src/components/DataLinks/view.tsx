@@ -28,6 +28,9 @@ function noData() {
 
 export default class DataLinks extends React.Component<DataLinksProps, DataLinksState> {
     renderDataLinks() {
+        if (this.props.dataLinks.length === 0) {
+            return;
+        }
         return <Table<DataLink2>
             dataSource={this.props.dataLinks}
             className="AntTable-FullHeight"
@@ -159,29 +162,20 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
 
     renderSummary() {
         const count = this.props.dataLinks.length;
-        return <div className="-message">
-            There {countedTerm(count, 'is', 'are')} {count} {countedTerm(count, 'data link')}.
-        </div>;
-    }
-
-    renderNoDataLinks() {
-        return <div className="-message">
-            No data linked to this sample.
-        </div>;
-    }
-
-
-    renderIt() {
-        if (this.props.dataLinks.length === 0) {
-            return this.renderNoDataLinks();
+        if (count === 0) {
+            return <p className="-message">
+                This sample is not linked to any data.
+            </p>;
         }
-        this.renderDataLinks();
-
+        return <p className="-message">
+            This sample is linked to {count} {countedTerm(count, 'data object')}.
+        </p>;
     }
 
     render() {
         return <div className="DataLinks" data-testid="datalinks">
-            {this.renderIt()}
+            {this.renderSummary()}
+            {this.renderDataLinks()}
         </div>;
     }
 }

@@ -77,6 +77,7 @@ export interface GetDataLinksFromSampleParams {
 export type DataId = string;
 
 export interface DataLink {
+    linkid: string;
     upa: WSUPA;
     dataid: DataId;
     id: SampleId;
