@@ -4,7 +4,7 @@
     "private": true,
     "dependencies": {
         "@ant-design/icons": "4.2.1",
-        "@kbase/ui-components": "0.2.1-alpha.20",
+        "@kbase/ui-components": "0.2.1-alpha.21",
         "@kbase/ui-lib": "0.2.1-alpha.3",
         "@types/jest": "*",
         "@types/leaflet": "*",
@@ -13,12 +13,12 @@
         "@types/react-dom": "*",
         "@types/react-leaflet": "*",
         "@types/react-redux": "*",
-        "antd": "4.3.1",
+        "antd": "4.3.3",
         "babel-plugin-import": "1.13.0",
         "customize-cra": "1.0.0",
         "jest-environment-jsdom-sixteen": "1.0.3",
         "leaflet": "1.6.0",
-        "less": "3.11.2",
+        "less": "3.11.3",
         "less-loader": "6.1.0",
         "react": "16.13.1",
         "react-app-rewired": "2.1.6",
@@ -34,7 +34,8 @@
         "start": "nodemon -w ./config-overrides.js --exec 'react-app-rewired start'",
         "startx": "react-app-rewired start",
         "build": "react-app-rewired build",
-        "test": "react-app-rewired test --coverage --watchAll=false  --env=jest-environment-jsdom-sixteen",
+        "test": "react-app-rewired test --env=jest-environment-jsdom-sixteen",
+        "test-with-coverage": "react-app-rewired test --coverage --watchAll=false  --env=jest-environment-jsdom-sixteen",
         "test2": "react-scripts test"
     },
     "eslintConfig": {
@@ -55,12 +56,12 @@
     "homepage": "./",
     "proxy": "https://ci.kbase.us",
     "devDependencies": {
-        "@testing-library/dom": "7.9.0",
+        "@testing-library/dom": "7.11.0",
         "@testing-library/jest-dom": "5.9.0",
-        "@testing-library/react": "10.0.5",
-        "@testing-library/user-event": "11.0.0",
+        "@testing-library/react": "10.2.1",
+        "@testing-library/user-event": "11.3.2",
         "nodemon": "2.0.4",
-        "typescript": "3.9.3"
+        "typescript": "3.9.5"
     },
     "jest": {
         "collectCoverageFrom": [

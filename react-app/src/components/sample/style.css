@@ -23,8 +23,20 @@
     flex: 0 0 20em;
 }
 
+.InfoTable.UserMetadata>div>div:nth-child(2) {
+    flex: 0 0 20em;
+    color: gray;
+    font-style: italic;
+}
+
 .InfoTable.ControlledMetadata>div>div:nth-child(1) {
     flex: 0 0 20em;
+}
+
+.InfoTable.ControlledMetadata>div>div:nth-child(2) {
+    flex: 0 0 20em;
+    color: gray;
+    font-style: italic;
 }
 
 .InfoTable.TemplateMetadata>div>div:nth-child(1) {

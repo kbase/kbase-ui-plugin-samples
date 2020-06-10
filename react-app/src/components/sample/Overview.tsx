@@ -1,6 +1,6 @@
 import React from 'react';
-import { Sample } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { Row, Col } from 'antd';
+import { Sample } from './data';
 
 export interface OverviewProps {
     sample: Sample;
@@ -11,7 +11,7 @@ interface OverviewState {
 
 export default class Overview extends React.Component<OverviewProps, OverviewState> {
     render() {
-        const { id, user, name, save_date, version } = this.props.sample;
+        const { id, owner, name, savedAt, version } = this.props.sample;
 
         return <div className="Grouper">
             <Row>
@@ -46,7 +46,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                     minute: 'numeric',
                                     second: 'numeric',
                                     timeZoneName: 'short'
-                                }).format(save_date)}
+                                }).format(savedAt)}
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                 Owner
                             </div>
                             <div data-testid="user">
-                                {user}
+                                {owner}
                             </div>
                         </div>
                     </div>
