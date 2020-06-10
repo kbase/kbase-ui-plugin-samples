@@ -1,10 +1,10 @@
 import React from 'react';
-import { SampleNode, MetadataValue } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { TemplateDataSource } from './view';
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
+import { Sample, MetadataValue } from './data';
 
 export interface TemplateMetadataProps {
-    sampleNode: SampleNode;
+    sample: Sample;
 }
 
 interface TemplateMetadataState {
@@ -17,33 +17,62 @@ export interface WrappedMetadataValue {
 }
 
 const spreadsheetView = [
-    'Sample Name',
+    'sample_name',
     'IGSN',
     'Parent IGSN',
     'Release date',
-    'Material',
+    'material',
     'Field name(informal classification)',
-    'Location Description',
-    'Locality Description',
-    'Collection method',
-    'Purpose',
-    'Latitude',
-    'Longitude',
-    'Coordinate Precision?',
-    'Elevation start',
-    'Elevation unit',
-    'Navigation type',
-    'Primary physiographic feature',
-    'Name of physiographic feature',
-    'Field program/cruise',
-    'Collector/Chief Scientist',
-    'Collection date',
-    'Collection date precision',
-    'Current archive',
-    'Current archive contact',
+    'location_description',
+    'locality_description',
+    'collection_method',
+    'purpose',
+    'latitude',
+    'longitude',
+    'coordinate_precision?',
+    'elevation_start',
+    'elevation_unit',
+    'navigation_type',
+    'primary_physiographic_feature',
+    'name_of_physiographic_feature',
+    'field_program_cruise',
+    'collector_chief_scientist',
+    'collection_date',
+    'collection_date_precision',
+    'current_archive',
+    'current_archive_contact',
     'Related Identifiers',
     'Relation Type'
 ];
+
+// const spreadsheetView = [
+//     'Sample Name',
+//     'IGSN',
+//     'Parent IGSN',
+//     'Release date',
+//     'Material',
+//     'Field name(informal classification)',
+//     'Location Description',
+//     'Locality Description',
+//     'Collection method',
+//     'Purpose',
+//     'Latitude',
+//     'Longitude',
+//     'Coordinate Precision?',
+//     'Elevation start',
+//     'Elevation unit',
+//     'Navigation type',
+//     'Primary physiographic feature',
+//     'Name of physiographic feature',
+//     'Field program/cruise',
+//     'Collector/Chief Scientist',
+//     'Collection date',
+//     'Collection date precision',
+//     'Current archive',
+//     'Current archive contact',
+//     'Related Identifiers',
+//     'Relation Type'
+// ];
 
 export default class TemplateMetadata extends React.Component<TemplateMetadataProps, TemplateMetadataState> {
     renderNoData() {
@@ -54,8 +83,8 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
     }
 
     render() {
-        const sample = this.props.sampleNode;
-        const controlledMetadata = Object.entries(sample.meta_controlled).map(([k, v]) => {
+        const sample = this.props.sample;
+        const controlledMetadata = Object.entries(sample.controlledMetadata).map(([k, v]) => {
             const x: [string, WrappedMetadataValue] = [k, {
                 type: 'Controlled',
                 field: v
@@ -63,7 +92,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
             return x;
         });
 
-        const userMetadata = Object.entries(sample.meta_user).map(([k, v]) => {
+        const userMetadata = Object.entries(sample.userMetadata).map(([k, v]) => {
             const x: [string, WrappedMetadataValue] = [k, {
                 type: 'User',
                 field: v
@@ -83,17 +112,19 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                     key,
                     type: null,
                     value: null,
-                    units: null
+                    units: null,
+                    isMissing: true
                 });
                 return;
             }
 
             dataSource.push({
                 order,
-                key,
+                key: field.field.label,
                 type: field.type,
                 value: field.field.value,
-                units: field.field.units
+                units: field.field.units || 'n/a',
+                isMissing: false
             });
         });
 
@@ -119,6 +150,18 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 width="20em"
                 sorter={(a: TemplateDataSource, b: TemplateDataSource) => {
                     return a.key.localeCompare(b.key);
+                }}
+                render={(key: string, row: TemplateDataSource) => {
+                    if (row.isMissing) {
+                        return <Tooltip title="No mapping found for this key">
+                            <label style={{ color: 'gray' }}>
+                                {key}
+                            </label>
+                        </Tooltip>;
+                    }
+                    return <label>
+                        {key}
+                    </label>;
                 }}
             />
             <Table.Column

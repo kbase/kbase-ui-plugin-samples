@@ -159,14 +159,29 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
 
     renderSummary() {
         const count = this.props.dataLinks.length;
-        return <div>
+        return <div className="-message">
             There {countedTerm(count, 'is', 'are')} {count} {countedTerm(count, 'data link')}.
-            </div>;
+        </div>;
+    }
+
+    renderNoDataLinks() {
+        return <div className="-message">
+            No data linked to this sample.
+        </div>;
+    }
+
+
+    renderIt() {
+        if (this.props.dataLinks.length === 0) {
+            return this.renderNoDataLinks();
+        }
+        this.renderDataLinks();
+
     }
 
     render() {
-        return <div className="DataLinks">
-            {this.renderDataLinks()}
+        return <div className="DataLinks" data-testid="datalinks">
+            {this.renderIt()}
         </div>;
     }
 }

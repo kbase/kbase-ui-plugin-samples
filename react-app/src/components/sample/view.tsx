@@ -1,7 +1,7 @@
 import React from 'react';
-import {
-    Sample, SampleNode, UserMetadata, ControlledMetadata, MetadataValue
-} from '../../lib/comm/dynamicServices/SampleServiceClient';
+// import {
+//     Sample, SampleNode, Metadata, MetadataValue
+// } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import {
     Row, Col, Tabs, Collapse, Radio, Alert
 } from 'antd';
@@ -15,6 +15,7 @@ import { PushpinFilled } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
 import Overview from './Overview';
 import TemplateMetadata from './TemplateMetadata';
+import { MetadataValue, Sample, Metadata } from './data';
 
 export interface FieldFormatBase {
 
@@ -119,6 +120,7 @@ export interface TemplateDataSource {
     type: string | null;
     value: string | number | boolean | null;
     units: string | null;
+    isMissing: boolean;
 }
 
 export interface WrappedMetadataValue {
@@ -240,102 +242,102 @@ const groupLayout: GroupLayout = [
         label: 'Description',
         description: 'Fields which describe the overall sample event',
         fields: {
-            'Purpose': {
-                key: 'Purpose',
+            'purpose': {
+                key: 'purpose',
                 type: 'string'
             },
-            'Material': {
-                key: 'Material',
+            'material': {
+                key: 'material',
                 type: 'string'
             }
         },
-        layout: ['Purpose', 'Material']
+        layout: ['purpose', 'material']
     },
     {
         key: 'collection',
         label: 'Collection',
         description: 'Fields which describe the collection',
         fields: {
-            'Collection date': {
-                key: 'Collection date',
+            'collection_date': {
+                key: 'collection_date',
                 type: 'date',
                 description: 'Date upon which the sample was collected'
             },
-            'Collector/Chief Scientist': {
-                key: 'Collector/Chief Scientist',
+            'collector_chief_scientist': {
+                key: 'collector_chief_scientist',
                 type: 'string'
             },
-            'Collection method': {
-                key: 'Collection method',
+            'collection_method': {
+                key: 'collection_method',
                 type: 'string'
             }
         },
-        layout: ['Collection date', 'Collector/Chief Scientist', 'Collection method']
+        layout: ['collection_date', 'collector_chief_scientist', 'collection_method']
     },
     {
         key: 'curation',
         label: 'Curation',
         description: 'Fields which describe the curation of the sample',
         fields: {
-            'Current archive': {
-                key: 'Current archive',
+            'current_archive': {
+                key: 'current_archive',
                 type: 'string'
             },
-            'Current archive contact': {
-                key: 'Current archive contact',
+            'current_archive_contact': {
+                key: 'current_archive_contact',
                 type: 'string'
             }
         },
-        layout: ['Current archive', 'Current archive contact']
+        layout: ['current_archive', 'current_archive_contact']
     },
     {
         key: 'geolocation',
         label: 'Geolocation',
         description: 'Fields which describe the sample collection location',
         fields: {
-            'Coordinate precision': {
-                key: 'Coordinate precision',
+            'coordinate_precision?': {
+                key: 'coordinate_precision?',
                 type: 'integer'
             },
-            'Latitude': {
-                key: 'Latitude',
+            'latitude': {
+                key: 'latitude',
                 type: 'float',
                 units: ['degrees'],
                 format: {
                     precision: 5
                 }
             },
-            'Longitude': {
-                key: 'Longitude',
+            'longitude': {
+                key: 'longitude',
                 type: 'float',
                 format: {
                     precision: 5
                 }
             },
-            'Navigation type': {
-                key: 'Navigation type',
+            'navigation_type': {
+                key: 'navigation_type',
                 type: 'string'
             },
-            'Locality Description': {
-                key: 'Locality Description',
+            'locality_description': {
+                key: 'locality_description',
                 type: 'string'
             },
-            'Location Description': {
-                key: 'Location Description',
+            'location_description': {
+                key: 'location_description',
                 type: 'string'
             },
-            'Name of physiographic feature': {
-                key: 'Name of physiographic feature',
+            'name_of_physiographic_feature': {
+                key: 'name_of_physiographic_feature',
                 type: 'string'
             },
-            'Primary physiographic feature': {
-                key: 'Primary physiographic feature',
+            'primary_physiographic_feature': {
+                key: 'primary_physiographic_feature',
                 type: 'string'
             }
         },
-        layout: ['Coordinate precision', 'Latitude', 'Longitude', 'Navigation type',
-            'Locality Description', 'Location Description', 'Name of physiographic feature',
-            'Primary physiographic feature']
+        layout: ['coordinate_precision?', 'latitude', 'longitude', 'navigation_type',
+            'locality_description', 'Location Description', 'name_of_physiographic_feature',
+            'primary_physiographic_feature']
     }
 ];
 
@@ -345,7 +347,7 @@ export interface SampleViewerProps {
 }
 
 interface SampleViewerState {
-    selectedSampleNode: SampleNode | null;
+    // selectedSample: Sample | null;
     view: 'alpha' | 'grouped' | 'template';
 }
 
@@ -353,7 +355,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     constructor(props: SampleViewerProps) {
         super(props);
         this.state = {
-            selectedSampleNode: props.sample.node_tree[0],
+            // selectedSampleNode: props.sample.node_tree[0],
             view: 'template'
         };
     }
@@ -365,8 +367,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
 
 
 
-    renderUserMetadataAlpha(sample: SampleNode) {
-        const metadata = Object.entries(sample.meta_user);
+    renderUserMetadataAlpha() {
+        const sample = this.props.sample;
+        const metadata = Object.entries(sample.userMetadata);
         if (metadata.length === 0) {
             return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
         }
@@ -376,6 +379,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             })
             .map(([key, value]) => {
                 return <div key={key}>
+                    <div>{value.label}</div>
                     <div>{key}</div>
                     <div>{value.value} <i>{value.units}</i></div>
                 </div>;
@@ -385,48 +389,52 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </div>;
     }
 
-    renderUserMetadataGroupExtras(data: UserMetadata, group: LayoutGroup) {
+    renderGeolocation(data: Metadata, group: LayoutGroup) {
+        const { latitude, longitude } = data;
+        if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
+            return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
+        }
+        const lat = latitude.value as number;
+        const lng = longitude.value as number;
+        const componentString = ReactDOMServer.renderToString(<PushpinFilled />);
+        const icon = L.divIcon({
+            html: componentString,
+            className: 'map-marker',
+            iconSize: L.point(20, 20),
+            tooltipAnchor: L.point(0, 10)
+        });
+        // const OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        //     maxZoom: 17,
+        //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        // });
+        // const OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //     maxZoom: 19,
+        //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        // });
+        return <div style={{ width: '400px', height: '400px' }}>
+            <LeafletMap center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
+                <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                />
+                <TileLayer
+                    attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                    url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                />
+                <Marker position={[lat, lng]} icon={icon}>
+                    <Popup>
+                        <div>Location</div>
+                        <div>Latitude: {lat}</div>
+                        <div>Longitude: {lng}</div></Popup>
+                </Marker>
+            </LeafletMap>
+        </div>;
+    }
+
+    renderUserMetadataGroupExtras(data: Metadata, group: LayoutGroup) {
         switch (group.key) {
             case 'geolocation':
-                const { Latitude, Longitude } = data;
-                if (typeof Latitude === 'undefined' || typeof Longitude === 'undefined') {
-                    return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
-                }
-                const lat = Latitude.value as number;
-                const lng = Longitude.value as number;
-                const componentString = ReactDOMServer.renderToString(<PushpinFilled />);
-                const icon = L.divIcon({
-                    html: componentString,
-                    className: 'map-marker',
-                    iconSize: L.point(20, 20),
-                    tooltipAnchor: L.point(0, 10)
-                });
-                // const OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                //     maxZoom: 17,
-                //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                // });
-                // const OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                //     maxZoom: 19,
-                //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                // });
-                return <div style={{ width: '400px', height: '400px' }}>
-                    <LeafletMap center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
-                        <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                        />
-                        <TileLayer
-                            attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                            url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
-                        />
-                        <Marker position={[lat, lng]} icon={icon}>
-                            <Popup>
-                                <div>Location</div>
-                                <div>Latitude: {lat}</div>
-                                <div>Longitude: {lng}</div></Popup>
-                        </Marker>
-                    </LeafletMap>
-                </div>;
+                return this.renderGeolocation(data, group);
         }
     }
 
@@ -437,8 +445,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     //     }
     // }
 
-    renderUserMetadataGrouped(sample: SampleNode) {
-        const metadata = sample.meta_user;
+    renderUserMetadataGrouped() {
+        const sample = this.props.sample;
+        const metadata = sample.userMetadata;
 
         const groupKeys = groupLayout.map((group) => {
             return group.key;
@@ -454,6 +463,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 if (field.key in metadata) {
                     const value = metadata[field.key];
                     return <div key={field.key}>
+                        <div>{value.label}</div>
                         <div>{field.key}</div>
                         <div>{value.value} <i>{value.units}</i></div>
                     </div>;
@@ -489,67 +499,27 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderUserMetadata() {
-        if (!this.state.selectedSampleNode) {
-            return;
-        }
+        // if (!this.state.selectedSampleNode) {
+        //     return;
+        // }
         switch (this.state.view) {
             case 'alpha':
-                return this.renderUserMetadataAlpha(this.state.selectedSampleNode);
+                return this.renderUserMetadataAlpha();
             case 'grouped':
-                return this.renderUserMetadataGrouped(this.state.selectedSampleNode);
+                return this.renderUserMetadataGrouped();
         }
     }
 
-    renderControlledMetadataGroupExtras(data: ControlledMetadata, group: LayoutGroup) {
+    renderControlledMetadataGroupExtras(data: Metadata, group: LayoutGroup) {
         switch (group.key) {
             case 'geolocation':
-                const { Latitude, Longitude } = data;
-                if (typeof Latitude === 'undefined' || typeof Longitude === 'undefined') {
-                    if (typeof Latitude === 'undefined' && typeof Longitude === 'undefined') {
-                        return;
-                    }
-                    return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
-                }
-                const lat = Latitude.value as number;
-                const lng = Longitude.value as number;
-                const componentString = ReactDOMServer.renderToString(<PushpinFilled />);
-                const icon = L.divIcon({
-                    html: componentString,
-                    className: 'map-marker',
-                    iconSize: L.point(20, 20),
-                    tooltipAnchor: L.point(0, 10)
-                });
-                // const OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                //     maxZoom: 17,
-                //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                // });
-                // const OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                //     maxZoom: 19,
-                //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                // });
-                return <div style={{ width: '400px', height: '400px' }}>
-                    <LeafletMap center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
-                        <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                        />
-                        <TileLayer
-                            attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                            url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
-                        />
-                        <Marker position={[lat, lng]} icon={icon}>
-                            <Popup>
-                                <div>Location</div>
-                                <div>Latitude: {lat}</div>
-                                <div>Longitude: {lng}</div></Popup>
-                        </Marker>
-                    </LeafletMap>
-                </div>;
+                return this.renderGeolocation(data, group);
         }
     }
 
-    renderControlledMetadataAlpha(sample: SampleNode) {
-        const metadata = Object.entries(sample.meta_controlled);
+    renderControlledMetadataAlpha() {
+        const sample = this.props.sample;
+        const metadata = Object.entries(sample.controlledMetadata);
         if (metadata.length === 0) {
             return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
         }
@@ -559,6 +529,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             })
             .map(([key, value]) => {
                 return <div key={key}>
+                    <div>{value.label}</div>
                     <div>{key}</div>
                     <div>{value.value} <i>{value.units}</i></div>
                 </div>;
@@ -568,12 +539,13 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </div>;
     }
 
-    renderControlledMetadataGrouped(sample: SampleNode) {
+    renderControlledMetadataGrouped() {
         // const metadata = Object.entries(sample.meta_user);
         // if (metadata.length === 0) {
         //     return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
         // }
-        const metadata = sample.meta_controlled;
+        const sample = this.props.sample;
+        const metadata = sample.controlledMetadata;
 
         const groupKeys = groupLayout.map((group) => {
             return group.key;
@@ -589,6 +561,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 if (field.key in metadata) {
                     const value = metadata[field.key];
                     return <div key={field.key}>
+                        <div>{value.label}</div>
                         <div>{field.key}</div>
                         <div>{value.value} <i>{value.units}</i></div>
                     </div>;
@@ -626,14 +599,12 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderControlledMetadata() {
-        if (!this.state.selectedSampleNode) {
-            return;
-        }
+
         switch (this.state.view) {
             case 'alpha':
-                return this.renderControlledMetadataAlpha(this.state.selectedSampleNode);
+                return this.renderControlledMetadataAlpha();
             case 'grouped':
-                return this.renderControlledMetadataGrouped(this.state.selectedSampleNode);
+                return this.renderControlledMetadataGrouped();
         }
     }
 
@@ -678,10 +649,8 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderTemplateMetadata() {
-        if (!this.state.selectedSampleNode) {
-            return;
-        }
-        return <TemplateMetadata sampleNode={this.state.selectedSampleNode} />;
+
+        return <TemplateMetadata sample={this.props.sample} />;
     }
 
     renderMetadata() {
@@ -705,10 +674,8 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderSample() {
-        if (!this.state.selectedSampleNode) {
-            return;
-        }
-        const sampleNode = this.state.selectedSampleNode;
+
+        const sample = this.props.sample;
         return <>
             <Row style={{ flex: '0 0 auto' }}>
                 <Col span={12}>
@@ -718,7 +685,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                                 ID
                             </div>
                             <div>
-                                {sampleNode.id}
+                                {sample.id}
                             </div>
                         </div>
                         <div>
@@ -726,7 +693,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                                 Type
                             </div>
                             <div>
-                                {sampleNode.type}
+                                {sample.type}
                             </div>
                         </div>
                     </div>
@@ -756,17 +723,17 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </>;
     }
 
-    clickNavItem(sampleNode: SampleNode) {
-        this.setState({
-            selectedSampleNode: sampleNode
-        });
-    }
+    // clickNavItem(sampleNode: Sample) {
+    //     this.setState({
+    //         selectedSampleNode: sampleNode
+    //     });
+    // }
 
-    renderSampleNodeNav(sampleNode: SampleNode) {
-        return <div className="Nav-item" onClick={() => { this.clickNavItem(sampleNode); }}>
-            {sampleNode.id}
-        </div>;
-    }
+    // renderSampleNodeNav(sampleNode: SampleNode) {
+    //     return <div className="Nav-item" onClick={() => { this.clickNavItem(sampleNode); }}>
+    //         {sampleNode.id}
+    //     </div>;
+    // }
 
     render() {
         return <div className='Sample'>
