@@ -2,7 +2,7 @@ import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import SampleServiceClient, { SampleId, EpochTimeMS, SampleVersion, Username } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
-import Component, { IntegerField } from './view';
+import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
