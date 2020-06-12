@@ -13,6 +13,7 @@ import ReactDOMServer from 'react-dom/server';
 import Overview from './Overview';
 import TemplateMetadata from './TemplateMetadata';
 import { MetadataValue, Sample, Metadata } from './data';
+import AccessList from '../AccessList';
 
 export interface FieldFormatBase {
 
@@ -699,6 +700,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Linked Data" key="linkeddata">
                     <DataLinks sampleId={this.props.sample.id} version={this.props.sample.version} />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="Access" key="accesslist">
+                    <AccessList sampleId={this.props.sample.id} />
                 </Tabs.TabPane>
             </Tabs>
         </div>;

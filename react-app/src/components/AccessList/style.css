@@ -1,0 +1,16 @@
+.AccessList {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.AccessList .UserCard {
+    /* border: 1px solid silver; */
+    /* box-shadow: 4px 4px 4px silver; */
+    padding: 10px 4px;
+}
+
+.AccessList .UserCard+.UserCard {
+    border-top: 1px solid rgba(200, 200, 200, 0.5);
+}
