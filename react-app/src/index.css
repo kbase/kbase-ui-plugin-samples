@@ -100,6 +100,10 @@ code {
     flex: 1 1 0px;
 }
 
+.Row.-stretch {
+    flex: 1 1 0px;
+}
+
 .Col.-autoscroll {
     overflow-y: auto;
 }

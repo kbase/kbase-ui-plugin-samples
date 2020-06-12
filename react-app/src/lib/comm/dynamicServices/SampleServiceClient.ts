@@ -119,6 +119,21 @@ export interface GetMetadataKeyStaticMetadataResult {
     static_metadata: StaticMetadata;
 }
 
+export interface GetSampleACLsParams {
+    id: SampleId;
+    as_admin: SDKBoolean;
+}
+
+export interface SampleACLs {
+    owner: Username;
+    admin: Array<Username>;
+    write: Array<Username>;
+    read: Array<Username>;
+}
+
+export type GetSampleACLsResult = SampleACLs;
+
+
 export default class SampleServiceClient extends DynamicServiceClient {
     static module: string = 'SampleService';
 
@@ -139,6 +154,11 @@ export default class SampleServiceClient extends DynamicServiceClient {
 
     async get_metadata_key_static_metadata(params: GetMetadataKeyStaticMetadataParams): Promise<GetMetadataKeyStaticMetadataResult> {
         const [result] = await this.callFunc<[GetMetadataKeyStaticMetadataParams], [GetMetadataKeyStaticMetadataResult]>('get_metadata_key_static_metadata', [params]);
+        return result;
+    }
+
+    async get_sample_acls(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {
+        const [result] = await this.callFunc<[GetSampleACLsParams], [GetSampleACLsResult]>('get_sample_acls', [params]);
         return result;
     }
 }
