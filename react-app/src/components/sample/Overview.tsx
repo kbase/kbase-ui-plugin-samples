@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import { Sample } from './data';
+import './Overview.css';
 
 export interface OverviewProps {
     sample: Sample;
@@ -11,26 +12,26 @@ interface OverviewState {
 
 export default class Overview extends React.Component<OverviewProps, OverviewState> {
     render() {
-        const { type, id, owner, name, savedAt, version } = this.props.sample;
+        const { type, id, owner, name, savedAt, version, source, sourceId, sourceParentId } = this.props.sample;
 
-        return <div className="Grouper">
+        return <div className="Grouper Overview">
             <Row>
-                <Col span={12}>
+                <Col span={8}>
                     <div className="InfoTable">
                         <div>
                             <div>
-                                ID
+                                Name
                             </div>
-                            <div data-testid="id">
-                                {id}
+                            <div data-testid="name">
+                                {name}
                             </div>
                         </div>
                         <div>
                             <div>
-                                Version
+                                Owner
                             </div>
-                            <div data-testid="version">
-                                {version}
+                            <div data-testid="user">
+                                {owner}
                             </div>
                         </div>
                         <div>
@@ -51,30 +52,58 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         </div>
                     </div>
                 </Col>
-                <Col span={12}>
+                <Col span={8}>
                     <div className="InfoTable">
                         <div>
                             <div>
-                                Type
+                                Source
+                            </div>
+                            <div data-testid="id">
+                                {source}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                IGSN
+                            </div>
+                            <div data-testid="version">
+                                {sourceId}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                Parent IGSN
                             </div>
                             <div data-testid="type">
+                                {sourceParentId || "-"}
+                            </div>
+                        </div>
+                    </div>
+                </Col>
+                <Col span={8}>
+                    <div className="InfoTable">
+                        <div>
+                            <div>
+                                ID
+                        </div>
+                            <div data-testid="id">
+                                {id}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                Version
+                        </div>
+                            <div data-testid="version">
+                                {version}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                Type
+                        </div>
+                            <div data-testid="type">
                                 {type}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Name
-                            </div>
-                            <div data-testid="name">
-                                {name}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Owner
-                            </div>
-                            <div data-testid="user">
-                                {owner}
                             </div>
                         </div>
                     </div>

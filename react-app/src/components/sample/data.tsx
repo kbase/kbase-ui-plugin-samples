@@ -1,36 +1,48 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
-import SampleServiceClient, { SampleId, EpochTimeMS, SampleVersion, Username } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import SampleServiceClient, {
+    SampleId, EpochTimeMS, SampleVersion, Username
+} from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 
-
 export interface MetadataValue {
     value: string | number | boolean;
     units?: string;
     label: string;
     description?: string;
+    isControlled: boolean;
+}
+
+export interface UserMetadataValue {
+    value: string;
 }
 
 export interface Metadata {
     [key: string]: MetadataValue;
 }
 
-export type SampleType = 'BioReplicate' | 'TechReplicate' | 'SubSample';
+export interface UserMetadata {
+    [key: string]: UserMetadataValue;
+}
 
+export type SampleType = 'BioReplicate' | 'TechReplicate' | 'SubSample';
 
 export interface Sample {
     id: SampleId;
     owner: Username;
     name: string;
     savedAt: EpochTimeMS;
+    source: string;
+    sourceId: string;
+    sourceParentId: string | null;
     type: SampleType;
     version: SampleVersion;
-    controlledMetadata: Metadata;
-    userMetadata: Metadata;
+    metadata: Metadata;
+    userMetadata: UserMetadata;
 }
 
 
@@ -67,8 +79,6 @@ export default class Data extends React.Component<DataProps, DataState> {
                 id: this.props.sampleId
             });
 
-            console.log('sample!', sampleResult);
-
             const actualSample = sampleResult.node_tree[0];
 
             const fieldKeys = Object.keys(actualSample.meta_user).concat(Object.keys(actualSample.meta_controlled));
@@ -78,42 +88,46 @@ export default class Data extends React.Component<DataProps, DataState> {
                 prefix: 0
             });
 
-            const controlledMetadata: Metadata = Object.entries(actualSample.meta_controlled)
+            const metadata: Metadata = Object.entries(actualSample.meta_user)
                 .reduce((metadata, [key, field]) => {
                     const fieldMeta = fieldMetadata.static_metadata[key];
                     metadata[key] = {
                         label: fieldMeta.display_name,
                         description: fieldMeta.description,
                         value: field.value,
-                        units: field.units
+                        units: field.units,
+                        isControlled: false
                     };
                     return metadata;
                 }, {} as Metadata);
 
-            const userMetadata: Metadata = Object.entries(actualSample.meta_user)
-                .reduce((metadata, [key, field]) => {
+            Object.entries(actualSample.meta_controlled)
+                .forEach(([key, field]) => {
                     const fieldMeta = fieldMetadata.static_metadata[key];
                     metadata[key] = {
                         label: fieldMeta.display_name,
                         description: fieldMeta.description,
                         value: field.value,
-                        units: field.units
+                        units: field.units,
+                        isControlled: true
                     };
-                    return metadata;
-                }, {} as Metadata);
+                });
+
+            const userMetadata = {};
 
             const sample: Sample = {
                 id: sampleResult.id,
                 name: sampleResult.name,
                 owner: sampleResult.user,
+                source: 'SESAR',
+                sourceId: actualSample.id,
+                sourceParentId: actualSample.parent,
                 savedAt: sampleResult.save_date,
                 version: sampleResult.version,
                 type: actualSample.type,
-                controlledMetadata,
+                metadata,
                 userMetadata
             };
-
-            console.log('field metadata?', fieldMetadata);
 
             this.setState({
                 loadingState: {

@@ -1,0 +1,9 @@
+.Overview .InfoTable>div>div:nth-child(1) {
+    flex: 0 0 8em;
+}
+
+.Overview .InfoTable>div>div:nth-child(2) {
+    /* flex: 0 0 20em;
+    color: gray;
+    font-style: italic; */
+}

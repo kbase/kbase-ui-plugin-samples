@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Tabs, Collapse, Radio, Alert
+    Tabs, Collapse, Radio, Alert, Tooltip
 } from 'antd';
 import './style.css';
 import DataLinks from '../DataLinks';
@@ -111,14 +111,6 @@ export interface Schema {
 }
 
 
-export interface TemplateDataSource {
-    order: number;
-    key: string;
-    type: string | null;
-    value: string | number | boolean | null;
-    units: string | null;
-    isMissing: boolean;
-}
 
 export interface WrappedMetadataValue {
     type: string,
@@ -333,7 +325,7 @@ const groupLayout: GroupLayout = [
             }
         },
         layout: ['coordinate_precision?', 'latitude', 'longitude', 'navigation_type',
-            'locality_description', 'Location Description', 'name_of_physiographic_feature',
+            'locality_description', 'location_description', 'name_of_physiographic_feature',
             'primary_physiographic_feature']
     }
 ];
@@ -376,9 +368,8 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             })
             .map(([key, value]) => {
                 return <div key={key}>
-                    <div>{value.label}</div>
                     <div>{key}</div>
-                    <div>{value.value} <i>{value.units}</i></div>
+                    <div>{value.value} <i>{value}</i></div>
                 </div>;
             });
         return <div className="InfoTable -bordered UserMetadata">
@@ -428,12 +419,12 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         </div>;
     }
 
-    renderUserMetadataGroupExtras(data: Metadata, group: LayoutGroup) {
-        switch (group.key) {
-            case 'geolocation':
-                return this.renderGeolocation(data, group);
-        }
-    }
+    // renderUserMetadataGroupExtras(data: Metadata, group: LayoutGroup) {
+    //     switch (group.key) {
+    //         case 'geolocation':
+    //             return this.renderGeolocation(data, group);
+    //     }
+    // }
 
     // renderField(field: LayoutField, value: any) {
     //     switch (field.type) {
@@ -442,58 +433,58 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     //     }
     // }
 
-    renderUserMetadataGrouped() {
-        const sample = this.props.sample;
-        const metadata = sample.userMetadata;
+    // renderUserMetadataGrouped() {
+    //     const sample = this.props.sample;
+    //     const metadata = sample.userMetadata;
 
-        const groupKeys = groupLayout.map((group) => {
-            return group.key;
-        });
+    //     const groupKeys = groupLayout.map((group) => {
+    //         return group.key;
+    //     });
 
-        const rows = groupLayout.map((group) => {
-            const fields = group.layout.map((fieldName) => {
-                const field = group.fields[fieldName];
-                if (!field) {
-                    console.warn('Field not found: ' + fieldName);
-                    return null;
-                }
-                if (field.key in metadata) {
-                    const value = metadata[field.key];
-                    return <div key={field.key}>
-                        <div>{value.label}</div>
-                        <div>{field.key}</div>
-                        <div>{value.value} <i>{value.units}</i></div>
-                    </div>;
-                } else {
-                    return null;
-                }
-            })
-                .filter((row) => {
-                    return row ? true : false;
-                });
+    //     const rows = groupLayout.map((group) => {
+    //         const fields = group.layout.map((fieldName) => {
+    //             const field = group.fields[fieldName];
+    //             if (!field) {
+    //                 console.warn('Field not found: ' + fieldName);
+    //                 return null;
+    //             }
+    //             if (field.key in metadata) {
+    //                 const value = metadata[field.key];
+    //                 return <div key={field.key}>
+    //                     <div>{value.label}</div>
+    //                     <div>{field.key}</div>
+    //                     <div>{value.value} <i>{value.units}</i></div>
+    //                 </div>;
+    //             } else {
+    //                 return null;
+    //             }
+    //         })
+    //             .filter((row) => {
+    //                 return row ? true : false;
+    //             });
 
-            let content;
-            if (fields.length) {
-                content = <div className="InfoTable  -bordered ControlledMetadata">
-                    {fields}
-                </div>;
-            } else {
-                content = <div style={{ fontStyle: 'italic' }}>No data</div>;
-            }
-            return <Collapse.Panel header={group.label} key={group.key} showArrow={false}>
-                {content}
-                <div style={{ marginTop: '10px' }}>
-                    {this.renderControlledMetadataGroupExtras(metadata, group)}
-                </div>
-            </Collapse.Panel>;
-        });
+    //         let content;
+    //         if (fields.length) {
+    //             content = <div className="InfoTable  -bordered ControlledMetadata">
+    //                 {fields}
+    //             </div>;
+    //         } else {
+    //             content = <div style={{ fontStyle: 'italic' }}>No data</div>;
+    //         }
+    //         return <Collapse.Panel header={group.label} key={group.key} showArrow={false}>
+    //             {content}
+    //             <div style={{ marginTop: '10px' }}>
+    //                 {this.renderUserMetadataGroupExtras(metadata, group)}
+    //             </div>
+    //         </Collapse.Panel>;
+    //     });
 
-        return <Collapse defaultActiveKey={groupKeys}
-            bordered={true}
-        >
-            {rows}
-        </Collapse>;
-    }
+    //     return <Collapse defaultActiveKey={groupKeys}
+    //         bordered={true}
+    //     >
+    //         {rows}
+    //     </Collapse>;
+    // }
 
     renderUserMetadata() {
         // if (!this.state.selectedSampleNode) {
@@ -503,7 +494,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             case 'alpha':
                 return this.renderUserMetadataAlpha();
             case 'grouped':
-                return this.renderUserMetadataGrouped();
+                return <p>
+                    No grouped view for user metadata
+                </p>;
         }
     }
 
@@ -516,7 +509,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
 
     renderControlledMetadataAlpha() {
         const sample = this.props.sample;
-        const metadata = Object.entries(sample.controlledMetadata);
+        const metadata = Object.entries(sample.metadata);
         if (metadata.length === 0) {
             return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
         }
@@ -526,8 +519,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             })
             .map(([key, value]) => {
                 return <div key={key}>
-                    <div>{value.label}</div>
-                    <div>{key}</div>
+                    <div><Tooltip title={`key: ${key}`}><span>{value.label}</span></Tooltip></div>
                     <div>{value.value} <i>{value.units}</i></div>
                 </div>;
             });
@@ -542,7 +534,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         //     return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
         // }
         const sample = this.props.sample;
-        const metadata = sample.controlledMetadata;
+        const metadata = sample.metadata;
 
         const groupKeys = groupLayout.map((group) => {
             return group.key;
@@ -558,8 +550,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 if (field.key in metadata) {
                     const value = metadata[field.key];
                     return <div key={field.key}>
-                        <div>{value.label}</div>
-                        <div>{field.key}</div>
+                        <div><Tooltip title={`key: ${field.key}`}><span>{value.label}</span></Tooltip></div>
                         <div>{value.value} <i>{value.units}</i></div>
                     </div>;
                 } else {
@@ -596,7 +587,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderControlledMetadata() {
-
         switch (this.state.view) {
             case 'alpha':
                 return this.renderControlledMetadataAlpha();
@@ -658,7 +648,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                     <Collapse
                         defaultActiveKey={['1', '2']}
                         bordered={true}>
-                        <Collapse.Panel header="Controlled Metadata" key='1' showArrow={true}>
+                        <Collapse.Panel header="Metadata" key='1' showArrow={true}>
                             {this.renderControlledMetadata()}
                         </Collapse.Panel>
                         <Collapse.Panel header="User Metadata" key='2' showArrow={true}>
@@ -671,6 +661,11 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderSample() {
+        /*
+         <Radio.Button value="alpha">
+                            alpha
+                        </Radio.Button>
+        */
         return <div className="Col -stretch">
             <div className="Row" style={{ marginBottom: '10px', alignItems: 'center' }}>
                 <div>
@@ -678,9 +673,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                         <Radio.Button value="template">
                             template
                         </Radio.Button>
-                        <Radio.Button value="alpha">
-                            alpha
-                        </Radio.Button>
+
                         <Radio.Button value="grouped">
                             grouped
                         </Radio.Button>
