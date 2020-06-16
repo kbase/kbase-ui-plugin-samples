@@ -26,6 +26,13 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     const {
         auth: { userAuthorization },
         root: { state: rootState },
+        app: {
+            runtime: {
+                navigation: {
+                    view, params
+                }
+            }
+        },
         navigationView,
         // app: {
         //     runtime: {
@@ -38,6 +45,8 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         // sampleview
     } = state;
 
+    // console.log('nav???', userAuthorization, params);
+
     // Auth integration.
     let token;
     if (!userAuthorization) {
@@ -46,46 +55,59 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         token = userAuthorization.token;
     }
 
-    let sampleView: SampleView;
-    switch (navigationView.status) {
-        case SyncViewStatus.NONE:
-            sampleView = {
-                status: SyncViewStatus.NONE
-            };
-            break;
-        case SyncViewStatus.SUCCESS:
-            if (navigationView.state.path.length === 1) {
-                sampleView = {
-                    status: SyncViewStatus.SUCCESS,
-                    state: {
-                        sampleId: navigationView.state.path[0]
-                    }
-                };
-            } else if (navigationView.state.path.length === 2) {
-                sampleView = {
-                    status: SyncViewStatus.SUCCESS,
-                    state: {
-                        sampleId: navigationView.state.path[0],
-                        sampleVersion: parseInt(navigationView.state.path[1])
-                    }
-                };
-            } else {
-                sampleView = {
-                    status: SyncViewStatus.ERROR,
-                    error: {
-                        code: 'invalid-view',
-                        message: 'Invalid view'
-                    }
-                };
-            }
+    // let sampleVersion;
+    // if (params['sampleVersion']) {
+    //     sampleVersion = parseInt(params['sampleVersion']);
+    // }
 
-            break;
-        case SyncViewStatus.ERROR:
-            sampleView = {
-                status: SyncViewStatus.ERROR,
-                error: navigationView.error
-            };
-    }
+    const sampleView: SampleView = {
+        status: SyncViewStatus.SUCCESS,
+        state: {
+            sampleId: params['sampleId'],
+            sampleVersion: parseInt(params['sampleVersion'])
+        }
+    };
+
+    // let sampleView: SampleView;
+    // switch (navigationView.status) {
+    //     case SyncViewStatus.NONE:
+    //         sampleView = {
+    //             status: SyncViewStatus.NONE
+    //         };
+    //         break;
+    //     case SyncViewStatus.SUCCESS:
+    //         if (navigationView.state.path.length === 1) {
+    //             sampleView = {
+    //                 status: SyncViewStatus.SUCCESS,
+    //                 state: {
+    //                     sampleId: navigationView.state.path[0]
+    //                 }
+    //             };
+    //         } else if (navigationView.state.path.length === 2) {
+    //             sampleView = {
+    //                 status: SyncViewStatus.SUCCESS,
+    //                 state: {
+    //                     sampleId: navigationView.state.path[0],
+    //                     sampleVersion: parseInt(navigationView.state.path[1])
+    //                 }
+    //             };
+    //         } else {
+    //             sampleView = {
+    //                 status: SyncViewStatus.ERROR,
+    //                 error: {
+    //                     code: 'invalid-view',
+    //                     message: 'Invalid view'
+    //                 }
+    //             };
+    //         }
+
+    //         break;
+    //     case SyncViewStatus.ERROR:
+    //         sampleView = {
+    //             status: SyncViewStatus.ERROR,
+    //             error: navigationView.error
+    //         };
+    // }
 
     // let navigation: Navigation;
     // switch (sampleview.status) {

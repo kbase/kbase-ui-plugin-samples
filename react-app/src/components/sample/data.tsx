@@ -81,11 +81,20 @@ export default class Data extends React.Component<DataProps, DataState> {
 
     async fetchSample(props: DataProps) {
         try {
-            this.setState({
-                loadingState: {
-                    status: AsyncProcessStatus.PROCESSING
-                }
-            });
+            if (this.state.loadingState.status === AsyncProcessStatus.SUCCESS) {
+                this.setState({
+                    loadingState: {
+                        status: AsyncProcessStatus.REPROCESSING,
+                        state: this.state.loadingState.state
+                    }
+                });
+            } else {
+                this.setState({
+                    loadingState: {
+                        status: AsyncProcessStatus.PROCESSING
+                    }
+                });
+            }
             const client = new SampleServiceClient({
                 token: props.token,
                 url: props.serviceWizardURL,
@@ -200,8 +209,11 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     async componentDidUpdate(prevProps: DataProps, prevState: DataState) {
+        // console.log('[componentDidUpdate]', prevProps.sampleId, this.props.sampleId,
+        // prevProps.sampleVersion, this.props.sampleVersion);
         if (prevProps.sampleId !== this.props.sampleId ||
             prevProps.sampleVersion !== this.props.sampleVersion) {
+            // console.log('fetching...', this.props);
             this.fetchSample(this.props);
         }
     }
@@ -258,10 +270,13 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     render() {
+        // console.log('[Sample.render]', this.state);
         switch (this.state.loadingState.status) {
             case AsyncProcessStatus.NONE:
                 return this.renderNone();
             case AsyncProcessStatus.PROCESSING:
+                return this.renderProcessing();
+            case AsyncProcessStatus.REPROCESSING:
                 return this.renderProcessing();
             case AsyncProcessStatus.ERROR:
                 return this.renderError(this.state.loadingState.error);

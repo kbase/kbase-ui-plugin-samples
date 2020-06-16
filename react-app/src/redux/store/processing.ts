@@ -2,7 +2,8 @@ export enum AsyncProcessStatus {
     NONE = 'NONE',
     PROCESSING = 'PROCESSING',
     SUCCESS = 'SUCCESS',
-    ERROR = 'ERROR'
+    ERROR = 'ERROR',
+    REPROCESSING = 'REPROCESSING'
 }
 
 export interface AsyncProcessNone<> {
@@ -23,4 +24,9 @@ export interface AsyncProcessSuccess<S> {
     state: S;
 }
 
-export type AsyncProcess<S, E> = AsyncProcessNone | AsyncProcessProcessing | AsyncProcessError<E> | AsyncProcessSuccess<S>;
+export interface AsyncProcessReprocessing<S> {
+    status: AsyncProcessStatus.REPROCESSING;
+    state: S;
+}
+
+export type AsyncProcess<S, E> = AsyncProcessNone | AsyncProcessProcessing | AsyncProcessError<E> | AsyncProcessSuccess<S> | AsyncProcessReprocessing<S>;

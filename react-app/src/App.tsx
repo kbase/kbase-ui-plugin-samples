@@ -4,15 +4,21 @@ import store from "./redux/store";
 import { AppBase } from "@kbase/ui-components";
 import "./App.css";
 import Dispatcher from "./dispatcher";
-import Navigation from "./navigation";
+// import Navigation from "./navigation";
 import { Unsubscribe } from "redux";
 import { navigate } from "./redux/actions";
 import { Nav } from "./redux/store/navigation";
+import devConfig from './devConfig.json';
 
 interface AppProps { }
 
 interface AppState { }
 
+/*
+<Navigation routes={devConfig.install.routes}>
+                            <Dispatcher />
+                        </Navigation>
+*/
 export default class App<AppProps, AppState> extends React.Component {
     storeUnsubscribe: Unsubscribe | null;
     constructor(props: AppProps) {
@@ -24,9 +30,7 @@ export default class App<AppProps, AppState> extends React.Component {
             <Provider store={store}>
                 <AppBase>
                     <div className="App">
-                        <Navigation>
-                            <Dispatcher />
-                        </Navigation>
+                        <Dispatcher />
                     </div>
                 </AppBase>
             </Provider>

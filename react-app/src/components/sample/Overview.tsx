@@ -31,7 +31,11 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
 
     onChangeVersion(version: SelectValue) {
         const hash = `sampleview/${this.props.sample.id}/${version}`;
-        window.location.hash = hash;
+        if (window.parent) {
+            window.parent.location.hash = hash;
+        } else {
+            window.location.hash = hash;
+        }
     }
 
 
