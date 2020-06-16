@@ -662,11 +662,6 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     }
 
     renderSample() {
-        /*
-         <Radio.Button value="alpha">
-                            alpha
-                        </Radio.Button>
-        */
         return <div className="Col -stretch">
             <div className="Row" style={{ marginBottom: '10px', alignItems: 'center' }}>
                 <div>
@@ -694,12 +689,12 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
     render() {
         return <div className='Sample'>
             <Overview sample={this.props.sample} />
-            <Tabs type="card" className="FullHeight-tabs">
+            <Tabs type="card" className="FullHeight-tabs" >
                 <Tabs.TabPane tab="Sample" key="sample" >
                     {this.renderSample()}
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Linked Data" key="linkeddata">
-                    <DataLinks sampleId={this.props.sample.id} version={this.props.sample.version} />
+                    <DataLinks sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Access" key="accesslist">
                     <AccessList sampleId={this.props.sample.id} />

@@ -7,7 +7,6 @@ import Gravatar from '../Gravatar/Gravatar';
 
 export interface AccessListProps {
     acl: ACL;
-    baseURL: string;
 }
 
 interface AccessListState {
@@ -28,7 +27,7 @@ export default class DataLinks extends React.Component<AccessListProps, AccessLi
                 dataIndex="username"
                 width="8em"
                 render={(username: Username, user: User) => {
-                    return <a href={`/#people/${username}`} >
+                    return <a href={`/#people/${username}`} target="_blank" rel="noopener noreferrer">
                         {username}
                     </a>;
                 }} />
@@ -56,7 +55,9 @@ export default class DataLinks extends React.Component<AccessListProps, AccessLi
                         </Col>
                         <Col flex="auto">
                             <div>
-                                <a href={`/#people/${user.username}`}  >
+                                <a href={`/#people/${user.username}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer">
                                     {user.realname}
                                 </a>
                             </div>

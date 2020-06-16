@@ -1,29 +1,45 @@
 import React from 'react';
 import TemplateMetadata from './TemplateMetadata';
 import { render, waitFor } from '@testing-library/react';
-import { Sample, SampleNode } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import { Sample } from './data';
 
 const TIMEOUT = 10000;
 
 test('should render', async () => {
-    const sampleNode: SampleNode = {
+
+    const sample: Sample = {
         id: 'xyz',
-        parent: null,
+        sourceParentId: null,
+        name: 'abc',
         type: 'BioReplicate',
-        meta_controlled: {
-            'Sample Name': {
-                value: 'bar',
-                units: 'none'
-            }
+        source: 'SESAR',
+        sourceId: 'SESARID',
+        created: {
+            at: 0,
+            by: 'foo'
+
         },
-        meta_user: {
-            'Sample Name': {
-                value: 'bar',
-                units: 'none'
-            }
+        currentVersion: {
+            at: 0,
+            by: 'bar',
+            version: 1
+        },
+        latestVersion: {
+            at: 0,
+            by: 'baz',
+            version: 2
+
+        },
+        metadata: {
+
+        },
+        userMetadata: {
+
         }
+
+
     };
-    const { container } = render(<TemplateMetadata sampleNode={sampleNode} />);
+    const { container } = render(<TemplateMetadata sample={sample} />);
 
     await waitFor(() => {
         const tbody = container.querySelector('.ant-table-tbody');

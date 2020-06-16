@@ -1,8 +1,8 @@
 export enum AsyncProcessStatus {
-    NONE,
-    PROCESSING,
-    SUCCESS,
-    ERROR
+    NONE = 'NONE',
+    PROCESSING = 'PROCESSING',
+    SUCCESS = 'SUCCESS',
+    ERROR = 'ERROR'
 }
 
 export interface AsyncProcessNone<> {

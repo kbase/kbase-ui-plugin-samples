@@ -146,7 +146,7 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(acl: ACL) {
-        return <Component acl={acl} baseURL={this.props.baseURL} />;
+        return <Component acl={acl} />;
     }
 
     render() {

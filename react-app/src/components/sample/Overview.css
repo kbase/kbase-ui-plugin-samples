@@ -7,3 +7,29 @@
     color: gray;
     font-style: italic; */
 }
+
+.NiceTable {}
+
+.NiceTable thead {}
+
+.NiceTable tbody {}
+
+.NiceTable th {
+    text-align: left;
+    padding: 4px;
+    font-weight: bold;
+    color: rgba(150, 150, 150, 1);
+}
+
+.NiceTable td {
+    padding: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.NiceTable.-versions td {
+    text-align: right;
+}
+
+.NiceTable tr td:nth-child(1) {
+    border: none;
+}

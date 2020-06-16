@@ -7,6 +7,7 @@ import { Nav } from "./navigation";
 
 export interface SampleViewState {
     sampleId: string;
+    sampleVersion?: number;
 }
 
 export type SampleView = SyncView<SampleViewState, AppError>;

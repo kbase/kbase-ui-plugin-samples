@@ -93,6 +93,7 @@ export interface ViewBase<S extends ViewType, ParamType, StateType> {
 
 export interface SampleViewParams {
     sampleId: string;
+    version?: number;
 }
 
 export interface SampleViewState {

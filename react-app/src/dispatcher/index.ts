@@ -61,6 +61,14 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
                         sampleId: navigationView.state.path[0]
                     }
                 };
+            } else if (navigationView.state.path.length === 2) {
+                sampleView = {
+                    status: SyncViewStatus.SUCCESS,
+                    state: {
+                        sampleId: navigationView.state.path[0],
+                        sampleVersion: parseInt(navigationView.state.path[1])
+                    }
+                };
             } else {
                 sampleView = {
                     status: SyncViewStatus.ERROR,

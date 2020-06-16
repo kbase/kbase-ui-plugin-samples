@@ -131,7 +131,7 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
     }
 
     renderSuccess(state: SampleViewState) {
-        return <Sample sampleId={state.sampleId} />;
+        return <Sample sampleId={state.sampleId} sampleVersion={state.sampleVersion} />;
     }
 
     renderView() {

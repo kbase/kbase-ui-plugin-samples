@@ -33,14 +33,25 @@ export type SampleType = 'BioReplicate' | 'TechReplicate' | 'SubSample';
 
 export interface Sample {
     id: SampleId;
-    owner: Username;
     name: string;
-    savedAt: EpochTimeMS;
+    created: {
+        at: EpochTimeMS;
+        by: Username;
+    };
+    currentVersion: {
+        at: EpochTimeMS;
+        by: Username;
+        version: number;
+    };
+    latestVersion: {
+        at: EpochTimeMS;
+        by: Username;
+        version: number;
+    };
     source: string;
     sourceId: string;
     sourceParentId: string | null;
     type: SampleType;
-    version: SampleVersion;
     metadata: Metadata;
     userMetadata: UserMetadata;
 }
@@ -50,6 +61,7 @@ export interface DataProps {
     serviceWizardURL: string;
     token: string;
     sampleId: SampleId;
+    sampleVersion?: SampleVersion;
     setTitle: (title: string) => void;
 }
 
@@ -67,17 +79,41 @@ export default class Data extends React.Component<DataProps, DataState> {
         };
     }
 
-    async componentDidMount() {
+    async fetchSample(props: DataProps) {
         try {
+            this.setState({
+                loadingState: {
+                    status: AsyncProcessStatus.PROCESSING
+                }
+            });
             const client = new SampleServiceClient({
-                token: this.props.token,
-                url: this.props.serviceWizardURL,
+                token: props.token,
+                url: props.serviceWizardURL,
                 timeout: UPSTREAM_TIMEOUT
             });
 
             const sampleResult = await client.get_sample({
-                id: this.props.sampleId
+                id: props.sampleId,
+                version: props.sampleVersion
             });
+
+            const latestSample = await client.get_sample({
+                id: props.sampleId
+            });
+
+            let firstSample;
+
+            if (sampleResult.version === 1) {
+                firstSample = sampleResult;
+            } else {
+                firstSample = await client.get_sample({
+                    id: props.sampleId,
+                    version: 1
+                });
+                if (sampleResult.version < latestSample.version) {
+                } else {
+                }
+            }
 
             const actualSample = sampleResult.node_tree[0];
 
@@ -118,18 +154,29 @@ export default class Data extends React.Component<DataProps, DataState> {
             const sample: Sample = {
                 id: sampleResult.id,
                 name: sampleResult.name,
-                owner: sampleResult.user,
                 source: 'SESAR',
                 sourceId: actualSample.id,
                 sourceParentId: actualSample.parent,
-                savedAt: sampleResult.save_date,
-                version: sampleResult.version,
+                created: {
+                    at: firstSample.save_date,
+                    by: firstSample.user,
+                },
+                currentVersion: {
+                    at: sampleResult.save_date,
+                    by: sampleResult.user,
+                    version: sampleResult.version
+                },
+                latestVersion: {
+                    at: latestSample.save_date,
+                    by: latestSample.user,
+                    version: latestSample.version
+                },
                 type: actualSample.type,
                 metadata,
                 userMetadata
             };
 
-            this.setState({
+            return this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
                     state: sample
@@ -147,6 +194,21 @@ export default class Data extends React.Component<DataProps, DataState> {
             });
         }
     }
+
+    async componentDidMount() {
+        this.fetchSample(this.props);
+    }
+
+    async componentDidUpdate(prevProps: DataProps, prevState: DataState) {
+        if (prevProps.sampleId !== this.props.sampleId ||
+            prevProps.sampleVersion !== this.props.sampleVersion) {
+            this.fetchSample(this.props);
+        }
+    }
+
+    // static async getDerivedStateFromProps(nextProps: DataProps, prevState: DataState) {
+    //     this.fetchSample();
+    // }
 
     // async componentDidUpdate() {
     //     try {
