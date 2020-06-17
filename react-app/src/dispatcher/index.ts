@@ -60,11 +60,19 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     //     sampleVersion = parseInt(params['sampleVersion']);
     // }
 
+    let sampleVersion: number | undefined;
+    if (params.hasOwnProperty('sampleVersion')) {
+        sampleVersion = parseInt(params['sampleVersion']);
+        if (isNaN(sampleVersion)) {
+            sampleVersion = undefined;
+        }
+    }
+
     const sampleView: SampleView = {
         status: SyncViewStatus.SUCCESS,
         state: {
             sampleId: params['sampleId'],
-            sampleVersion: parseInt(params['sampleVersion'])
+            sampleVersion
         }
     };
 

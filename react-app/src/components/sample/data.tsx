@@ -213,7 +213,7 @@ export default class Data extends React.Component<DataProps, DataState> {
         // prevProps.sampleVersion, this.props.sampleVersion);
         if (prevProps.sampleId !== this.props.sampleId ||
             prevProps.sampleVersion !== this.props.sampleVersion) {
-            // console.log('fetching...', this.props);
+            // console.log('fetching...', prevProps.sampleVersion !== this.props.sampleVersion, prevProps.sampleVersion, this.props.sampleVersion);
             this.fetchSample(this.props);
         }
     }
