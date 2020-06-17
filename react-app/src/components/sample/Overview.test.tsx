@@ -48,9 +48,9 @@ test('should render', async () => {
     };
     const { getByTestId } = render(<Overview sample={sample} />);
     await waitFor(() => {
-        const idElement = getByTestId('id');
+        const idElement = getByTestId('name');
         expect(idElement).toBeInTheDocument();
-        expect(idElement).toHaveTextContent(sample['id']);
+        expect(idElement).toHaveTextContent(sample['name']);
 
         // const userElement = getByTestId('user');
         // expect(userElement).toBeInTheDocument();
