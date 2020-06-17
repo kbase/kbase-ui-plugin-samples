@@ -8,6 +8,7 @@ import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
+import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
 
 export interface MetadataValue {
     value: string | number | boolean;
@@ -29,6 +30,21 @@ export interface UserMetadata {
     [key: string]: UserMetadataValue;
 }
 
+export interface User {
+    username: Username;
+    realname: string;
+    gravatarHash: string;
+    avatarOption?: string;
+    gravatarDefault?: string;
+}
+
+export interface ACL {
+    admin: Array<User>;
+    write: Array<User>;
+    read: Array<User>;
+}
+
+
 export type SampleType = 'BioReplicate' | 'TechReplicate' | 'SubSample';
 
 export interface Sample {
@@ -36,16 +52,16 @@ export interface Sample {
     name: string;
     created: {
         at: EpochTimeMS;
-        by: Username;
+        by: User;
     };
     currentVersion: {
         at: EpochTimeMS;
-        by: Username;
+        by: User;
         version: number;
     };
     latestVersion: {
         at: EpochTimeMS;
-        by: Username;
+        by: User;
         version: number;
     };
     source: string;
@@ -59,6 +75,7 @@ export interface Sample {
 
 export interface DataProps {
     serviceWizardURL: string;
+    userProfileURL: string;
     token: string;
     sampleId: SampleId;
     sampleVersion?: SampleVersion;
@@ -77,6 +94,39 @@ export default class Data extends React.Component<DataProps, DataState> {
                 status: AsyncProcessStatus.NONE
             }
         };
+    }
+
+    async fetchUsers(usernames: Array<Username>) {
+        const userProfileClient = new UserProfileClient({
+            authorization: this.props.token,
+            url: this.props.userProfileURL,
+            timeout: UPSTREAM_TIMEOUT,
+        });
+
+        const profiles = await userProfileClient.get_user_profile(usernames);
+
+        if (profiles.length !== 1) {
+            throw new Error('User could not be found');
+        }
+
+        return profiles.map((profile) => {
+            const {
+                user: {
+                    username, realname
+                },
+                profile: {
+                    synced: {
+                        gravatarHash
+                    },
+                    userdata: {
+                        gravatarDefault, avatarOption
+                    }
+                }
+            } = profile;
+            return {
+                username, realname, gravatarHash, gravatarDefault, avatarOption
+            };
+        });
     }
 
     async fetchSample(props: DataProps) {
@@ -160,6 +210,16 @@ export default class Data extends React.Component<DataProps, DataState> {
 
             const userMetadata = {};
 
+            const users = await this.fetchUsers(Array.from(new Set([
+                firstSample.user,
+                sampleResult.user,
+                latestSample.user
+            ]).values()));
+            const usersMap = users.reduce((usersMap, user) => {
+                usersMap.set(user.username, user);
+                return usersMap;
+            }, new Map<Username, User>());
+
             const sample: Sample = {
                 id: sampleResult.id,
                 name: sampleResult.name,
@@ -168,16 +228,16 @@ export default class Data extends React.Component<DataProps, DataState> {
                 sourceParentId: actualSample.parent,
                 created: {
                     at: firstSample.save_date,
-                    by: firstSample.user,
+                    by: usersMap.get(firstSample.user)!,
                 },
                 currentVersion: {
                     at: sampleResult.save_date,
-                    by: sampleResult.user,
+                    by: usersMap.get(sampleResult.user)!,
                     version: sampleResult.version
                 },
                 latestVersion: {
                     at: latestSample.save_date,
-                    by: latestSample.user,
+                    by: usersMap.get(latestSample.user)!,
                     version: latestSample.version
                 },
                 type: actualSample.type,

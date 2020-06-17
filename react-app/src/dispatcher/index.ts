@@ -32,20 +32,9 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
                     view, params
                 }
             }
-        },
-        navigationView,
-        // app: {
-        //     runtime: {
-        //         navigation
-        //     }
-        // }
-        // navigation,
-        // trigger
-
-        // sampleview
+        }
     } = state;
 
-    // console.log('nav???', userAuthorization, params);
 
     // Auth integration.
     let token;
@@ -54,11 +43,6 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     } else {
         token = userAuthorization.token;
     }
-
-    // let sampleVersion;
-    // if (params['sampleVersion']) {
-    //     sampleVersion = parseInt(params['sampleVersion']);
-    // }
 
     let sampleVersion: number | undefined;
     if (params.hasOwnProperty('sampleVersion')) {

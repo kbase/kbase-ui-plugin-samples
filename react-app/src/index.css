@@ -52,6 +52,9 @@ code {
     flex: 0 0 5em;
     font-weight: bold;
     color: rgba(150, 150, 150, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .InfoTable>div>div:nth-child(2) {
@@ -117,4 +120,37 @@ code {
 
 .Row.-stretch {
     flex: 1 1 0px;
+}
+
+
+.NiceTable {
+    width: 100%;
+}
+
+.NiceTable thead {}
+
+.NiceTable tbody {}
+
+.NiceTable th {
+    text-align: left;
+    padding: 4px;
+    font-weight: bold;
+    color: rgba(150, 150, 150, 1);
+}
+
+.NiceTable td {
+    padding: 4px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.NiceTable td:last-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.NiceTable.-versions td {
+    text-align: left;
+}
+
+.NiceTable tr td:nth-child(1) {
+    border: none;
 }

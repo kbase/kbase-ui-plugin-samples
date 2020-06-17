@@ -1,9 +1,9 @@
 import React from 'react';
-import { Table, Row, Col } from 'antd';
-import { ACL, User } from './data';
+import { Table } from 'antd';
 import './style.css';
 import { Username } from '../../lib/comm/dynamicServices/SampleServiceClient';
-import Gravatar from '../Gravatar/Gravatar';
+import UserCard from '../UserCard/view';
+import { ACL, User } from '../sample/data';
 
 export interface AccessListProps {
     acl: ACL;
@@ -45,34 +45,9 @@ export default class DataLinks extends React.Component<AccessListProps, AccessLi
                 return a.username.localeCompare(b.username);
             })
             .map((user) => {
-                return <div className="UserCard" key={user.username}>
-                    <Row gutter={10}>
-                        <Col flex="30px" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <Gravatar username={user.username} realname={user.realname} size={30}
-                                gravatarHash={user.gravatarHash} gravatarDefault={user.gravatarDefault}
-                                avatarOption={user.avatarOption}
-                            />
-                        </Col>
-                        <Col flex="auto">
-                            <div>
-                                <a href={`/#people/${user.username}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    {user.realname}
-                                </a>
-                            </div>
-                            <div>
-                                <i>{user.username}</i>
-                            </div>
-
-                        </Col>
-                    </Row>
-
-
-                </div>;
+                return <UserCard user={user} />;
             });
     }
-
 
     render() {
         return <div className="AccessList" data-testid="accesslist">
