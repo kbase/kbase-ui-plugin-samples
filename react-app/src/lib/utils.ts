@@ -51,3 +51,14 @@ export function objectsEquivalent(a: SimpleObject, b: SimpleObject): boolean {
     });
     return arraysEquivalent(aValues, bValues);
 }
+
+export function countedTerm(count: number, singular: string, plural?: string) {
+    if (count === 1) {
+        return singular;
+    } else if (plural) {
+        return plural;
+    } else {
+        return `${singular}s`;
+    }
+}
+

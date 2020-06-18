@@ -388,11 +388,13 @@ export class Router {
                 // - all params after the route path after the end of the current path are optional
                 // - the route has the flag "captureExtraPath"
                 // - the route has a final path element defined as type "rest"
-                const isAllOptional = route.path.slice(path.length)
+                // - the route path elements beyond the end of the path are optional
+                const isTailOptional = route.path.slice(path.length)
                     .every((routePathElement) => {
                         return routePathElement.optional;
                     });
-                if (!(isAllOptional || route.captureExtraPath || isRest)) {
+                console.log('route path longer', isTailOptional, route.path.slice(path.length));
+                if (!(isTailOptional || route.captureExtraPath || isRest)) {
                     continue;
                 }
             } else if (route.path.length < path.length) {
@@ -461,7 +463,7 @@ export class Router {
     findRoute(request: Request) {
         // No route at all? Return the default route.
         if (request.path.length === 0 && Object.keys(request.query).length === 0) {
-            throw new Error('No route!');
+            throw new Error('No request to route!');
             // return {
             //     request,
             //     params: {},
@@ -470,8 +472,6 @@ export class Router {
         }
 
         const foundRoute = this.processPath(request.path);
-
-        console.log('found route', foundRoute);
 
         if (!foundRoute) {
             throw new NotFoundException({
@@ -500,16 +500,10 @@ export class Router {
             ...foundRoute,
             request
         };
-
-        // foundRoute.request = request;
-
-        // console.log('FOUND ROUTE', foundRoute);
-        // return foundRoute;
     }
 
     findCurrentRoute() {
         const req = this.getCurrentRequest();
-        console.log('req', req);
         return this.findRoute(req);
     }
 

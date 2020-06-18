@@ -112,12 +112,6 @@ export default class NavigationListener extends React.Component<NavigationListen
             path,
             query
         } = this.parseHash(hash);
-        // const nav = this.translatePathParams(pluginId, path, params);
-        // if (nav === null) {
-        //     return;
-        // }
-        console.log('parsed hash?', pluginId, path, query);
-        // const view = query['view'];
 
         const router = new Router();
         router.addRoute({
@@ -132,12 +126,11 @@ export default class NavigationListener extends React.Component<NavigationListen
                 },
                 {
                     type: 'param',
-                    name: 'sampleVersion'
+                    name: 'sampleVersion',
+                    optional: true
                 }
             ]
         });
-        const route = router.findCurrentRoute();
-        console.log('route!', route);
 
         // Now match the hash info to a view and params!
         // first, fake it.
@@ -177,7 +170,6 @@ export default class NavigationListener extends React.Component<NavigationListen
                 throw new Error('no hash!');
             }
 
-            console.log('hmm, navigating?', hash);
             this.navigateWithHash(hash);
         }
     }
@@ -185,12 +177,7 @@ export default class NavigationListener extends React.Component<NavigationListen
     componentDidMount() {
         this.setupListener();
     }
-    componentWillUnmount() {
-
-    }
     render() {
-        // console.log('navigation', this.props.navigation);
-        console.log('children?', this.props.children);
         return this.props.children;
     }
 }

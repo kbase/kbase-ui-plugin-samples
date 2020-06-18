@@ -45,7 +45,7 @@ export default class DataLinks extends React.Component<AccessListProps, AccessLi
                 return a.username.localeCompare(b.username);
             })
             .map((user) => {
-                return <UserCard user={user} />;
+                return <UserCard user={user} key={user.username} />;
             });
     }
 

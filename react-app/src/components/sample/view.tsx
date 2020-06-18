@@ -14,6 +14,7 @@ import Overview from './Overview';
 import TemplateMetadata from './TemplateMetadata';
 import { MetadataValue, Sample, Metadata } from './data';
 import AccessList from '../AccessList';
+import HistoryTool from '../History';
 
 export interface FieldFormatBase {
 
@@ -698,6 +699,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Access" key="accesslist">
                     <AccessList sampleId={this.props.sample.id} />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="History" key="history">
+                    <HistoryTool sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version} />
                 </Tabs.TabPane>
             </Tabs>
         </div>;

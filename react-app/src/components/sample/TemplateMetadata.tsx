@@ -459,14 +459,16 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 render={(column: string, row: TemplateDataSource2) => {
                     if (row.isMissing) {
                         return <Tooltip title="No mapping found for this key">
-                            <label style={{ color: 'gray' }}>
+                            <span style={{ color: 'gray' }}>
                                 {column}
-                            </label>
+                            </span>
                         </Tooltip>;
                     }
-                    return <label>
+                    // TODO: add description to tooltip below
+                    return <Tooltip title="Description here..."><span>
                         {column}
-                    </label>;
+                    </span>
+                    </Tooltip>;
                 }}
             />
 
