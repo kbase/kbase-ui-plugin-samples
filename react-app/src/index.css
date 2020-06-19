@@ -32,12 +32,26 @@ code {
     padding: 4px;
 }
 
+.InfoTable>div>div:first-child {
+    padding-top: 0;
+    padding-left: 0;
+}
+
+.InfoTable>div>div:last-child {
+    padding-bottom: 0;
+    padding-right: 0;
+}
+
 .InfoTable.-bordered>div {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .InfoTable.-bordered>div:first-child {
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
+}
+
+.InfoTable.-bordered>div:last-child {
+    border-bottom: none;
 }
 
 /* .InfoTable.-bordered>div>div {
@@ -127,7 +141,7 @@ code {
     overflow-y: auto;
 }
 
-.Col .-title {
+.Col>.-title {
     text-align: center;
     font-weight: bold;
 }

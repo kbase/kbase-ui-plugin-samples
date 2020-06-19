@@ -1,10 +1,12 @@
 import React from 'react';
 import { MiniSample } from './data';
-import './Comparator.css';
+
 import { Radio, Table, Tooltip } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { Metadata } from '../sample/data';
 import { PauseOutlined, LineOutlined } from '@ant-design/icons';
+
+import './Comparator.less';
 
 export interface ComparisonItem {
     [key: string]: any;
@@ -258,19 +260,19 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
     }
 
     renderNotEqual() {
-        return <div style={{ position: 'relative', color: 'red' }}>
-            <div style={{ position: 'absolute', top: '0', right: '0', bottom: '0', left: '0', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        return <div className="IconStack">
+            <div className="-icon -danger">
                 <PauseOutlined rotate={90} />
             </div>
-            <div style={{ position: 'absolute', top: '0', right: '0', bottom: '0', left: '0', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: '150%' }}>
+            <div className="-icon -danger" style={{ fontSize: '150%' }}>
                 <LineOutlined rotate={315} />
             </div>
         </div>;
     }
 
     renderEqual() {
-        return <div style={{ position: 'relative', color: 'gray' }}>
-            <div style={{ position: 'absolute', top: '0', right: '0', bottom: '0', left: '0', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        return <div className="IconStack">
+            <div className="-icon -subdued">
                 <PauseOutlined rotate={90} />
             </div>
         </div>;

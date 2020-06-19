@@ -149,14 +149,22 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
     }
 
     renderHistory() {
-        return <div className="Row -stretch">
-            <div className="Col -span1" style={{ marginRight: '10px' }}>
-                <div className="-title">History</div>
-                {this.renderHistoryTable()}
+        return <div className="Col -stretch">
+            <div className="Row">
+                <div className="Col -span1" style={{ marginRight: '10px' }}>
+                    <div className="-title">History</div>
+                </div>
+                <div className="Col -span2">
+                    <div className="-title">Diff</div>
+                </div>
             </div>
-            <div className="Col -span2">
-                <div className="-title">Diff</div>
-                {this.renderComparison()}
+            <div className="Row -stretch">
+                <div className="Col -span1" style={{ marginRight: '10px' }}>
+                    {this.renderHistoryTable()}
+                </div>
+                <div className="Col -span2">
+                    {this.renderComparison()}
+                </div>
             </div>
         </div>;
     }
