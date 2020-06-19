@@ -1,16 +1,19 @@
 import React from 'react';
 import { Unsubscribe } from 'redux';
 import { RootState } from '@kbase/ui-components';
-import { Nav } from '../redux/store/navigation';
+// import { Nav } from '../redux/store/navigation';
 import { NavigationView } from '../redux/store';
 import { Navigation } from '@kbase/ui-components/lib/redux/integration/store';
+import { Route } from '.';
+import { Router } from './Router';
 
 export interface NavigationListenerProps {
+    routes: Array<Route>;
     rootState: RootState;
     navigationView: NavigationView;
     trigger: number;
     navigation: Navigation;
-    navigate: (nav: Nav) => void;
+    navigate: (nav: Navigation) => void;
 }
 
 interface NavigationListenerState {
@@ -22,12 +25,13 @@ interface Params {
 
 export default class NavigationListener extends React.Component<NavigationListenerProps, NavigationListenerState> {
     storeUnsubscribe: Unsubscribe | null;
-    last: Nav;
+    last: Navigation;
     constructor(props: NavigationListenerProps) {
         super(props);
         this.storeUnsubscribe = null;
         this.last = {
-            path: [],
+            // path: [],
+            view: '',
             params: {}
         };
     }
@@ -35,7 +39,7 @@ export default class NavigationListener extends React.Component<NavigationListen
     parseHash(hash: string): {
         pluginId: string,
         path: Array<string>,
-        params: Params;
+        query: Params;
     } {
         // The navigation hash format is:
         // #pluginid/path/component?a=b&c=d
@@ -57,21 +61,21 @@ export default class NavigationListener extends React.Component<NavigationListen
         } else {
             path = [];
         }
-        let params: Params;
+        let query: Params;
         if (queryString) {
-            params = queryString.split('&').reduce<Params>((query, field) => {
+            query = queryString.split('&').reduce<Params>((query, field) => {
                 const [k, v] = field.split('=');
                 query[k] = v;
                 return query;
             }, {});
         } else {
-            params = {};
+            query = {};
         }
 
         return {
             pluginId,
             path,
-            params
+            query
         };
     }
 
@@ -99,6 +103,50 @@ export default class NavigationListener extends React.Component<NavigationListen
     //     throw new Error('Unrecognized nav');
     // }
 
+    navigateWithHash(hash: string) {
+        if (!hash) {
+            throw new Error('no hash!');
+        }
+        const {
+            pluginId,
+            path,
+            query
+        } = this.parseHash(hash);
+
+        const router = new Router();
+        router.addRoute({
+            path: [
+                {
+                    type: 'literal',
+                    value: 'sampleview'
+                },
+                {
+                    type: 'param',
+                    name: 'sampleId'
+                },
+                {
+                    type: 'param',
+                    name: 'sampleVersion',
+                    optional: true
+                }
+            ]
+        });
+
+        // Now match the hash info to a view and params!
+        // first, fake it.
+        const view = 'main';
+        const params = {
+            sampleId: path[0],
+            sampleVersion: path[1]
+        };
+
+        const nav: Navigation = {
+            view,
+            params
+        };
+        this.props.navigate(nav);
+    }
+
     setupListener() {
         if (this.props.rootState === RootState.DEVELOP) {
             // Navigate on change of the hash
@@ -108,22 +156,7 @@ export default class NavigationListener extends React.Component<NavigationListen
                 if (!hash) {
                     throw new Error('no hash!');
                 }
-                const {
-                    // pluginId,
-                    path,
-                    params
-                } = this.parseHash(hash);
-                // const nav = this.translatePathParams(pluginId, path, params);
-                // if (nav === null) {
-                //     return;
-                // }
-                const nav: Nav = {
-                    path,
-                    params
-                };
-                this.props.navigate(nav);
-
-                // this.props.navigate(relationEngineID);
+                this.navigateWithHash(hash);
             });
 
             // First time here, we also want to navigate based on the
@@ -132,43 +165,19 @@ export default class NavigationListener extends React.Component<NavigationListen
 
             // don't do initial nav for now
             // return;
-
             const hash = window.location.hash;
-            // console.log('in hash', hash, window.location);
-            if (hash) {
-                const {
-                    // pluginId,
-                    path,
-                    params
-                } = this.parseHash(hash);
-                // const nav = this.translatePathParams(pluginId, path, params);
-                // if (nav === null) {
-                //     return;
-                // }
-                // console.log('initial hash', pluginId, path, params);
-                const nav: Nav = {
-                    path,
-                    params
-                };
-                this.props.navigate(nav);
-                // this.props.navigate(relationEngineID);
-            } else {
-                // TODO: remove?
-                // #review/ontology/go/GO:0007610
-                // this.props.navigate('ncbi_taxonomy/562');
-                // this.props.navigate('go_ontology/GO:0007610');
+            if (!hash) {
+                throw new Error('no hash!');
             }
+
+            this.navigateWithHash(hash);
         }
     }
 
     componentDidMount() {
         this.setupListener();
     }
-    componentWillUnmount() {
-
-    }
     render() {
-        // console.log('navigation', this.props.navigation);
         return this.props.children;
     }
 }

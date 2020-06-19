@@ -8,11 +8,16 @@ import Navigation from "./navigation";
 import { Unsubscribe } from "redux";
 import { navigate } from "./redux/actions";
 import { Nav } from "./redux/store/navigation";
+import devConfig from './devConfig.json';
+import ErrorBoundary from "./components/ErrorBoundary";
 
 interface AppProps { }
 
 interface AppState { }
 
+/*
+
+*/
 export default class App<AppProps, AppState> extends React.Component {
     storeUnsubscribe: Unsubscribe | null;
     constructor(props: AppProps) {
@@ -21,15 +26,17 @@ export default class App<AppProps, AppState> extends React.Component {
     }
     render() {
         return (
-            <Provider store={store}>
-                <AppBase>
-                    <div className="App">
-                        <Navigation>
-                            <Dispatcher />
-                        </Navigation>
-                    </div>
-                </AppBase>
-            </Provider>
+            <ErrorBoundary>
+                <Provider store={store}>
+                    <AppBase>
+                        <div className="App">
+                            <Navigation routes={devConfig.install.routes}>
+                                <Dispatcher />
+                            </Navigation>
+                        </div>
+                    </AppBase>
+                </Provider>
+            </ErrorBoundary>
         );
     }
 

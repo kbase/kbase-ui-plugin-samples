@@ -10,6 +10,7 @@ import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 import UserProfileClient, { UserProfile } from '../../lib/comm/coreServices/UserProfileClient';
+import { ACL } from '../sample/data';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -19,21 +20,6 @@ export interface DataProps {
     baseURL: string;
     sampleServiceConfig: DynamicServiceConfig;
 }
-
-export interface User {
-    username: Username;
-    realname: string;
-    gravatarHash: string;
-    avatarOption?: string;
-    gravatarDefault?: string;
-}
-
-export interface ACL {
-    admin: Array<User>;
-    write: Array<User>;
-    read: Array<User>;
-}
-
 
 interface DataState {
     loadingState: AsyncProcess<ACL, AppError>;
@@ -146,7 +132,7 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(acl: ACL) {
-        return <Component acl={acl} baseURL={this.props.baseURL} />;
+        return <Component acl={acl} />;
     }
 
     render() {

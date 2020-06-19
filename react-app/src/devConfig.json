@@ -1,0 +1,31 @@
+{
+    "package": {
+        "name": "sampleview",
+        "description": "A plugin for viewing samples",
+        "type": "iframe"
+    },
+    "install": {
+        "routes": [
+            {
+                "path": [
+                    "sampleview",
+                    {
+                        "type": "param",
+                        "name": "sampleId"
+                    },
+                    {
+                        "type": "param",
+                        "name": "sampleVersion",
+                        "optional": true
+                    }
+                ],
+                "view": "main",
+                "widget": "kb_iframe_loader",
+                "authorization": true,
+                "params": {
+                    "plugin": "sampleview"
+                }
+            }
+        ]
+    }
+}

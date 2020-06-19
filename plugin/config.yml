@@ -4,15 +4,18 @@ package:
   name: sampleview
   description: A plugin for viewing samples
   type: iframe
-install:
-  routes:
-    - path:
-        - sampleview
-        - type: param
-          name: sampleId
-      view: main
-      widget: kb_iframe_loader
-      authorization: true
-      # TODO: get rid of this!!
-      params:
-        plugin: sampleview
+services:
+  route:
+    routes:
+      - path:
+          # could be:
+          # sampleview/:sampleId/:sampleVersion?
+          - type: literal
+            value: sampleview
+          - type: param
+            name: sampleId
+          - type: param
+            name: sampleVersion
+            optional: true
+        view: main
+        authorization: true

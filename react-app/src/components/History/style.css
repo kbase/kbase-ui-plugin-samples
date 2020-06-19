@@ -1,0 +1,9 @@
+.History {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+/* .DataLinks .-message {
+    font-style: italic;
+} */

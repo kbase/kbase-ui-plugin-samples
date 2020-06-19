@@ -26,17 +26,15 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     const {
         auth: { userAuthorization },
         root: { state: rootState },
-        navigationView,
-        // app: {
-        //     runtime: {
-        //         navigation
-        //     }
-        // }
-        // navigation,
-        // trigger
-
-        // sampleview
+        app: {
+            runtime: {
+                navigation: {
+                    view, params
+                }
+            }
+        }
     } = state;
+
 
     // Auth integration.
     let token;
@@ -46,38 +44,62 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         token = userAuthorization.token;
     }
 
-    let sampleView: SampleView;
-    switch (navigationView.status) {
-        case SyncViewStatus.NONE:
-            sampleView = {
-                status: SyncViewStatus.NONE
-            };
-            break;
-        case SyncViewStatus.SUCCESS:
-            if (navigationView.state.path.length === 1) {
-                sampleView = {
-                    status: SyncViewStatus.SUCCESS,
-                    state: {
-                        sampleId: navigationView.state.path[0]
-                    }
-                };
-            } else {
-                sampleView = {
-                    status: SyncViewStatus.ERROR,
-                    error: {
-                        code: 'invalid-view',
-                        message: 'Invalid view'
-                    }
-                };
-            }
-
-            break;
-        case SyncViewStatus.ERROR:
-            sampleView = {
-                status: SyncViewStatus.ERROR,
-                error: navigationView.error
-            };
+    let sampleVersion: number | undefined;
+    if (params.hasOwnProperty('sampleVersion')) {
+        sampleVersion = parseInt(params['sampleVersion']);
+        if (isNaN(sampleVersion)) {
+            sampleVersion = undefined;
+        }
     }
+
+    const sampleView: SampleView = {
+        status: SyncViewStatus.SUCCESS,
+        state: {
+            sampleId: params['sampleId'],
+            sampleVersion
+        }
+    };
+
+    // let sampleView: SampleView;
+    // switch (navigationView.status) {
+    //     case SyncViewStatus.NONE:
+    //         sampleView = {
+    //             status: SyncViewStatus.NONE
+    //         };
+    //         break;
+    //     case SyncViewStatus.SUCCESS:
+    //         if (navigationView.state.path.length === 1) {
+    //             sampleView = {
+    //                 status: SyncViewStatus.SUCCESS,
+    //                 state: {
+    //                     sampleId: navigationView.state.path[0]
+    //                 }
+    //             };
+    //         } else if (navigationView.state.path.length === 2) {
+    //             sampleView = {
+    //                 status: SyncViewStatus.SUCCESS,
+    //                 state: {
+    //                     sampleId: navigationView.state.path[0],
+    //                     sampleVersion: parseInt(navigationView.state.path[1])
+    //                 }
+    //             };
+    //         } else {
+    //             sampleView = {
+    //                 status: SyncViewStatus.ERROR,
+    //                 error: {
+    //                     code: 'invalid-view',
+    //                     message: 'Invalid view'
+    //                 }
+    //             };
+    //         }
+
+    //         break;
+    //     case SyncViewStatus.ERROR:
+    //         sampleView = {
+    //             status: SyncViewStatus.ERROR,
+    //             error: navigationView.error
+    //         };
+    // }
 
     // let navigation: Navigation;
     // switch (sampleview.status) {

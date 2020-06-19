@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { StoreState } from '../../redux/store';
 import Component from './data';
 import { sendTitle } from '@kbase/ui-components';
+import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 
 export interface OwnProps {
 }
@@ -11,6 +12,8 @@ interface StateProps {
     token: string;
     serviceWizardURL: string;
     userProfileURL: string;
+    baseURL: string;
+    sampleServiceConfig: DynamicServiceConfig;
 }
 
 interface DispatchProps {
@@ -25,6 +28,10 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
                 services: {
                     ServiceWizard: { url: serviceWizardURL },
                     UserProfile: { url: userProfileURL }
+                },
+                baseUrl: baseURL,
+                dynamicServices: {
+                    SampleService: sampleServiceConfig
                 }
             }
         }
@@ -36,8 +43,7 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     } else {
         token = userAuthorization.token;
     }
-
-    return { token, serviceWizardURL, userProfileURL };
+    return { token, serviceWizardURL, userProfileURL, baseURL, sampleServiceConfig };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {

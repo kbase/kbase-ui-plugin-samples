@@ -131,7 +131,10 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
     }
 
     renderSuccess(state: SampleViewState) {
-        return <Sample sampleId={state.sampleId} />;
+        if (!state.sampleId) {
+            return <Alert type="error" message="Sample ID is missing" />;
+        }
+        return <Sample sampleId={state.sampleId} sampleVersion={state.sampleVersion} />;
     }
 
     renderView() {

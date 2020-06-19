@@ -8,6 +8,7 @@ import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
+import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
 
 export interface MetadataValue {
     value: string | number | boolean;
@@ -29,18 +30,44 @@ export interface UserMetadata {
     [key: string]: UserMetadataValue;
 }
 
+export interface User {
+    username: Username;
+    realname: string;
+    gravatarHash: string;
+    avatarOption?: string;
+    gravatarDefault?: string;
+}
+
+export interface ACL {
+    admin: Array<User>;
+    write: Array<User>;
+    read: Array<User>;
+}
+
+
 export type SampleType = 'BioReplicate' | 'TechReplicate' | 'SubSample';
 
 export interface Sample {
     id: SampleId;
-    owner: Username;
     name: string;
-    savedAt: EpochTimeMS;
+    created: {
+        at: EpochTimeMS;
+        by: User;
+    };
+    currentVersion: {
+        at: EpochTimeMS;
+        by: User;
+        version: number;
+    };
+    latestVersion: {
+        at: EpochTimeMS;
+        by: User;
+        version: number;
+    };
     source: string;
     sourceId: string;
     sourceParentId: string | null;
     type: SampleType;
-    version: SampleVersion;
     metadata: Metadata;
     userMetadata: UserMetadata;
 }
@@ -48,8 +75,10 @@ export interface Sample {
 
 export interface DataProps {
     serviceWizardURL: string;
+    userProfileURL: string;
     token: string;
     sampleId: SampleId;
+    sampleVersion?: SampleVersion;
     setTitle: (title: string) => void;
 }
 
@@ -67,17 +96,83 @@ export default class Data extends React.Component<DataProps, DataState> {
         };
     }
 
-    async componentDidMount() {
+    async fetchUsers(usernames: Array<Username>) {
+        const userProfileClient = new UserProfileClient({
+            authorization: this.props.token,
+            url: this.props.userProfileURL,
+            timeout: UPSTREAM_TIMEOUT,
+        });
+
+        const profiles = await userProfileClient.get_user_profile(usernames);
+
+        if (profiles.length !== 1) {
+            throw new Error('User could not be found');
+        }
+
+        return profiles.map((profile) => {
+            const {
+                user: {
+                    username, realname
+                },
+                profile: {
+                    synced: {
+                        gravatarHash
+                    },
+                    userdata: {
+                        gravatarDefault, avatarOption
+                    }
+                }
+            } = profile;
+            return {
+                username, realname, gravatarHash, gravatarDefault, avatarOption
+            };
+        });
+    }
+
+    async fetchSample(props: DataProps) {
         try {
+            if (this.state.loadingState.status === AsyncProcessStatus.SUCCESS) {
+                this.setState({
+                    loadingState: {
+                        status: AsyncProcessStatus.REPROCESSING,
+                        state: this.state.loadingState.state
+                    }
+                });
+            } else {
+                this.setState({
+                    loadingState: {
+                        status: AsyncProcessStatus.PROCESSING
+                    }
+                });
+            }
             const client = new SampleServiceClient({
-                token: this.props.token,
-                url: this.props.serviceWizardURL,
+                token: props.token,
+                url: props.serviceWizardURL,
                 timeout: UPSTREAM_TIMEOUT
             });
 
             const sampleResult = await client.get_sample({
-                id: this.props.sampleId
+                id: props.sampleId,
+                version: props.sampleVersion
             });
+
+            const latestSample = await client.get_sample({
+                id: props.sampleId
+            });
+
+            let firstSample;
+
+            if (sampleResult.version === 1) {
+                firstSample = sampleResult;
+            } else {
+                firstSample = await client.get_sample({
+                    id: props.sampleId,
+                    version: 1
+                });
+                if (sampleResult.version < latestSample.version) {
+                } else {
+                }
+            }
 
             const actualSample = sampleResult.node_tree[0];
 
@@ -115,21 +210,42 @@ export default class Data extends React.Component<DataProps, DataState> {
 
             const userMetadata = {};
 
+            const users = await this.fetchUsers(Array.from(new Set([
+                firstSample.user,
+                sampleResult.user,
+                latestSample.user
+            ]).values()));
+            const usersMap = users.reduce((usersMap, user) => {
+                usersMap.set(user.username, user);
+                return usersMap;
+            }, new Map<Username, User>());
+
             const sample: Sample = {
                 id: sampleResult.id,
                 name: sampleResult.name,
-                owner: sampleResult.user,
                 source: 'SESAR',
                 sourceId: actualSample.id,
                 sourceParentId: actualSample.parent,
-                savedAt: sampleResult.save_date,
-                version: sampleResult.version,
+                created: {
+                    at: firstSample.save_date,
+                    by: usersMap.get(firstSample.user)!,
+                },
+                currentVersion: {
+                    at: sampleResult.save_date,
+                    by: usersMap.get(sampleResult.user)!,
+                    version: sampleResult.version
+                },
+                latestVersion: {
+                    at: latestSample.save_date,
+                    by: usersMap.get(latestSample.user)!,
+                    version: latestSample.version
+                },
                 type: actualSample.type,
                 metadata,
                 userMetadata
             };
 
-            this.setState({
+            return this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
                     state: sample
@@ -147,6 +263,24 @@ export default class Data extends React.Component<DataProps, DataState> {
             });
         }
     }
+
+    async componentDidMount() {
+        this.fetchSample(this.props);
+    }
+
+    async componentDidUpdate(prevProps: DataProps, prevState: DataState) {
+        // console.log('[componentDidUpdate]', prevProps.sampleId, this.props.sampleId,
+        // prevProps.sampleVersion, this.props.sampleVersion);
+        if (prevProps.sampleId !== this.props.sampleId ||
+            prevProps.sampleVersion !== this.props.sampleVersion) {
+            // console.log('fetching...', prevProps.sampleVersion !== this.props.sampleVersion, prevProps.sampleVersion, this.props.sampleVersion);
+            this.fetchSample(this.props);
+        }
+    }
+
+    // static async getDerivedStateFromProps(nextProps: DataProps, prevState: DataState) {
+    //     this.fetchSample();
+    // }
 
     // async componentDidUpdate() {
     //     try {
@@ -196,10 +330,13 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     render() {
+        // console.log('[Sample.render]', this.state);
         switch (this.state.loadingState.status) {
             case AsyncProcessStatus.NONE:
                 return this.renderNone();
             case AsyncProcessStatus.PROCESSING:
+                return this.renderProcessing();
+            case AsyncProcessStatus.REPROCESSING:
                 return this.renderProcessing();
             case AsyncProcessStatus.ERROR:
                 return this.renderError(this.state.loadingState.error);
