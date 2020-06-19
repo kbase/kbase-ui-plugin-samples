@@ -2,19 +2,21 @@ import React from 'react';
 import {
     Tabs, Collapse, Radio, Alert, Tooltip
 } from 'antd';
-import './style.css';
+
 import DataLinks from '../DataLinks';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import L from 'leaflet';
-import { PushpinFilled } from '@ant-design/icons';
+import { PushpinFilled, CaretRightOutlined } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
 import Overview from './Overview';
 import TemplateMetadata from './TemplateMetadata';
 import { MetadataValue, Sample, Metadata } from './data';
 import AccessList from '../AccessList';
 import HistoryTool from '../History';
+
+import './style.less';
 
 export interface FieldFormatBase {
 
@@ -497,7 +499,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                 return this.renderUserMetadataAlpha();
             case 'grouped':
                 return <p>
-                    No grouped view for user metadata
+                    User metadata not supported yet.
                 </p>;
         }
     }
@@ -528,6 +530,64 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         return <div className="InfoTable -bordered ControlledMetadata">
             {rows}
         </div>;
+    }
+
+    renderControlledMetadataGroupedWithCollapse() {
+        // const metadata = Object.entries(sample.meta_user);
+        // if (metadata.length === 0) {
+        //     return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
+        // }
+        const sample = this.props.sample;
+        const metadata = sample.metadata;
+
+        const groupKeys = groupLayout.map((group) => {
+            return group.key;
+        });
+
+        const rows = groupLayout.map((group) => {
+            const fields = group.layout.map((fieldName) => {
+                const field = group.fields[fieldName];
+                if (!field) {
+                    console.warn('Field not found: ' + fieldName);
+                    return null;
+                }
+                if (field.key in metadata) {
+                    const value = metadata[field.key];
+                    return <div key={field.key}>
+                        <div><Tooltip title={`key: ${field.key}`}><span>{value.label}</span></Tooltip></div>
+                        <div>{value.value} <i>{value.units}</i></div>
+                    </div>;
+                } else {
+                    return null;
+                }
+            })
+                .filter((row) => {
+                    return row ? true : false;
+                });
+
+            let content;
+            if (fields.length) {
+                content = <div className="InfoTable -bordered ControlledMetadata">
+                    {fields}
+                </div>;
+            } else {
+                content = <div style={{ fontStyle: 'italic' }}>No data</div>;
+            }
+            return <Collapse.Panel header={group.label} key={group.key} showArrow={true} >
+                {content}
+                <div style={{ marginTop: '10px' }}>
+                    {this.renderControlledMetadataGroupExtras(metadata, group)}
+                </div>
+            </Collapse.Panel>;
+        });
+
+        return <Collapse defaultActiveKey={groupKeys}
+            expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+            bordered={false}
+        // style={{ backgroundColor: "transparent" }}
+        >
+            {rows}
+        </Collapse>;
     }
 
     renderControlledMetadataGrouped() {
@@ -571,21 +631,24 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             } else {
                 content = <div style={{ fontStyle: 'italic' }}>No data</div>;
             }
-            return <Collapse.Panel header={group.label} key={group.key} showArrow={false}>
-                {content}
-                <div style={{ marginTop: '10px' }}>
-                    {this.renderControlledMetadataGroupExtras(metadata, group)}
+            return <div className="DataGroup">
+                <div className="-title">
+                    {group.label}
                 </div>
-            </Collapse.Panel>;
+                <div className="-body">
+                    {content}
+                    <div className="-extras">
+                        {this.renderControlledMetadataGroupExtras(metadata, group)}
+                    </div>
+                </div>
+
+
+            </div>;
         });
 
-        return <Collapse defaultActiveKey={groupKeys}
-            bordered={true}
-
-        // style={{ backgroundColor: "transparent" }}
-        >
+        return <div>
             {rows}
-        </Collapse>;
+        </div>;
     }
 
     renderControlledMetadata() {
@@ -641,7 +704,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         return <TemplateMetadata sample={this.props.sample} />;
     }
 
-    renderMetadata() {
+    renderMetadataCollapse() {
         switch (this.state.view) {
             case 'template':
                 return this.renderTemplateMetadata();
@@ -657,6 +720,36 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
                             {this.renderUserMetadata()}
                         </Collapse.Panel>
                     </Collapse>
+                </div >;
+        }
+
+    }
+
+    renderMetadata() {
+        switch (this.state.view) {
+            case 'template':
+                return this.renderTemplateMetadata();
+            default:
+                return <div className="Col -stretch -autoscroll">
+                    <div>
+                        <div className="DataGroupSet">
+                            <div className="-title">
+                                Metadata
+                            </div>
+                            <div className="-body">
+                                {this.renderControlledMetadata()}
+                            </div>
+                        </div>
+                        <div className="DataGroupSet">
+                            <div className="-title">
+                                User Metadata
+                            </div>
+                            <div className="-body">
+                                {this.renderUserMetadata()}
+                            </div>
+                        </div>
+
+                    </div>
                 </div >;
         }
 
