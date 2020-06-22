@@ -393,7 +393,7 @@ export class Router {
                     .every((routePathElement) => {
                         return routePathElement.optional;
                     });
-                console.log('route path longer', isTailOptional, route.path.slice(path.length));
+                // console.log('route path longer', isTailOptional, route.path.slice(path.length));
                 if (!(isTailOptional || route.captureExtraPath || isRest)) {
                     continue;
                 }

@@ -12,7 +12,7 @@ import { PushpinFilled, CaretRightOutlined } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
 import Overview from './Overview';
 import TemplateMetadata from './TemplateMetadata';
-import { MetadataValue, Sample, Metadata } from './data';
+import { MetadataField, Sample, Metadata } from './data';
 import AccessList from '../AccessList';
 import HistoryTool from '../History';
 
@@ -118,7 +118,7 @@ export interface Schema {
 
 export interface WrappedMetadataValue {
     type: string,
-    field: MetadataValue;
+    field: MetadataField;
 }
 
 // const schema: Schema = {
@@ -598,9 +598,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         const sample = this.props.sample;
         const metadata = sample.metadata;
 
-        const groupKeys = groupLayout.map((group) => {
-            return group.key;
-        });
+        // const groupKeys = groupLayout.map((group) => {
+        //     return group.key;
+        // });
 
         const rows = groupLayout.map((group) => {
             const fields = group.layout.map((fieldName) => {

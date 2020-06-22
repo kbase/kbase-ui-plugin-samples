@@ -4,14 +4,18 @@ import { History, MiniSample } from './data';
 import './style.css';
 import UserCard from '../UserCard/view';
 import { User } from '../sample/data';
-import Comparator from './Comparator';
+import Comparator, { View, ViewSelector, DiffState, DiffSelector } from './Comparator';
+import { FieldDefinitionsMap } from '../../lib/comm/dynamicServices/SampleServiceClient';
 
 export interface HistoryToolProps {
     history: History;
+    fieldDefinitions: FieldDefinitionsMap;
 }
 
 interface HistoryToolState {
     selectedSamples: Array<MiniSample>;
+    diffView: View;
+    diffStatus: Array<DiffState>;
 }
 
 function partitionArray<T>(arr: Array<T>, partitioner: (item: T) => boolean) {
@@ -31,7 +35,9 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
     constructor(props: HistoryToolProps) {
         super(props);
         this.state = {
-            selectedSamples: []
+            selectedSamples: [],
+            diffView: 'sample',
+            diffStatus: ['diff', 'nodiff']
         };
     }
 
@@ -145,7 +151,12 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
     }
 
     renderComparison() {
-        return <Comparator selectedSamples={this.state.selectedSamples} />;
+        return <Comparator
+            selectedSamples={this.state.selectedSamples}
+            view={this.state.diffView}
+            diffStatus={this.state.diffStatus}
+            fieldDefinitions={this.props.fieldDefinitions}
+        />;
     }
 
     renderHistory() {
@@ -157,6 +168,42 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
                 <div className="Col -span2">
                     <div className="-title">Diff</div>
                 </div>
+            </div>
+            <div className="Row">
+                <div className="Col -span1" style={{ marginRight: '10px' }}>
+
+                </div>
+                <div className="Col -span2" style={{ alignItems: 'center', justifyContent: 'center', margin: '10px 0' }}>
+                    <div className="Row">
+                        <div className="Col" style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <div style={{ fontStyle: 'italic' }}>
+                                Show sample properties:
+                        </div>
+                            <ViewSelector
+                                view={this.state.diffView}
+                                changeView={(view: View) => {
+                                    this.setState({
+                                        diffView: view
+                                    });
+                                }}
+                            />
+                        </div>
+                        <div className="Col" style={{ alignItems: 'center', justifyContent: 'center', marginLeft: '20px' }}>
+                            <div style={{ fontStyle: 'italic' }}>
+                                Show properties that are:
+                            </div>
+                            <DiffSelector
+                                diffStatus={this.state.diffStatus}
+                                changeDiffStatus={(diffStatus: Array<DiffState>) => {
+                                    this.setState({
+                                        diffStatus
+                                    });
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div className="Row -stretch">
                 <div className="Col -span1" style={{ marginRight: '10px' }}>

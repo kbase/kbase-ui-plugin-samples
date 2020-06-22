@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import SampleServiceClient, {
-    SampleId, SampleVersion, Username, EpochTimeMS
+    SampleId, SampleVersion, Username, EpochTimeMS, FieldDefinitionsMap
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -40,7 +40,7 @@ export interface DataProps {
 }
 
 interface DataState {
-    loadingState: AsyncProcess<History, AppError>;
+    loadingState: AsyncProcess<{ history: History, fieldDefinitions: FieldDefinitionsMap; }, AppError>;
 }
 
 export default class Data extends React.Component<DataProps, DataState> {
@@ -86,7 +86,17 @@ export default class Data extends React.Component<DataProps, DataState> {
         });
     }
 
-    async fetchSample(sampleId: string, version?: number): Promise<MiniSample> {
+    async fetchFieldDefinitions(): Promise<FieldDefinitionsMap> {
+        const client = new SampleServiceClient({
+            token: this.props.token,
+            url: this.props.serviceWizardURL,
+            timeout: UPSTREAM_TIMEOUT
+        });
+        return (await client.get_metadata_definitions({})).field_definitions;
+
+    }
+
+    async fetchSample(fieldDefinitions: FieldDefinitionsMap, sampleId: string, version?: number): Promise<MiniSample> {
         const client = new SampleServiceClient({
             token: this.props.token,
             url: this.props.serviceWizardURL,
@@ -107,6 +117,8 @@ export default class Data extends React.Component<DataProps, DataState> {
             prefix: 0
         });
 
+
+
         const metadata: Metadata = Object.entries(actualSample.meta_user)
             .reduce((metadata, [key, field]) => {
                 const fieldMeta = fieldMetadata.static_metadata[key];
@@ -115,7 +127,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                     description: fieldMeta.description,
                     value: field.value,
                     units: field.units,
-                    isControlled: false
+                    isControlled: false,
+                    definition: fieldDefinitions[key]
                 };
                 return metadata;
             }, {} as Metadata);
@@ -128,7 +141,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                     description: fieldMeta.description,
                     value: field.value,
                     units: field.units,
-                    isControlled: true
+                    isControlled: true,
+                    definition: fieldDefinitions[key]
                 };
             });
 
@@ -163,8 +177,10 @@ export default class Data extends React.Component<DataProps, DataState> {
         try {
             let history: Array<MiniSample> = [];
 
+            const fieldDefinitions = await this.fetchFieldDefinitions();
+
             // get the most recent sample
-            const mostRecentSample = await this.fetchSample(this.props.sampleId);
+            const mostRecentSample = await this.fetchSample(fieldDefinitions, this.props.sampleId);
             history.push(mostRecentSample);
 
             // get all samples up to but not including the most recent sample.
@@ -172,12 +188,10 @@ export default class Data extends React.Component<DataProps, DataState> {
             if (lastVersion > 1) {
                 const versions = new Array<number | undefined>(lastVersion - 1).fill(undefined);
                 const allSamples = await Promise.all(versions.map((_, index) => {
-                    return this.fetchSample(this.props.sampleId, index + 1);
+                    return this.fetchSample(fieldDefinitions, this.props.sampleId, index + 1);
                 }));
                 history = history.concat(allSamples);
             }
-
-            console.log('history?', history);
 
             // ensure ordered by version.
             history.sort((a: MiniSample, b: MiniSample) => {
@@ -193,7 +207,10 @@ export default class Data extends React.Component<DataProps, DataState> {
             this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
-                    state: history
+                    state: {
+                        history,
+                        fieldDefinitions
+                    }
                 }
             });
         } catch (ex) {
@@ -221,8 +238,8 @@ export default class Data extends React.Component<DataProps, DataState> {
         return <Alert type="error" message={error.message} />;
     }
 
-    renderSuccess(history: History) {
-        return <Component history={history} />;
+    renderSuccess({ history, fieldDefinitions }: { history: History, fieldDefinitions: FieldDefinitionsMap; }) {
+        return <Component history={history} fieldDefinitions={fieldDefinitions} />;
     }
 
     render() {

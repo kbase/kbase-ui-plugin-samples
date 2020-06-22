@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import SampleServiceClient, {
-    SampleId, EpochTimeMS, SampleVersion, Username
+    SampleId, EpochTimeMS, SampleVersion, Username, FieldDefinition
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -10,24 +10,25 @@ import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
 
-export interface MetadataValue {
+export interface MetadataField {
     value: string | number | boolean;
     units?: string;
     label: string;
     description?: string;
     isControlled: boolean;
+    definition: FieldDefinition;
 }
 
-export interface UserMetadataValue {
+export interface UserMetadataField {
     value: string;
 }
 
 export interface Metadata {
-    [key: string]: MetadataValue;
+    [key: string]: MetadataField;
 }
 
 export interface UserMetadata {
-    [key: string]: UserMetadataValue;
+    [key: string]: UserMetadataField;
 }
 
 export interface User {
@@ -183,6 +184,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                 prefix: 0
             });
 
+            const fieldDefinitions = await client.get_metadata_definitions({});
+
             const metadata: Metadata = Object.entries(actualSample.meta_user)
                 .reduce((metadata, [key, field]) => {
                     const fieldMeta = fieldMetadata.static_metadata[key];
@@ -191,7 +194,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                         description: fieldMeta.description,
                         value: field.value,
                         units: field.units,
-                        isControlled: false
+                        isControlled: false,
+                        definition: fieldDefinitions.field_definitions[key]
                     };
                     return metadata;
                 }, {} as Metadata);
@@ -204,7 +208,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                         description: fieldMeta.description,
                         value: field.value,
                         units: field.units,
-                        isControlled: true
+                        isControlled: true,
+                        definition: fieldDefinitions.field_definitions[key]
                     };
                 });
 

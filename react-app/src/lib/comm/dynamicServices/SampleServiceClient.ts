@@ -119,6 +119,55 @@ export interface GetMetadataKeyStaticMetadataResult {
     static_metadata: StaticMetadata;
 }
 
+export interface FieldDefinitionBase {
+    key: string;
+    type: 'integer' | 'float' | 'string' | 'date';
+    label: string;
+    description?: string;
+    units?: string;
+}
+
+export interface FieldDefinitionInteger extends FieldDefinitionBase {
+    type: 'integer';
+    minimum_value?: number;
+    maximum_value?: number;
+}
+
+export interface FieldDefinitionFloat extends FieldDefinitionBase {
+    type: 'float';
+    minimum_value?: number;
+    maximum_value?: number;
+    precision?: number;
+}
+
+export interface FieldDefinitionString extends FieldDefinitionBase {
+    type: 'string';
+    regex?: string;
+    minimum_length?: number;
+    maximum_length?: number;
+}
+
+export interface FieldDefinitionDate extends FieldDefinitionBase {
+    type: 'date';
+    minimum_value?: number;
+    maximum_value?: number;
+}
+
+export type FieldDefinition = FieldDefinitionInteger | FieldDefinitionFloat | FieldDefinitionString | FieldDefinitionDate;
+
+export interface FieldDefinitionsMap {
+    [key: string]: FieldDefinition;
+}
+
+export interface GetMetadataDefinitionsParams {
+
+}
+
+export interface GetMetadataDefinitionsResult {
+    // field_definitions: Array<FieldDefinition>;
+    field_definitions: FieldDefinitionsMap;
+}
+
 export interface GetSampleACLsParams {
     id: SampleId;
     as_admin: SDKBoolean;
@@ -155,6 +204,138 @@ export default class SampleServiceClient extends DynamicServiceClient {
     async get_metadata_key_static_metadata(params: GetMetadataKeyStaticMetadataParams): Promise<GetMetadataKeyStaticMetadataResult> {
         const [result] = await this.callFunc<[GetMetadataKeyStaticMetadataParams], [GetMetadataKeyStaticMetadataResult]>('get_metadata_key_static_metadata', [params]);
         return result;
+    }
+
+    async get_metadata_definitions(params: GetMetadataDefinitionsParams): Promise<GetMetadataDefinitionsResult> {
+        // const [result] = await this.callFunc<[GetMetadataDefinitionsParams], [GetMetadataDefinitionsResult]>('get_metadata_key_static_metadata', [params]);
+        const fieldDefinitions: Array<FieldDefinition> = [
+            {
+                key: 'purpose',
+                type: 'string',
+                label: 'Purpose'
+            },
+            {
+                key: 'material',
+                type: 'string',
+                label: 'Material'
+            },
+            {
+                key: 'collection_date',
+                type: 'date',
+                description: 'Date upon which the sample was collected',
+                label: 'Collection Date'
+            },
+            {
+                key: 'collection_date_precision',
+                type: 'integer',
+                label: 'Collection date precision'
+            },
+            {
+                key: 'collector_chief_scientist',
+                type: 'string',
+                label: 'Collector Chief Scientist'
+            },
+            {
+                key: 'collection_method',
+                type: 'string',
+                label: 'Collection Methohd'
+            },
+            {
+                key: 'release_date',
+                type: 'date',
+                label: 'Release Date'
+            },
+            {
+                key: 'field_name',
+                type: 'string',
+                label: 'field Name'
+            },
+            {
+                key: 'elevation_start',
+                type: 'float',
+                label: 'Elevation start'
+            },
+            {
+                key: 'elevation_unit',
+                type: 'string',
+                label: 'Elevation unit'
+            },
+            {
+                key: 'field_program_cruise',
+                type: 'string',
+                label: 'Field program / cruise'
+            },
+            {
+                key: 'current_archive',
+                type: 'string',
+                label: 'Current Archive'
+            },
+            {
+                key: 'current_archive_contact',
+                type: 'string',
+                label: 'Current Archive Contact'
+            },
+            {
+                key: 'coordinate_precision?',
+                type: 'integer',
+                label: 'Coordinate Precision'
+            },
+            {
+                key: 'latitude',
+                type: 'float',
+                label: 'Latitude',
+                units: 'degrees',
+                precision: 5
+            },
+            {
+                key: 'longitude',
+                type: 'float',
+                label: 'Longitude',
+                precision: 5
+            },
+            {
+                key: 'navigation_type',
+                type: 'string',
+                label: 'Navigation Type'
+            },
+            {
+                key: 'locality_description',
+                type: 'string',
+                label: 'Locality Description'
+            },
+            {
+                key: 'location_description',
+                type: 'string',
+                label: 'Location Description'
+            },
+            {
+                key: 'name_of_physiographic_feature',
+                type: 'string',
+                label: 'Name of Physiographic Feature'
+            },
+            {
+                key: 'primary_physiographic_feature',
+                type: 'string',
+                label: 'Primary Physiographic Feature'
+            },
+            {
+                key: 'related_identifiers',
+                type: 'string',
+                label: 'Related Identifiers'
+            },
+            {
+                key: 'relation_type',
+                type: 'string',
+                label: 'Relation Type'
+            }
+        ];
+        const field_definitions: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
+            field_definitions[def.key] = def;
+            return field_definitions;
+        }, {});
+        return Promise.resolve({
+            field_definitions
+        });
     }
 
     async get_sample_acls(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {
