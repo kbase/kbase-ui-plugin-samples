@@ -1,18 +1,93 @@
 import React from 'react';
 import { MiniSample } from './data';
-
-import { Radio, Table, Tooltip } from 'antd';
+import { Radio, Table, Tooltip, Checkbox } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { Metadata } from '../sample/data';
 import { PauseOutlined, LineOutlined } from '@ant-design/icons';
+import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 
 import './Comparator.less';
+import { FieldDefinitionsMap } from '../../lib/comm/dynamicServices/SampleServiceClient';
+
+export interface ViewSelectorProps {
+    view: View;
+    changeView: (view: View) => void;
+}
+
+interface ViewSelectorState {
+}
+
+export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelectorState> {
+    onViewChange(e: RadioChangeEvent) {
+        this.props.changeView(e.target.value);
+    }
+    render() {
+        return <div className="ViewSelector">
+            <Radio.Group
+                value={this.props.view}
+                onChange={this.onViewChange.bind(this)}>
+                <Radio.Button value="sample">
+                    sample info
+                </Radio.Button>
+
+                <Radio.Button value="metadata">
+                    metadata
+                </Radio.Button>
+
+                <Radio.Button value="user_metadata">
+                    user metadata
+                </Radio.Button>
+            </Radio.Group>
+        </div>;
+    }
+}
+
+
+export type DiffState = 'diff' | 'nodiff';
+export interface DiffSelectorProps {
+    diffStatus: Array<DiffState>;
+    changeDiffStatus: (diffStatus: Array<DiffState>) => void;
+}
+
+interface DiffSelectorState {
+}
+
+export class DiffSelector extends React.Component<DiffSelectorProps, DiffSelectorState> {
+    onDiffChange(values: Array<CheckboxValueType>) {
+        this.props.changeDiffStatus(values as Array<DiffState>);
+    }
+
+    render() {
+        return <div className="DiffSelector">
+
+            <Checkbox.Group
+                options={[{
+                    label: 'different',
+                    value: 'diff'
+                }, {
+                    label: 'same',
+                    value: 'nodiff'
+                }]}
+
+                value={this.props.diffStatus}
+                onChange={this.onDiffChange.bind(this)}>
+
+            </Checkbox.Group>
+        </div>;
+    }
+}
 
 export interface ComparisonItem {
     [key: string]: any;
 }
+export interface Field {
+    key: string;
+    type: 'string' | 'float' | 'integer' | 'date';
+    label: string;
+    description?: string;
+}
 export interface Comparison {
-    keys: Array<string>;
+    fields: Array<Field>;
     compare1: ComparisonItem | null;
     compare2: ComparisonItem | null;
 }
@@ -28,13 +103,23 @@ function formattedDate(time: number): string {
     }).format(time);
 }
 
-export interface ComparatorProps {
-    selectedSamples: Array<MiniSample>;
+interface ComparisonDataSourceItem {
+    isDiff: boolean;
+    key: string;
+    label: string;
+    compare1: any | null;
+    compare2: any | null;
 }
 
-type View = 'sample' | 'metadata' | 'user_metadata';
-interface ComparatorState {
+export interface ComparatorProps {
+    selectedSamples: Array<MiniSample>;
     view: View;
+    diffStatus: Array<DiffState>;
+    fieldDefinitions: FieldDefinitionsMap;
+}
+
+export type View = 'sample' | 'metadata' | 'user_metadata';
+interface ComparatorState {
 }
 
 export default class Comparator extends React.Component<ComparatorProps, ComparatorState> {
@@ -71,8 +156,40 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
         }
 
         return {
-            keys: [
-                'type', 'name', 'version', 'savedAt', 'savedBy', 'source', 'sourceId', 'sourceParentId'
+            fields: [
+                {
+                    key: 'type',
+                    label: 'Type',
+                    type: 'string'
+                }, {
+                    key: 'name',
+                    label: 'Name',
+                    type: 'string'
+                }, {
+                    key: 'version',
+                    label: 'Version',
+                    type: 'integer',
+                }, {
+                    key: 'savedAt',
+                    label: 'Saved At',
+                    type: 'string'
+                }, {
+                    key: 'savedBy',
+                    label: 'Saved By',
+                    type: 'string',
+                }, {
+                    key: 'source',
+                    label: 'Source',
+                    type: 'string'
+                }, {
+                    key: 'sourceId',
+                    label: 'Source Id',
+                    type: 'string'
+                }, {
+                    key: 'sourceParentId',
+                    label: 'Source Parent Id',
+                    type: 'string'
+                }
             ],
             compare1, compare2
         };
@@ -134,8 +251,18 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
             compare2 = sampleToCompare(sample2);
         }
 
+        const fields = keys.map((key) => {
+            const def = this.props.fieldDefinitions[key];
+            return {
+                key,
+                label: def.label,
+                type: def.type
+
+            };
+        });
+
         return {
-            keys, compare1, compare2
+            fields, compare1, compare2
         };
     }
 
@@ -241,7 +368,7 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
         }
 
         return {
-            keys: [
+            fields: [
 
             ],
             compare1, compare2
@@ -249,7 +376,7 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
     }
 
     getComparison(): Comparison {
-        switch (this.state.view) {
+        switch (this.props.view) {
             case 'sample':
                 return this.getSampleComparison();
             case 'metadata':
@@ -281,32 +408,48 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
     renderComparison() {
         const comparison = this.getComparison();
 
-        const diff = comparison.keys.map((key) => {
-            const isDiff = (() => {
-                if (comparison.compare1) {
-                    if (comparison.compare2) {
-                        return (comparison.compare1[key] !== comparison.compare2[key]);
+        const diff = comparison.fields
+            .map((field) => {
+                const isDiff = (() => {
+                    if (comparison.compare1) {
+                        if (comparison.compare2) {
+                            return (comparison.compare1[field.key] !== comparison.compare2[field.key]);
+                        } else {
+                            return true;
+                        }
                     } else {
+                        if (comparison.compare2) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                })();
+
+                return {
+                    key: field.key,
+                    label: field.label,
+                    // label: comparison
+                    isDiff,
+                    compare1: comparison.compare1 ? comparison.compare1[field.key] : null,
+                    compare2: comparison.compare2 ? comparison.compare2[field.key] : null
+                };
+            })
+            .filter((compare: ComparisonDataSourceItem) => {
+                if (compare.isDiff) {
+                    if (this.props.diffStatus.indexOf('diff') >= 0) {
                         return true;
                     }
                 } else {
-                    if (comparison.compare2) {
+                    if (this.props.diffStatus.indexOf('nodiff') >= 0) {
                         return true;
-                    } else {
-                        return false;
                     }
                 }
-            })();
+                return false;
+            });
 
-            return {
-                key,
-                isDiff,
-                compare1: comparison.compare1 ? comparison.compare1[key] : null,
-                compare2: comparison.compare2 ? comparison.compare2[key] : null
-            };
-        });
 
-        return <Table dataSource={diff}
+        return <Table<ComparisonDataSourceItem> dataSource={diff}
             className="AntTable-FullHeight"
             rowKey="key"
             size="small"
@@ -314,14 +457,14 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
             pagination={false}>
 
             <Table.Column
-                title="Key"
-                dataIndex="key"
+                title="Field"
+                dataIndex="label"
                 width="15em"
                 ellipsis
                 key="key"
-                render={(key: string) => {
-                    return <Tooltip title={key}>
-                        <span>{key}</span>
+                render={(label: string) => {
+                    return <Tooltip title={label}>
+                        <span>{label}</span>
                     </Tooltip>;
                 }}
             />
@@ -361,33 +504,33 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
         //     </tbody>
         // </table>;
     }
-    onViewChange(e: RadioChangeEvent) {
+    onViewChange(view: View) {
         this.setState({
-            view: e.target.value
+            view
         });
     }
-    renderViewSelector() {
-        return <div className="-viewSelector">
-            <Radio.Group
-                value={this.state.view}
-                onChange={this.onViewChange.bind(this)}>
-                <Radio.Button value="sample">
-                    sample info
-                </Radio.Button>
+    // renderViewSelector() {
+    //     return <ViewSelector view={this.props.view} changeView={this.onViewChange.bind(this)} />;
+    //     // return <div className="-viewSelector">
+    //     //     <Radio.Group
+    //     //         value={this.state.view}
+    //     //         onChange={this.onViewChange.bind(this)}>
+    //     //         <Radio.Button value="sample">
+    //     //             sample info
+    //     //         </Radio.Button>
 
-                <Radio.Button value="metadata">
-                    metadata
-                </Radio.Button>
+    //     //         <Radio.Button value="metadata">
+    //     //             metadata
+    //     //         </Radio.Button>
 
-                <Radio.Button value="user_metadata">
-                    user metadata
-                </Radio.Button>
-            </Radio.Group>
-        </div>;
-    }
+    //     //         <Radio.Button value="user_metadata">
+    //     //             user metadata
+    //     //         </Radio.Button>
+    //     //     </Radio.Group>
+    //     // </div>;
+    // }
     render() {
         return <div className="Comparator">
-            {this.renderViewSelector()}
             {this.renderComparison()}
         </div>;
     }
