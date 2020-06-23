@@ -137,3 +137,41 @@
 .AntTable-FullHeight.ant-table-wrapper>.ant-spin-nested-loading>.ant-spin-container>.ant-table>.ant-table-container>.ant-table-header {
     overflow: unset !important;
 }
+
+
+
+.InfoTable.UserMetadata>div>div:nth-child(1) {
+    flex: 0 0 20em;
+}
+
+.InfoTable.UserMetadata>div>div:nth-child(2) {
+    flex: 0 0 20em;
+    color: gray;
+    font-style: italic;
+}
+
+.InfoTable.ControlledMetadata>div>div:nth-child(1) {
+    flex: 0 0 20em;
+}
+
+/* .InfoTable.ControlledMetadata>div>div:nth-child(2) {
+    flex: 0 0 20em;
+    color: gray;
+    font-style: italic;
+} */
+
+.InfoTable.TemplateMetadata>div>div:nth-child(1) {
+    flex: 0 0 20em;
+    text-align: left;
+}
+
+.InfoTable.TemplateMetadata>div>div:nth-child(2) {
+    flex: 0 0 10em;
+    text-align: left;
+}
+
+.InfoTable.TemplateMetadata>div>div:nth-child(3) {
+    /* flex: 0 0 20em; */
+    flex: 1 1 0px;
+    text-align: left;
+}

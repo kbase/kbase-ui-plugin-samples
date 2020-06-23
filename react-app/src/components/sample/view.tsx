@@ -10,13 +10,14 @@ import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import { PushpinFilled, CaretRightOutlined } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
-import Overview from './Overview';
-import TemplateMetadata from './TemplateMetadata';
+import Overview from '../Overview/Overview';
+import TemplateMetadata from '../TemplateMetadata/TemplateMetadata';
 import { MetadataField, Sample, Metadata } from './data';
 import AccessList from '../AccessList';
 import HistoryTool from '../History';
 
 import './style.less';
+import MetadataViewer from '../Metadata/view';
 
 export interface FieldFormatBase {
 
@@ -784,8 +785,15 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         return <div className='Sample'>
             <Overview sample={this.props.sample} />
             <Tabs type="card" className="FullHeight-tabs" >
-                <Tabs.TabPane tab="Sample" key="sample" >
-                    {this.renderSample()}
+
+                <Tabs.TabPane tab="Metadata" key="metadata">
+                    <MetadataViewer sample={this.props.sample} />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="User Metadata" key="usermetadata">
+                    <Alert type="warning" message="Sorry, not yet available." />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="Template" key="template">
+                    <TemplateMetadata sample={this.props.sample} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Linked Data" key="linkeddata">
                     <DataLinks sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version} />

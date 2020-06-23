@@ -1,15 +1,14 @@
 import * as React from 'react';
-import './Gravatar.css';
 import noUserPic from './nouserpic.png';
 import { Avatar } from 'antd';
 
 export interface GravatarProps {
-    avatarOption?: string;
-    gravatarHash: string;
-    gravatarDefault?: string;
     username: string;
     realname: string;
     size: number;
+    avatarOption?: string;
+    gravatarHash?: string;
+    gravatarDefault?: string;
 }
 
 interface GravatarState {
@@ -21,9 +20,9 @@ export class Gravatar extends React.Component<GravatarProps, GravatarState> {
         switch (this.props.avatarOption || 'gravatar') {
             case 'gravatar':
                 const gravatarDefault = this.props.gravatarDefault || 'identicon';
-                const gravatarHash = this.props.gravatarHash;
+                const { gravatarHash, size } = this.props;
                 if (gravatarHash) {
-                    return 'https://www.gravatar.com/avatar/' + gravatarHash + '?s=60&amp;r=pg&d=' + gravatarDefault;
+                    return `https://www.gravatar.com/avatar/${gravatarHash}?s=${size}&amp;r=pg&d=${gravatarDefault}`;
                 } else {
                     return noUserPic;
                 }

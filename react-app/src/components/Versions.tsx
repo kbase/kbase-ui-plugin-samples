@@ -1,9 +1,9 @@
 import React from 'react';
 import { ArrowRightOutlined } from '@ant-design/icons/lib/icons';
-import { Sample } from './data';
+import { Sample } from './sample/data';
 import Select from 'antd/lib/select';
 import { Button } from 'antd';
-import UserCard from '../UserCard/view';
+import UserCard from './UserCard/view';
 
 export interface VersionsProps {
     sample: Sample;
