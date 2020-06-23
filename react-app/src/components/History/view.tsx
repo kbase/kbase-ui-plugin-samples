@@ -69,12 +69,13 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
         if (this.props.history.length === 0) {
             return;
         }
-        return <Table<MiniSample>
+        const table = <Table<MiniSample>
             dataSource={this.props.history}
             className="AntTable-FullHeight"
             rowKey="version"
             size="small"
             scroll={{ y: '100%' }}
+            // scroll={{ y: '100%' }}
             pagination={false}
             rowSelection={{
                 type: 'checkbox',
@@ -96,6 +97,8 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
             <Table.Column
                 title="Saved"
                 dataIndex="savedAt"
+                width="12em"
+                ellipsis
                 render={(savedAt: number) => {
                     const timestamp = Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
@@ -119,8 +122,18 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
             <Table.Column
                 title="By"
                 dataIndex="savedBy"
-                width="10em"
-                ellipsis={true}
+                // style={{
+                //     maxWidth: '10em'
+                // }}
+                // onCell={() => {
+                //     return {
+                //         style: {
+                //             maxWidth: '10em'
+                //         }
+                //     };
+                // }}
+                // width="10em"
+                ellipsis
                 render={(savedBy: User) => {
                     return <Tooltip title={<UserCard user={savedBy} />}>
                         <span>{savedBy.username}</span>
@@ -128,6 +141,19 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
                 }}
             />
         </Table>;
+
+        return <div style={{
+            position: 'absolute',
+            left: '0',
+            right: '0',
+            top: '0',
+            bottom: '0',
+            flex: '1 1 0px',
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
+            {table}
+        </div>;
     }
 
     renderSample(sample: MiniSample) {
@@ -178,7 +204,8 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
                         <div className="Col" style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <div style={{ fontStyle: 'italic' }}>
                                 Show sample properties:
-                        </div>
+                            </div>
+
                             <ViewSelector
                                 view={this.state.diffView}
                                 changeView={(view: View) => {
@@ -206,7 +233,7 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
 
             </div>
             <div className="Row -stretch">
-                <div className="Col -span1" style={{ marginRight: '10px' }}>
+                <div className="Col -span1" style={{ marginRight: '10px', position: 'relative' }}>
                     {this.renderHistoryTable()}
                 </div>
                 <div className="Col -span2">
