@@ -1,7 +1,7 @@
 import React from 'react';
 import Overview from './Overview';
 import { render, waitFor } from '@testing-library/react';
-import { Sample } from './data';
+import { Sample } from '../sample/data';
 
 const TIMEOUT = 10000;
 
@@ -23,17 +23,30 @@ test('should render', async () => {
         sourceId: 'SESARID',
         created: {
             at: 0,
-            by: 'foo'
+            by: {
+                username: 'foo',
+                realname: 'Foo',
+                gravatarHash: ''
+            }
+
 
         },
         currentVersion: {
             at: 0,
-            by: 'bar',
+            by: {
+                username: 'bar',
+                realname: 'Bar',
+                gravatarHash: '',
+            },
             version: 1
         },
         latestVersion: {
             at: 0,
-            by: 'baz',
+            by: {
+                username: 'baz',
+                realname: 'Baz',
+                gravatarHash: ''
+            },
             version: 2
 
         },

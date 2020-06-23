@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Tooltip } from 'antd';
+import { Table, Tooltip, Alert } from 'antd';
 import { DataLink2 } from './data';
 import './style.css';
 
@@ -168,9 +168,11 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
     renderSummary() {
         const count = this.props.dataLinks.length;
         if (count === 0) {
-            return <p className="-message">
-                This sample is not linked to any data.
-            </p>;
+            return <Alert
+                type="info"
+                message="This sample is not linked to any data."
+                style={{ maxWidth: '40em', alignSelf: 'center' }}
+            />;
         }
         return <p className="-message">
             This sample is linked to {count} {countedTerm(count, 'data object')}.

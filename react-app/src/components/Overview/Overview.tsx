@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col, Modal, Button } from 'antd';
-import { Sample } from './data';
+import { Sample } from '../sample/data';
 import './Overview.css';
 import { SelectValue } from 'antd/lib/select';
-import Versions from './Versions';
+import Versions from '../Versions';
 import UserCard from '../UserCard/view';
 
 export interface OverviewProps {

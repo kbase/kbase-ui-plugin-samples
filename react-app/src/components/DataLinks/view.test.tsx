@@ -22,3 +22,23 @@ test('renders data links with no links', async () => {
         timeout: TIMEOUT
     });
 });
+
+
+test('renders data links with no links', async () => {
+    const props: DataLinksProps = {
+        dataLinks: [
+
+        ],
+        baseURL: 'http://example.com'
+    };
+
+    const { getByTestId, getByText } = render(<DataLinks {...props} />);
+    await waitFor(() => {
+        const linkElement = getByTestId('datalinks');
+        expect(linkElement).toBeInTheDocument();
+        // const messageElement = getByText('No data linked to this sample.');
+        // expect(messageElement).toBeInTheDocument();
+    }, {
+        timeout: TIMEOUT
+    });
+});

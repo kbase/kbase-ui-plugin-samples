@@ -3,7 +3,7 @@ import { RootState, AppError } from '@kbase/ui-components';
 import { Alert } from 'antd';
 import { SampleView, SampleViewState } from '../redux/store';
 import { SyncViewStatus } from '../redux/store/view';
-import Sample from '../components/sample';
+import Main from '../components/Main';
 
 export interface DispatcherProps {
     token: string | null;
@@ -134,7 +134,7 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
         if (!state.sampleId) {
             return <Alert type="error" message="Sample ID is missing" />;
         }
-        return <Sample sampleId={state.sampleId} sampleVersion={state.sampleVersion} />;
+        return <Main sampleId={state.sampleId} sampleVersion={state.sampleVersion} />;
     }
 
     renderView() {

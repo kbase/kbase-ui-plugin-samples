@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Tooltip } from 'antd';
-import { Sample } from './data';
+import { Sample } from '../sample/data';
 
 export interface TemplateMetadataProps {
     sample: Sample;
