@@ -449,7 +449,7 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
             });
 
 
-        return <Table<ComparisonDataSourceItem> dataSource={diff}
+        const table = <Table<ComparisonDataSourceItem> dataSource={diff}
             className="AntTable-FullHeight"
             rowKey="key"
             size="small"
@@ -459,7 +459,8 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
             <Table.Column
                 title="Field"
                 dataIndex="label"
-                width="15em"
+                // width="15em"
+                width="20%"
                 ellipsis
                 key="key"
                 render={(label: string) => {
@@ -474,6 +475,7 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
                 dataIndex="isDiff"
                 key="isDiff"
                 width="3em"
+                ellipsis
                 render={(isDiff: boolean) => {
                     return isDiff ? this.renderNotEqual() : this.renderEqual();
                 }} />
@@ -481,15 +483,46 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
             <Table.Column
                 title={this.props.selectedSamples[0] ? `Version ${this.props.selectedSamples[0].version}` : <i>Not selected</i>}
                 dataIndex="compare1"
+                // onCell={() => {
+                //     return {
+                //         style: {
+                //             minWidth: '10em'
+                //         }
+                //     };
+                // }}
+                width="40%"
+                ellipsis
                 key="compare1" />
 
             <Table.Column
                 title={this.props.selectedSamples[1] ? `Version ${this.props.selectedSamples[1].version}` : <i>Not selected</i>}
                 dataIndex="compare2"
+                // onCell={() => {
+                //     return {
+                //         style: {
+                //             minWidth: '10em'
+                //         }
+                //     };
+                // }}
+                width="40%"
+                ellipsis
                 key="compare2" />
 
 
         </Table>;
+
+        return <div style={{
+            position: 'absolute',
+            left: '0',
+            right: '0',
+            top: '0',
+            bottom: '0',
+            flex: '1 1 0px',
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
+            {table}
+        </div>;
 
         // return <table className="NiceTable">
         //     <thead>
@@ -530,7 +563,7 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
     //     // </div>;
     // }
     render() {
-        return <div className="Comparator">
+        return <div className="Comparator" style={{ position: 'relative' }}>
             {this.renderComparison()}
         </div>;
     }

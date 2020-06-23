@@ -44,6 +44,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 key="upa"
                 dataIndex="upa"
                 width="8em"
+                ellipsis={true}
                 render={(upa: string, row: DataLink2) => {
                     return <a href={`/#dataview/${upa}`} target="_blank" rel="noopener noreferrer">
                         {upa}
@@ -89,6 +90,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
             <Table.Column
                 title='Sub-object'
                 dataIndex="dataid"
+                ellipsis={true}
                 render={(dataId: string) => {
                     if (dataId) {
                         return dataId;
@@ -100,6 +102,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
             <Table.Column
                 title="Linked"
                 dataIndex="created"
+                ellipsis={true}
                 render={(created: number) => {
                     const timestamp = Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
@@ -125,6 +128,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
             <Table.Column
                 title="Expired"
                 dataIndex="expired"
+                ellipsis={true}
                 render={(expired: number) => {
                     if (!expired) {
                         return noData();
@@ -150,6 +154,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
             <Table.Column
                 title="Expired By"
                 dataIndex="expiredby"
+                ellipsis={true}
                 render={(expiredBy: string) => {
                     if (!expiredBy) {
                         return noData();
