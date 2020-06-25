@@ -1,39 +1,18 @@
 import React from 'react';
-import { Table } from 'antd';
-import './style.css';
-import { Username } from '../../lib/comm/dynamicServices/SampleServiceClient';
+
 import UserCard from '../UserCard/view';
-import { ACL, User } from '../sample/data';
+import { ACL, User } from '../Main/data';
+
+import './style.css';
 
 export interface AccessListProps {
     acl: ACL;
 }
 
 interface AccessListState {
-
 }
 
 export default class DataLinks extends React.Component<AccessListProps, AccessListState> {
-    renderACLx(aclPart: Array<User>) {
-        return <Table<User>
-            dataSource={aclPart}
-            rowKey="username"
-            size="small"
-            // scroll={{ y: '10em' }}
-            pagination={false}>
-            <Table.Column
-                title="Username"
-                key="username"
-                dataIndex="username"
-                width="8em"
-                render={(username: Username, user: User) => {
-                    return <a href={`/#people/${username}`} target="_blank" rel="noopener noreferrer">
-                        {username}
-                    </a>;
-                }} />
-        </Table>;
-    }
-
     renderACL(aclPart: Array<User>) {
         if (aclPart.length === 0) {
             return <p style={{ fontStyle: 'italic' }}>

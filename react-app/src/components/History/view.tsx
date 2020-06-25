@@ -3,9 +3,13 @@ import { Table, Tooltip, Alert, message } from 'antd';
 import { History, MiniSample } from './data';
 import './style.css';
 import UserCard from '../UserCard/view';
-import { User } from '../sample/data';
-import Comparator, { View, ViewSelector, DiffState, DiffSelector } from './Comparator';
+import { User } from '../Main/data';
+import Comparator from '../Comparator';
 import { FieldDefinitionsMap } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import { partitionArray } from '../../lib/utils';
+import { View } from '../Comparator';
+import DiffSelector, { DiffState } from '../Comparator/DiffSelector';
+import ViewSelector from '../Comparator/ViewSelector';
 
 export interface HistoryToolProps {
     history: History;
@@ -16,19 +20,6 @@ interface HistoryToolState {
     selectedSamples: Array<MiniSample>;
     diffView: View;
     diffStatus: Array<DiffState>;
-}
-
-function partitionArray<T>(arr: Array<T>, partitioner: (item: T) => boolean) {
-    const original: Array<T> = [];
-    const separated: Array<T> = [];
-    arr.forEach((item: T) => {
-        if (partitioner(item)) {
-            separated.push(item);
-        } else {
-            original.push(item);
-        }
-    });
-    return [original, separated];
 }
 
 export default class HistoryTool extends React.Component<HistoryToolProps, HistoryToolState> {
@@ -67,7 +58,7 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
 
     renderHistoryTable() {
         if (this.props.history.length === 0) {
-            return;
+            return <Alert type="error" message="No History!" />;
         }
         const table = <Table<MiniSample>
             dataSource={this.props.history}
@@ -156,27 +147,10 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
         </div>;
     }
 
-    renderSample(sample: MiniSample) {
-        return <div className="InfoTable -fullheight">
-            <div>
-                <div>
-                    Version
-                </div>
-                <div>
-                    {sample.version}
-                </div>
-            </div>
-        </div>;
-    }
-
-    renderColumn(columnNumber: number) {
-        if (!this.state.selectedSamples[columnNumber - 1]) {
-            return <Alert type="info" message="No sample selected" />;
-        }
-        return this.renderSample(this.state.selectedSamples[columnNumber - 1]);
-    }
-
     renderComparison() {
+        if (this.props.history.length === 0) {
+            return <Alert type="error" message="No History!" />;
+        }
         return <Comparator
             selectedSamples={this.state.selectedSamples}
             view={this.state.diffView}
@@ -189,21 +163,21 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
         return <div className="Col -stretch">
             <div className="Row">
                 <div className="Col -span1" style={{ marginRight: '10px' }}>
-                    <div className="-title">History</div>
+                    <div className="-title" role="heading" aria-level={3}>History</div>
                 </div>
                 <div className="Col -span2">
-                    <div className="-title">Diff</div>
+                    <div className="-title" role="heading" aria-level={3}>Diff</div>
                 </div>
             </div>
             <div className="Row">
                 <div className="Col -span1" style={{ marginRight: '10px' }}>
 
                 </div>
-                <div className="Col -span2" style={{ alignItems: 'center', justifyContent: 'center', margin: '10px 0' }}>
+                <div className="Col -span2" style={{ margin: '10px 0' }}>
                     <div className="Row">
                         <div className="Col" style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <div style={{ fontStyle: 'italic' }}>
-                                Show sample properties:
+                                Show:
                             </div>
 
                             <ViewSelector
@@ -215,7 +189,7 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
                                 }}
                             />
                         </div>
-                        <div className="Col" style={{ alignItems: 'center', justifyContent: 'center', marginLeft: '20px' }}>
+                        <div className="Col" style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <div style={{ fontStyle: 'italic' }}>
                                 Show properties that are:
                             </div>

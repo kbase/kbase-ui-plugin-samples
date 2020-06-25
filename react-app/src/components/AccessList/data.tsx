@@ -10,7 +10,7 @@ import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 import UserProfileClient, { UserProfile } from '../../lib/comm/coreServices/UserProfileClient';
-import { ACL } from '../sample/data';
+import { ACL } from '../Main/data';
 
 export interface DataProps {
     serviceWizardURL: string;

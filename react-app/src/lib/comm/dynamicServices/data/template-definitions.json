@@ -1,0 +1,10 @@
+{
+    "templates": [
+        {
+            "id": "SESAR",
+            "name": "SESAR",
+            "description": "A sample template based on SESAR",
+            "reference": "https://www.geosamples.org/"
+        }
+    ]
+}

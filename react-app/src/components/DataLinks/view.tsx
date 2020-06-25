@@ -1,7 +1,12 @@
 import React from 'react';
 import { Table, Tooltip, Alert } from 'antd';
+
+import { countedTerm } from '../../lib/utils';
+import { NoData } from '../NoData';
+
 import { DataLink2 } from './data';
 import './style.css';
+
 
 export interface DataLinksProps {
     dataLinks: Array<DataLink2>;
@@ -9,21 +14,6 @@ export interface DataLinksProps {
 }
 
 interface DataLinksState {
-
-}
-
-function countedTerm(count: number, singular: string, plural?: string) {
-    if (count === 1) {
-        return singular;
-    } else if (plural) {
-        return plural;
-    } else {
-        return `${singular}s`;
-    }
-}
-
-function noData() {
-    return <span style={{ color: 'gray' }}>-</span>;
 }
 
 export default class DataLinks extends React.Component<DataLinksProps, DataLinksState> {
@@ -31,6 +21,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
         if (this.props.dataLinks.length === 0) {
             return;
         }
+        // console.log('data links', JSON.stringify(this.props.dataLinks));
         return <Table<DataLink2>
             dataSource={this.props.dataLinks}
             className="AntTable-FullHeight"
@@ -95,7 +86,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                     if (dataId) {
                         return dataId;
                     }
-                    return noData();
+                    return <NoData />;
                 }}
 
             />
@@ -131,7 +122,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 ellipsis={true}
                 render={(expired: number) => {
                     if (!expired) {
-                        return noData();
+                        return <NoData />;
                     }
                     const timestamp = Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
@@ -157,7 +148,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 ellipsis={true}
                 render={(expiredBy: string) => {
                     if (!expiredBy) {
-                        return noData();
+                        return <NoData />;
                     }
                     return expiredBy;
                 }}

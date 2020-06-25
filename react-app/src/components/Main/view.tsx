@@ -4,31 +4,31 @@ import {
 } from 'antd';
 
 import DataLinks from '../DataLinks';
-
 import Overview from '../Overview/Overview';
-import TemplateMetadata from '../TemplateMetadata/TemplateMetadata';
-import { Sample } from './data';
+import TemplateMetadata from '../TemplateMetadata';
+import { Sample } from './types';
 import AccessList from '../AccessList';
 import HistoryTool from '../History';
+import MetadataViewer from '../Metadata';
 
 import './style.less';
-import MetadataViewer from '../Metadata/view';
 
-export interface SampleViewerProps {
+export interface MainProps {
     sample: Sample;
     setTitle: (title: string) => void;
 }
 
-interface SampleViewerState {
+interface MainState {
 }
 
-export default class SampleViewer extends React.Component<SampleViewerProps, SampleViewerState> {
+export default class Main extends React.Component<MainProps, MainState> {
     componentDidMount() {
         const title = `Sample View for "${this.props.sample.name}"`;
         this.props.setTitle(title);
     }
 
     render() {
+        // console.log('main props', JSON.stringify(this.props));
         return <div className='Sample'>
             <Overview sample={this.props.sample} />
             <Tabs type="card" className="FullHeight-tabs" >

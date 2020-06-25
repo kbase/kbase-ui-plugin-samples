@@ -1,4 +1,50 @@
 import { DynamicServiceClient } from '../JSONRPC11x/DynamicServiceClient';
+import metadataDefinitionsData from './data/metadata.definitions.json';
+import templateDefinitionsData from './data/template-definitions.json';
+import sesarTemplateData from './data/sesar-template.json';
+import sesarGroupingLayoutData from './data/grouping-layout.sesar.json';
+
+const metadataDefinitions = (metadataDefinitionsData as unknown) as { fields: Array<FieldDefinition>; };
+
+const templateDefinitions = (templateDefinitionsData as unknown) as TemplateDefinitions;
+
+const sesarTemplate = (sesarTemplateData as unknown) as Template;
+
+const sesarGroupingLayout = (sesarGroupingLayoutData as unknown) as GroupingLayout;
+
+export interface GroupingLayout {
+    id: string;
+    name: string;
+    description: string;
+    layout: Array<FieldLayout>;
+}
+
+export interface FieldLayout {
+    key: string;
+    label: string;
+    description: string;
+    layout: Array<string>;
+}
+
+export interface Template {
+    id: string;
+    version: number;
+    created_at: number;
+    created_by: string;
+    header: Array<string>;
+    columns: Array<string>;
+}
+
+export interface TemplateDefinitions {
+    templates: Array<TemplateDefinition>;
+}
+
+export interface TemplateDefinition {
+    id: string;
+    name: string;
+    description: string;
+    reference: string;
+}
 
 export interface StatusResult {
     state: string;
@@ -79,13 +125,14 @@ export type DataId = string;
 export interface DataLink {
     linkid: string;
     upa: WSUPA;
-    dataid: DataId;
+    dataid: DataId | null;
     id: SampleId;
     version: SampleVersion;
     node: SampleNodeId;
     created: EpochTimeMS;
-    expiredby: Username;
-    expired: EpochTimeMS;
+    createdby: Username;
+    expiredby: Username | null;
+    expired: EpochTimeMS | null;
 
 }
 
@@ -122,6 +169,7 @@ export interface GetMetadataKeyStaticMetadataResult {
 export interface FieldDefinitionBase {
     key: string;
     type: 'integer' | 'float' | 'string' | 'date';
+    kind: 'registration' | 'descriptive' | 'user';
     label: string;
     description?: string;
     units?: string;
@@ -182,6 +230,32 @@ export interface SampleACLs {
 
 export type GetSampleACLsResult = SampleACLs;
 
+export interface GetTemplateParams {
+    id: string;
+    version?: number;
+}
+
+export interface GetTemplateResult {
+    definition: TemplateDefinition;
+    template: Template;
+    metadataFields: Array<FieldDefinition>;
+    // id: string;
+    // version: number;
+    // saved_at: number;
+    // saved_by: string;
+    // description: string;
+    // source: string;
+    // fields: Array<FieldDefinition>;
+}
+
+export interface GetGroupingParams {
+    id: string;
+    version?: number;
+}
+
+export interface GetGroupingResult {
+    grouping: GroupingLayout;
+}
 
 export default class SampleServiceClient extends DynamicServiceClient {
     static module: string = 'SampleService';
@@ -208,133 +282,43 @@ export default class SampleServiceClient extends DynamicServiceClient {
 
     async get_metadata_definitions(params: GetMetadataDefinitionsParams): Promise<GetMetadataDefinitionsResult> {
         // const [result] = await this.callFunc<[GetMetadataDefinitionsParams], [GetMetadataDefinitionsResult]>('get_metadata_key_static_metadata', [params]);
-        const fieldDefinitions: Array<FieldDefinition> = [
-            {
-                key: 'purpose',
-                type: 'string',
-                label: 'Purpose'
-            },
-            {
-                key: 'material',
-                type: 'string',
-                label: 'Material'
-            },
-            {
-                key: 'collection_date',
-                type: 'date',
-                description: 'Date upon which the sample was collected',
-                label: 'Collection Date'
-            },
-            {
-                key: 'collection_date_precision',
-                type: 'integer',
-                label: 'Collection date precision'
-            },
-            {
-                key: 'collector_chief_scientist',
-                type: 'string',
-                label: 'Collector Chief Scientist'
-            },
-            {
-                key: 'collection_method',
-                type: 'string',
-                label: 'Collection Methohd'
-            },
-            {
-                key: 'release_date',
-                type: 'date',
-                label: 'Release Date'
-            },
-            {
-                key: 'field_name',
-                type: 'string',
-                label: 'field Name'
-            },
-            {
-                key: 'elevation_start',
-                type: 'float',
-                label: 'Elevation start'
-            },
-            {
-                key: 'elevation_unit',
-                type: 'string',
-                label: 'Elevation unit'
-            },
-            {
-                key: 'field_program_cruise',
-                type: 'string',
-                label: 'Field program / cruise'
-            },
-            {
-                key: 'current_archive',
-                type: 'string',
-                label: 'Current Archive'
-            },
-            {
-                key: 'current_archive_contact',
-                type: 'string',
-                label: 'Current Archive Contact'
-            },
-            {
-                key: 'coordinate_precision?',
-                type: 'integer',
-                label: 'Coordinate Precision'
-            },
-            {
-                key: 'latitude',
-                type: 'float',
-                label: 'Latitude',
-                units: 'degrees',
-                precision: 5
-            },
-            {
-                key: 'longitude',
-                type: 'float',
-                label: 'Longitude',
-                precision: 5
-            },
-            {
-                key: 'navigation_type',
-                type: 'string',
-                label: 'Navigation Type'
-            },
-            {
-                key: 'locality_description',
-                type: 'string',
-                label: 'Locality Description'
-            },
-            {
-                key: 'location_description',
-                type: 'string',
-                label: 'Location Description'
-            },
-            {
-                key: 'name_of_physiographic_feature',
-                type: 'string',
-                label: 'Name of Physiographic Feature'
-            },
-            {
-                key: 'primary_physiographic_feature',
-                type: 'string',
-                label: 'Primary Physiographic Feature'
-            },
-            {
-                key: 'related_identifiers',
-                type: 'string',
-                label: 'Related Identifiers'
-            },
-            {
-                key: 'relation_type',
-                type: 'string',
-                label: 'Relation Type'
-            }
-        ];
+        const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions.fields;
         const field_definitions: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
             field_definitions[def.key] = def;
             return field_definitions;
         }, {});
         return Promise.resolve({
             field_definitions
+        });
+    }
+
+    async get_template(params: GetTemplateParams): Promise<GetTemplateResult> {
+        // Look up the template given the id... fake for now.
+        const definition = templateDefinitions.templates[0];
+        const template = sesarTemplate;
+        const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions.fields;
+        const fieldDefinitionsMap: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
+            field_definitions[def.key] = def;
+            return field_definitions;
+        }, {});
+
+        const metadataFields = template.columns.map((column) => {
+            const field = fieldDefinitionsMap[column];
+            if (!field) {
+                throw new Error(`Unknown field ${column} in template ${params.id}`);
+            }
+            return field;
+        });
+
+        return Promise.resolve({
+            definition, template, metadataFields
+        });
+    }
+
+    async get_grouping(params: GetGroupingParams): Promise<GetGroupingResult> {
+        // get the layout ... faked for now, just one.
+        return Promise.resolve({
+            grouping: sesarGroupingLayout
         });
     }
 

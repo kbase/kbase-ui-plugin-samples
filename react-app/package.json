@@ -32,7 +32,6 @@
     },
     "scripts": {
         "start": "nodemon -w ./config-overrides.js --exec 'react-app-rewired start'",
-        "startx": "react-app-rewired start",
         "build": "react-app-rewired build",
         "test": "react-app-rewired test --env=jest-environment-jsdom-sixteen",
         "test-with-coverage": "react-app-rewired test --coverage --watchAll=false  --env=jest-environment-jsdom-sixteen",

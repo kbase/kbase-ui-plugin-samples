@@ -30,15 +30,15 @@ code {
 
 .InfoTable>div>div {
     padding: 4px;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .InfoTable>div>div:first-child {
-    padding-top: 0;
     padding-left: 0;
 }
 
 .InfoTable>div>div:last-child {
-    padding-bottom: 0;
     padding-right: 0;
 }
 
@@ -107,7 +107,7 @@ code {
 }
 
 .Col {
-    flex: 0 0 auto;
+    flex: 1 1 0px;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -131,6 +131,10 @@ code {
 
 .Col.-stretch {
     flex: 1 1 0px;
+}
+
+.Col.-auto {
+    flex: 0 0 auto;
 }
 
 .Row.-stretch {

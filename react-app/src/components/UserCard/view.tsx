@@ -1,14 +1,13 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import Gravatar from '../Gravatar/Gravatar';
-import { User } from '../sample/data';
+import { User } from '../Main/data';
 
 export interface UserCardProps {
     user: User;
 }
 
 interface UserCardState {
-
 }
 
 export default class UserCard extends React.Component<UserCardProps, UserCardState> {

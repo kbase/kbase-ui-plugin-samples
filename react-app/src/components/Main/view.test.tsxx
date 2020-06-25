@@ -1,0 +1,36 @@
+import React from 'react';
+import { render } from '@testing-library/react';
+
+import Main, { MainProps } from './view';
+import testData from './view.test.data.json';
+import { Sample } from './types';
+
+const TIMEOUT = 10000;
+
+test('renders main', async () => {
+
+    const sample = testData.sample as unknown as Sample;
+
+    const props: MainProps = {
+        sample,
+        setTitle: (title: string) => {
+            return;
+        }
+    } as MainProps;
+
+    const { getByText, findByText } = render(<Main {...props} />);
+
+    const historyTitle = await findByText('Name');
+    expect(historyTitle).toBeInTheDocument();
+
+
+
+    // await waitFor(() => {
+    //     const historyTitle = getByText('History');
+    //     expect(historyTitle).toBeInTheDocument();
+    //     const diffTitle = getByText('Diff');
+    //     expect(diffTitle).toBeInTheDocument();
+    // }, {
+    //     timeout: TIMEOUT
+    // });
+});
