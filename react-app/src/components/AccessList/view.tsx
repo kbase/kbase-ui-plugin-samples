@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UserCard from '../UserCard/view';
-import { ACL, User } from '../Main/data';
+import { ACL, User } from '../Main/types';
 
 import './style.css';
 

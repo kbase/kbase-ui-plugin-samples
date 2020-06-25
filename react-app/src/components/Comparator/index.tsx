@@ -2,7 +2,7 @@ import React from 'react';
 import { PauseOutlined, LineOutlined } from '@ant-design/icons';
 
 import { MiniSample } from '../History/data';
-import { Metadata } from '../Main/data';
+import { Metadata } from '../Main/types';
 import { FieldDefinitionsMap } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import ComparisonView from './view';
 

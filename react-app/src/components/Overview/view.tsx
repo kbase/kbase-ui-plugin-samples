@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Modal, Button } from 'antd';
-import { Sample } from '../Main/data';
-import './Overview.css';
+import { Sample } from '../Main/types';
+import './styles.css';
 import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';

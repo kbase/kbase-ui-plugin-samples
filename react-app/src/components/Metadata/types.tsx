@@ -1,6 +1,6 @@
 // TODO: unused, preserved for now
 
-import { MetadataField } from "../Main/data";
+import { MetadataField } from "../Main/types";
 
 export interface FieldFormatBase {
 }

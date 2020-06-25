@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRightOutlined } from '@ant-design/icons/lib/icons';
-import { Sample } from './Main/data';
+import { Sample } from './Main/types';
 import Select from 'antd/lib/select';
 import { Button } from 'antd';
 import UserCard from './UserCard/view';

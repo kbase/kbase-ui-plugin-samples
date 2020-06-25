@@ -3,7 +3,7 @@ import { render, waitFor, findByRole, within } from '@testing-library/react';
 
 import UserCard, { UserCardProps } from './view';
 import viewTestData from './view.test.data.json';
-import { User } from '../Main/data';
+import { User } from '../Main/types';
 
 interface TestData {
     users: Array<User>;

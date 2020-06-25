@@ -3,7 +3,7 @@ import { Table, Tooltip } from 'antd';
 
 import { LinkOutlined } from '@ant-design/icons';
 
-import { Sample } from '../Main/data';
+import { Sample } from '../Main/types';
 
 import { Template, FieldDefinitionsMap, TemplateDefinition } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { TemplateDataSource2 } from './types';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import Gravatar from '../Gravatar/Gravatar';
-import { User } from '../Main/data';
+import { User } from '../Main/types';
 
 export interface UserCardProps {
     user: User;

@@ -4,7 +4,7 @@ import {
 } from 'antd';
 
 import DataLinks from '../DataLinks';
-import Overview from '../Overview/Overview';
+import Overview from '../Overview/view';
 import TemplateMetadata from '../TemplateMetadata';
 import { Sample } from './types';
 import AccessList from '../AccessList';
