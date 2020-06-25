@@ -62,3 +62,15 @@ export function countedTerm(count: number, singular: string, plural?: string) {
     }
 }
 
+export function partitionArray<T>(arr: Array<T>, partitioner: (item: T) => boolean) {
+    const original: Array<T> = [];
+    const separated: Array<T> = [];
+    arr.forEach((item: T) => {
+        if (partitioner(item)) {
+            separated.push(item);
+        } else {
+            original.push(item);
+        }
+    });
+    return [original, separated];
+}

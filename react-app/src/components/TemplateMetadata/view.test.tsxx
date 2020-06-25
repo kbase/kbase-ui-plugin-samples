@@ -1,0 +1,28 @@
+import React from 'react';
+import { render, waitFor } from '@testing-library/react';
+
+import TemplateMetadata from './view';
+import { Sample } from '../Main/data';
+import indexTestData from './view.test.data.json';
+
+interface TestData {
+    samples: Array<Sample>;
+}
+
+const testData = (indexTestData as unknown) as TestData;
+
+const TIMEOUT = 10000;
+
+test('should render', async () => {
+
+    const sample: Sample = testData.samples[0];
+
+    const { container } = render(<TemplateMetadata sample={sample} />);
+
+    await waitFor(() => {
+        const tbody = container.querySelector('.ant-table-tbody');
+        expect(tbody).toBeInTheDocument();
+    }, {
+        timeout: TIMEOUT
+    });
+});

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Modal, Button } from 'antd';
-import { Sample } from '../sample/data';
+import { Sample } from '../Main/data';
 import './Overview.css';
 import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';

@@ -1,4 +1,4 @@
-import { objectsEquivalent, arraysEquivalent, isSimpleObject } from "./utils";
+import { objectsEquivalent, arraysEquivalent, isSimpleObject, countedTerm, partitionArray } from "./utils";
 
 test('Objects are equivalent', () => {
     const obj1 = { hi: 'there' };
@@ -7,7 +7,6 @@ test('Objects are equivalent', () => {
 });
 
 test('Objects are still equivalent', () => {
-
     const objs1: Array<SimpleObject> = [
         { hi: 'there' },
         { foo: 644, bar: 'foo' }
@@ -113,3 +112,47 @@ test('Is NOT simple object', () => {
     });
 });
 
+test('Counted terms works', () => {
+    const cases: Array<{
+        input: [number, string, string | undefined],
+        expected: string;
+    }> = [
+            {
+                input: [0, 'foo', 'foos'],
+                expected: 'foos'
+            },
+            {
+                input: [1, 'foo', undefined],
+                expected: 'foo'
+            },
+            {
+                input: [2, 'foo', undefined],
+                expected: 'foos'
+            },
+            {
+                input: [2, 'foo', 'fooi'],
+                expected: 'fooi'
+            }
+        ];
+    cases.forEach(({ input, expected }) => {
+        const result = countedTerm.apply(null, input);
+        expect(result).toEqual(expected);
+    });
+});
+
+test('Array partitioner works', () => {
+
+    const toPartition = [
+        'a',
+        'b',
+        'c',
+        'd'
+    ];
+
+    const [first, second] = partitionArray<string>(toPartition, (item: string) => {
+        return item < 'c';
+    });
+
+    expect(first.length).toEqual(2);
+    expect(second.length).toEqual(2);
+});
