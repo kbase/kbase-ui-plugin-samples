@@ -195,7 +195,9 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
         });
 
         return <div className="Metadata">
-            {rows}
+            <div>
+                {rows}
+            </div>
         </div>;
     }
 }
