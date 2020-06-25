@@ -9,7 +9,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
-import { User, SampleType, Metadata, UserMetadata } from '../Main/data';
+import { User, SampleType, Metadata, UserMetadata } from '../Main/types';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
 
 export interface MiniSample {

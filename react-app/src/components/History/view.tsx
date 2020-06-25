@@ -3,7 +3,7 @@ import { Table, Tooltip, Alert, message } from 'antd';
 import { History, MiniSample } from './data';
 import './style.css';
 import UserCard from '../UserCard/view';
-import { User } from '../Main/data';
+import { User } from '../Main/types';
 import Comparator from '../Comparator';
 import { FieldDefinitionsMap } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { partitionArray } from '../../lib/utils';

@@ -1,4 +1,4 @@
-import { Sample } from "../Main/data";
+import { Sample } from "../Main/types";
 
 interface TemplateDefinition {
     id: string;

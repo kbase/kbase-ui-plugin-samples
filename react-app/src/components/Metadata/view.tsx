@@ -9,7 +9,7 @@ import Leaflet from 'leaflet';
 import { PushpinFilled } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
 
-import { Sample, Metadata } from '../Main/data';
+import { Sample, Metadata } from '../Main/types';
 import {
     Template, GroupingLayout, FieldDefinitionsMap, FieldLayout
 } from '../../lib/comm/dynamicServices/SampleServiceClient';

@@ -8,7 +8,7 @@ import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
-import { Sample } from '../Main/data';
+import { Sample } from '../Main/types';
 
 export interface DataProps {
     serviceWizardURL: string;

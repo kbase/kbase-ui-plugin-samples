@@ -1,7 +1,7 @@
 import React from 'react';
-import Overview from './Overview';
+import Overview from './view';
 import { render, waitFor } from '@testing-library/react';
-import { Sample } from '../sample/data';
+import { Sample } from '../Main/types';
 
 const TIMEOUT = 10000;
 
