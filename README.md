@@ -6,7 +6,7 @@ Similar to other viewer plugins (dataview, typeview), this plugin provides a ui 
 
 ## Usage
 
-A sample can be viewed at a url like `https://ci.kbase.us#sampleview/SAMPLEID`.
+A sample can be viewed at a url like `https://ci.kbase.us#samples/view/SAMPLEID/VERSION?`.
 
 At the time of writing, the `SAMPLEID` is not yet determined.
 
