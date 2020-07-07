@@ -10,8 +10,8 @@ export interface Params {
 // Note - since this joins the union of other action types from ui/components, 
 // we need to namespace by using a string enum.
 export enum ActionType {
-    NAVIGATE = "@sampleview/navigate",
-    ROUTE = "@sampleview/route"
+    NAVIGATE = "@samples/navigate",
+    ROUTE = "@samples/route"
 }
 
 // Action type interfaces

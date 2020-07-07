@@ -1,10 +1,10 @@
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { AppBase } from "@kbase/ui-components";
+import { AppBase, AuthGate } from "@kbase/ui-components";
 import "./App.css";
-import Dispatcher from "./dispatcher";
-import Navigation from "./navigation";
+import Dispatcher from "./ui/dispatcher";
+// import Navigation from "./navigation";
 import { Unsubscribe } from "redux";
 import { navigate } from "./redux/actions";
 import { Nav } from "./redux/store/navigation";
@@ -16,6 +16,7 @@ interface AppProps { }
 interface AppState { }
 
 /*
+TODO: <Navigation routes={devConfig.install.routes}>
 
 */
 export default class App<AppProps, AppState> extends React.Component {
@@ -29,11 +30,11 @@ export default class App<AppProps, AppState> extends React.Component {
             <ErrorBoundary>
                 <Provider store={store}>
                     <AppBase>
-                        <div className="App">
-                            <Navigation routes={devConfig.install.routes}>
+                        <AuthGate required={true}>
+                            <div className="App">
                                 <Dispatcher />
-                            </Navigation>
-                        </div>
+                            </div>
+                        </AuthGate>
                     </AppBase>
                 </Provider>
             </ErrorBoundary>

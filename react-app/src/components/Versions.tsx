@@ -129,7 +129,7 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
             </td>
             <td>
                 <Button
-                    href={`/#sampleview/${id}/${currentVersion.version}`}
+                    href={`/#samples/view/${id}/${currentVersion.version}`}
                     style={{ display: 'block' }}
                     target="_parent">{currentVersion.version}</Button>
             </td>
@@ -172,7 +172,7 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
                     </td>
                     <td>
                         <Button
-                            href={`/#sampleview/${id}/1`}
+                            href={`/#samples/view/${id}/1`}
                             style={{ display: 'block' }}
                             target="_parent">1</Button>
                     </td>
@@ -206,7 +206,7 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
                     </td>
                     <td>
                         <Button
-                            href={`/#sampleview/${id}/${latestVersion.version}`}
+                            href={`/#samples/view/${id}/${latestVersion.version}`}
                             style={{ display: 'block' }}
                             target="_parent">{latestVersion.version}</Button>
                     </td>

@@ -7,15 +7,12 @@ package:
 services:
   route:
     routes:
-      - path:
-          # could be:
-          # sampleview/:sampleId/:sampleVersion?
-          - type: literal
-            value: sampleview
-          - type: param
-            name: sampleId
-          - type: param
-            name: sampleVersion
-            optional: true
-        view: main
+      - path: sampleview/:sampleId/:-sampleVersion
+        view: view
         authorization: true
+      - path: samples/view/:sampleId/:-sampleVersion
+        view: view
+        authorization: true
+      - path: samples/about
+        view: about
+        authorization: false
