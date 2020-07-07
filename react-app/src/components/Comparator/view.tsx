@@ -8,14 +8,10 @@ import './style.less';
 import { DiffState } from './DiffSelector';
 
 export interface ComparatorProps {
-    // selectedSamples: Array<MiniSample>;
-    // view: View;
     diffStatus: Array<DiffState>;
-    // fieldDefinitions: FieldDefinitionsMap;
     comparison: Comparison;
 }
 
-// export type View = 'sample' | 'metadata' | 'user_metadata';
 interface ComparatorState {
 }
 
@@ -70,7 +66,6 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
                 return {
                     key: field.key,
                     label: field.label,
-                    // label: comparison
                     isDiff,
                     compare1: comparison.compare1 ? comparison.compare1[field.key] : null,
                     compare2: comparison.compare2 ? comparison.compare2[field.key] : null
@@ -152,11 +147,6 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
         </div>;
 
     }
-    // onViewChange(view: View) {
-    //     this.setState({
-    //         view
-    //     });
-    // }
 
     render() {
         return <div className="Comparator" style={{ position: 'relative' }}>
