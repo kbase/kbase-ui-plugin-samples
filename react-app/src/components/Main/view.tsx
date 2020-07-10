@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Tabs, Alert
+    Tabs
 } from 'antd';
 
 import DataLinks from '../DataLinks';
@@ -12,6 +12,7 @@ import HistoryTool from '../History';
 import MetadataViewer from '../Metadata';
 
 import './style.less';
+import UserMetadataViewer from '../UserMetadata/view';
 
 export interface MainProps {
     sample: Sample;
@@ -36,13 +37,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                     <MetadataViewer sample={this.props.sample} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="User Metadata" key="usermetadata">
-                    <Alert
-                        type="warning"
-                        message="Sorry, User Metadata not yet supported."
-                        style={{
-                            alignSelf: 'center'
-                        }}
-                    />
+                    <UserMetadataViewer sample={this.props.sample} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Template" key="template">
                     <TemplateMetadata sample={this.props.sample} />

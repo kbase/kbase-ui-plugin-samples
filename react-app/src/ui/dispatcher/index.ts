@@ -63,8 +63,6 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         return navView;
     })();
 
-    console.log('[navigation]', navView, view, params);
-
     return { token, rootState, view, path, params };
 }
 

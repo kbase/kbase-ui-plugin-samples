@@ -8,7 +8,7 @@ import Dispatcher from "./ui/dispatcher";
 import { Unsubscribe } from "redux";
 import { navigate } from "./redux/actions";
 import { Nav } from "./redux/store/navigation";
-import devConfig from './devConfig.json';
+// import devConfig from './devConfig.json';
 import ErrorBoundary from "./components/ErrorBoundary";
 
 interface AppProps { }
