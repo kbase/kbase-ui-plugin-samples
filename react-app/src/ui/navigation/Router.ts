@@ -257,7 +257,6 @@ export class Router {
 
     findRoute(request: Request) {
         // No route at all? Return the default route.
-        console.log('[findRoute]', request);
         if (request.path.length === 0 && Object.keys(request.query).length === 0) {
             throw new Error('No request to route!');
             // return {

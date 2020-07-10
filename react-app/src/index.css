@@ -20,6 +20,13 @@ code {
     flex-direction: row;
 }
 
+.InfoTable>div.InfoTable-header {}
+
+.InfoTable>div.InfoTable-header>div {
+    font-weight: bold !important;
+    color: rgba(100, 100, 100, 1) !important;
+}
+
 .InfoTable>div:nth-child(odd) {
     /* background-color: rgba(200, 200, 200, 0.5); */
 }

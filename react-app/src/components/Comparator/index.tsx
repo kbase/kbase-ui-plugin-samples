@@ -186,7 +186,6 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
 
         const fields = keys.map((key) => {
             const def = this.props.fieldDefinitions[key];
-            console.log('get metadata comparison', key, def);
             return {
                 key,
                 label: def.label,

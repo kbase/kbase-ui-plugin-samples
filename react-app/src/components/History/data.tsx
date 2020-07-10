@@ -110,31 +110,15 @@ export default class Data extends React.Component<DataProps, DataState> {
 
         const actualSample = sampleResult.node_tree[0];
 
-        const fieldKeys = Object.keys(actualSample.meta_user).concat(Object.keys(actualSample.meta_controlled));
+        const fieldKeys = Object.keys(actualSample.meta_controlled);
 
         const fieldMetadata = await client.get_metadata_key_static_metadata({
             keys: fieldKeys,
             prefix: 0
         });
 
-
-
-        const metadata: Metadata = Object.entries(actualSample.meta_user)
+        const metadata: Metadata = Object.entries(actualSample.meta_controlled)
             .reduce((metadata, [key, field]) => {
-                const fieldMeta = fieldMetadata.static_metadata[key];
-                metadata[key] = {
-                    label: fieldMeta.display_name,
-                    description: fieldMeta.description,
-                    value: field.value,
-                    units: field.units,
-                    isControlled: false,
-                    definition: fieldDefinitions[key]
-                };
-                return metadata;
-            }, {} as Metadata);
-
-        Object.entries(actualSample.meta_controlled)
-            .forEach(([key, field]) => {
                 const fieldMeta = fieldMetadata.static_metadata[key];
                 metadata[key] = {
                     label: fieldMeta.display_name,
@@ -144,9 +128,26 @@ export default class Data extends React.Component<DataProps, DataState> {
                     isControlled: true,
                     definition: fieldDefinitions[key]
                 };
-            });
+                return metadata;
+            }, {} as Metadata);
 
-        const userMetadata = {};
+        const userMetadata: UserMetadata = Object.entries(actualSample.meta_user)
+            .reduce<UserMetadata>((metadata, [key, field]) => {
+                if (metadata[key]) {
+                    return metadata;
+                }
+                let value: string;
+                if (typeof field.value !== 'string') {
+                    value = String(field.value);
+                } else {
+                    value = field.value;
+                }
+                metadata[key] = {
+                    value
+                };
+                return metadata;
+            }, {} as UserMetadata);
+
 
         const users = await this.fetchUsers(Array.from(new Set([
             sampleResult.user,

@@ -9,7 +9,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
-import { Sample, Metadata, User } from './types';
+import { Sample, Metadata, User, UserMetadata } from './types';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -114,16 +114,16 @@ export default class Data extends React.Component<DataProps, DataState> {
 
             const actualSample = sampleResult.node_tree[0];
 
-            const fieldKeys = Object.keys(actualSample.meta_user).concat(Object.keys(actualSample.meta_controlled));
+            const fieldKeys = Object.keys(actualSample.meta_controlled);
 
             const fieldMetadata = await client.get_metadata_key_static_metadata({
                 keys: fieldKeys,
                 prefix: 0
             });
 
-            const fieldDefinitions = await client.get_metadata_definitions({});
+            const fieldDefinitions = (await client.get_metadata_definitions({})).field_definitions;
 
-            const metadata: Metadata = Object.entries(actualSample.meta_user)
+            const controlledMetadata: Metadata = Object.entries(actualSample.meta_controlled)
                 .reduce((metadata, [key, field]) => {
                     const fieldMeta = fieldMetadata.static_metadata[key];
                     metadata[key] = {
@@ -131,26 +131,29 @@ export default class Data extends React.Component<DataProps, DataState> {
                         description: fieldMeta.description,
                         value: field.value,
                         units: field.units,
-                        isControlled: false,
-                        definition: fieldDefinitions.field_definitions[key]
+                        isControlled: true,
+                        definition: fieldDefinitions[key]
                     };
                     return metadata;
                 }, {} as Metadata);
 
-            Object.entries(actualSample.meta_controlled)
-                .forEach(([key, field]) => {
-                    const fieldMeta = fieldMetadata.static_metadata[key];
+            const userMetadata: UserMetadata = Object.entries(actualSample.meta_user)
+                .reduce<UserMetadata>((metadata, [key, field]) => {
+                    console.log('hmm', key, controlledMetadata[key], metadata);
+                    if (controlledMetadata[key]) {
+                        return metadata;
+                    }
+                    let value: string;
+                    if (typeof field.value !== 'string') {
+                        value = String(field.value);
+                    } else {
+                        value = field.value;
+                    }
                     metadata[key] = {
-                        label: fieldMeta.display_name,
-                        description: fieldMeta.description,
-                        value: field.value,
-                        units: field.units,
-                        isControlled: true,
-                        definition: fieldDefinitions.field_definitions[key]
+                        value
                     };
-                });
-
-            const userMetadata = {};
+                    return metadata;
+                }, {} as UserMetadata);
 
             const users = await this.fetchUsers(Array.from(new Set([
                 firstSample.user,
@@ -183,7 +186,7 @@ export default class Data extends React.Component<DataProps, DataState> {
                     version: latestSample.version
                 },
                 type: actualSample.type,
-                metadata,
+                metadata: controlledMetadata,
                 userMetadata
             };
 
@@ -211,8 +214,6 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     async componentDidUpdate(prevProps: DataProps, prevState: DataState) {
-        // console.log('[componentDidUpdate]', prevProps.sampleId, this.props.sampleId,
-        // prevProps.sampleVersion, this.props.sampleVersion);
         if (prevProps.sampleId !== this.props.sampleId ||
             prevProps.sampleVersion !== this.props.sampleVersion) {
             // console.log('fetching...', prevProps.sampleVersion !== this.props.sampleVersion, prevProps.sampleVersion, this.props.sampleVersion);

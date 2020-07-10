@@ -61,29 +61,17 @@ test('renders data links with links', async () => {
     expect(message).toBeInTheDocument();
 
     await waitFor(() => {
-        console.log(linkElement);
         const table = linkElement.querySelector('.ant-table-body table');
         expect(table).toBeInTheDocument();
         if (table === null) {
             throw new Error('impossible');
         }
-        // console.log('table??', table.querySelector('.ant-table-tbody'));
-
 
         if (table) {
             const rows = table.querySelectorAll('tr');
             expect(rows.length).toEqual(5);
-
-            // console.log('data rows?', rows.length);
-
-            // 
-            // const dataRows = Array.from(rows).slice(1);
-            // console.log('data rows?', dataRows);
-            // expect(dataRows.length).toEqual(4);
         }
 
-        // const messageElement = getByText('No data linked to this sample.');
-        // expect(messageElement).toBeInTheDocument();
     }, {
         timeout: TIMEOUT
     });

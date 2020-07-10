@@ -152,7 +152,6 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
         if (!this.props.view) {
             return this.renderEmptyRoute();
         }
-        console.log('[dispatcher,view]', this.props);
         const route = this.views[this.props.view];
         if (!route) {
             return this.renderEmptyRoute();
@@ -171,7 +170,6 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
     render() {
         if (this.props.rootState === RootState.DEVELOP) {
             const routeSpecs = routes.map(routeConfigToSpec);
-            console.log('route specs', routeSpecs);
             return <Navigation routes={routeSpecs}>
                 {this.renderRouting()}
             </Navigation>;
