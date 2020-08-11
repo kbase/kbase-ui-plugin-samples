@@ -5,7 +5,7 @@ import './style.css';
 import UserCard from '../UserCard/view';
 import { User } from '../Main/types';
 import Comparator from '../Comparator';
-import { FieldDefinitionsMap } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import { FieldDefinitionsMap } from '../../lib/Model';
 import { partitionArray } from '../../lib/utils';
 import { View } from '../Comparator';
 import DiffSelector, { DiffState } from '../Comparator/DiffSelector';

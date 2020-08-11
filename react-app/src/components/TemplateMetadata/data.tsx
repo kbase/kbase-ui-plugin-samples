@@ -2,7 +2,7 @@ import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import SampleServiceClient, {
     GroupingLayout, FieldDefinitionsMap, Template, TemplateDefinition
-} from '../../lib/comm/dynamicServices/SampleServiceClient';
+} from '../../lib/Model';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -62,8 +62,10 @@ export default class Data extends React.Component<DataProps, DataState> {
                 timeout: UPSTREAM_TIMEOUT
             });
 
+            console.log('hmm, template?', this.props.sample.template.id);
+
             // Get the template
-            const { template, metadataFields, definition } = await client.get_template({ id: "sesar" });
+            const { template, metadataFields, definition } = await client.getTemplate({ id: this.props.sample.template.id });
 
             const fieldMapping: FieldDefinitionsMap = metadataFields.reduce((fieldMapping, field) => {
                 fieldMapping[field.key] = field;
@@ -71,7 +73,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             }, {} as FieldDefinitionsMap);
 
             // Get the grouping layout
-            const { grouping } = await client.get_grouping({ id: "sesar" });
+            const { grouping } = await client.getGrouping({ id: "sesar" });
 
             // Get the field definitions
 

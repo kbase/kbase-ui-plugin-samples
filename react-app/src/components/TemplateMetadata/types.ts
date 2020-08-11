@@ -115,14 +115,14 @@ export class NameField extends SpreadsheetField {
 export class IGSNField extends SpreadsheetField {
     // static column = 'IGSN';
     extractValue(sample: Sample) {
-        return sample.sourceId;
+        return sample.sourceId.id;
     }
 }
 
 export class ParentIGSNField extends SpreadsheetField {
     // static column = 'Parent IGSN';
     extractValue(sample: Sample) {
-        return sample.sourceParentId;
+        return sample.sourceParentId.id;
     }
 }
 

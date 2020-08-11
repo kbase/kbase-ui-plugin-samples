@@ -1,65 +1,12 @@
 @import '../../base.less';
 
-.Metadata {
+.UserMetadata {
     flex: 1 1 0px;
     display: flex;
     flex-direction: column;
     min-height: 0;
+}
+
+.UserMetadata-content {
     overflow-y: auto;
-}
-
-.Sample .ant-row {
-    flex: 1 1 0px;
-}
-
-.map-marker {
-    color: red;
-    font-size: 20px;
-}
-
-.DataGroup {
-    display: flex;
-    flex-direction: row;
-}
-
-.DataGroup+.DataGroup {
-    margin-top: 20px;
-}
-
-.DataGroup>.-title {
-    font-weight: bold;
-    color: @gray-8;
-    font-size: 100%;
-    flex: 0 0 10em;
-}
-
-.DataGroup>.-body {
-    // margin-top: 10px;
-    flex: 1 1 0px;
-    display: flex;
-    flex-direction: column;
-}
-
-.DataGroup>.-body>.-extras {
-    margin-top: 10px;
-}
-
-.DataGroupSet {}
-
-.DataGroupSet+.DataGroupSet {
-    margin-top: 40px;
-}
-
-.DataGroupSet>.-title {
-    font-weight: bold;
-    color: @gray-8;
-    font-size: 110%;
-}
-
-.DataGroupSet>.-body {
-    margin-top: 10px;
-}
-
-.DataGroupSet>.-extras {
-    margin-top: 10px;
 }

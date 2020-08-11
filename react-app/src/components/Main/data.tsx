@@ -1,6 +1,6 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
-import SampleServiceClient, {
+import {
     SampleId, SampleVersion, Username
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
@@ -10,6 +10,7 @@ import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
 import { Sample, Metadata, User, UserMetadata } from './types';
+import Model from '../../lib/Model';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -83,18 +84,18 @@ export default class Data extends React.Component<DataProps, DataState> {
                     }
                 });
             }
-            const client = new SampleServiceClient({
+            const client = new Model({
                 token: props.token,
                 url: props.serviceWizardURL,
                 timeout: UPSTREAM_TIMEOUT
             });
 
-            const sampleResult = await client.get_sample({
+            const sampleResult = await client.getSample({
                 id: props.sampleId,
                 version: props.sampleVersion
             });
 
-            const latestSample = await client.get_sample({
+            const latestSample = await client.getSample({
                 id: props.sampleId
             });
 
@@ -103,7 +104,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             if (sampleResult.version === 1) {
                 firstSample = sampleResult;
             } else {
-                firstSample = await client.get_sample({
+                firstSample = await client.getSample({
                     id: props.sampleId,
                     version: 1
                 });
@@ -112,18 +113,18 @@ export default class Data extends React.Component<DataProps, DataState> {
                 }
             }
 
-            const actualSample = sampleResult.node_tree[0];
+            const actualSample = sampleResult.sample;
 
-            const fieldKeys = Object.keys(actualSample.meta_controlled);
+            const fieldKeys = Object.keys(actualSample.metadata);
 
-            const fieldMetadata = await client.get_metadata_key_static_metadata({
+            const fieldMetadata = await client.getMetadataKeyStaticMetadata({
                 keys: fieldKeys,
                 prefix: 0
             });
 
-            const fieldDefinitions = (await client.get_metadata_definitions({})).field_definitions;
+            const fieldDefinitions = (await client.getMetadataDefinitions({})).field_definitions;
 
-            const controlledMetadata: Metadata = Object.entries(actualSample.meta_controlled)
+            const controlledMetadata: Metadata = Object.entries(actualSample.metadata)
                 .reduce((metadata, [key, field]) => {
                     const fieldMeta = fieldMetadata.static_metadata[key];
                     metadata[key] = {
@@ -137,9 +138,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                     return metadata;
                 }, {} as Metadata);
 
-            const userMetadata: UserMetadata = Object.entries(actualSample.meta_user)
+            const userMetadata: UserMetadata = Object.entries(actualSample.userMetadata)
                 .reduce<UserMetadata>((metadata, [key, field]) => {
-                    console.log('hmm', key, controlledMetadata[key], metadata);
                     if (controlledMetadata[key]) {
                         return metadata;
                     }
@@ -156,9 +156,9 @@ export default class Data extends React.Component<DataProps, DataState> {
                 }, {} as UserMetadata);
 
             const users = await this.fetchUsers(Array.from(new Set([
-                firstSample.user,
-                sampleResult.user,
-                latestSample.user
+                firstSample.savedBy,
+                sampleResult.savedBy,
+                latestSample.savedBy
             ]).values()));
             const usersMap = users.reduce((usersMap, user) => {
                 usersMap.set(user.username, user);
@@ -168,21 +168,31 @@ export default class Data extends React.Component<DataProps, DataState> {
             const sample: Sample = {
                 id: sampleResult.id,
                 name: sampleResult.name,
-                source: 'SESAR',
-                sourceId: actualSample.id,
-                sourceParentId: actualSample.parent,
+                template: {
+                    id: sampleResult.sample.templateId,
+                    label: sampleResult.sample.templateId
+                },
+                source: sampleResult.sample.source,
+                sourceId: {
+                    id: actualSample.id,
+                    label: 'IGSN'
+                },
+                sourceParentId: {
+                    id: actualSample.parentId,
+                    label: 'Parent IGSN'
+                },
                 created: {
-                    at: firstSample.save_date,
-                    by: usersMap.get(firstSample.user)!,
+                    at: firstSample.savedAt,
+                    by: usersMap.get(firstSample.savedBy)!,
                 },
                 currentVersion: {
-                    at: sampleResult.save_date,
-                    by: usersMap.get(sampleResult.user)!,
+                    at: sampleResult.savedAt,
+                    by: usersMap.get(sampleResult.savedBy)!,
                     version: sampleResult.version
                 },
                 latestVersion: {
-                    at: latestSample.save_date,
-                    by: usersMap.get(latestSample.user)!,
+                    at: latestSample.savedAt,
+                    by: usersMap.get(latestSample.savedBy)!,
                     version: latestSample.version
                 },
                 type: actualSample.type,
@@ -216,7 +226,6 @@ export default class Data extends React.Component<DataProps, DataState> {
     async componentDidUpdate(prevProps: DataProps, prevState: DataState) {
         if (prevProps.sampleId !== this.props.sampleId ||
             prevProps.sampleVersion !== this.props.sampleVersion) {
-            // console.log('fetching...', prevProps.sampleVersion !== this.props.sampleVersion, prevProps.sampleVersion, this.props.sampleVersion);
             this.fetchSample(this.props);
         }
     }

@@ -5,7 +5,9 @@ import { LinkOutlined } from '@ant-design/icons';
 
 import { Sample } from '../Main/types';
 
-import { Template, FieldDefinitionsMap, TemplateDefinition } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import {
+    Template, FieldDefinitionsMap, TemplateDefinition
+} from '../../lib/Model';
 import { TemplateDataSource2 } from './types';
 
 export interface TemplateMetadataProps {
@@ -87,9 +89,9 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                             case 'name':
                                 return sample.name;
                             case 'source_id':
-                                return sample.sourceId;
+                                return sample.sourceId.id;
                             case 'source_parent_id':
-                                return sample.sourceParentId;
+                                return sample.sourceParentId.id;
                             default:
                                 throw new Error(`Unrecognized sample key ${column}`);
                         }

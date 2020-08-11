@@ -42,6 +42,10 @@ export default class UserMetadataViewer extends React.Component<UserMetadataView
     }
 
     render() {
-        return this.renderUserMetadataAlpha();
+        return <div className="UserMetadata">
+            <div className="UserMetadata-content">
+                {this.renderUserMetadataAlpha()}
+            </div>
+        </div>;
     }
 }
