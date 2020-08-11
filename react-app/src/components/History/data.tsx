@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
-import SampleServiceClient, {
-    SampleId, SampleVersion, Username, EpochTimeMS, FieldDefinitionsMap
+import {
+    SampleId, SampleVersion, Username, EpochTimeMS
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -11,6 +11,7 @@ import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 import { User, SampleType, Metadata, UserMetadata } from '../Main/types';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
+import Model, { FieldDefinitionsMap } from '../../lib/Model';
 
 export interface MiniSample {
     id: SampleId;
@@ -87,37 +88,37 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     async fetchFieldDefinitions(): Promise<FieldDefinitionsMap> {
-        const client = new SampleServiceClient({
+        const client = new Model({
             token: this.props.token,
             url: this.props.serviceWizardURL,
             timeout: UPSTREAM_TIMEOUT
         });
-        return (await client.get_metadata_definitions({})).field_definitions;
+        return (await client.getMetadataDefinitions({})).field_definitions;
 
     }
 
     async fetchSample(fieldDefinitions: FieldDefinitionsMap, sampleId: string, version?: number): Promise<MiniSample> {
-        const client = new SampleServiceClient({
+        const client = new Model({
             token: this.props.token,
             url: this.props.serviceWizardURL,
             timeout: UPSTREAM_TIMEOUT
         });
 
-        const sampleResult = await client.get_sample({
+        const sampleResult = await client.getSample({
             id: sampleId,
             version
         });
 
-        const actualSample = sampleResult.node_tree[0];
+        const actualSample = sampleResult.sample;
 
-        const fieldKeys = Object.keys(actualSample.meta_controlled);
+        const fieldKeys = Object.keys(actualSample.metadata);
 
-        const fieldMetadata = await client.get_metadata_key_static_metadata({
+        const fieldMetadata = await client.getMetadataKeyStaticMetadata({
             keys: fieldKeys,
             prefix: 0
         });
 
-        const metadata: Metadata = Object.entries(actualSample.meta_controlled)
+        const metadata: Metadata = Object.entries(actualSample.metadata)
             .reduce((metadata, [key, field]) => {
                 const fieldMeta = fieldMetadata.static_metadata[key];
                 metadata[key] = {
@@ -131,7 +132,7 @@ export default class Data extends React.Component<DataProps, DataState> {
                 return metadata;
             }, {} as Metadata);
 
-        const userMetadata: UserMetadata = Object.entries(actualSample.meta_user)
+        const userMetadata: UserMetadata = Object.entries(actualSample.userMetadata)
             .reduce<UserMetadata>((metadata, [key, field]) => {
                 if (metadata[key]) {
                     return metadata;
@@ -150,7 +151,7 @@ export default class Data extends React.Component<DataProps, DataState> {
 
 
         const users = await this.fetchUsers(Array.from(new Set([
-            sampleResult.user,
+            sampleResult.savedBy,
         ]).values()));
         const usersMap = users.reduce((usersMap, user) => {
             usersMap.set(user.username, user);
@@ -160,11 +161,12 @@ export default class Data extends React.Component<DataProps, DataState> {
         const sample: MiniSample = {
             id: sampleResult.id,
             name: sampleResult.name,
+            // TODO: get from sample...
             source: 'SESAR',
             sourceId: actualSample.id,
-            sourceParentId: actualSample.parent,
-            savedAt: sampleResult.save_date,
-            savedBy: usersMap.get(sampleResult.user)!,
+            sourceParentId: actualSample.parentId,
+            savedAt: sampleResult.savedAt,
+            savedBy: usersMap.get(sampleResult.savedBy)!,
             version: sampleResult.version,
             type: actualSample.type,
             metadata,

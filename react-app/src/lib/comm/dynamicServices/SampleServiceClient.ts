@@ -1,50 +1,6 @@
 import { DynamicServiceClient } from '../JSONRPC11x/DynamicServiceClient';
-import metadataDefinitionsData from './data/metadata.definitions.json';
-import templateDefinitionsData from './data/template-definitions.json';
-import sesarTemplateData from './data/sesar-template.json';
-import sesarGroupingLayoutData from './data/grouping-layout.sesar.json';
 
-const metadataDefinitions = (metadataDefinitionsData as unknown) as { fields: Array<FieldDefinition>; };
 
-const templateDefinitions = (templateDefinitionsData as unknown) as TemplateDefinitions;
-
-const sesarTemplate = (sesarTemplateData as unknown) as Template;
-
-const sesarGroupingLayout = (sesarGroupingLayoutData as unknown) as GroupingLayout;
-
-export interface GroupingLayout {
-    id: string;
-    name: string;
-    description: string;
-    layout: Array<FieldLayout>;
-}
-
-export interface FieldLayout {
-    key: string;
-    label: string;
-    description: string;
-    layout: Array<string>;
-}
-
-export interface Template {
-    id: string;
-    version: number;
-    created_at: number;
-    created_by: string;
-    header: Array<string>;
-    columns: Array<string>;
-}
-
-export interface TemplateDefinitions {
-    templates: Array<TemplateDefinition>;
-}
-
-export interface TemplateDefinition {
-    id: string;
-    name: string;
-    description: string;
-    reference: string;
-}
 
 export interface StatusResult {
     state: string;
@@ -166,56 +122,6 @@ export interface GetMetadataKeyStaticMetadataResult {
     static_metadata: StaticMetadata;
 }
 
-export interface FieldDefinitionBase {
-    key: string;
-    type: 'integer' | 'float' | 'string' | 'date';
-    kind: 'registration' | 'descriptive' | 'user';
-    label: string;
-    description?: string;
-    units?: string;
-}
-
-export interface FieldDefinitionInteger extends FieldDefinitionBase {
-    type: 'integer';
-    minimum_value?: number;
-    maximum_value?: number;
-}
-
-export interface FieldDefinitionFloat extends FieldDefinitionBase {
-    type: 'float';
-    minimum_value?: number;
-    maximum_value?: number;
-    precision?: number;
-}
-
-export interface FieldDefinitionString extends FieldDefinitionBase {
-    type: 'string';
-    regex?: string;
-    minimum_length?: number;
-    maximum_length?: number;
-}
-
-export interface FieldDefinitionDate extends FieldDefinitionBase {
-    type: 'date';
-    minimum_value?: number;
-    maximum_value?: number;
-}
-
-export type FieldDefinition = FieldDefinitionInteger | FieldDefinitionFloat | FieldDefinitionString | FieldDefinitionDate;
-
-export interface FieldDefinitionsMap {
-    [key: string]: FieldDefinition;
-}
-
-export interface GetMetadataDefinitionsParams {
-
-}
-
-export interface GetMetadataDefinitionsResult {
-    // field_definitions: Array<FieldDefinition>;
-    field_definitions: FieldDefinitionsMap;
-}
-
 export interface GetSampleACLsParams {
     id: SampleId;
     as_admin: SDKBoolean;
@@ -229,33 +135,6 @@ export interface SampleACLs {
 }
 
 export type GetSampleACLsResult = SampleACLs;
-
-export interface GetTemplateParams {
-    id: string;
-    version?: number;
-}
-
-export interface GetTemplateResult {
-    definition: TemplateDefinition;
-    template: Template;
-    metadataFields: Array<FieldDefinition>;
-    // id: string;
-    // version: number;
-    // saved_at: number;
-    // saved_by: string;
-    // description: string;
-    // source: string;
-    // fields: Array<FieldDefinition>;
-}
-
-export interface GetGroupingParams {
-    id: string;
-    version?: number;
-}
-
-export interface GetGroupingResult {
-    grouping: GroupingLayout;
-}
 
 export default class SampleServiceClient extends DynamicServiceClient {
     static module: string = 'SampleService';
@@ -278,48 +157,6 @@ export default class SampleServiceClient extends DynamicServiceClient {
     async get_metadata_key_static_metadata(params: GetMetadataKeyStaticMetadataParams): Promise<GetMetadataKeyStaticMetadataResult> {
         const [result] = await this.callFunc<[GetMetadataKeyStaticMetadataParams], [GetMetadataKeyStaticMetadataResult]>('get_metadata_key_static_metadata', [params]);
         return result;
-    }
-
-    async get_metadata_definitions(params: GetMetadataDefinitionsParams): Promise<GetMetadataDefinitionsResult> {
-        // const [result] = await this.callFunc<[GetMetadataDefinitionsParams], [GetMetadataDefinitionsResult]>('get_metadata_key_static_metadata', [params]);
-        const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions.fields;
-        const field_definitions: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
-            field_definitions[def.key] = def;
-            return field_definitions;
-        }, {});
-        return Promise.resolve({
-            field_definitions
-        });
-    }
-
-    async get_template(params: GetTemplateParams): Promise<GetTemplateResult> {
-        // Look up the template given the id... fake for now.
-        const definition = templateDefinitions.templates[0];
-        const template = sesarTemplate;
-        const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions.fields;
-        const fieldDefinitionsMap: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
-            field_definitions[def.key] = def;
-            return field_definitions;
-        }, {});
-
-        const metadataFields = template.columns.map((column) => {
-            const field = fieldDefinitionsMap[column];
-            if (!field) {
-                throw new Error(`Unknown field ${column} in template ${params.id}`);
-            }
-            return field;
-        });
-
-        return Promise.resolve({
-            definition, template, metadataFields
-        });
-    }
-
-    async get_grouping(params: GetGroupingParams): Promise<GetGroupingResult> {
-        // get the layout ... faked for now, just one.
-        return Promise.resolve({
-            grouping: sesarGroupingLayout
-        });
     }
 
     async get_sample_acls(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {

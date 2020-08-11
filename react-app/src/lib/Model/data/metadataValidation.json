@@ -1,0 +1,2538 @@
+{
+    "validators": {
+        "age_max": {
+            "key_metadata": {
+                "description": "maximum age in years",
+                "display_name": "Age (max)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "years"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                }
+            ]
+        },
+        "age_min": {
+            "key_metadata": {
+                "description": "minimum age in years",
+                "display_name": "Age (min)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "years"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                }
+            ]
+        },
+        "aodc": {
+            "key_metadata": {
+                "description": "units in cells per gram",
+                "display_name": "AODC"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "cells/g"
+                    }
+                }
+            ]
+        },
+        "aquifer": {
+            "key_metadata": {
+                "display_name": "Aquifer"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "area_name": {
+            "key_metadata": {
+                "display_name": "Area Name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "average_water_level": {
+            "key_metadata": {
+                "description": "units in ft above mean sea level (ft AMSL)",
+                "display_name": "Average Water Level"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "biomass_carbon": {
+            "key_metadata": {
+                "description": "units in milligrams per gram",
+                "display_name": "Biomass Carbon"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "mg/g"
+                    }
+                }
+            ]
+        },
+        "biome": {
+            "key_metadata": {
+                "display_name": "Biome"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "boncat_activity": {
+            "key_metadata": {
+                "description": "units in cells per gram",
+                "display_name": "BONCAT Activity"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "cells/g"
+                    }
+                }
+            ]
+        },
+        "boring": {
+            "key_metadata": {
+                "description": "boring depth in ft below groud surface (ft BGS)",
+                "display_name": "Boring depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "boring_diameter": {
+            "key_metadata": {
+                "description": "boring diameter in inches",
+                "display_name": "Boring Diameter"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "boring_refusal": {
+            "key_metadata": {
+                "display_name": "Boring Refusal"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "city_township": {
+            "key_metadata": {
+                "display_name": "City/Township"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "classification": {
+            "key_metadata": {
+                "display_name": "Classification"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collection_date": {
+            "key_metadata": {
+                "display_name": "Collection date"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collection_date_end": {
+            "key_metadata": {
+                "display_name": "Collection date (end)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collection_date_precision": {
+            "key_metadata": {
+                "display_name": "Collection date precision"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collection_method": {
+            "key_metadata": {
+                "display_name": "Collection method"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collection_method_description": {
+            "key_metadata": {
+                "display_name": "Collection method description"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collection_time": {
+            "key_metadata": {
+                "display_name": "Collection time"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collection_time_end": {
+            "key_metadata": {
+                "display_name": "Collection time (end)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collector_chief_scientist": {
+            "key_metadata": {
+                "display_name": "Collector/Chief Scientist name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "collector_chief_scientist_address": {
+            "key_metadata": {
+                "display_name": "Collector/Chief Scientist address"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "condition": {
+            "key_metadata": {
+                "display_name": "Condition"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "conductivity": {
+            "key_metadata": {
+                "description": "conductivity in millisiemens per centimeter",
+                "display_name": "Conductivity"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "mS/cm"
+                    }
+                }
+            ]
+        },
+        "continent": {
+            "key_metadata": {
+                "display_name": "Continent"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "coordinate_precision?": {
+            "key_metadata": {
+                "display_name": "Coordinate Precision"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "country": {
+            "key_metadata": {
+                "display_name": "Country"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "county": {
+            "key_metadata": {
+                "display_name": "County"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "current_archive": {
+            "key_metadata": {
+                "display_name": "Current archive"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "current_archive_contact": {
+            "key_metadata": {
+                "display_name": "Current archive contact name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "dapi_cell_count": {
+            "key_metadata": {
+                "description": "DAPI cell count in cells per gram",
+                "display_name": "DAPI Cell Count"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "date": {
+            "key_metadata": {
+                "display_name": "Date"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "depth": {
+            "key_metadata": {
+                "description": "depth in centimeters below ground surface (cm BGS)",
+                "display_name": "Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "cm"
+                    }
+                }
+            ]
+        },
+        "depth_in_core_max": {
+            "key_metadata": {
+                "description": "maximum depth in core in meters",
+                "display_name": "Depth in Core (max)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "meters"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value",
+                        "required": true
+                    }
+                }
+            ]
+        },
+        "depth_in_core_min": {
+            "key_metadata": {
+                "description": "minimum depth in core in meters",
+                "display_name": "Depth in Core (min)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "meters"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value",
+                        "required": true
+                    }
+                }
+            ]
+        },
+        "depth_scale": {
+            "key_metadata": {
+                "display_name": "Depth scale"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "description": {
+            "key_metadata": {
+                "display_name": "Description"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "dna_picogreen_total": {
+            "key_metadata": {
+                "description": "units in nanograms",
+                "display_name": "DNA Picogreen Total"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ng"
+                    }
+                }
+            ]
+        },
+        "drive_casing_end_depth": {
+            "key_metadata": {
+                "description": "drive casing end depth in ft below ground surface (ft BGS)",
+                "display_name": "Drive Casing End Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "drive_casing_id": {
+            "key_metadata": {
+                "description": "drive casing inner diameter in inches",
+                "display_name": "Drive Casing ID"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "drive_casing_od": {
+            "key_metadata": {
+                "description": "drive casing outer diameter in inches",
+                "display_name": "Drive Casing OD"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "drive_casing_start_depth": {
+            "key_metadata": {
+                "description": "units in ft below ground surface (ft BGS)",
+                "display_name": "Drive Casing Start Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "drive_casing_type": {
+            "key_metadata": {
+                "display_name": "Drive Casing Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "easting": {
+            "key_metadata": {
+                "description": "Easting in meters",
+                "display_name": "Easting"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "m"
+                    }
+                }
+            ]
+        },
+        "elevation": {
+            "key_metadata": {
+                "display_name": "Elevation"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "elevation_end": {
+            "key_metadata": {
+                "description": "Elevation end in meters",
+                "display_name": "Elevation end"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "meters"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value",
+                        "required": true
+                    }
+                }
+            ]
+        },
+        "elevation_start": {
+            "key_metadata": {
+                "display_name": "Elevation start",
+                "description": "Elevation start in meters"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "meters"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value",
+                        "required": true
+                    }
+                }
+            ]
+        },
+        "elevation_unit": {
+            "key_metadata": {
+                "display_name": "Elevation unit",
+                "description": "Elevation unit"
+            }
+        },
+        "env_package": {
+            "key_metadata": {
+                "display_name": "Env_package"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "environmental_package": {
+            "key_metadata": {
+                "display_name": "Environmental Package"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "experiment_name": {
+            "key_metadata": {
+                "display_name": "Experiment Name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "feature": {
+            "key_metadata": {
+                "display_name": "Feature"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "field_name_informal_classification": {
+            "key_metadata": {
+                "display_name": "Field name (informal classification)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "field_program_cruise": {
+            "key_metadata": {
+                "display_name": "Field program/cruise"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "filter": {
+            "key_metadata": {
+                "description": "Filter pore size in microns",
+                "display_name": "Filter"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "microns"
+                    }
+                }
+            ]
+        },
+        "fraction": {
+            "key_metadata": {
+                "display_name": "Fraction"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "fractures_cavities_waterbreaks": {
+            "key_metadata": {
+                "display_name": "Fractures/Cavities/WaterBreaks"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "functional_area": {
+            "key_metadata": {
+                "display_name": "Functional Area"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "geological_age": {
+            "key_metadata": {
+                "description": "Geological Age in years * 1000000",
+                "display_name": "Geological Age"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "year * 1000000"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                }
+            ]
+        },
+        "geological_zone": {
+            "key_metadata": {
+                "display_name": "Geological Zone"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "ground_elevation": {
+            "key_metadata": {
+                "description": "ground elevation in ft above mean sea level (ft AMSL)",
+                "display_name": "Ground Elevation"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "id": {
+            "key_metadata": {
+                "description": "Unique identifier for the Sample",
+                "display_name": "Id"
+            },
+            "validators": [
+                {
+                    "callable_builder": "string",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "max-len": 120
+                    }
+                }
+            ]
+        },
+        "igsn": {
+            "key_metadata": {
+                "display_name": "IGSN"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "installation_method": {
+            "key_metadata": {
+                "display_name": "Installation Method"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "latitude": {
+            "key_metadata": {
+                "description": "Latitude in degrees",
+                "display_name": "Latitude"
+            },
+            "format": {
+                "type": "numeric",
+                "decimalPlaces": 3
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "degrees"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": -90,
+                        "keys": "value",
+                        "lte": 90
+                    }
+                }
+            ]
+        },
+        "launch_id": {
+            "key_metadata": {
+                "display_name": "Launch ID"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "launch_platform_name": {
+            "key_metadata": {
+                "display_name": "Launch platform name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "leucine_activity_ngc_day_cell": {
+            "key_metadata": {
+                "description": "units in ngC/day cell",
+                "display_name": "Leucine Activity (ngC/day cell)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "locality": {
+            "key_metadata": {
+                "display_name": "Locality"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "locality_description": {
+            "key_metadata": {
+                "display_name": "Locality description"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "location_description": {
+            "key_metadata": {
+                "display_name": "Location description"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "longitude": {
+            "key_metadata": {
+                "description": "Longitude in degrees",
+                "display_name": "Longitude"
+            },
+            "format": {
+                "type": "numeric",
+                "decimalPlaces": 3
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "degrees"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": -180,
+                        "keys": "value",
+                        "lte": 180
+                    }
+                }
+            ]
+        },
+        "lower_seal_end_depth": {
+            "key_metadata": {
+                "description": "Lower seal end depth in ft below ground surface (ft BGS)",
+                "display_name": "Lower Seal End Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "lower_seal_start_depth": {
+            "key_metadata": {
+                "description": "Lower seal start depth in ft below ground surface (ft BGS)",
+                "display_name": "Lower Seal Start Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "lower_seal_type": {
+            "key_metadata": {
+                "display_name": "Lower Seal Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "material": {
+            "key_metadata": {
+                "display_name": "Material"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "maturation_time": {
+            "key_metadata": {
+                "display_name": "Maturation Time"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "max_water_level": {
+            "key_metadata": {
+                "description": "Maximum water level in ft above mean sea level (ft AMSL)",
+                "display_name": "Max Water Level"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "method": {
+            "key_metadata": {
+                "display_name": "Method"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "min_water_level": {
+            "key_metadata": {
+                "description": "Minimum water level in ft above mean sea level (ft AMSL)",
+                "display_name": "Min Water Level"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "moisture": {
+            "key_metadata": {
+                "description": "percent moisture",
+                "display_name": "Moisture"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value",
+                        "lte": 100
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "percent"
+                    }
+                }
+            ]
+        },
+        "name": {
+            "key_metadata": {
+                "description": "name validator",
+                "display_name": "Name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "string",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "max-len": 120
+                    }
+                }
+            ]
+        },
+        "name_of_physiographic_feature": {
+            "key_metadata": {
+                "display_name": "Name of physiographic feature"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "navigation_type": {
+            "key_metadata": {
+                "display_name": "Navigation type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "northing": {
+            "key_metadata": {
+                "description": "Northing in meters",
+                "display_name": "Northing"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "m"
+                    }
+                }
+            ]
+        },
+        "open": {
+            "key_metadata": {
+                "display_name": "Open"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "open_casing_depth": {
+            "key_metadata": {
+                "description": "Open casing depth in ft below ground surface (ft BGS)",
+                "display_name": "Open Casing Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "open_casing_id": {
+            "key_metadata": {
+                "description": "open casing inner diameter in inches (in)",
+                "display_name": "Open Casing ID"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "open_casing_od": {
+            "key_metadata": {
+                "description": "open casing outer diameter in inches (in)",
+                "display_name": "Open Casing OD"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "open_casing_type": {
+            "key_metadata": {
+                "display_name": "Open Casing Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "open_hole_depth": {
+            "key_metadata": {
+                "description": "Open hole depth in ft below ground surface (ft BGS)",
+                "display_name": "Open Hole Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "open_hole_diameter": {
+            "key_metadata": {
+                "description": "Open hole diameter in inches",
+                "display_name": "Open Hole Diameter"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "open_interval_diameter": {
+            "key_metadata": {
+                "description": "Open interval diameter in inches",
+                "display_name": "Open Interval Diameter"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "open_interval_end_depth": {
+            "key_metadata": {
+                "description": "Open interval end depth in ft below ground surface (ft BGS)",
+                "display_name": "Open Interval End Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "open_interval_start_depth": {
+            "key_metadata": {
+                "description": "Open interval start depth in ft below ground surface (ft BGS)",
+                "display_name": "Open Interval Start Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "organic_carbon": {
+            "key_metadata": {
+                "description": "Organic carbon in milligrams per gram dry weight",
+                "display_name": "Organic Carbon"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "mg/g"
+                    }
+                }
+            ]
+        },
+        "original_archive": {
+            "key_metadata": {
+                "display_name": "Original archive"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "original_archive_contact": {
+            "key_metadata": {
+                "display_name": "Original archive contact"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "origination_or_plug_abandon": {
+            "key_metadata": {
+                "display_name": "Origination or Plug/Abandon"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "other_name": {
+            "key_metadata": {
+                "display_name": "Other Name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "other_names": {
+            "key_metadata": {
+                "display_name": "Other name(s)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "packing_depth_end": {
+            "key_metadata": {
+                "description": "Packind depth end in ft below ground surface (ft BGS)",
+                "display_name": "Packing Depth End"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "packing_depth_start": {
+            "key_metadata": {
+                "description": "Packind depth start in ft below ground surface (ft BGS)",
+                "display_name": "Packing Depth Start"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "packing_type": {
+            "key_metadata": {
+                "display_name": "Packing Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "parent_id": {
+            "key_metadata": {
+                "description": "id field of parent",
+                "display_name": "Parent_id"
+            },
+            "validators": [
+                {
+                    "callable_builder": "string",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value",
+                        "max-len": 120
+                    }
+                }
+            ]
+        },
+        "parent_igsn": {
+            "key_metadata": {
+                "display_name": "Parent IGSN"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "ph": {
+            "key_metadata": {
+                "description": "pH of sample",
+                "display_name": "Ph"
+            },
+            "format": {
+                "type": "numeric",
+                "decimalPlaces": 3
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": -10,
+                        "keys": "value",
+                        "lte": 20
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "pH"
+                    }
+                }
+            ]
+        },
+        "platform_name": {
+            "key_metadata": {
+                "display_name": "Platform name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "platform_type": {
+            "key_metadata": {
+                "display_name": "Platform type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "pore_water_extraction": {
+            "key_metadata": {
+                "description": "Pore water extraction in microliters",
+                "display_name": "Pore Water Extraction"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "microliters"
+                    }
+                }
+            ]
+        },
+        "primary_physiographic_feature": {
+            "key_metadata": {
+                "display_name": "Primary physiographic feature"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "purpose": {
+            "key_metadata": {
+                "display_name": "Purpose"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "recovery_factor": {
+            "key_metadata": {
+                "display_name": "Recovery Factor"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "redox_potential_?": {
+            "key_metadata": {
+                "display_name": "Redox Potential"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "region": {
+            "key_metadata": {
+                "display_name": "Region"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "related_identifiers": {
+            "key_metadata": {
+                "display_name": "Related Identifiers"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "relation_type": {
+            "key_metadata": {
+                "display_name": "Relation Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "release_date": {
+            "key_metadata": {
+                "display_name": "Release date"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "replicate": {
+            "key_metadata": {
+                "display_name": "Replicate"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "rock_formation": {
+            "key_metadata": {
+                "display_name": "Rock Formation"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "sample_description": {
+            "key_metadata": {
+                "display_name": "Sample Description"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "sample_name": {
+            "key_metadata": {
+                "display_name": "Sample Name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "sampleid": {
+            "key_metadata": {
+                "display_name": "SampleID"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "screen_bottom_elevation": {
+            "key_metadata": {
+                "description": "Screen bottom elevation in ft above mean sea level (ft AMSL)",
+                "display_name": "Screen Bottom Elevation"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "screen_end_depth": {
+            "key_metadata": {
+                "description": "Screen end depth in ft below ground surface (ft BGS)",
+                "display_name": "Screen End Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "screen_start_depth": {
+            "key_metadata": {
+                "description": "Screen start depth in ft below ground surface (ft BGS)",
+                "display_name": "Screen Start Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "screen_top_elevation": {
+            "key_metadata": {
+                "description": "Screen top elevation in ft above mean sea level (ft AMSL)",
+                "display_name": "Screen Top Elevation"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "screen_type": {
+            "key_metadata": {
+                "display_name": "Screen Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "screened": {
+            "key_metadata": {
+                "display_name": "Screened"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "screened_interval": {
+            "key_metadata": {
+                "description": "Screened interval in ft",
+                "display_name": "Screened Interval"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "size": {
+            "key_metadata": {
+                "description": "Size in meters cubed",
+                "display_name": "Size"
+            },
+            "validators": [
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "m^3"
+                    }
+                },
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value",
+                        "required": true
+                    }
+                }
+            ]
+        },
+        "state_province": {
+            "key_metadata": {
+                "display_name": "State/Province"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "sub-object_type": {
+            "key_metadata": {
+                "display_name": "Sub-object type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "temperature": {
+            "key_metadata": {
+                "display_name": "Temperature"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "celsius"
+                    }
+                }
+            ]
+        },
+        "time": {
+            "key_metadata": {
+                "display_name": "Time"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "time_zone": {
+            "key_metadata": {
+                "display_name": "Time Zone"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "timezone": {
+            "key_metadata": {
+                "display_name": "Timezone"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "top_of_casing_elevation": {
+            "key_metadata": {
+                "description": "Top of casing elevation in ft above mean sea level (ft AMSL)",
+                "display_name": "Top of Casing Elevation"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "top_of_casing_stickup": {
+            "key_metadata": {
+                "description": "Top of casing stickup in ft",
+                "display_name": "Top of Casing Stickup"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "top_of_fresh_bedrock": {
+            "key_metadata": {
+                "description": "Top of fresh bedrock in ft below ground surface (ft BGS)",
+                "display_name": "Top of Fresh Bedrock"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "top_of_weathered_bedrock": {
+            "key_metadata": {
+                "description": "Top of weathered bedrock in ft below ground surface (ft BGS)",
+                "display_name": "Top of Weathered Bedrock"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "total_carbon": {
+            "key_metadata": {
+                "description": "Total carbon in milligrams per gram dry weight",
+                "display_name": "Total Carbon"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "mg/g"
+                    }
+                }
+            ]
+        },
+        "total_nitrogen": {
+            "key_metadata": {
+                "description": "Total nitrogen in milligrams per gram dry weight",
+                "display_name": "Total Nitrogen"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "mg/g"
+                    }
+                }
+            ]
+        },
+        "treatment": {
+            "key_metadata": {
+                "display_name": "Treatment"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "type_of_well": {
+            "key_metadata": {
+                "display_name": "Type of Well"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "upper_seal_end_depth": {
+            "key_metadata": {
+                "description": "Upper seal end depth in ft below ground surface (ft BGS)",
+                "display_name": "Upper Seal End Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "upper_seal_start_depth": {
+            "key_metadata": {
+                "description": "Upper seal start depth in ft below ground surface (ft BGS)",
+                "display_name": "Upper Seal Start Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "upper_seal_type": {
+            "key_metadata": {
+                "display_name": "Upper Seal Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "vertical_datum": {
+            "key_metadata": {
+                "display_name": "Vertical Datum"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "well": {
+            "key_metadata": {
+                "display_name": "Well"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "well_casing_depth": {
+            "key_metadata": {
+                "description": "Well casing depth in ft below ground surface (ft BGS)",
+                "display_name": "Well Casing Depth"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "ft"
+                    }
+                }
+            ]
+        },
+        "well_casing_id": {
+            "key_metadata": {
+                "description": "Well casing inner diameter. units in inches",
+                "display_name": "Well Casing ID"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "well_casing_od": {
+            "key_metadata": {
+                "description": "Well casing outer diameter. units in inches",
+                "display_name": "Well Casing OD"
+            },
+            "validators": [
+                {
+                    "callable_builder": "number",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "gte": 0,
+                        "keys": "value"
+                    }
+                },
+                {
+                    "callable_builder": "units",
+                    "module": "SampleService.core.validator.builtin",
+                    "parameters": {
+                        "key": "units",
+                        "units": "in"
+                    }
+                }
+            ]
+        },
+        "well_casing_type": {
+            "key_metadata": {
+                "display_name": "Well Casing Type"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "well_name": {
+            "key_metadata": {
+                "display_name": "Well Name"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "well_status": {
+            "key_metadata": {
+                "display_name": "Well Status"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
+        "zone": {
+            "key_metadata": {
+                "display_name": "Zone"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        }
+    }
+}

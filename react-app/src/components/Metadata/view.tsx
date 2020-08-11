@@ -3,7 +3,7 @@ import {
     Alert, Tooltip
 } from 'antd';
 
-import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Map as LeafletMap, Marker, Popup, TileLayer, LayersControl, FeatureGroup, Circle } from 'react-leaflet';
 
 import Leaflet from 'leaflet';
 import { PushpinFilled } from '@ant-design/icons';
@@ -12,21 +12,21 @@ import ReactDOMServer from 'react-dom/server';
 import { Sample, Metadata } from '../Main/types';
 import {
     Template, GroupingLayout, FieldDefinitionsMap, FieldLayout
-} from '../../lib/comm/dynamicServices/SampleServiceClient';
+} from '../../lib/Model';
 
 import './style.less';
 
-export interface SampleViewerProps {
+export interface MetadataViewerProps {
     sample: Sample;
     template: Template;
     layout: GroupingLayout;
     fields: FieldDefinitionsMap;
 }
 
-interface SampleViewerState {
+interface MetadataViewerState {
 }
 
-export default class SampleViewer extends React.Component<SampleViewerProps, SampleViewerState> {
+export default class MetadataViewer extends React.Component<MetadataViewerProps, MetadataViewerState> {
     renderGeolocation(data: Metadata) {
         const { latitude, longitude } = data;
         if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
@@ -41,24 +41,31 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             iconSize: Leaflet.point(20, 20),
             tooltipAnchor: Leaflet.point(0, 10)
         });
-        // const OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        //     maxZoom: 17,
-        //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-        // });
-        // const OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //     maxZoom: 19,
-        //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        // });
-        return <div style={{ width: '400px', height: '400px' }}>
-            <LeafletMap center={[lat, lng]} zoom={5} style={{ width: '100%', height: '100%' }}>
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                />
-                <TileLayer
-                    attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                    url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
-                />
+        return <div style={{ height: '400px' }}>
+            <LeafletMap
+                center={[lat, lng]}
+                zoom={3}
+                style={{ width: '100%', height: '100%' }}>
+                <LayersControl position="topright" >
+                    <LayersControl.BaseLayer name="OpenStreetMap">
+                        <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                        />
+                    </LayersControl.BaseLayer>
+                    <LayersControl.BaseLayer name="OpenTopoMap">
+                        <TileLayer
+                            attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                            url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                        />
+                    </LayersControl.BaseLayer>
+                    <LayersControl.BaseLayer name="EsriWorldImagery" checked={true}>
+                        <TileLayer
+                            attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+                            url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                        />
+                    </LayersControl.BaseLayer>
+                </LayersControl>
                 <Marker position={[lat, lng]} icon={icon}>
                     <Popup>
                         <div>Location</div>
@@ -194,7 +201,7 @@ export default class SampleViewer extends React.Component<SampleViewerProps, Sam
             </div>;
         });
 
-        return <div className="Metadata">
+        return <div className="Metadata" data-testid="metadataviewer">
             <div>
                 {rows}
             </div>

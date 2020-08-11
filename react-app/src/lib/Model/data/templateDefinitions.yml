@@ -1,0 +1,26 @@
+---
+templates:
+  sesar1:
+    id: sesar1
+    source: SESAR
+    name: System for Earth Sample Regsitration (SESAR)
+    description: A sample template based on SESAR
+    reference: https://www.geosamples.org/
+    signalFields:
+      does_not_include:
+        - experiment_name
+    # sesar ids don't contain a dash (rather they use a dot separator)
+    idPattern: "^((?![-]).)*$"
+
+  enigma1:
+    id: enigma1
+    source: ENIGMA
+    name: ENIGMA
+    description: A sample template based on ENIGMA
+    reference: https://enigma.lbl.gov
+    signalFields:
+      includes:
+        - experiment_name
+    # enigma ids contain a dash separator and a dot separator, we just
+    # match on dash since it isn't in SESAR.
+    idPattern: "[-]"

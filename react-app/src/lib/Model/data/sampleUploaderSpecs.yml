@@ -1,0 +1,323 @@
+# spec file
+
+# fields shared with current accepted file upload formats (ENIGMA + SESAR)
+# currently, these are the fields that are uploaded as controlled metadata
+shared_fields:
+  - id
+  - name
+  - well
+  - depth
+  - elevation
+  - date
+  - time
+  - timezone
+  - material
+  - env_package
+  - description
+  - latitude
+  - longitude
+  - country
+
+# for the verification_mapping only fields that have verifiers that are not just "is_string"
+
+SESAR:
+  basic_columns:
+    - sample_name
+    - material
+    - field_name_informal_classification
+    - location_description
+    - locality_description
+    - collection_method
+    - purpose
+    - navigation_type
+    - primary_physiographic_feature
+    - name_of_physiographic_feature
+    - field_program_cruise
+    - collector_chief_scientist
+    - collection_date_precision
+    - current_archive
+    - related_identifiers
+    - platform_type
+    - location_description
+    - zone
+    - state_province
+    - original_archive_contact
+    - classification
+    - vertical_datum
+    - original_archive
+    - platform_name
+    - collection_time_end
+    - county
+    - size_unit
+    - age_unit
+    - locality
+    - sample_description
+    - collection_method_description
+    - other_names
+    - geological_unit
+    - collector_chief_scientist_address
+    - collection_time
+    - locality_description
+    - size
+    - launch_platform_name
+    - depth_scale
+    - country
+    - city_township
+    - sub-object_type
+    - launch_id
+  column_mapping:
+    igsn: id
+    parent_igsn: parent
+    sample_name: name
+  date_columns:
+    - collection_date
+  groups:
+    - units: elevation_unit
+      value: elevation_start
+    - units: str:degrees
+      value: latitude
+    - units: collection_date_precision
+      value: collection_date
+    - units: str:degrees
+      value: longitude
+    - units: age_unit
+      value: age_min
+    - units: age_unit
+      value: age_max
+    - units: geological_unit
+      value: geological_age
+    - units: collection_date_precision
+      value: collection_date_end
+    - units: elevation_unit
+      value: elevation_end
+    - units: depth_scale
+      value: depth_in_core_max
+    - units: depth_scale
+      value: depth_in_core_min
+    - units: size_unit
+      value: size
+  verification_mapping:
+    age_max:
+      - is_numeric
+      - []
+    age_min:
+      - is_numeric
+      - []
+    collection_date:
+      - is_date
+      - []
+    collection_date_end:
+      - is_date
+      - []
+    coordinate_precision?:
+      - is_numeric
+      - []
+    current_archive_contact:
+      - is_email
+      - []
+    depth_in_core_max:
+      - is_numeric
+      - []
+    depth_in_core_min:
+      - is_numeric
+      - []
+    easting_m:
+      - is_numeric
+      - []
+    elevation_end:
+      - is_numeric
+      - []
+    elevation_start:
+      - is_numeric
+      - []
+    elevation_unit:
+      - is_numeric
+      - []
+    geological_age:
+      - is_numeric
+      - []
+    igsn:
+      - regex_string
+      - []
+    latitude:
+      - is_numeric
+      - []
+    latitude_end:
+      - is_numeric
+      - []
+    longitude:
+      - is_numeric
+      - []
+    longitude_end:
+      - is_numeric
+      - []
+    northing_m:
+      - is_numeric
+      - []
+    parent_igsn:
+      - regex_string
+      - []
+    relation_type:
+      - controlled_vocab
+      - - - grouped
+          - co-located
+    release_date:
+      - is_date
+      - []
+
+ENIGMA:
+  basic_columns:
+    - sampleid
+    - experiment_name
+    - area_name
+    - well_name
+    - environmental_package
+    - material
+    - description
+    - date
+    - collection_time
+    - time_zone
+    - geological_zone
+    - recovery_factor
+    - method
+    - fraction
+    - replicate
+    - maturation_time
+    - treatment
+    - temperature_celsius
+    - moisture
+    - pore_water_extraction_microliters
+    - conductivity_ms_cm
+    - ph
+    - dapi_cell_count_cells_g
+    - dna_picogreen_total_ng
+    - total_carbon_mg_g_dry_weight
+    - biomass_carbon_mg_g
+    - total_nitrogen_mg_g_dry_weight
+    - leucine_activity_ngc_day_cell
+    - functional_area
+    - type_of_well
+    - ground_elevation_ft_amsl
+    - installation_method
+    - boring_ft_bgs
+    - boring_refusal
+    - boring_diameter_in
+    - screen_type
+    - well_casing_type
+    - well_casing_od_in
+    - well_casing_id_in
+    - drive_casing_type
+    - drive_casing_id_in
+    - drive_casing_od_in
+    - drive_casing_start_depth_ft_bgs
+    - drive_casing_end_depth_ft_bgs
+    - packing_type
+    - packing_depth_start_ft_bgs
+    - packing_depth_end_ft_bgs
+    - topofweatheredbedrock_ft_bgs
+    - topoffreshbedrock_ft_bgs
+    - aquifer
+    - fractures_cavities_waterbreaks
+    - other_name
+    - screened
+    - open
+    - well_status
+    - condition
+    - origination_or_plug_abandon
+    - min_water_level_ft_amsl
+    - average_water_level_ft_amsl
+    - max_water_level_ft_amsl
+    - upper_seal_type
+    - upper_seal_start_depth_ft_bgs
+    - upper_seal_end_depth_ft_bgs
+    - lower_seal_type_ft_bgs
+    - lower_seal_start_depth_ft_bgs
+    - lower_seal_end_depth_ft_bgs
+    - open_casing_type
+    - open_casing_od_in
+    - open_casing_id_in
+    - open_casing_depth_ft_bgs
+    - open_hole_diameter_in
+    - open_hole_depth_ft_bgs
+    - open_interval_start_depth_ft_bgs
+    - open_interval_end_depth_ft_bgs
+    - open_interval_diameter_in
+    - rock_formation
+    - depth
+    - elevation
+    - time
+    - timezone
+    - material
+    - env_package
+    - continent
+    - country
+    - region
+    - biome
+    - feature
+  column_mapping:
+    sampleid: id
+    well_name: parent
+  column_unit_regex:
+    - \((.+)\)
+  date_columns:
+    - date
+  groups:
+    - units: str:degrees
+      value: latitude
+    - units: str:degrees
+      value: longitude
+  verification_mapping:
+    aodc_cells_g:
+      - is_numeric
+      - []
+    boncat_activity_cell_g:
+      - is_numeric
+      - []
+    date:
+      - is_date
+      - []
+    depth_cm_bgs:
+      - is_numeric
+      - []
+    filter_micron:
+      - is_numeric
+      - []
+    latitude:
+      - is_numeric
+      - []
+    longitude:
+      - is_numeric
+      - []
+    organic_carbon_mg_g_dry_weight:
+      - is_numeric
+      - []
+    ph:
+      - is_numeric
+      - []
+    redox_potential_?:
+      - is_numeric
+      - []
+    screen_bottom_elevation_ft_amsl:
+      - is_numeric
+      - []
+    screen_end_depth_ft_bgs:
+      - is_numeric
+      - []
+    screen_start_depth_ft_bgs:
+      - is_numeric
+      - []
+    screen_top_elevation_ft_amsl:
+      - is_numeric
+      - []
+    screened_interval_ft:
+      - is_numeric
+      - []
+    top_of_casing_elevation_ft_amsl:
+      - is_numeric
+      - []
+    top_of_casing_stickup_ft:
+      - is_numeric
+      - []
+    well_casing_depth_ft_bgs:
+      - is_numeric
+      - []

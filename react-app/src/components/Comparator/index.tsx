@@ -3,7 +3,7 @@ import { PauseOutlined, LineOutlined } from '@ant-design/icons';
 
 import { MiniSample } from '../History/data';
 import { Metadata } from '../Main/types';
-import { FieldDefinitionsMap } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import { FieldDefinitionsMap } from '../../lib/Model';
 import ComparisonView from './view';
 
 import './style.less';

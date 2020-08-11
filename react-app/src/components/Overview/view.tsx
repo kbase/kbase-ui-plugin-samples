@@ -22,21 +22,6 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         };
     }
 
-    // renderVersionButtonRangex(from: number, to: number) {
-    //     const { id } = this.props.sample;
-    //     const range = Array(to - from).fill(1).map((_, index) => {
-    //         return from + index;
-    //     });
-    //     return range.map((version) => {
-    //         return <Button
-    //             href={`/#sampleview/${id}/${version}`}
-    //             target="_parent"
-    //             key={version}>
-    //             {version}
-    //         </Button>;
-    //     });
-    // }
-
     onChangeVersion(version: SelectValue) {
         const hash = `samples/view/${this.props.sample.id}/${version}`;
         if (window.parent) {
@@ -46,12 +31,13 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         }
     }
 
-
-
     render() {
         const {
             name, created, source, sourceId, sourceParentId
         } = this.props.sample;
+
+        const idLabel = 'IGSN';
+        const parentIdLabel = 'Parent IGSN';
 
         return <div className="Grouper Overview">
             <Row>
@@ -75,18 +61,18 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         </div>
                         <div>
                             <div>
-                                IGSN
-                        </div>
+                                {idLabel}
+                            </div>
                             <div data-testid="version">
-                                {sourceId}
+                                {sourceId.id}
                             </div>
                         </div>
                         <div>
                             <div>
-                                Parent IGSN
-                        </div>
+                                {parentIdLabel}
+                            </div>
                             <div data-testid="type">
-                                {sourceParentId || "-"}
+                                {sourceParentId.id || "-"}
                             </div>
                         </div>
 
