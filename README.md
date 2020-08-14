@@ -1,4 +1,4 @@
-# `sampleview` KBase UI Plugin
+# `samples` KBase UI Plugin
 
   > A kbase-ui plugin providing a viewer for samples
 

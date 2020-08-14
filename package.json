@@ -1,5 +1,5 @@
 {
-    "name": "kbase-ui-plugin-sampleview",
+    "name": "kbase-ui-plugin-samples",
     "version": "1.0.0",
     "description": "description of your plugin",
     "main": "index.js",
@@ -14,12 +14,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/kbase/kbase-ui-plugin-sampleview.git"
+        "url": "git+https://github.com/kbase/kbase-ui-plugin-samples.git"
     },
     "author": "KBase Developers",
     "license": "SEE LICENSE IN LICENSE.md",
     "bugs": {
-        "url": "https://github.com/kbase/kbase-ui-plugin-sampleview/issues"
+        "url": "https://github.com/kbase/kbase-ui-plugin-samples/issues"
     },
-    "homepage": "https://github.com/kbase/kbase-ui-plugin-sampleview#readme"
+    "homepage": "https://github.com/kbase/kbase-ui-plugin-samples#readme"
 }

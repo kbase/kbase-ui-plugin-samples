@@ -91,7 +91,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                             case 'source_id':
                                 return sample.sourceId.id;
                             case 'source_parent_id':
-                                return sample.sourceParentId.id;
+                                return sample.sourceParentId ? sample.sourceParentId.id : null;
                             default:
                                 throw new Error(`Unrecognized sample key ${column}`);
                         }

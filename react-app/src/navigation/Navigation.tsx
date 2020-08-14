@@ -118,7 +118,7 @@ export default class NavigationListener extends React.Component<NavigationListen
             path: [
                 {
                     type: 'literal',
-                    value: 'sampleview'
+                    value: 'samples'
                 },
                 {
                     type: 'param',

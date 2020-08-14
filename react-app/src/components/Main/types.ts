@@ -68,7 +68,7 @@ export interface Sample {
     sourceParentId: {
         id: string | null;
         label: string;
-    };
+    } | null;
     type: SampleType;
     metadata: Metadata;
     userMetadata: UserMetadata;
