@@ -122,7 +122,7 @@ export class IGSNField extends SpreadsheetField {
 export class ParentIGSNField extends SpreadsheetField {
     // static column = 'Parent IGSN';
     extractValue(sample: Sample) {
-        return sample.sourceParentId.id;
+        return sample.sourceParentId ? sample.sourceParentId.id : null;
     }
 }
 

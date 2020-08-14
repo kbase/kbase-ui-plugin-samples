@@ -16,11 +16,18 @@ test('should render', async () => {
     // };
     const sample: Sample = {
         id: 'xyz',
+        source: 'SESAR',
+        sourceId: {
+            id: 'abc',
+            label: 'A B C',
+        },
         sourceParentId: null,
+        template: {
+            id: 'template1',
+            label: 'My Template'
+        },
         name: 'abc',
         type: 'BioReplicate',
-        source: 'SESAR',
-        sourceId: 'SESARID',
         created: {
             at: 0,
             by: {

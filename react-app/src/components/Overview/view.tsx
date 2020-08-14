@@ -72,7 +72,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                                 {parentIdLabel}
                             </div>
                             <div data-testid="type">
-                                {sourceParentId.id || "-"}
+                                {sourceParentId ? sourceParentId.id : "-"}
                             </div>
                         </div>
 

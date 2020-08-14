@@ -15,10 +15,6 @@ const routes: Array<RouteConfig> = [
         view: 'view'
     },
     {
-        path: "sampleview/:sampleId/:-sampleVersion",
-        view: 'view'
-    },
-    {
         path: 'samples/about',
         view: 'about'
     }

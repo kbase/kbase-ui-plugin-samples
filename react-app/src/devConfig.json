@@ -1,6 +1,6 @@
 {
     "package": {
-        "name": "sampleview",
+        "name": "samples",
         "description": "A plugin for viewing samples",
         "type": "iframe"
     },
