@@ -1,6 +1,6 @@
+
+
 import { DynamicServiceClient } from '../JSONRPC11x/DynamicServiceClient';
-
-
 
 export interface StatusResult {
     state: string;
@@ -42,6 +42,16 @@ export interface MetadataValue {
 //     [k: string]: MetadataValue;
 // }
 
+export type MetadataSource = Array<MetadataSourceField>
+
+export interface MetadataSourceField {
+    key: string;
+    skey: string;
+    svalue: {
+        value: string
+    }
+}
+
 
 export interface SampleNode {
     id: SampleNodeId;
@@ -49,6 +59,7 @@ export interface SampleNode {
     type: SampleNodeType;
     meta_controlled: Metadata;
     meta_user: Metadata;
+    source_meta: MetadataSource;
 }
 
 export interface Sample {

@@ -136,6 +136,41 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
         </tr>;
     }
 
+    renderLatestVersionRow() {
+        const {
+            id, currentVersion, latestVersion
+        } = this.props.sample;
+        if (latestVersion.version === 1) {
+            return;
+        }
+        return <tr>
+            <td>{currentVersion.version === latestVersion.version ? <ArrowRightOutlined /> : ''}</td>
+            <th>Latest</th>
+            <td>
+                <div data-testid="latest_date" style={{ whiteSpace: 'nowrap' }}>
+                    {Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric',
+                        timeZoneName: 'short'
+                    }).format(latestVersion.at)}
+                </div>
+            </td>
+            <td>
+                <UserCard user={latestVersion.by} />
+            </td>
+            <td>
+                <Button
+                    href={`/#samples/view/${id}/${latestVersion.version}`}
+                    style={{ display: 'block' }}
+                    target="_parent">{latestVersion.version}</Button>
+            </td>
+        </tr>
+    }
+
     render() {
         const {
             id, created, currentVersion, latestVersion
@@ -185,32 +220,9 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
 
                 {this.renderNextVersionsRow()}
 
-                <tr>
-                    <td>{currentVersion.version === latestVersion.version ? <ArrowRightOutlined /> : ''}</td>
-                    <th>Latest</th>
-                    <td>
-                        <div data-testid="latest_date" style={{ whiteSpace: 'nowrap' }}>
-                            {Intl.DateTimeFormat('en-US', {
-                                year: 'numeric',
-                                month: 'numeric',
-                                day: 'numeric',
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                second: 'numeric',
-                                timeZoneName: 'short'
-                            }).format(latestVersion.at)}
-                        </div>
-                    </td>
-                    <td>
-                        <UserCard user={latestVersion.by} />
-                    </td>
-                    <td>
-                        <Button
-                            href={`/#samples/view/${id}/${latestVersion.version}`}
-                            style={{ display: 'block' }}
-                            target="_parent">{latestVersion.version}</Button>
-                    </td>
-                </tr>
+                {this.renderLatestVersionRow()}
+
+
             </tbody>
         </table>;
     }

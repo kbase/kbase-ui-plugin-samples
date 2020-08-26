@@ -7,29 +7,77 @@ header: []
 # sample field keys.
 # must be in sampleUploaderSpecs.
 columns:
-  - name
-  - id
-  - parent_id
-  - release_date
-  - material
-  - field_name_informal_classification
-  - location_description
-  - locality_description
-  - collection_method
-  - purpose
-  - latitude
-  - longitude
-  - coordinate_precision?
-  - elevation_start
-  - elevation_unit
-  - navigation_type
-  - primary_physiographic_feature
-  - name_of_physiographic_feature
-  - field_program_cruise
-  - collector_chief_scientist
   - collection_date
   - collection_date_precision
+  - collection_method
+  - collector_chief_scientist
+  - coordinate_precision?
   - current_archive
   - current_archive_contact
+  - elevation_start
+  - elevation_unit
+  - field_name_informal_classification
+  - field_program_cruise
+  - id
+  - latitude
+  - locality_description
+  - location_description
+  - longitude
+  - material
+  - name
+  - name_of_physiographic_feature
+  - navigation_type
+  - parent_id
+  - primary_physiographic_feature
+  - purpose
   - related_identifiers
   - relation_type
+  - release_date
+grouping:
+  id: sesar
+  name: SESAR Layout
+  description: SESAR Layout
+  layout:
+    - key: description
+      label: Description
+      description: Fields which describe the overall sample event
+      layout:
+        - purpose
+        - material
+        - field_name_informal_classification
+        - field_program_cruise
+        - id
+        - name
+        - parent_id
+        - related_identifiers
+        - relation_type
+        - release_date
+    - key: collection
+      label: Collection
+      description: Fields which describe the collection
+      layout:
+        - collection_date
+        - collection_date_precision
+        - collector_chief_scientist
+        - collection_method
+        - collector_chief_scientist
+    - key: curation
+      label: Curation
+      description: Fields which describe the curation of the sample
+      layout:
+        - current_archive
+        - current_archive_contact
+    - key: geolocation
+      label: Geolocation
+      description: Fields which describe the sample collection location
+      layout:
+        - coordinate_precision?
+        - latitude
+        - longitude
+        - navigation_type
+        - locality_description
+        - location_description
+        - name_of_physiographic_feature
+        - primary_physiographic_feature
+        - elevation_start
+        - elevation_unit

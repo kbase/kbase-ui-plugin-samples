@@ -73,7 +73,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             }, {} as FieldDefinitionsMap);
 
             // Get the grouping layout
-            const { grouping } = await client.getGrouping({ id: "sesar" });
+            const { grouping } = await client.getGrouping({ id: this.props.sample.template.id });
 
             // Get the field definitions
 

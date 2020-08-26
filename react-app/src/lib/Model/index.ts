@@ -2,15 +2,15 @@ import SampleServiceClient, {
     GetSampleParams, GetDataLinksFromSampleParams, GetDataLinksFromSampleResult,
     GetMetadataKeyStaticMetadataParams, GetMetadataKeyStaticMetadataResult,
     GetSampleACLsParams, GetSampleACLsResult, SampleId, SampleVersion,
-    SampleNodeType, Metadata
+    SampleNodeType
 } from "../comm/dynamicServices/SampleServiceClient";
 import sesar1TemplateData from './data/templates/sesar1.json';
 import enigma1TemplateData from './data/templates/enigma1.json';
 import templateDefinitionsData from './data/templateDefinitions.json';
 import sampleUploaderSpecsData from './data/sampleUploaderSpecs.json';
 import metadataValidationData from './data/metadataValidation.json';
-import sesarGroupLayoutData from './data/layouts/sesar.json';
-import enigmaGroupLayoutData from './data/layouts/enigma.json';
+// import sesarGroupLayoutData from './data/layouts/sesar.json';
+// import enigmaGroupLayoutData from './data/layouts/enigma.json';
 
 function grokField(key: string, spec: any): FieldDefinition {
     if (!spec.validators) {
@@ -142,8 +142,8 @@ const sourceDefinitions: SourceDefinitions = (() => {
 const templateDefinitions = (templateDefinitionsData as unknown) as TemplateDefinitions;
 const sesar1Template = (sesar1TemplateData as unknown) as Template;
 const enigma1Template = (enigma1TemplateData as unknown) as Template;
-const sesarGroupingLayout = (sesarGroupLayoutData as unknown) as GroupingLayout;
-const enigmaGroupingLayout = (enigmaGroupLayoutData as unknown) as GroupingLayout;
+// const sesarGroupingLayout = (sesarGroupLayoutData as unknown) as GroupingLayout;
+// const enigmaGroupingLayout = (enigmaGroupLayoutData as unknown) as GroupingLayout;
 
 export interface GroupingLayout {
     id: string;
@@ -166,6 +166,7 @@ export interface Template {
     created_by: string;
     header: Array<string>;
     columns: Array<string>;
+    grouping: GroupingLayout;
 }
 
 export interface TemplateMap {
@@ -282,6 +283,27 @@ export type Username = string;
 
 export type EpochTimeMS = number;
 
+export interface Metadata {
+    [key: string]: MetadataField
+}
+
+export interface MetadataField {
+    key: string;
+    label: string;
+    value: string | number | boolean;
+    units: string
+}
+
+export interface MetadataSource {
+    [key: string]: MetadataSourceField
+}
+
+export interface MetadataSourceField {
+    key: string;
+    label: string;
+    value: string;
+}
+
 export interface Sample {
     id: SampleId;
     name: string;
@@ -351,6 +373,54 @@ export default class Model {
             throw new Error('Sorry, template definition not found!');
         })();
 
+        const sourceMeta = rawRealSample.source_meta.reduce((sourceMeta, {key, skey, svalue: {value}}) => {
+            sourceMeta[key] = {
+                key, label: skey, value
+            };
+            return sourceMeta;
+        }, {} as MetadataSource);
+
+        const metadata: Metadata = (() => {
+            return Object.entries(rawRealSample.meta_controlled).reduce((metadata, [key, field]) => {
+                
+                const label = (() => {
+                    const fieldMeta = sourceMeta[key];
+                    if (!fieldMeta) {
+                        console.warn('field meta not found', key, sourceMeta);
+                        return key;
+                    }
+                    return fieldMeta.label;
+                })();
+                metadata[key] = {
+                    key,
+                    label,
+                    value: field.value,
+                    units: field.units
+                };
+                return metadata;
+            }, {} as Metadata)
+        })();
+
+        const userMetadata: Metadata = (() => {
+            return Object.entries(rawRealSample.meta_user).reduce((metadata, [key, field]) => {
+                const label = (() => {
+                    const fieldMeta = sourceMeta[key];
+                    if (!fieldMeta) {
+                        console.warn('field meta not found', key, sourceMeta);
+                        return key;
+                    }
+                    return fieldMeta.label;
+                })();
+                metadata[key] = {
+                    key,
+                    label,
+                    value: field.value,
+                    units: field.units
+                };
+                return metadata;
+            }, {} as Metadata)
+        })();
+
         return {
             id: rawSample.id,
             name: rawSample.name,
@@ -363,8 +433,8 @@ export default class Model {
                 parentId: rawRealSample.parent,
                 source: templateDefinition.source,
                 templateId: templateDefinition.id,
-                metadata: rawRealSample.meta_controlled,
-                userMetadata: rawRealSample.meta_user
+                metadata,
+                userMetadata
             }
         };
     }
@@ -436,8 +506,19 @@ export default class Model {
 
     async getGrouping(params: GetGroupingParams): Promise<GetGroupingResult> {
         // get the layout ... faked for now, just one.
-        return Promise.resolve({
-            grouping: sesarGroupingLayout
-        });
+        switch (params.id) {
+            case 'sesar1':
+                // console.log('grouping...', sesar1Template.grouping);
+                return Promise.resolve({
+                    grouping: sesar1Template.grouping
+                });
+            case 'enigma1':
+                return Promise.resolve({
+                    grouping: enigma1Template.grouping
+                });
+            default:
+                throw new Error(`Unrecognized template ${params.id}`)
+        }
+        
     }
 }
