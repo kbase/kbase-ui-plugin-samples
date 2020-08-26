@@ -31,6 +31,53 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         }
     }
 
+    renderShowVersions() {
+        if (this.props.sample.latestVersion.version === 1) {
+            return;
+        }
+        return <>
+            <Button type="dashed" size="small" style={{marginLeft: '4px'}} onClick={() => {
+                this.setState({
+                    showVersions: !this.state.showVersions
+                });
+            }}>
+                Show All Versions…
+            </Button>
+            <Modal title="All Versions"
+                visible={this.state.showVersions}
+                width={"45em"}
+                onCancel={() => {
+                    this.setState({
+                        showVersions: false
+                    });
+                }}
+                footer={null}
+            >
+                <Versions sample={this.props.sample} onChangeVersion={this.onChangeVersion.bind(this)} />
+            </Modal>
+        </>
+    }
+
+    renderVersions() {
+        const label = (() => {
+            if (this.props.sample.latestVersion.version === 1) {
+                return <span>
+                    {this.props.sample.latestVersion.version}
+                </span>
+            }
+            return <span>
+            {this.props.sample.currentVersion.version}
+            {' of '}
+            {this.props.sample.latestVersion.version}
+            </span>
+        })();
+
+        return <>
+            {label}
+            {this.renderShowVersions()}
+        </>
+    }
+
     render() {
         const {
             name, created, source, sourceId, sourceParentId
@@ -108,30 +155,8 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                             <div>
                                 Version
                             </div>
-                            <div data-testid="save_date">
-                                {this.props.sample.currentVersion.version}
-                                {' of '}
-                                {this.props.sample.latestVersion.version}
-                                {' - '}
-                                <Button type="link" onClick={() => {
-                                    this.setState({
-                                        showVersions: !this.state.showVersions
-                                    });
-                                }}>
-                                    Show all versions
-                                </Button>
-                                <Modal title="All Versions"
-                                    visible={this.state.showVersions}
-                                    width={"45em"}
-                                    onCancel={() => {
-                                        this.setState({
-                                            showVersions: false
-                                        });
-                                    }}
-                                    footer={null}
-                                >
-                                    <Versions sample={this.props.sample} onChangeVersion={this.onChangeVersion.bind(this)} />
-                                </Modal>
+                            <div data-testid="version">
+                                {this.renderVersions()}
                             </div>
                         </div>
                     </div>
