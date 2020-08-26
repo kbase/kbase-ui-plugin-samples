@@ -64,7 +64,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             });
 
             // Get the template
-            const { template, metadataFields } = await client.getTemplate({ id: "sesar1" });
+            const { template, metadataFields } = await client.getTemplate({ id: props.sample.template.id });
 
             const fieldMapping: FieldDefinitionsMap = metadataFields.reduce((fieldMapping, field) => {
                 fieldMapping[field.key] = field;
@@ -72,7 +72,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             }, {} as FieldDefinitionsMap);
 
             // Get the grouping layout
-            const { grouping } = await client.getGrouping({ id: "sesar" });
+            const { grouping } = await client.getGrouping({ id: props.sample.template.id });
 
             // Get the field definitions
 

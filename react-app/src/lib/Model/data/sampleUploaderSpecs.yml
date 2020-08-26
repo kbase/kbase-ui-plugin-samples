@@ -22,49 +22,49 @@ shared_fields:
 
 SESAR:
   basic_columns:
-    - sample_name
-    - material
-    - field_name_informal_classification
-    - location_description
-    - locality_description
-    - collection_method
-    - purpose
-    - navigation_type
-    - primary_physiographic_feature
-    - name_of_physiographic_feature
-    - field_program_cruise
-    - collector_chief_scientist
-    - collection_date_precision
-    - current_archive
-    - related_identifiers
-    - platform_type
-    - location_description
-    - zone
-    - state_province
-    - original_archive_contact
-    - classification
-    - vertical_datum
-    - original_archive
-    - platform_name
-    - collection_time_end
-    - county
-    - size_unit
     - age_unit
-    - locality
-    - sample_description
-    - collection_method_description
-    - other_names
-    - geological_unit
-    - collector_chief_scientist_address
-    - collection_time
-    - locality_description
-    - size
-    - launch_platform_name
-    - depth_scale
-    - country
     - city_township
-    - sub-object_type
+    - classification
+    - collection_date_precision
+    - collection_method
+    - collection_method_description
+    - collection_time
+    - collection_time_end
+    - collector_chief_scientist
+    - collector_chief_scientist_address
+    - country
+    - county
+    - current_archive
+    - depth_scale
+    - field_name_informal_classification
+    - field_program_cruise
+    - geological_unit
     - launch_id
+    - launch_platform_name
+    - locality
+    - locality_description
+    - locality_description
+    - location_description
+    - location_description
+    - material
+    - name_of_physiographic_feature
+    - navigation_type
+    - original_archive
+    - original_archive_contact
+    - other_names
+    - platform_name
+    - platform_type
+    - primary_physiographic_feature
+    - purpose
+    - related_identifiers
+    - sample_description
+    - sample_name
+    - size
+    - size_unit
+    - state_province
+    - sub-object_type
+    - vertical_datum
+    - zone
   column_mapping:
     igsn: id
     parent_igsn: parent
