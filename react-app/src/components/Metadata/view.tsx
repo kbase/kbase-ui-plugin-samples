@@ -3,11 +3,9 @@ import {
     Alert, Tooltip
 } from 'antd';
 
-import { Map as LeafletMap, Marker, Popup, TileLayer, LayersControl, FeatureGroup, Circle } from 'react-leaflet';
-
-import Leaflet from 'leaflet';
-import { PushpinFilled } from '@ant-design/icons';
-import ReactDOMServer from 'react-dom/server';
+import { 
+    Map as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl, 
+    CircleMarker, ScaleControl } from 'react-leaflet';
 
 import { Sample, Metadata } from '../Main/types';
 import {
@@ -34,18 +32,12 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         }
         const lat = latitude.value as number;
         const lng = longitude.value as number;
-        const componentString = ReactDOMServer.renderToString(<PushpinFilled />);
-        const icon = Leaflet.divIcon({
-            html: componentString,
-            className: 'map-marker',
-            iconSize: Leaflet.point(20, 20),
-            tooltipAnchor: Leaflet.point(0, 10)
-        });
         return <div style={{ height: '400px' }}>
             <LeafletMap
                 center={[lat, lng]}
                 zoom={3}
                 style={{ width: '100%', height: '100%' }}>
+                <ScaleControl position="topleft"/>
                 <LayersControl position="topright" >
                     <LayersControl.BaseLayer name="OpenStreetMap">
                         <TileLayer
@@ -66,15 +58,19 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                         />
                     </LayersControl.BaseLayer>
                 </LayersControl>
-                <Marker position={[lat, lng]} icon={icon}>
-                    <Popup>
+                <CircleMarker center={[lat, lng]} radius={10} color="red">
+                    <LeafletTooltip >
                         <div>Location</div>
                         <div>Latitude: {lat}</div>
-                        <div>Longitude: {lng}</div></Popup>
-                </Marker>
+                        <div>Longitude: {lng}</div></LeafletTooltip>
+                </CircleMarker>
             </LeafletMap>
         </div>;
     }
+
+    /*
+     
+    */
 
     renderControlledMetadataGroupExtras(data: Metadata, group: FieldLayout) {
         switch (group.key) {
@@ -202,7 +198,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         });
 
         return <div className="Metadata" data-testid="metadataviewer">
-            <div>
+            <div style={{marginBottom: '10px'}}>
                 {rows}
             </div>
         </div>;

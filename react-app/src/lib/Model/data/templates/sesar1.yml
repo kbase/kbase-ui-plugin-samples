@@ -61,12 +61,6 @@ grouping:
         - collector_chief_scientist
         - collection_method
         - collector_chief_scientist
-    - key: curation
-      label: Curation
-      description: Fields which describe the curation of the sample
-      layout:
-        - current_archive
-        - current_archive_contact
     - key: geolocation
       label: Geolocation
       description: Fields which describe the sample collection location
@@ -81,3 +75,10 @@ grouping:
         - primary_physiographic_feature
         - elevation_start
         - elevation_unit
+    - key: curation
+      label: Curation
+      description: Fields which describe the curation of the sample
+      layout:
+        - current_archive
+        - current_archive_contact
+    
