@@ -173,7 +173,7 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
 
     render() {
         const {
-            id, created, currentVersion, latestVersion
+            id, created, currentVersion
         } = this.props.sample;
         return <table className="NiceTable -versions">
             <thead>

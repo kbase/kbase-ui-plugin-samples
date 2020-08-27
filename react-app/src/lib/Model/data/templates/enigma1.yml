@@ -117,10 +117,6 @@ grouping:
         - collection_time
         - date
         - time_zone
-    - key: curation
-      label: Curation
-      description: Fields which describe the curation of the sample
-      layout: []
     - key: geolocation
       label: Geolocation
       description: Fields which describe the sample collection location
@@ -129,6 +125,10 @@ grouping:
         - geological_zone
         - latitude
         - longitude
+    - key: curation
+      label: Curation
+      description: Fields which describe the curation of the sample
+      layout: []
     - key: environment_measurements
       label: Environmental Measurements
     - key: unclassified

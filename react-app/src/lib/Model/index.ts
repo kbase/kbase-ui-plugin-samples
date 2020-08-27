@@ -9,8 +9,6 @@ import enigma1TemplateData from './data/templates/enigma1.json';
 import templateDefinitionsData from './data/templateDefinitions.json';
 import sampleUploaderSpecsData from './data/sampleUploaderSpecs.json';
 import metadataValidationData from './data/metadataValidation.json';
-// import sesarGroupLayoutData from './data/layouts/sesar.json';
-// import enigmaGroupLayoutData from './data/layouts/enigma.json';
 
 function grokField(key: string, spec: any): FieldDefinition {
     if (!spec.validators) {
@@ -323,16 +321,6 @@ export interface Sample {
 
 export type GetSampleResult = Sample;
 
-function intersect<T>(arr1: Array<T>, arr2: Array<T>) {
-    for (const item1 of arr1) {
-        for (const item2 of arr2) {
-            if (item1 === item2) {
-                return true;
-            }
-        }
-    }
-}
-
 export default class Model {
     api: SampleServiceClient;
     constructor({ url, token, timeout, version }: ModelParams) {
@@ -352,8 +340,7 @@ export default class Model {
             const sampleSourceId = rawRealSample.id;
             // const metadataKeys = Object.keys(rawRealSample.meta_controlled).concat(Object.keys(rawRealSample.meta_user));
 
-            for (const [sourceId, def] of Object.entries(templateDefinitions.templates)) {
-                // console.log('hmm', def, sampleSourceId, def.idPattern, sampleSourceId.match(def.idPattern));
+            for (const [, def] of Object.entries(templateDefinitions.templates)) {
                 if (sampleSourceId.match(def.idPattern)) {
                     return def;
                 }

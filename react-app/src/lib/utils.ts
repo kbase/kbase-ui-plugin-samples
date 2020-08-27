@@ -74,3 +74,13 @@ export function partitionArray<T>(arr: Array<T>, partitioner: (item: T) => boole
     });
     return [original, separated];
 }
+
+export function intersect<T>(arr1: Array<T>, arr2: Array<T>) {
+    for (const item1 of arr1) {
+        for (const item2 of arr2) {
+            if (item1 === item2) {
+                return true;
+            }
+        }
+    }
+}
