@@ -131,7 +131,8 @@
                 "depth",
                 "geological_zone",
                 "latitude",
-                "longitude"
+                "longitude",
+                "area_name"
              ]
           },
           {
@@ -142,7 +143,11 @@
           },
           {
              "key": "environment_measurements",
-             "label": "Environmental Measurements"
+             "label": "Environmental Measurements",
+             "description": "Environmental Measurements",
+             "layout": [
+                "temperature"
+             ]
           },
           {
              "key": "unclassified",
@@ -151,7 +156,6 @@
              "layout": [
                 "aodc",
                 "aquifer",
-                "area_name",
                 "average_water_level",
                 "biomass_carbon",
                 "boncat_activity",
@@ -214,7 +218,6 @@
                 "screen_type",
                 "screened",
                 "screened_interval",
-                "temperature",
                 "top_of_casing_elevation",
                 "top_of_casing_stickup",
                 "top_of_fresh_bedrock",
