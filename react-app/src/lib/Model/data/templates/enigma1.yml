@@ -125,19 +125,22 @@ grouping:
         - geological_zone
         - latitude
         - longitude
+        - area_name
     - key: curation
       label: Curation
       description: Fields which describe the curation of the sample
       layout: []
     - key: environment_measurements
       label: Environmental Measurements
+      description: Environmental Measurements
+      layout:
+        - temperature
     - key: unclassified
       label: Unclassified
       description: Unclassified fields
       layout:
         - aodc
         - aquifer
-        - area_name
         - average_water_level
         - biomass_carbon
         - boncat_activity
@@ -200,7 +203,6 @@ grouping:
         - screen_type
         - screened
         - screened_interval
-        - temperature
         - top_of_casing_elevation
         - top_of_casing_stickup
         - top_of_fresh_bedrock

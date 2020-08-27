@@ -37,10 +37,10 @@
         "typescript": "4.0.2"
     },
     "scripts": {
-        "start": "nodemon -w ./config-overrides.js --exec 'react-app-rewired start'",
+        "start": "nodemon -w ./config-overrides.js --ext ts,tsx,css,yml,yaml,json --exec 'react-app-rewired start'",
         "build": "react-app-rewired build",
         "test": "react-app-rewired test --env=jest-environment-jsdom-sixteen",
-        "test-with-coverage": "react-app-rewired test --coverage --watchAll=false  --env=jest-environment-jsdom-sixteen",
+        "test-with-coverage": "react-app-rewired test --coverage --watchAll=false --env=jest-environment-jsdom-sixteen",
         "test2": "react-scripts test"
     },
     "eslintConfig": {
