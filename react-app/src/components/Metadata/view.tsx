@@ -13,6 +13,7 @@ import {
 } from '../../lib/Model';
 
 import './style.less';
+import MetadataField from '../MetadataField/view';
 
 export interface MetadataViewerProps {
     sample: Sample;
@@ -43,18 +44,21 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                         <TileLayer
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                            noWrap={true}
                         />
                     </LayersControl.BaseLayer>
                     <LayersControl.BaseLayer name="OpenTopoMap">
                         <TileLayer
                             attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
                             url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                            noWrap={true}
                         />
                     </LayersControl.BaseLayer>
                     <LayersControl.BaseLayer name="EsriWorldImagery" checked={true}>
                         <TileLayer
                             attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
                             url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                            noWrap={true}
                         />
                     </LayersControl.BaseLayer>
                 </LayersControl>
@@ -103,7 +107,6 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
     renderControlledMetadataGrouped() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
-
         const rows = this.props.layout.layout.map((group) => {
             const fields = group.layout.map((fieldName) => {
                 const field = this.props.fields[fieldName];
@@ -115,7 +118,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                     const value = metadata[field.key];
                     return <div key={field.key}>
                         <div><Tooltip title={`key: ${field.key}`}><span>{value.label}</span></Tooltip></div>
-                        <div>{value.value} <i>{value.units}</i></div>
+                        <div><MetadataField value={value.value} fieldKey={field.key} units={field.units} fields={this.props.fields} /></div>
                     </div>;
                 } else {
                     return null;
@@ -154,7 +157,6 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
     render() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
-
         const rows = this.props.layout.layout.map((group) => {
             const fields = group.layout.map((fieldName) => {
                 const field = this.props.fields[fieldName];
@@ -166,7 +168,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                     const value = metadata[field.key];
                     return <div key={field.key}>
                         <div><Tooltip title={`key: ${field.key}`}><span>{value.label}</span></Tooltip></div>
-                        <div>{value.value} <i>{value.units}</i></div>
+                        <div><MetadataField value={value.value} fieldKey={field.key} units={field.units} fields={this.props.fields} /></div>
                     </div>;
                 } else {
                     return null;

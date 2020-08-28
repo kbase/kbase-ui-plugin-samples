@@ -10,7 +10,7 @@ import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
 import { Sample, Metadata, User, UserMetadata } from './types';
-import Model from '../../lib/Model';
+import Model, { SampleSource } from '../../lib/Model';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -21,8 +21,13 @@ export interface DataProps {
     setTitle: (title: string) => void;
 }
 
+interface State {
+    sample: Sample,
+    sampleSource: SampleSource
+}
+
 interface DataState {
-    loadingState: AsyncProcess<Sample, AppError>;
+    loadingState: AsyncProcess<State, AppError>;
 }
 
 export default class Data extends React.Component<DataProps, DataState> {
@@ -200,10 +205,12 @@ export default class Data extends React.Component<DataProps, DataState> {
                 userMetadata
             };
 
+            const sampleSource = (await client.getSampleSource({id: actualSample.source})).source;
+
             return this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
-                    state: sample
+                    state: {sample, sampleSource}
                 }
             });
         } catch (ex) {
@@ -277,8 +284,8 @@ export default class Data extends React.Component<DataProps, DataState> {
         return <Alert type="error" message={error.message} />;
     }
 
-    renderSuccess(sample: Sample) {
-        return <Component sample={sample} setTitle={this.props.setTitle} />;
+    renderSuccess(state: State) {
+        return <Component sample={state.sample} sampleSource={state.sampleSource} setTitle={this.props.setTitle}  />;
     }
 
     render() {

@@ -4,6 +4,7 @@ version: 1
 created_at: 0
 created_by: eapearson
 header: []
+source: sesar
 # sample field keys.
 # must be in sampleUploaderSpecs.
 columns:
@@ -16,6 +17,7 @@ columns:
   - current_archive_contact
   - elevation_start
   - elevation_unit
+  - field_name
   - field_name_informal_classification
   - field_program_cruise
   - id
@@ -44,6 +46,7 @@ grouping:
       layout:
         - purpose
         - material
+        - field_name
         - field_name_informal_classification
         - field_program_cruise
         - id
@@ -60,7 +63,6 @@ grouping:
         - collection_date_precision
         - collector_chief_scientist
         - collection_method
-        - collector_chief_scientist
     - key: geolocation
       label: Geolocation
       description: Fields which describe the sample collection location

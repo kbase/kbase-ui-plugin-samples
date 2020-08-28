@@ -4,6 +4,7 @@
     "created_at": 0,
     "created_by": "eapearson",
     "header": [],
+    "source": "sesar",
     "columns": [
        "collection_date",
        "collection_date_precision",
@@ -14,6 +15,7 @@
        "current_archive_contact",
        "elevation_start",
        "elevation_unit",
+       "field_name",
        "field_name_informal_classification",
        "field_program_cruise",
        "id",
@@ -44,6 +46,7 @@
              "layout": [
                 "purpose",
                 "material",
+                "field_name",
                 "field_name_informal_classification",
                 "field_program_cruise",
                 "id",
@@ -62,8 +65,7 @@
                 "collection_date",
                 "collection_date_precision",
                 "collector_chief_scientist",
-                "collection_method",
-                "collector_chief_scientist"
+                "collection_method"
              ]
           },
           {

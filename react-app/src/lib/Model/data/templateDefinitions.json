@@ -2,7 +2,7 @@
     "templates": {
         "sesar1": {
             "id": "sesar1",
-            "source": "SESAR",
+            "source": "sesar",
             "name": "System for Earth Sample Regsitration (SESAR)",
             "description": "A sample template based on SESAR",
             "reference": "https://www.geosamples.org/",
@@ -15,7 +15,7 @@
         },
         "enigma1": {
             "id": "enigma1",
-            "source": "ENIGMA",
+            "source": "enigma",
             "name": "ENIGMA",
             "description": "A sample template based on ENIGMA",
             "reference": "https://enigma.lbl.gov",

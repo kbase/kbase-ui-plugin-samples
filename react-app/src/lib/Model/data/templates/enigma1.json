@@ -4,6 +4,7 @@
     "created_at": 0,
     "created_by": "eapearson",
     "header": [],
+    "source": "enigma",
     "columns": [
        "aodc",
        "aquifer",
@@ -110,7 +111,8 @@
              "layout": [
                 "description",
                 "material",
-                "condition"
+                "condition",
+                "experiment_name"
              ]
           },
           {
@@ -142,11 +144,28 @@
              "layout": []
           },
           {
-             "key": "environment_measurements",
-             "label": "Environmental Measurements",
-             "description": "Environmental Measurements",
+             "key": "environment",
+             "label": "Environment",
+             "description": "Environment Description and Measurements",
              "layout": [
-                "temperature"
+                "temperature",
+                "environmental_package"
+             ]
+          },
+          {
+             "key": "well",
+             "label": "Well",
+             "description": "Well Characteristics",
+             "layout": [
+                "type_of_well",
+                "upper_seal_end_depth",
+                "upper_seal_start_depth",
+                "upper_seal_type",
+                "well_casing_depth",
+                "well_casing_id",
+                "well_casing_od",
+                "well_casing_type",
+                "well_status"
              ]
           },
           {
@@ -170,8 +189,6 @@
                 "drive_casing_od",
                 "drive_casing_start_depth",
                 "drive_casing_type",
-                "environmental_package",
-                "experiment_name",
                 "filter",
                 "fraction",
                 "fractures_cavities_waterbreaks",
@@ -224,16 +241,7 @@
                 "top_of_weathered_bedrock",
                 "total_carbon",
                 "total_nitrogen",
-                "treatment",
-                "type_of_well",
-                "upper_seal_end_depth",
-                "upper_seal_start_depth",
-                "upper_seal_type",
-                "well_casing_depth",
-                "well_casing_id",
-                "well_casing_od",
-                "well_casing_type",
-                "well_status"
+                "treatment"
              ]
           }
        ]
