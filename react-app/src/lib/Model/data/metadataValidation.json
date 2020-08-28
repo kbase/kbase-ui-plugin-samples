@@ -831,6 +831,17 @@
                 }
             ]
         },
+        "field_name": {
+            "key_metadata": {
+                "display_name": "Field name (informal classification)"
+            },
+            "validators": [
+                {
+                    "callable_builder": "noop",
+                    "module": "SampleService.core.validator.builtin"
+                }
+            ]
+        },
         "field_name_informal_classification": {
             "key_metadata": {
                 "display_name": "Field name (informal classification)"

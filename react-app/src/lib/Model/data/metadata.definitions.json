@@ -71,7 +71,7 @@
             "key": "field_name",
             "type": "string",
             "kind": "descriptive",
-            "label": "field Name"
+            "label": "Field Name"
         },
         {
             "key": "elevation_start",

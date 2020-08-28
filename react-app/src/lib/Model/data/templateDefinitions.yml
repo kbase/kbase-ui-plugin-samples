@@ -2,8 +2,8 @@
 templates:
   sesar1:
     id: sesar1
-    source: SESAR
-    name: System for Earth Sample Regsitration (SESAR)
+    source: sesar
+    name: System for Earth Sample Registration (SESAR)
     description: A sample template based on SESAR
     reference: https://www.geosamples.org/
     signalFields:
@@ -14,7 +14,7 @@ templates:
 
   enigma1:
     id: enigma1
-    source: ENIGMA
+    source: enigma
     name: ENIGMA
     description: A sample template based on ENIGMA
     reference: https://enigma.lbl.gov

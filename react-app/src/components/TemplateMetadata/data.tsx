@@ -62,8 +62,6 @@ export default class Data extends React.Component<DataProps, DataState> {
                 timeout: UPSTREAM_TIMEOUT
             });
 
-            console.log('hmm, template?', this.props.sample.template.id);
-
             // Get the template
             const { template, metadataFields, definition } = await client.getTemplate({ id: this.props.sample.template.id });
 

@@ -9,6 +9,7 @@ import enigma1TemplateData from './data/templates/enigma1.json';
 import templateDefinitionsData from './data/templateDefinitions.json';
 import sampleUploaderSpecsData from './data/sampleUploaderSpecs.json';
 import metadataValidationData from './data/metadataValidation.json';
+import sampleSourceData from './data/sampleSources.json';
 
 function grokField(key: string, spec: any): FieldDefinition {
     if (!spec.validators) {
@@ -58,8 +59,8 @@ function grokField(key: string, spec: any): FieldDefinition {
             label: spec.key_metadata.display_name,
             description: spec.key_metadata.description,
             greater_than_or_equal: (typedBuilder.parameters && typedBuilder.parameters.gte),
-            less_than_or_equal: (typedBuilder.parameters && typedBuilder.parameters.lte)
-
+            less_than_or_equal: (typedBuilder.parameters && typedBuilder.parameters.lte),
+            style: spec.formatting?.style || 'decimal'
         };
         case 'string': return {
             key,
@@ -88,6 +89,35 @@ const metadataDefinitions: Array<FieldDefinition> = (() => {
         return grokField(key, spec);
     });
 })();
+
+// Deal with sample format top level definitions.
+
+export interface SampleSource {
+    id: string;
+    name: string;
+    title: string;
+    url: string;
+    logoURL: string;
+    fields: {
+        id: {
+            label: string
+        },
+        parent_id: {
+            label: string
+        }
+    }
+}
+
+export interface SampleSources {
+    sources: {
+        [key: string]: SampleSource
+    }
+}
+
+const sampleSources: SampleSources = (() => {
+    return ((sampleSourceData as unknown) as SampleSources);
+})();
+
 
 // Deal with source definitions.
 
@@ -210,29 +240,45 @@ export interface FieldDefinitionInteger extends FieldDefinitionBase {
     maximum_value?: number;
 }
 
+export type NumberStyle = 'unit' | 'decimal' | 'currency' | 'percent' | 'unit';
+
 export interface FieldDefinitionFloat extends FieldDefinitionBase {
     type: 'float';
+    // constraints;
     greater_than_or_equal?: number;
     less_than_or_equal?: number;
     greater_than?: number;
     less_than?: number;
-    precision?: number;
-    decimal_places?: number;
+    // Formatting
+    // Note follows ECMAScript Int.NumberFormat https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
+    style: NumberStyle;
+    useGrouping?: boolean;
+    minimumIntegerDigits?: number;
+    minimumFractionDigits?: number;
+    maximumFractionDigits?: number;
+    minimumSignificantDigits?: number;
+    maximumSignificantDigits?: number;
+    // precision?: number;
+    // decimal_places?: number;
 }
 
 export interface FieldDefinitionString extends FieldDefinitionBase {
     type: 'string';
+    // constraints
     regex?: string;
     length_greater_than_or_equal?: number;
     length_less_than_or_equal?: number;
     length_greater_than?: number;
     length_less_than?: number;
+    // formatting
 }
 
 export interface FieldDefinitionDate extends FieldDefinitionBase {
     type: 'date';
+    // constraints
     minimum_value?: number;
     maximum_value?: number;
+    // formatting
 }
 
 export type FieldDefinition = FieldDefinitionInteger | FieldDefinitionFloat | FieldDefinitionString | FieldDefinitionDate;
@@ -321,6 +367,18 @@ export interface Sample {
 
 export type GetSampleResult = Sample;
 
+// Get sample format
+
+export interface GetSampleSourceParams {
+    id: string;
+}
+
+export interface GetSampleSourceResult {
+    source: SampleSource;
+}
+
+//
+
 export default class Model {
     api: SampleServiceClient;
     constructor({ url, token, timeout, version }: ModelParams) {
@@ -358,6 +416,12 @@ export default class Model {
             }
 
             throw new Error('Sorry, template definition not found!');
+        })();
+
+        const sampleDefinition = await  (async () => {
+            const result =  await this.getSampleSource({
+                id: templateDefinition.source
+            })
         })();
 
         const sourceMeta = rawRealSample.source_meta.reduce((sourceMeta, {key, skey, svalue: {value}}) => {
@@ -506,6 +570,20 @@ export default class Model {
             default:
                 throw new Error(`Unrecognized template ${params.id}`)
         }
-        
+    }
+
+    async getSampleSource(params: GetSampleSourceParams): Promise<GetSampleSourceResult> {
+        switch (params.id) {
+            case 'sesar':
+                return Promise.resolve({
+                    source: sampleSources.sources.sesar
+                });
+            case 'enigma':
+                return Promise.resolve({
+                    source: sampleSources.sources.enigma
+                })
+            default: 
+                throw new Error(`Unrecognized sample source ${params.id}`);
+        }
     }
 }

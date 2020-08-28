@@ -7,3 +7,17 @@
     color: gray;
     font-style: italic; */
 }
+
+.Overview-sourceUrl {
+    color: #BBBBFF;
+}
+
+.Overview-sourceUrl:hover {
+    color: #BBBBFF;
+    text-decoration: underline;
+}
+
+.Overview-sourceUrl:active {
+    color: white;
+    text-decoration: underline;
+}

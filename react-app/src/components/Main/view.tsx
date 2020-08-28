@@ -13,9 +13,11 @@ import MetadataViewer from '../Metadata';
 
 import './style.less';
 import UserMetadataViewer from '../UserMetadata/view';
+import { SampleSource } from '../../lib/Model';
 
 export interface MainProps {
     sample: Sample;
+    sampleSource: SampleSource;
     setTitle: (title: string) => void;
 }
 
@@ -31,7 +33,7 @@ export default class Main extends React.Component<MainProps, MainState> {
     render() {
         // console.log('main props', JSON.stringify(this.props));
         return <div className='Sample'>
-            <Overview sample={this.props.sample} />
+            <Overview sample={this.props.sample} sampleSource={this.props.sampleSource} />
             <Tabs type="card" className="FullHeight-tabs" >
                 <Tabs.TabPane tab="Metadata" key="metadata">
                     <MetadataViewer sample={this.props.sample} />
