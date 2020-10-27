@@ -1,34 +1,45 @@
 import React from 'react';
-import { FieldDefinitionsMap } from '../../lib/Model';
+import { MetadataField } from '../../lib/Model';
+import { NoData } from '../NoData';
 
-export interface MetadataFieldProps {
-    value: string | number | boolean;
-    fieldKey: string; 
-    units?: string;
-    fields: FieldDefinitionsMap
+export interface MetadataFieldViewProps {
+    // value: string | number | boolean | null;
+    // fieldKey: string;
+    // unit?: string;
+    // fields: Metadata;
+    field: MetadataField;
 }
 
-interface MetadataFieldState {
-
+interface MetadataFieldViewState {
 }
 
-export default class MetadataField extends React.Component<MetadataFieldProps, MetadataFieldState> {
-    constructor(props: MetadataFieldProps) {
-        super(props);
+export default class MetadataFieldView extends React.Component<MetadataFieldViewProps, MetadataFieldViewState> {
+
+    renderField(field: MetadataField) {
+        if (field.value === null) {
+            return <NoData />;
+        }
+        return <span>
+            {field.value}
+        </span>;
+    }
+
+    renderUnit(field: MetadataField) {
+        if (field.units === 'unit') {
+            return '';
+        }
+        return field.units;
     }
 
     render() {
-        const fieldDef = this.props.fields[this.props.fieldKey];
-
-        // console.log('field def?', fieldDef);
-
-        if (this.props.units) {
-        return <span>
-          {this.props.value} <i>{this.props.units}</i>
-        </span>
+        const field = this.props.field;
+        if (field.units) {
+            return <span>
+                {this.renderField(field)} <i>{this.renderUnit(field)}</i>
+            </span>;
         }
         return <span>
-         {this.props.value}
-        </span>
+            {this.renderField(field)}
+        </span>;
     }
 }

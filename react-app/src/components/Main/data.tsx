@@ -1,6 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import {
+    Format,
     SampleId, SampleVersion, Username
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
@@ -9,8 +10,8 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
-import { Sample, Metadata, User, UserMetadata } from './types';
-import Model, { SampleSource } from '../../lib/Model';
+import { Sample, User, Template } from './types';
+import Model from '../../lib/Model';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -22,8 +23,9 @@ export interface DataProps {
 }
 
 interface State {
-    sample: Sample,
-    sampleSource: SampleSource
+    sample: Sample;
+    format: Format;
+    template: Template;
 }
 
 interface DataState {
@@ -104,67 +106,22 @@ export default class Data extends React.Component<DataProps, DataState> {
                 id: props.sampleId
             });
 
-            let firstSample;
-
-            if (sampleResult.version === 1) {
-                firstSample = sampleResult;
-            } else {
-                firstSample = await client.getSample({
+            const firstSample = await (async () => {
+                if (sampleResult.version === 1) {
+                    return sampleResult;
+                }
+                return await client.getSample({
                     id: props.sampleId,
                     version: 1
                 });
-                if (sampleResult.version < latestSample.version) {
-                } else {
-                }
-            }
-
-            const actualSample = sampleResult.sample;
-
-            const fieldKeys = Object.keys(actualSample.metadata);
-
-            const fieldMetadata = await client.getMetadataKeyStaticMetadata({
-                keys: fieldKeys,
-                prefix: 0
-            });
-
-            const fieldDefinitions = (await client.getMetadataDefinitions({})).field_definitions;
-
-            const controlledMetadata: Metadata = Object.entries(actualSample.metadata)
-                .reduce((metadata, [key, field]) => {
-                    const fieldMeta = fieldMetadata.static_metadata[key];
-                    metadata[key] = {
-                        label: fieldMeta.display_name,
-                        description: fieldMeta.description,
-                        value: field.value,
-                        units: field.units,
-                        isControlled: true,
-                        definition: fieldDefinitions[key]
-                    };
-                    return metadata;
-                }, {} as Metadata);
-
-            const userMetadata: UserMetadata = Object.entries(actualSample.userMetadata)
-                .reduce<UserMetadata>((metadata, [key, field]) => {
-                    if (controlledMetadata[key]) {
-                        return metadata;
-                    }
-                    let value: string;
-                    if (typeof field.value !== 'string') {
-                        value = String(field.value);
-                    } else {
-                        value = field.value;
-                    }
-                    metadata[key] = {
-                        value
-                    };
-                    return metadata;
-                }, {} as UserMetadata);
+            })();
 
             const users = await this.fetchUsers(Array.from(new Set([
                 firstSample.savedBy,
                 sampleResult.savedBy,
                 latestSample.savedBy
             ]).values()));
+
             const usersMap = users.reduce((usersMap, user) => {
                 usersMap.set(user.username, user);
                 return usersMap;
@@ -172,20 +129,10 @@ export default class Data extends React.Component<DataProps, DataState> {
 
             const sample: Sample = {
                 id: sampleResult.id,
+                sampleId: sampleResult.sample.id,
+                parentSampleId: sampleResult.sample.parentId,
+                type: sampleResult.sample.type,
                 name: sampleResult.name,
-                template: {
-                    id: sampleResult.sample.templateId,
-                    label: sampleResult.sample.templateId
-                },
-                source: sampleResult.sample.source,
-                sourceId: {
-                    id: actualSample.id,
-                    label: 'IGSN'
-                },
-                sourceParentId: {
-                    id: actualSample.parentId,
-                    label: 'Parent IGSN'
-                },
                 created: {
                     at: firstSample.savedAt,
                     by: usersMap.get(firstSample.savedBy)!,
@@ -200,17 +147,19 @@ export default class Data extends React.Component<DataProps, DataState> {
                     by: usersMap.get(latestSample.savedBy)!,
                     version: latestSample.version
                 },
-                type: actualSample.type,
-                metadata: controlledMetadata,
-                userMetadata
+                // template: sampleResult.template
+                // type: actualSample.type,
+                metadata: sampleResult.sample.metadata,
+                userMetadata: sampleResult.sample.userMetadata,
+                format: sampleResult.format
             };
 
-            const sampleSource = (await client.getSampleSource({id: actualSample.source})).source;
+            // const sampleSource = (await client.getSampleSource({id: actualSample.source})).source;
 
             return this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
-                    state: {sample, sampleSource}
+                    state: { sample, format: sampleResult.format, template: sampleResult.template }
                 }
             });
         } catch (ex) {
@@ -285,7 +234,7 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(state: State) {
-        return <Component sample={state.sample} sampleSource={state.sampleSource} setTitle={this.props.setTitle}  />;
+        return <Component sample={state.sample} format={state.format} template={state.template} setTitle={this.props.setTitle} />;
     }
 
     render() {

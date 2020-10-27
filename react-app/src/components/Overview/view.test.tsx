@@ -2,6 +2,7 @@ import React from 'react';
 import Overview from './view';
 import { render, waitFor } from '@testing-library/react';
 import { Sample } from '../Main/types';
+import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
 
 const TIMEOUT = 10000;
 
@@ -14,18 +15,58 @@ test('should render', async () => {
     //     meta_controlled: {},
     //     meta_user: {}
     // };
+    const format: Format = {
+        id: 'format1',
+        description: 'a format',
+        name: 'Format 1',
+        version: 1,
+        title: 'Format 1',
+        source: {
+            name: 'source',
+            title: 'A Source',
+            url: 'https://example.com/source'
+        },
+        layouts: {
+            grouped: [{
+                key: 'group1',
+                description: 'some group',
+                label: 'some group',
+                layout: [
+                     'field1', 'field2', 'field3'
+                 ]
+                }
+            ]
+        },
+        mappings: {
+            record: {
+                a: 'b'
+            },
+            sample: {
+                field1: 'id',
+                field2: 'parent_id'
+            }
+        },
+        field_definitions: {
+            field1: {
+                label: 'Field 1',
+                type: 'string'
+            },
+            field2: {
+                label: 'Field 2',
+                type: 'number'
+            },
+            field3: {
+                label: 'Field 3',
+                type: 'boolean'
+            }
+        }
+
+    }
     const sample: Sample = {
         id: 'xyz',
-        source: 'SESAR',
-        sourceId: {
-            id: 'abc',
-            label: 'A B C',
-        },
-        sourceParentId: null,
-        template: {
-            id: 'template1',
-            label: 'My Template'
-        },
+        format,
+        sampleId: 'abc',
+        parentSampleId: 'xyz',
         name: 'abc',
         type: 'BioReplicate',
         created: {

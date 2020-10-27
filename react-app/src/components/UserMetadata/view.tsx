@@ -29,7 +29,7 @@ export default class UserMetadataViewer extends React.Component<UserMetadataView
             .map(([key, value]) => {
                 return <div key={key}>
                     <div><Tooltip title={`key: ${key}`}><span>{key}</span></Tooltip></div>
-                    <div>{value.value}</div>
+                    <div>{value}</div>
                 </div>;
             });
         return <div className="InfoTable -bordered ControlledMetadata">
