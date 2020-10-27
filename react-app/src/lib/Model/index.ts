@@ -255,8 +255,6 @@ export default class Model {
             }
         })();
 
-
-
         const metadataFields: Array<TemplateField> = templateData.fields.map((key) => {
             return {
                 type: 'metadata',
@@ -282,25 +280,34 @@ export default class Model {
             };
         });
 
-        const sampleMappings = format.mappings.sample as SimpleMapping;
-        const reverseSampleMappings: SimpleMapping = Object.entries(sampleMappings).reduce<SimpleMapping>((mapping, [key, value]) => {
+        const sampleMapping = format.mappings.sample as SimpleMapping;
+        const reverseSampleMapping: SimpleMapping = Object.entries(sampleMapping).reduce<SimpleMapping>((mapping, [key, value]) => {
             mapping[value] = key;
             return mapping;
         }, {});
 
-        const correctionMappings = format.mappings.corrections || {};
-        const reverseCorrectionMappings: SimpleMapping = Object.entries(correctionMappings).reduce<SimpleMapping>((mapping, [key, value]) => {
+        const recordMapping = format.mappings.record as SimpleMapping;
+        const reverseRecordMapping: SimpleMapping = Object.entries(recordMapping).reduce<SimpleMapping>((mapping, [key, value]) => {
+            mapping[value] = key;
+            return mapping;
+        }, {});
+
+        const correctionMapping = format.mappings.corrections || {};
+        const reverseCorrectionMapping: SimpleMapping = Object.entries(correctionMapping).reduce<SimpleMapping>((mapping, [key, value]) => {
             mapping[value] = key;
             return mapping;
         }, {});
 
         const missingMetadataFields: Array<TemplateField> = Object.entries(rawSample.node_tree[0].meta_controlled).reduce<Array<TemplateField>>((fields, [rawKey, value]) => {
             const key = (() => {
-                if (rawKey in reverseSampleMappings) {
-                    return reverseSampleMappings[rawKey];
+                if (rawKey in reverseSampleMapping) {
+                    return reverseSampleMapping[rawKey];
                 }
-                if (rawKey in reverseCorrectionMappings) {
-                    return reverseCorrectionMappings[rawKey];
+                if (rawKey in reverseRecordMapping) {
+                    return reverseRecordMapping[rawKey];
+                }
+                if (rawKey in reverseCorrectionMapping) {
+                    return reverseCorrectionMapping[rawKey];
                 }
                 return rawKey;
             })();
@@ -338,29 +345,7 @@ export default class Model {
         // 3. Get the template.
         // FAKE: now pretend we are fetching the sample set associated with this sample,
         // which will include the template used to upload.
-
-        // const { template } = await this.api.get_template({id: })
-
         const template: Template = this.getTemplate(format, rawSample);
-
-
-        // const template: Template = (() => {
-        //     switch (rawSample.format_id) {
-        //         case 'sesar':
-        //             return sesarTemplateData;
-        //         case 'enigma':
-        //             return enigmaTemplateData;
-        //         default:
-        //             throw new Error(`Sorry, no template for format ${rawSample.format_id}`);
-        //     }
-        // })();
-
-        // const sourceMeta = rawRealSample.source_meta.reduce((sourceMeta, { key, skey, svalue: { value } }) => {
-        //     sourceMeta[key] = {
-        //         key, label: skey, value
-        //     };
-        //     return sourceMeta;
-        // }, {} as MetadataSource);
 
         // We expand the metadata into the full template.
         const sampleMappings = format.mappings.sample as { [key: string]: string; };
@@ -391,9 +376,10 @@ export default class Model {
             }
 
             const fieldDefinition = format.field_definitions[field.key];
+
             if (!fieldDefinition) {
                 console.error('undefined field', format.field_definitions, field.key);
-                throw new Error(`Sorry, field ${field.key} is not defined for format ${format.id}`);
+                throw new Error(`Sorry, field "${field.key}" is not defined for format "${format.id}"`);
             }
 
             const fieldValue = (() => {

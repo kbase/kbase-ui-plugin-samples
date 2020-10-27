@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Alert, Checkbox, Tooltip
+    Alert, Button, Tooltip
 } from 'antd';
 import {
     Map as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
@@ -12,7 +12,6 @@ import {
 } from '../../lib/Model';
 import MetadataField from '../MetadataField/view';
 import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 import './style.less';
 
@@ -187,18 +186,38 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         });
     }
 
-    onChangeHideEmpty(ev: CheckboxChangeEvent) {
-        const omitEmpty = ev.target.checked;
+    // onChangeHideEmpty(ev: CheckboxChangeEvent) {
+    //     const omitEmpty = ev.target.checked;
+    //     this.setState({
+    //         omitEmpty
+    //     });
+    // }
+    // renderToolbar2() {
+    //     return <div className="Metadata-toolbar">
+    //         <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
+    //     </div>;
+    // }
+
+    onToggleHideEmpty() {
         this.setState({
-            omitEmpty
+            omitEmpty: !this.state.omitEmpty
         });
     }
 
     renderToolbar() {
+        const label = (() => {
+            if (this.state.omitEmpty) {
+                return 'Show Empty Fields';
+            } else {
+                return 'Hide Empty Fields';
+            }
+        })();
         return <div className="Metadata-toolbar">
-            <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
+            <Button onClick={this.onToggleHideEmpty.bind(this)}>{label}</Button>
         </div>;
     }
+
+    
 
     render() {
         return <div className="Metadata" data-testid="metadataviewer" >

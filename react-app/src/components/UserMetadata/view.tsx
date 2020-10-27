@@ -20,7 +20,7 @@ export default class UserMetadataViewer extends React.Component<UserMetadataView
         const sample = this.props.sample;
         const metadata = Object.entries(sample.userMetadata);
         if (metadata.length === 0) {
-            return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
+            return <div style={{ fontStyle: 'italic' }}>No user metadata in this sample</div>;
         }
         const rows = Array.from(metadata)
             .sort(([akey,], [bkey,]) => {

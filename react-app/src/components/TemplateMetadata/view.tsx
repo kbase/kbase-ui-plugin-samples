@@ -1,10 +1,9 @@
 import React from 'react';
-import { Table, Tooltip } from 'antd';
+import { Button, Table, Tooltip } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import { Sample, Template } from '../Main/types';
 import { TemplateDataSource2 } from './types';
 import { NoData } from '../NoData';
-import Checkbox, { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 export interface TemplateMetadataProps {
     sample: Sample;
@@ -239,18 +238,38 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
         </Table>;
     }
 
-    onChangeHideEmpty(ev: CheckboxChangeEvent) {
-        const omitEmpty = ev.target.checked;
+    // onChangeHideEmpty(ev: CheckboxChangeEvent) {
+    //     const omitEmpty = ev.target.checked;
+    //     this.setState({
+    //         omitEmpty
+    //     });
+    // }
+
+    // renderToolbar() {
+    //     return <div className="Metadata-toolbar">
+    //         <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
+    //     </div>;
+    // }
+
+    onToggleHideEmpty() {
         this.setState({
-            omitEmpty
+            omitEmpty: !this.state.omitEmpty
         });
     }
 
     renderToolbar() {
+        const label = (() => {
+            if (this.state.omitEmpty) {
+                return 'Show Empty Fields';
+            } else {
+                return 'Hide Empty Fields';
+            }
+        })();
         return <div className="Metadata-toolbar">
-            <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
+            <Button onClick={this.onToggleHideEmpty.bind(this)}>{label}</Button>
         </div>;
     }
+
 
     render() {
         /*

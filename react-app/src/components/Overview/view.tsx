@@ -10,7 +10,6 @@ import './styles.css';
 
 export interface OverviewProps {
     sample: Sample;
-    // sampleSource: SampleSource;
 }
 
 interface OverviewState {
@@ -86,13 +85,11 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             name, created
         } = this.props.sample;
 
-        const sampleMappings = this.props.sample.format.mappings.sample;
-
         const sourceTooltip = <div>
             <img src={this.props.sample.format.source.logo_url!} height={30} alt={`Logo for ${this.props.sample.format.source.title}`} />
             <div><a href={this.props.sample.format.source.url} target="_blank" rel="noopener noreferrer" className="Overview-sourceUrl">{this.props.sample.format.source.title}</a></div>
         </div>;
-        console.log('hmm', this.props.sample.metadata, sampleMappings);
+        
         return <div className="Grouper Overview">
             <Row>
                 <Col span={12}>
