@@ -69,11 +69,12 @@ export interface TemplateDataSource2 {
     order: number;
     column: string;
     label: string;
-    type: string | null;
+    type: string;
     value: string | number | boolean | null;
     // value: string | number | boolean | null;
     // units: string | null;
     isMissing: boolean;
+    fieldType: 'metadata' | 'user';
 }
 
 export interface SpreadsheetFieldDefinition {
@@ -112,19 +113,19 @@ export class NameField extends SpreadsheetField {
     }
 }
 
-export class IGSNField extends SpreadsheetField {
-    // static column = 'IGSN';
-    extractValue(sample: Sample) {
-        return sample.sourceId.id;
-    }
-}
+// export class IGSNField extends SpreadsheetField {
+//     // static column = 'IGSN';
+//     extractValue(sample: Sample) {
+//         return sample.sourceId.id;
+//     }
+// }
 
-export class ParentIGSNField extends SpreadsheetField {
-    // static column = 'Parent IGSN';
-    extractValue(sample: Sample) {
-        return sample.sourceParentId ? sample.sourceParentId.id : null;
-    }
-}
+// export class ParentIGSNField extends SpreadsheetField {
+//     // static column = 'Parent IGSN';
+//     extractValue(sample: Sample) {
+//         return sample.sourceParentId ? sample.sourceParentId.id : null;
+//     }
+// }
 
 export class ReleaseDateField extends SpreadsheetField {
     // column = 'Release date';

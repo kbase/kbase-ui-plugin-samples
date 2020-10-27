@@ -2,11 +2,12 @@ import React from 'react';
 import { PauseOutlined, LineOutlined } from '@ant-design/icons';
 
 import { MiniSample } from '../History/data';
-import { Metadata } from '../Main/types';
-import { FieldDefinitionsMap } from '../../lib/Model';
+import { Metadata } from '../../lib/Model';
 import ComparisonView from './view';
 
 import './style.less';
+import { Template, TemplateField } from '../Main/types';
+import { Format, FormatFieldType } from '../../lib/comm/dynamicServices/SampleServiceClient';
 
 export type DiffState = 'diff' | 'nodiff';
 
@@ -15,7 +16,7 @@ export interface ComparisonItem {
 }
 export interface Field {
     key: string;
-    type: 'string' | 'float' | 'integer' | 'date';
+    type: 'string' | 'number' | 'date' | 'boolean' | 'enum<string>' | 'controlled_list';
     label: string;
     description?: string;
 }
@@ -48,7 +49,9 @@ export interface ComparatorProps {
     selectedSamples: Array<MiniSample>;
     view: View;
     diffStatus: Array<DiffState>;
-    fieldDefinitions: FieldDefinitionsMap;
+    // fieldDefinitions: FieldDefinitionsMap;
+    template: Template;
+    format: Format;
 }
 
 export type View = 'sample' | 'metadata' | 'user_metadata';
@@ -72,7 +75,7 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
                 version: sample.version,
                 savedAt: formattedDate(sample.savedAt),
                 savedBy: sample.savedBy.username,
-                source: sample.source,
+                // source: sample.source,
                 sourceId: sample.sourceId,
                 sourceParentId: sample.sourceParentId
             };
@@ -101,7 +104,7 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
                 }, {
                     key: 'version',
                     label: 'Version',
-                    type: 'integer',
+                    type: 'number',
                 }, {
                     key: 'savedAt',
                     label: 'Saved At',
@@ -111,8 +114,8 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
                     label: 'Saved By',
                     type: 'string',
                 }, {
-                    key: 'source',
-                    label: 'Source',
+                    key: 'format',
+                    label: 'Format',
                     type: 'string'
                 }, {
                     key: 'sourceId',
@@ -129,49 +132,23 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
     }
 
     getMetadataComparison(): Comparison {
-        const keys = [
-            // 'name',
-            // 'igsn',
-            // 'parent_igsn',
-            'release_date',
-            'material',
-            'field_name',
-            'location_description',
-            'locality_description',
-            'collection_method',
-            'purpose',
-            'latitude',
-            'longitude',
-            'coordinate_precision?',
-            'elevation_start',
-            'elevation_unit',
-            'navigation_type',
-            'primary_physiographic_feature',
-            'name_of_physiographic_feature',
-            'field_program_cruise',
-            'collector_chief_scientist',
-            'collection_date',
-            'collection_date_precision',
-            'current_archive',
-            'current_archive_contact',
-            'related_identifiers',
-            'relation_type'
-        ];
-
-        function getMetadataValue(metadata: Metadata, key: string) {
+        const getMetadataValue = (metadata: Metadata, key: string) => {
             const field = metadata[key];
             if (typeof field === 'undefined') {
                 return;
             }
             return field.value;
-        }
-        function sampleToCompare(sample: MiniSample) {
-            return keys.reduce<ComparisonItem>((compare: ComparisonItem, key: string) => {
-                compare[key] = getMetadataValue(sample.metadata, key);
+        };
+        const sampleToCompare = (sample: MiniSample) => {
+            return this.props.template.fields.reduce<ComparisonItem>((compare: ComparisonItem, field: TemplateField) => {
+                if (field.type === 'user') {
+                    return compare;
+                }
+                compare[field.key] = getMetadataValue(sample.metadata, field.key);
                 return compare;
             }, {});
 
-        }
+        };
         let compare1 = null;
         if (this.props.selectedSamples[0]) {
             const sample1 = this.props.selectedSamples[0];
@@ -184,126 +161,67 @@ export default class Comparator extends React.Component<ComparatorProps, Compara
             compare2 = sampleToCompare(sample2);
         }
 
-        const fields = keys.map((key) => {
-            const def = this.props.fieldDefinitions[key];
-            return {
-                key,
-                label: def.label,
-                type: def.type
+        const fields = this.props.template.fields
+            .reduce<Array<Field>>((fields, templateField) => {
+                if (templateField.type === 'user') {
+                    return fields;
+                }
 
-            };
-        });
+                const field = this.props.format.field_definitions[templateField.key];
+
+                fields.push({
+                    key: templateField.key,
+                    label: field.label,
+                    type: field.type
+                });
+                return fields;
+            }, []);
 
         return {
             fields, compare1, compare2
         };
     }
 
-    /*
-    getMetadataComparison(): Comparison {
-        const keys = [
-            // 'name',
-            // 'igsn',
-            // 'parent_igsn',
-            'release_date',
-            'material',
-            'field_name',
-            'location_description',
-            'locality_description',
-            'collection_method',
-            'purpose',
-            'latitude',
-            'longitude',
-            'coordinate_precision?',
-            'elevation_start',
-            'elevation_unit',
-            'navigation_type',
-            'primary_physiographic_feature',
-            'name_of_physiographic_feature',
-            'field_program_cruise',
-            'collector_chief_scientist',
-            'collection_date',
-            'collection_date_precision',
-            'current_archive',
-            'current_archive_contact',
-            'related_identifiers',
-            'relation_type'
-        ],
-        let compare1 = null;
-        function getMetadataValue(metadata: Metadata, key: string) {
-            const field = metadata[key];
-            if (typeof field === 'undefined') {
-                return;
-            }
-            return field.value;
-        }
-        function sampleToCompare(sample: MiniSample) {
-            return {
-                name: sample.name,
-                igsn: sample.sourceId,
-                parent_igsn: sample.sourceParentId,
-                release_date: '?',
-                material: getMetadataValue(sample.metadata, 'material'),
-                field_name: getMetadataValue(sample.metadata, 'field_name'),
-                location_description: getMetadataValue(sample.metadata, 'location_description'),
-                locality_description: getMetadataValue(sample.metadata, 'locality_description'),
-                purpose: getMetadataValue(sample.metadata, 'purpose'),
-                latitude: getMetadataValue(sample.metadata, 'latitude'),
-                longitude: getMetadataValue(sample.metadata, 'longitude'),
-                'coordinate_precision?': getMetadataValue(sample.metadata, 'coordinate_precision?'),
-                elevation_start: getMetadataValue(sample.metadata, 'elevation_start'),
-                elevation_unit: getMetadataValue(sample.metadata, 'elevation_unit'),
-                navigation_type: getMetadataValue(sample.metadata, 'navigation_type'),
-                primary_physiographic_feature: getMetadataValue(sample.metadata, 'primary_physiographic_feature'),
-                name_of_physiographic_feature: getMetadataValue(sample.metadata, 'name_of_physiographic_feature'),
-                field_program_cruise: getMetadataValue(sample.metadata, 'field_program_cruise'),
-                collector_chief_scientist: getMetadataValue(sample.metadata, 'collector_chief_scientist'),
-                collection_date: getMetadataValue(sample.metadata, 'collection_date'),
-                current_archive: getMetadataValue(sample.metadata, 'current_archive'),
-                current_archive_contact: getMetadataValue(sample.metadata, 'current_archive_contact'),
-                related_identifiers: getMetadataValue(sample.metadata, 'related_identifiers'),
-                relation_type: getMetadataValue(sample.metadata, 'relation_type'),
-            };
-        }
-        if (this.props.selectedSamples[0]) {
-            const sample1 = this.props.selectedSamples[0];
-            compare1 = sampleToCompare(sample1);
-        }
-
-        let compare2 = null;
-        if (this.props.selectedSamples[1]) {
-            const sample2 = this.props.selectedSamples[1];
-            compare2 = sampleToCompare(sample2);
-        }
-
-        return {
-            keys: 
-            compare1, compare2
-        };
-    }
-    */
-
     getUserMetadataComparison(): Comparison {
+        // gather all keys.
+
+        const keys1 = this.props.selectedSamples[0] ? Object.keys(this.props.selectedSamples[0].userMetadata) : [];
+        const keys2 = this.props.selectedSamples[1] ? Object.keys(this.props.selectedSamples[1].userMetadata) : [];
+        const allKeys = keys1.concat(keys2).sort();
+
+        const sampleToCompare = (sample: MiniSample) => {
+            return this.props.template.fields.reduce<ComparisonItem>((compare: ComparisonItem, field: TemplateField) => {
+                if (field.type !== 'user') {
+                    return compare;
+                }
+                compare[field.label] = sample.userMetadata[field.label];
+                return compare;
+            }, {});
+
+        };
+
         let compare1 = null;
         if (this.props.selectedSamples[0]) {
-            // const sample1 = this.props.selectedSamples[0];
-            compare1 = {
-
-            };
+            compare1 = sampleToCompare(this.props.selectedSamples[0]);
         }
 
         let compare2 = null;
         if (this.props.selectedSamples[1]) {
-            // const sample1 = this.props.selectedSamples[1];
-            compare2 = {
-
-            };
+            compare2 = sampleToCompare(this.props.selectedSamples[1]);
         }
 
-        return {
-            fields: [
+        console.log('compare?', compare1, compare2);
 
-            ],
+        const fields = allKeys.map<{ key: string, label: string, type: FormatFieldType; }>((key) => {
+            return {
+                key,
+                label: key,
+                type: 'string'
+            };
+        });
+
+        return {
+            fields,
             compare1, compare2
         };
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
-import SampleServiceClient, {
-    GroupingLayout, FieldDefinitionsMap, Template, TemplateDefinition
+import Model, {
+    GroupingLayout, FieldDefinitionsMap
 } from '../../lib/Model';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -9,11 +9,15 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { Sample } from '../Main/types';
+import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
+
+
 
 export interface DataProps {
     serviceWizardURL: string;
     token: string;
     sample: Sample;
+    format: Format;
     // sampleId: SampleId;
     // sampleVersion?: SampleVersion;
     // setTitle: (title: string) => void;
@@ -21,9 +25,8 @@ export interface DataProps {
 
 interface Payload {
     layout: GroupingLayout;
-    template: Template;
-    definition: TemplateDefinition;
-    metadataFields: FieldDefinitionsMap;
+    // template: Template;
+    // metadataFields: FieldDefinitionsMap;
 }
 
 interface DataState {
@@ -56,22 +59,24 @@ export default class Data extends React.Component<DataProps, DataState> {
                     }
                 });
             }
-            const client = new SampleServiceClient({
+            const client = new Model({
                 token: props.token,
                 url: props.serviceWizardURL,
                 timeout: UPSTREAM_TIMEOUT
             });
 
-            // Get the template
-            const { template, metadataFields, definition } = await client.getTemplate({ id: this.props.sample.template.id });
 
-            const fieldMapping: FieldDefinitionsMap = metadataFields.reduce((fieldMapping, field) => {
-                fieldMapping[field.key] = field;
-                return fieldMapping;
-            }, {} as FieldDefinitionsMap);
+
+            // Get the template
+            // const { template, metadataFields } = await client.getTemplate({ id: props.sample.template.id });
+
+            // const fieldMapping: FieldDefinitionsMap = metadataFields.reduce((fieldMapping, field) => {
+            //     fieldMapping[field.key] = field;
+            //     return fieldMapping;
+            // }, {} as FieldDefinitionsMap);
 
             // Get the grouping layout
-            const { grouping } = await client.getGrouping({ id: this.props.sample.template.id });
+            // const { grouping } = await client.getGrouping({ id: props.sample.template.id });
 
             // Get the field definitions
 
@@ -80,9 +85,11 @@ export default class Data extends React.Component<DataProps, DataState> {
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
                     state: {
-                        layout: grouping,
-                        template, definition,
-                        metadataFields: fieldMapping
+                        sample,
+                        format
+                        // layout: grouping,
+                        // template,
+                        // metadataFields: fieldMapping
                     }
                 }
             });
@@ -160,8 +167,8 @@ export default class Data extends React.Component<DataProps, DataState> {
         return <Alert type="error" message={error.message} />;
     }
 
-    renderSuccess({ definition, template, metadataFields }: Payload) {
-        return <Component sample={this.props.sample} definition={definition} template={template} fields={metadataFields} />;
+    renderSuccess({ layout, template, metadataFields }: Payload) {
+        return <Component sample={this.props.sample} layout={layout} template={template} fields={metadataFields} />;
     }
 
     render() {

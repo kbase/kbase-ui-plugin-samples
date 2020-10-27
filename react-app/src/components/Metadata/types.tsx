@@ -1,6 +1,5 @@
 // TODO: unused, preserved for now
 
-import { MetadataField } from "../Main/types";
 
 export interface FieldFormatBase {
 }
@@ -97,7 +96,7 @@ export interface Schema {
     fields: FieldsSchema;
 }
 
-export interface WrappedMetadataValue {
-    type: string,
-    field: MetadataField;
-}
+// export interface WrappedMetadataValue {
+//     type: string,
+//     field: MetadataField;
+// }

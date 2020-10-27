@@ -3,17 +3,18 @@ import { Table, Tooltip, Alert, message } from 'antd';
 import { History, MiniSample } from './data';
 import './style.css';
 import UserCard from '../UserCard/view';
-import { User } from '../Main/types';
+import { Template, User } from '../Main/types';
 import Comparator from '../Comparator';
-import { FieldDefinitionsMap } from '../../lib/Model';
 import { partitionArray } from '../../lib/utils';
 import { View } from '../Comparator';
 import DiffSelector, { DiffState } from '../Comparator/DiffSelector';
 import ViewSelector from '../Comparator/ViewSelector';
+import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
 
 export interface HistoryToolProps {
     history: History;
-    fieldDefinitions: FieldDefinitionsMap;
+    template: Template;
+    format: Format;
 }
 
 interface HistoryToolState {
@@ -155,7 +156,9 @@ export default class HistoryTool extends React.Component<HistoryToolProps, Histo
             selectedSamples={this.state.selectedSamples}
             view={this.state.diffView}
             diffStatus={this.state.diffStatus}
-            fieldDefinitions={this.props.fieldDefinitions}
+            template={this.props.template}
+            format={this.props.format}
+        // fieldDefinitions={this.props.fieldDefinitions}
         />;
     }
 

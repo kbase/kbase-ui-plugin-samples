@@ -1,31 +1,36 @@
 import React from 'react';
 import { Table, Tooltip } from 'antd';
-
 import { LinkOutlined } from '@ant-design/icons';
-
-import { Sample } from '../Main/types';
-
-import {
-    Template, FieldDefinitionsMap, TemplateDefinition
-} from '../../lib/Model';
+import { Sample, Template } from '../Main/types';
 import { TemplateDataSource2 } from './types';
+import { NoData } from '../NoData';
+import Checkbox, { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 export interface TemplateMetadataProps {
     sample: Sample;
+    // format: Format;
     template: Template;
-    definition: TemplateDefinition;
-    fields: FieldDefinitionsMap;
+    // template: Template;
+    // definition: TemplateDefinition;
+    // fields: FieldDefinitionsMap;
 }
 
 interface TemplateMetadataState {
+    omitEmpty: boolean;
 }
 
 export default class TemplateMetadata extends React.Component<TemplateMetadataProps, TemplateMetadataState> {
+    constructor(props: TemplateMetadataProps) {
+        super(props);
+        this.state = {
+            omitEmpty: false
+        };
+    }
     renderNoData() {
         return <div style={{
             fontStyle: 'italic',
             color: 'silver'
-        }}>-</div>;
+        }}><NoData /></div>;
     }
 
     renderHeader() {
@@ -37,7 +42,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                             ID
                         </div>
                         <div>
-                            {this.props.definition.id}
+                            {this.props.sample.sampleId}
                         </div>
                     </div>
                     <div>
@@ -45,7 +50,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                             Name
                         </div>
                         <div>
-                            {this.props.definition.name}
+                            {this.props.sample.name}
                         </div>
                     </div>
                 </div>
@@ -57,7 +62,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                             Description
                         </div>
                         <div>
-                            {this.props.definition.description}
+                            {this.props.sample.format.source.title}
                         </div>
                     </div>
                     <div>
@@ -65,11 +70,11 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                             Link
                         </div>
                         <div>
-                            <a href={this.props.definition.reference}
+                            <a href={this.props.sample.format.source.url}
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 <LinkOutlined />{' '}
-                                {this.props.definition.reference}
+                                {this.props.sample.format.source.url}
                             </a>
                         </div>
                     </div>
@@ -79,41 +84,60 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
     }
 
     renderTemplate() {
-        const sample = this.props.sample;
-        const dataSource: Array<TemplateDataSource2> = this.props.template.columns.map((column, index) => {
-            const field = this.props.fields[column];
-            const value = (() => {
-                switch (field.kind) {
-                    case 'registration':
-                        switch (column) {
-                            case 'name':
-                                return sample.name;
-                            case 'source_id':
-                                return sample.sourceId.id;
-                            case 'source_parent_id':
-                                return sample.sourceParentId ? sample.sourceParentId.id : null;
-                            default:
-                                throw new Error(`Unrecognized sample key ${column}`);
+        const dataSource: Array<TemplateDataSource2> = this.props.template.fields
+            .filter((templateField) => {
+                if (templateField.type === 'metadata') {
+                    if (this.props.sample.metadata[templateField.key].value === null) {
+                        if (this.state.omitEmpty) {
+                            return false;
                         }
-                    case 'descriptive':
-                        const metadataColumn = sample.metadata[column];
-                        if (!metadataColumn) {
-                            return null;
-                        }
-                        return metadataColumn.value;
-                    default:
-                        throw new Error(`Unrecognized metadata key ${column}`);
+                    }
                 }
-            })();
-            return {
-                column,
-                label: field.label,
-                isMissing: false,
-                order: index,
-                type: null,
-                value
-            };
-        });
+                return true;
+            })
+            .map((templateField, index) => {
+                const value = (() => {
+                    if (templateField.type === 'metadata') {
+                        return this.props.sample.metadata[templateField.key].value;
+                    } else {
+                        return this.props.sample.userMetadata[templateField.label];
+                    }
+                })();
+
+                const label = (() => {
+                    if (templateField.type === 'metadata') {
+                        return this.props.sample.metadata[templateField.key].label;
+                    } else {
+                        return templateField.label;
+                    }
+                })();
+
+                const type = (() => {
+                    if (templateField.type === 'metadata') {
+                        return this.props.sample.metadata[templateField.key].definition.type;
+                    } else {
+                        return 'string';
+                    }
+                })();
+
+                const key = (() => {
+                    if (templateField.type === 'metadata') {
+                        return this.props.sample.metadata[templateField.key].key;
+                    } else {
+                        return templateField.label;
+                    }
+                })();
+
+                return {
+                    column: key,
+                    label,
+                    isMissing: value === null,
+                    order: index,
+                    type,
+                    value,
+                    fieldType: templateField.type
+                };
+            });
 
         return <Table<TemplateDataSource2>
             dataSource={dataSource}
@@ -123,6 +147,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
             scroll={{ y: '100%' }}
             pagination={false}
             showSorterTooltip={false}
+
         >
             <Table.Column dataIndex="order"
                 key="order"
@@ -132,6 +157,51 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                     return a.order - b.order;
                 }}
             />
+
+            <Table.Column dataIndex="fieldType"
+                key="fieldType"
+                title="Field Type"
+                width="8em"
+                sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
+                    return a.fieldType.localeCompare(b.fieldType);
+                }}
+                render={(fieldType: string, row: TemplateDataSource2) => {
+                    if (row.isMissing) {
+                        return <Tooltip title="No mapping found for this key">
+                            <span style={{ color: 'gray' }}>
+                                {fieldType}
+                            </span>
+                        </Tooltip>;
+                    } else {
+                        return <span>
+                            {fieldType}
+                        </span>;
+                    }
+                }}
+            />
+
+            <Table.Column dataIndex="type"
+                key="type"
+                title="Data Type"
+                width="8em"
+                sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
+                    return a.type.localeCompare(b.type);
+                }}
+                render={(type: string, row: TemplateDataSource2) => {
+                    if (row.isMissing) {
+                        return <Tooltip title="No mapping found for this key">
+                            <span style={{ color: 'gray' }}>
+                                {type}
+                            </span>
+                        </Tooltip>;
+                    } else {
+                        return <span>
+                            {type}
+                        </span>;
+                    }
+                }}
+            />
+
             <Table.Column dataIndex="label"
                 key="label"
                 title="Column"
@@ -166,14 +236,31 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                     return value;
                 }}
             />
-
         </Table>;
     }
 
+    onChangeHideEmpty(ev: CheckboxChangeEvent) {
+        const omitEmpty = ev.target.checked;
+        this.setState({
+            omitEmpty
+        });
+    }
+
+    renderToolbar() {
+        return <div className="Metadata-toolbar">
+            <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
+        </div>;
+    }
+
     render() {
-        return <div className="Col -stretch">
-            <div className="Col -auto">
+        /*
+         <div className="Col -auto">
                 {this.renderHeader()}
+            </div>
+        */
+        return <div className="Col -stretch">
+            <div className="Col" style={{ flex: '0 0 auto' }}>
+                {this.renderToolbar()}
             </div>
             <div className="Col -stretch">
                 {this.renderTemplate()}

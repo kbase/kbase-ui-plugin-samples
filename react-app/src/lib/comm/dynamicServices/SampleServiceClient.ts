@@ -1,6 +1,10 @@
-
-
 import { DynamicServiceClient } from '../JSONRPC11x/DynamicServiceClient';
+
+import sesarData from './formats/sesar/sesar.json';
+import enigmaData from './formats/enigma/enigma.json';
+
+const sesarFormatData = sesarData as FormatData;
+const enigmaFormatData = enigmaData as FormatData;
 
 export interface StatusResult {
     state: string;
@@ -42,14 +46,14 @@ export interface MetadataValue {
 //     [k: string]: MetadataValue;
 // }
 
-export type MetadataSource = Array<MetadataSourceField>
+export type MetadataSource = Array<MetadataSourceField>;
 
 export interface MetadataSourceField {
     key: string;
     skey: string;
     svalue: {
-        value: string
-    }
+        value: string;
+    };
 }
 
 
@@ -69,6 +73,10 @@ export interface Sample {
     name: string;
     save_date: EpochTimeMS;
     version: SampleVersion;
+    // TODO: these fields don't yet exist upstream.
+    format_id: string;
+    format_version: number;
+    sample_set_ref: string;
 }
 
 /* Types for the get_sample method*/
@@ -100,7 +108,6 @@ export interface DataLink {
     createdby: Username;
     expiredby: Username | null;
     expired: EpochTimeMS | null;
-
 }
 
 export interface GetDataLinksFromSampleResult {
@@ -147,6 +154,233 @@ export interface SampleACLs {
 
 export type GetSampleACLsResult = SampleACLs;
 
+export interface GetFormatParams {
+    id: string;
+    version?: number;
+}
+
+export interface FormatSource {
+    name: string;
+    url: string;
+    logoUrl: string;
+}
+
+export type FormatFieldType =
+    'string' |
+    'number' |
+    'boolean' |
+    'date' |
+    'enum<string>' |
+    'controlled_list';
+
+
+// Field Definitions
+
+export interface FormatFieldBase {
+    // id: string;
+    type: FormatFieldType;
+    label: string;
+    // tooltip: string;
+    description?: string;
+    notes?: Array<string>;
+    units?: {
+        available?: Array<string>;
+        availableFromList?: string;
+        canonical?: string;
+        fromField?: string;
+    };
+    constraints?: FormatFieldBaseConstraints;
+}
+
+export interface FormatFieldBaseConstraints {
+    required?: boolean;
+}
+
+// NB using type intersection rather than extends, since we are also extending the
+// nested interface for constraints. 
+// see, e.g.: https://stackoverflow.com/questions/53636756/typescript-interface-extending-another-interface-with-nested-properties
+
+// String
+
+export interface FormatFieldStringConstraints extends FormatFieldBaseConstraints {
+    minimumLength?: number;
+    maximumLength?: number;
+    regex?: string;
+    suggestedList: string;
+    url?: boolean;
+}
+export interface FormatFieldString extends FormatFieldBase {
+    type: 'string';
+    constraints?: FormatFieldStringConstraints;
+};
+
+// Controlled List
+
+export interface FormatFieldControlledListConstraints extends FormatFieldBaseConstraints {
+    list?: string;
+    lists?: Array<string>;
+};
+export interface FormatFieldControlledList extends FormatFieldBase {
+    type: 'controlled_list';
+    constraints: FormatFieldControlledListConstraints;
+};
+
+// Number 
+
+export interface FormatFieldNumberConstraints extends FormatFieldBaseConstraints {
+    gte?: number;
+    gt?: number;
+    lte?: number;
+    lt?: number;
+};
+export interface FormatFieldNumber extends FormatFieldBase {
+    type: 'number';
+    constraints?: FormatFieldNumberConstraints;
+    format?: {
+        type: string;
+        decimalPlaces?: number;
+    };
+};
+
+// date
+
+export interface FormatFieldDateConstraints extends FormatFieldBaseConstraints {
+    gte?: number;
+    gt?: number;
+    lte?: number;
+    lt?: number;
+};
+export interface FormatFieldDate extends FormatFieldBase {
+    type: 'date';
+    constraints?: FormatFieldDateConstraints;
+};
+
+// boolean
+
+export interface FormatFieldBooleanConstraints extends FormatFieldBaseConstraints {
+};
+export interface FormatFieldBoolean extends FormatFieldBase {
+    type: 'boolean';
+    constraints?: FormatFieldBooleanConstraints;
+};
+
+// enum
+
+export interface FormatFieldEnumConstraints extends FormatFieldBaseConstraints {
+    values: Array<string>;
+};
+export interface FormatFieldEnum extends FormatFieldBase {
+    type: 'enum<string>';
+    constraints: FormatFieldEnumConstraints;
+};
+
+export type FormatField =
+    FormatFieldString |
+    FormatFieldNumber |
+    FormatFieldBoolean |
+    FormatFieldDate |
+    FormatFieldEnum |
+    FormatFieldControlledList;
+
+// A format source represents a temporary data structure matching what we have in the JSON file here.
+export interface FormatData {
+    id: string;
+    description: {
+        name: string;
+        title: string;
+        description: string;
+        source: {
+            name: string;
+            title: string;
+            logo_url?: string;
+            url: string;
+        };
+    };
+    latestVersion: number;
+    versions: Array<{
+        version: number;
+        mappings: {
+            header?: Array<string>;
+            // sample: {
+            //     id: string;
+            //     parent_id: string;
+            // };
+            record: { [key: string]: string; };
+            sample: { [key: string]: string; };
+            corrections?: { [key: string]: string; };
+        };
+        field_definitions: { [key: string]: FormatField; };
+        layouts: {
+            grouped: Array<LayoutGroup>;
+        };
+    }>;
+}
+
+export interface LayoutGroup {
+    key: string;
+    label: string;
+    description: string;
+    layout: Array<string>;
+}
+
+export interface Format {
+    id: string;
+
+    // description
+    name: string;
+    title: string;
+    description: string;
+    source: {
+        name: string;
+        title: string;
+        logo_url?: string;
+        url: string;
+    };
+
+    // version
+    version: number;
+    mappings: {
+        header?: Array<string>;
+        // sample: {
+        //     id: string;
+        //     parent_id: string;
+        // };
+        record: { [key: string]: string; };
+        sample: { [key: string]: string; };
+        corrections?: { [key: string]: string; };
+    };
+    field_definitions: { [key: string]: FormatField; };
+    layouts: {
+        grouped: Array<LayoutGroup>;
+    };
+}
+
+// Field Values
+
+export interface FormatFieldValueBase {
+    id: string;
+    unit: string;
+    type: FormatFieldType;
+}
+
+
+
+export interface FormatFieldValueString extends FormatFieldValueBase {
+    type: 'string',
+    value: string;
+}
+
+export interface FormatFieldValueNumber extends FormatFieldValueBase {
+    type: 'number',
+    value: number;
+}
+
+export type FormatFieldValue = FormatFieldValueString | FormatFieldValueNumber;
+
+export interface GetFormatResult {
+    format: Format;
+}
+
 export default class SampleServiceClient extends DynamicServiceClient {
     static module: string = 'SampleService';
 
@@ -157,6 +391,36 @@ export default class SampleServiceClient extends DynamicServiceClient {
 
     async get_sample(params: GetSampleParams): Promise<GetSampleResult> {
         const [result] = await this.callFunc<[GetSampleParams], [GetSampleResult]>('get_sample', [params]);
+
+        // FAKE: this will actually be provided by upstream, if the design goes through.
+
+        function grokFormat(): string {
+            const sesarPattern = /^((?![-]).)*$/;
+            const enigmaPattern = /[-]/;
+            const ownId = result.node_tree[0].id;
+            // console.log('hmm', ownId);
+            if (sesarPattern.test(ownId)) {
+                return 'sesar';
+            } else if (enigmaPattern.test(ownId)) {
+                return 'enigma';
+            } else {
+                console.warn('defaulting to enigma template');
+                return 'enigma';
+            }
+        }
+        result.format_id = grokFormat();
+        result.format_version = 1;
+        result.sample_set_ref = (() => {
+            switch (result.format_id) {
+                case 'sesar':
+                    return 'sesar_sample_set';
+                case 'enigma':
+                    return 'enigma_sample_set';
+                default:
+                    throw new Error(`Sorry, cannot fake sample set ref for ${result.format_id}`);
+            }
+        })();
+
         return result;
     }
 
@@ -173,5 +437,27 @@ export default class SampleServiceClient extends DynamicServiceClient {
     async get_sample_acls(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {
         const [result] = await this.callFunc<[GetSampleACLsParams], [GetSampleACLsResult]>('get_sample_acls', [params]);
         return result;
+    }
+
+    async get_format(params: GetFormatParams): Promise<GetFormatResult> {
+        // const [result] = await this.callFunc<[GetFormatParams], [GetFormatResult]>('get_sample_acls', [params]);
+        const formatData = (() => {
+            switch (params.id) {
+                case 'sesar':
+                    return sesarFormatData;
+                case 'enigma':
+                    return enigmaFormatData;
+                default:
+                    throw new Error(`Sorry, ${params.id} not a recognized format`);
+            }
+        })();
+        const version = params.version || formatData.latestVersion;
+        return Promise.resolve({
+            format: {
+                id: formatData.id,
+                ...formatData.description,
+                ...formatData.versions[version - 1]
+            }
+        });
     }
 }

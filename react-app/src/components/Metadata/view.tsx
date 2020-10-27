@@ -1,34 +1,46 @@
 import React from 'react';
 import {
-    Alert, Tooltip
+    Alert, Checkbox, Tooltip
 } from 'antd';
-
-import { 
-    Map as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl, 
-    CircleMarker, ScaleControl } from 'react-leaflet';
-
-import { Sample, Metadata } from '../Main/types';
 import {
-    Template, GroupingLayout, FieldDefinitionsMap, FieldLayout
+    Map as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
+    CircleMarker, ScaleControl
+} from 'react-leaflet';
+import { Sample } from '../Main/types';
+import {
+    FieldLayout, Metadata
 } from '../../lib/Model';
+import MetadataField from '../MetadataField/view';
+import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 import './style.less';
-import MetadataField from '../MetadataField/view';
 
 export interface MetadataViewerProps {
     sample: Sample;
-    template: Template;
-    layout: GroupingLayout;
-    fields: FieldDefinitionsMap;
+    format: Format;
+    // template: Template;
+    // layout: GroupingLayout;
+    // fields: FieldDefinitionsMap;
 }
 
 interface MetadataViewerState {
+    omitEmpty: boolean;
 }
 
 export default class MetadataViewer extends React.Component<MetadataViewerProps, MetadataViewerState> {
+    constructor(props: MetadataViewerProps) {
+        super(props);
+        this.state = {
+            omitEmpty: true
+        };
+    }
     renderGeolocation(data: Metadata) {
         const { latitude, longitude } = data;
         if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
+            return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
+        }
+        if (latitude.value === null || longitude.value === null) {
             return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
         }
         const lat = latitude.value as number;
@@ -38,7 +50,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                 center={[lat, lng]}
                 zoom={3}
                 style={{ width: '100%', height: '100%' }}>
-                <ScaleControl position="topleft"/>
+                <ScaleControl position="topleft" />
                 <LayersControl position="topright" >
                     <LayersControl.BaseLayer name="OpenStreetMap">
                         <TileLayer
@@ -73,9 +85,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
     }
 
     /*
-     
     */
-
     renderControlledMetadataGroupExtras(data: Metadata, group: FieldLayout) {
         switch (group.key) {
             case 'geolocation':
@@ -83,46 +93,22 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         }
     }
 
-    renderControlledMetadataAlpha() {
-        const sample = this.props.sample;
-        const metadata = Object.entries(sample.metadata);
-        if (metadata.length === 0) {
-            return <div style={{ fontStyle: 'italic' }}>Sorry, no user metadata</div>;
-        }
-        const rows = Array.from(metadata)
-            .sort(([akey,], [bkey,]) => {
-                return akey.localeCompare(bkey);
-            })
-            .map(([key, value]) => {
-                return <div key={key}>
-                    <div><Tooltip title={`key: ${key}`}><span>{value.label}</span></Tooltip></div>
-                    <div>{value.value} <i>{value.units}</i></div>
-                </div>;
-            });
-        return <div className="InfoTable -bordered ControlledMetadata">
-            {rows}
-        </div>;
-    }
-
     renderControlledMetadataGrouped() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
-        const rows = this.props.layout.layout.map((group) => {
+        const rows = this.props.format.layouts.grouped.map((group) => {
             const fields = group.layout.map((fieldName) => {
-                const field = this.props.fields[fieldName];
+                const field = this.props.sample.metadata[fieldName];
                 if (!field) {
-                    console.warn('Field not found: ' + fieldName);
+                    console.warn('Field not found in grouped: ' + fieldName, group);
                     return null;
                 }
-                if (field.key in metadata) {
-                    const value = metadata[field.key];
-                    return <div key={field.key}>
-                        <div><Tooltip title={`key: ${field.key}`}><span>{value.label}</span></Tooltip></div>
-                        <div><MetadataField value={value.value} fieldKey={field.key} units={field.units} fields={this.props.fields} /></div>
-                    </div>;
-                } else {
-                    return null;
-                }
+                // <div><MetadataField value={field.value} fieldKey={field.key} unit={field.units} fields={this.props.sample.metadata} /></div>
+                return <div key={field.key}>
+                    <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
+                    <div><MetadataField field={field} /></div>
+                </div>;
+
             })
                 .filter((row) => {
                     return row ? true : false;
@@ -154,28 +140,29 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         </div>;
     }
 
-    render() {
+    renderGrouped() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
-        const rows = this.props.layout.layout.map((group) => {
-            const fields = group.layout.map((fieldName) => {
-                const field = this.props.fields[fieldName];
-                if (!field) {
-                    console.warn('Field not found: ' + fieldName);
-                    return null;
-                }
-                if (field.key in metadata) {
-                    const value = metadata[field.key];
+        return this.props.format.layouts.grouped.map((group) => {
+            const fields = group.layout
+                .map((fieldName) => {
+                    return this.props.sample.metadata[fieldName];
+                })
+                .filter((field) => {
+                    if (!field) {
+                        return false;
+                    }
+                    if (field.value === null && this.state.omitEmpty) {
+                        return false;
+                    }
+                    return true;
+                })
+                .map((field) => {
                     return <div key={field.key}>
-                        <div><Tooltip title={`key: ${field.key}`}><span>{value.label}</span></Tooltip></div>
-                        <div><MetadataField value={value.value} fieldKey={field.key} units={field.units} fields={this.props.fields} /></div>
+                        <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
+                        <div><MetadataField field={field} /></div>
                     </div>;
-                } else {
-                    return null;
-                }
-            })
-                .filter((row) => {
-                    return row ? true : false;
+
                 });
 
             let content;
@@ -198,10 +185,26 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                 </div>
             </div>;
         });
+    }
 
-        return <div className="Metadata" data-testid="metadataviewer">
-            <div style={{marginBottom: '10px'}}>
-                {rows}
+    onChangeHideEmpty(ev: CheckboxChangeEvent) {
+        const omitEmpty = ev.target.checked;
+        this.setState({
+            omitEmpty
+        });
+    }
+
+    renderToolbar() {
+        return <div className="Metadata-toolbar">
+            <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
+        </div>;
+    }
+
+    render() {
+        return <div className="Metadata" data-testid="metadataviewer" >
+            {this.renderToolbar()}
+            <div className="Metadata-body">
+                {this.renderGrouped()}
             </div>
         </div>;
     }

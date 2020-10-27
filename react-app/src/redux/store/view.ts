@@ -38,11 +38,11 @@ export enum AsyncViewStatus {
     ERROR
 }
 
-export interface AsyncViewNone<> {
+export interface AsyncViewNone {
     status: AsyncViewStatus.NONE;
 }
 
-export interface AsyncViewProcessing<> {
+export interface AsyncViewProcessing {
     status: AsyncViewStatus.PROCESSING;
 }
 

@@ -1,0 +1,30 @@
+{
+    "fields": [
+        "sample_name",
+        "igsn",
+        "parent_igsn",
+        "release_date",
+        "material",
+        "field_name_informal_classification",
+        "locality_description",
+        "location_description",
+        "collection_method",
+        "purpose",
+        "latitude",
+        "longitude",
+        "coordinate_precision?",
+        "elevation_start",
+        "elevation_unit",
+        "navigation_type",
+        "primary_physiographic_feature",
+        "name_of_physiographic_feature",
+        "field_program_cruise",
+        "collector_chief_scientist",
+        "collection_date",
+        "collection_date_precision",
+        "current_archive",
+        "current_archive_contact",
+        "related_identifiers",
+        "relation_type"
+    ]
+}

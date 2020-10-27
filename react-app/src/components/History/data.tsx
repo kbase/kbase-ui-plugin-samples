@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import {
-    SampleId, SampleVersion, Username, EpochTimeMS
+    SampleId, SampleVersion, Username, EpochTimeMS, Format
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -9,9 +9,9 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
-import { User, SampleType, Metadata, UserMetadata } from '../Main/types';
+import { User, SampleType, Template } from '../Main/types';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
-import Model, { FieldDefinitionsMap } from '../../lib/Model';
+import Model, { Metadata, UserMetadata } from '../../lib/Model';
 
 export interface MiniSample {
     id: SampleId;
@@ -19,7 +19,7 @@ export interface MiniSample {
     savedAt: EpochTimeMS;
     savedBy: User;
     version: SampleVersion;
-    source: string;
+    // source: string;
     sourceId: string;
     sourceParentId: string | null;
     type: SampleType;
@@ -41,7 +41,7 @@ export interface DataProps {
 }
 
 interface DataState {
-    loadingState: AsyncProcess<{ history: History, fieldDefinitions: FieldDefinitionsMap; }, AppError>;
+    loadingState: AsyncProcess<{ history: History; template: Template; format: Format; }, AppError>;
 }
 
 export default class Data extends React.Component<DataProps, DataState> {
@@ -87,17 +87,17 @@ export default class Data extends React.Component<DataProps, DataState> {
         });
     }
 
-    async fetchFieldDefinitions(): Promise<FieldDefinitionsMap> {
-        const client = new Model({
-            token: this.props.token,
-            url: this.props.serviceWizardURL,
-            timeout: UPSTREAM_TIMEOUT
-        });
-        return (await client.getMetadataDefinitions({})).field_definitions;
+    // async fetchFieldDefinitions(): Promise<FieldDefinitionsMap> {
+    //     const client = new Model({
+    //         token: this.props.token,
+    //         url: this.props.serviceWizardURL,
+    //         timeout: UPSTREAM_TIMEOUT
+    //     });
+    //     return (await client.getMetadataDefinitions({})).field_definitions;
 
-    }
+    // }
 
-    async fetchSample(fieldDefinitions: FieldDefinitionsMap, sampleId: string, version?: number): Promise<MiniSample> {
+    async fetchSample(sampleId: string, version?: number): Promise<{ sample: MiniSample, template: Template; format: Format; }> {
         const client = new Model({
             token: this.props.token,
             url: this.props.serviceWizardURL,
@@ -111,45 +111,6 @@ export default class Data extends React.Component<DataProps, DataState> {
 
         const actualSample = sampleResult.sample;
 
-        const fieldKeys = Object.keys(actualSample.metadata);
-
-        const fieldMetadata = await client.getMetadataKeyStaticMetadata({
-            keys: fieldKeys,
-            prefix: 0
-        });
-
-        const metadata: Metadata = Object.entries(actualSample.metadata)
-            .reduce((metadata, [key, field]) => {
-                const fieldMeta = fieldMetadata.static_metadata[key];
-                metadata[key] = {
-                    label: fieldMeta.display_name,
-                    description: fieldMeta.description,
-                    value: field.value,
-                    units: field.units,
-                    isControlled: true,
-                    definition: fieldDefinitions[key]
-                };
-                return metadata;
-            }, {} as Metadata);
-
-        const userMetadata: UserMetadata = Object.entries(actualSample.userMetadata)
-            .reduce<UserMetadata>((metadata, [key, field]) => {
-                if (metadata[key]) {
-                    return metadata;
-                }
-                let value: string;
-                if (typeof field.value !== 'string') {
-                    value = String(field.value);
-                } else {
-                    value = field.value;
-                }
-                metadata[key] = {
-                    value
-                };
-                return metadata;
-            }, {} as UserMetadata);
-
-
         const users = await this.fetchUsers(Array.from(new Set([
             sampleResult.savedBy,
         ]).values()));
@@ -162,37 +123,40 @@ export default class Data extends React.Component<DataProps, DataState> {
             id: sampleResult.id,
             name: sampleResult.name,
             // TODO: get from sample...
-            source: 'SESAR',
+            // source: 'SESAR',
             sourceId: actualSample.id,
             sourceParentId: actualSample.parentId,
             savedAt: sampleResult.savedAt,
             savedBy: usersMap.get(sampleResult.savedBy)!,
             version: sampleResult.version,
             type: actualSample.type,
-            metadata,
-            userMetadata
+            metadata: sampleResult.sample.metadata,
+            userMetadata: sampleResult.sample.userMetadata
         };
 
-        return sample;
+        return { sample, template: sampleResult.template, format: sampleResult.format };
     }
 
     async componentDidMount() {
         try {
             let history: Array<MiniSample> = [];
 
-            const fieldDefinitions = await this.fetchFieldDefinitions();
+            // const fieldDefinitions = await this.fetchFieldDefinitions();
 
             // get the most recent sample
-            const mostRecentSample = await this.fetchSample(fieldDefinitions, this.props.sampleId);
+            const { sample: mostRecentSample, format, template } = await this.fetchSample(this.props.sampleId);
             history.push(mostRecentSample);
 
             // get all samples up to but not including the most recent sample.
             const lastVersion = mostRecentSample.version;
             if (lastVersion > 1) {
                 const versions = new Array<number | undefined>(lastVersion - 1).fill(undefined);
-                const allSamples = await Promise.all(versions.map((_, index) => {
-                    return this.fetchSample(fieldDefinitions, this.props.sampleId, index + 1);
-                }));
+                const allSamples = (await Promise.all(versions.map((_, index) => {
+                    return this.fetchSample(this.props.sampleId, index + 1);
+                })))
+                    .map(({ sample }) => {
+                        return sample;
+                    });
                 history = history.concat(allSamples);
             }
 
@@ -212,7 +176,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                     status: AsyncProcessStatus.SUCCESS,
                     state: {
                         history,
-                        fieldDefinitions
+                        template,
+                        format
                     }
                 }
             });
@@ -241,8 +206,8 @@ export default class Data extends React.Component<DataProps, DataState> {
         return <Alert type="error" message={error.message} />;
     }
 
-    renderSuccess({ history, fieldDefinitions }: { history: History, fieldDefinitions: FieldDefinitionsMap; }) {
-        return <Component history={history} fieldDefinitions={fieldDefinitions} />;
+    renderSuccess({ history, template, format }: { history: History, template: Template; format: Format; }) {
+        return <Component history={history} template={template} format={format} />;
     }
 
     render() {

@@ -2,177 +2,22 @@ import SampleServiceClient, {
     GetSampleParams, GetDataLinksFromSampleParams, GetDataLinksFromSampleResult,
     GetMetadataKeyStaticMetadataParams, GetMetadataKeyStaticMetadataResult,
     GetSampleACLsParams, GetSampleACLsResult, SampleId, SampleVersion,
-    SampleNodeType
+    SampleNodeType,
+    Format,
+    FormatField,
+    LayoutGroup,
+    Sample as RawSample
 } from "../comm/dynamicServices/SampleServiceClient";
-import sesar1TemplateData from './data/templates/sesar1.json';
-import enigma1TemplateData from './data/templates/enigma1.json';
-import templateDefinitionsData from './data/templateDefinitions.json';
-import sampleUploaderSpecsData from './data/sampleUploaderSpecs.json';
-import metadataValidationData from './data/metadataValidation.json';
-import sampleSourceData from './data/sampleSources.json';
 
-function grokField(key: string, spec: any): FieldDefinition {
-    if (!spec.validators) {
-        console.warn('no validators', spec);
-        if (!spec.key_metadata) {
-            console.warn('no key_metadata', spec);
-            return {
-                key,
-                type: 'string',
-                kind: 'descriptive',
-                label: key,
-                description: key
-            };
-        } else {
-            return {
-                key,
-                type: 'string',
-                kind: 'descriptive',
-                label: spec.key_metadata.display_name,
-                description: spec.key_metadata.description
-            };
-        }
-    }
-    const typedBuilders = spec.validators.filter((builder: any) => {
-        return ['number', 'string', 'noop'].includes(builder.callable_builder);
-    });
-    if (typedBuilders.length === 0) {
-        console.warn('no interesting typed builders', spec);
-        return {
-            key,
-            type: 'string',
-            kind: 'descriptive',
-            label: spec.key_metadata.display_name,
-            description: spec.key_metadata.description
-        };
-    }
-    if (typedBuilders.length > 1) {
-        console.warn('too many typed builders', spec);
-        throw new Error('Too many typed builders');
-    }
-    const typedBuilder = typedBuilders[0];
-    switch (typedBuilder.callable_builder) {
-        case 'number': return {
-            key,
-            type: 'float',
-            kind: 'descriptive',
-            label: spec.key_metadata.display_name,
-            description: spec.key_metadata.description,
-            greater_than_or_equal: (typedBuilder.parameters && typedBuilder.parameters.gte),
-            less_than_or_equal: (typedBuilder.parameters && typedBuilder.parameters.lte),
-            style: spec.formatting?.style || 'decimal'
-        };
-        case 'string': return {
-            key,
-            type: 'string',
-            kind: 'descriptive',
-            label: spec.key_metadata.display_name,
-            description: spec.key_metadata.description,
-            length_less_than_or_equal: typedBuilder.parameters['max-len'],
-            length_greater_than_or_equal: typedBuilder.parameters['min-len']
-        };
-        case 'noop': return {
-            key,
-            type: 'string',
-            kind: 'descriptive',
-            label: spec.key_metadata.display_name,
-            description: spec.key_metadata.description
-        };
-        default:
-            throw new Error('Unknown type: ' + typedBuilder.callable_builder);
-    }
-}
-const metadataDefinitions: Array<FieldDefinition> = (() => {
-    const data = (metadataValidationData as unknown) as any;
-    const definitions = data.validators as Array<any>;
-    return Object.entries(definitions).map(([key, spec]) => {
-        return grokField(key, spec);
-    });
-})();
-
-// Deal with sample format top level definitions.
-
-export interface SampleSource {
-    id: string;
-    name: string;
-    title: string;
-    url: string;
-    logoURL: string;
-    fields: {
-        id: {
-            label: string
-        },
-        parent_id: {
-            label: string
-        }
-    }
-}
-
-export interface SampleSources {
-    sources: {
-        [key: string]: SampleSource
-    }
-}
-
-const sampleSources: SampleSources = (() => {
-    return ((sampleSourceData as unknown) as SampleSources);
-})();
-
+import sesarTemplateData from './data/templates/sesar/sesar1.json';
+import enigmaTemplateData from './data/templates/enigma/enigma1.json';
+import { Template, TemplateField } from "../../components/Main/types";
 
 // Deal with source definitions.
 
 export interface FieldMapping {
     [key: string]: string;
 }
-export interface SourceDefinition {
-    id: string;
-    columns: Array<string>;
-    mapping: FieldMapping;
-}
-
-export interface SourceDefinitions {
-    [source: string]: SourceDefinition;
-}
-
-const sourceDefinitions: SourceDefinitions = (() => {
-    const sharedFields = sampleUploaderSpecsData.shared_fields;
-
-    const sourceIds = Object.keys(sampleUploaderSpecsData).filter((key) => {
-        return key !== 'shared_fields';
-    });
-
-    return sourceIds.reduce<SourceDefinitions>((sources, id) => {
-        const source = (() => {
-            switch (id) {
-                case 'SESAR': return sampleUploaderSpecsData.SESAR;
-                case 'ENIGMA': return sampleUploaderSpecsData.ENIGMA;
-                default:
-                    console.error('unrecognized source id', id, sampleUploaderSpecsData, sourceIds);
-                    throw new Error('Unrecognized source id ' + id);
-            }
-        })();
-        const columns = sharedFields.concat(source?.basic_columns);
-        const sourceDefinition: SourceDefinition = {
-            id,
-            columns,
-            mapping: {
-                parent_id: 'parent'
-            }
-        };
-
-        sources[id] = sourceDefinition;
-
-        return sources;
-    }, {});
-
-})();
-
-const templateDefinitions = (templateDefinitionsData as unknown) as TemplateDefinitions;
-const sesar1Template = (sesar1TemplateData as unknown) as Template;
-const enigma1Template = (enigma1TemplateData as unknown) as Template;
-// const sesarGroupingLayout = (sesarGroupLayoutData as unknown) as GroupingLayout;
-// const enigmaGroupingLayout = (enigmaGroupLayoutData as unknown) as GroupingLayout;
-
 export interface GroupingLayout {
     id: string;
     name: string;
@@ -185,16 +30,6 @@ export interface FieldLayout {
     label: string;
     description: string;
     layout: Array<string>;
-}
-
-export interface Template {
-    id: string;
-    version: number;
-    created_at: number;
-    created_by: string;
-    header: Array<string>;
-    columns: Array<string>;
-    grouping: GroupingLayout;
 }
 
 export interface TemplateMap {
@@ -297,14 +132,13 @@ export interface GetMetadataDefinitionsResult {
 }
 
 export interface GetTemplateParams {
-    id: string;
-    version?: number;
+    sampleSetRef: string;
 }
 
 export interface GetTemplateResult {
-    definition: TemplateDefinition;
+    // definition: TemplateDefinition;
     template: Template;
-    metadataFields: Array<FieldDefinition>;
+    // metadataFields: Array<FieldDefinition>;
     // id: string;
     // version: number;
     // saved_at: number;
@@ -315,12 +149,12 @@ export interface GetTemplateResult {
 }
 
 export interface GetGroupingParams {
-    id: string;
+    format: string;
     version?: number;
 }
 
 export interface GetGroupingResult {
-    grouping: GroupingLayout;
+    grouping: Array<LayoutGroup>;
 }
 
 export type Username = string;
@@ -328,18 +162,28 @@ export type Username = string;
 export type EpochTimeMS = number;
 
 export interface Metadata {
-    [key: string]: MetadataField
+    [key: string]: MetadataField;
+}
+
+export interface UserMetadata {
+    [label: string]: string;
 }
 
 export interface MetadataField {
     key: string;
     label: string;
-    value: string | number | boolean;
-    units: string
+    value: string | number | boolean | null;
+    units: string;
+    definition: FormatField;
 }
 
+// export interface UserMetadataField {
+//     label: string;
+//     value: string;
+// }
+
 export interface MetadataSource {
-    [key: string]: MetadataSourceField
+    [key: string]: MetadataSourceField;
 }
 
 export interface MetadataSourceField {
@@ -348,6 +192,8 @@ export interface MetadataSourceField {
     value: string;
 }
 
+export type FormatName = string;
+
 export interface Sample {
     id: SampleId;
     name: string;
@@ -355,29 +201,33 @@ export interface Sample {
     savedBy: Username;
     version: SampleVersion;
     sample: {
-        source: string;
-        templateId: string;
+        // source: string;
+        // templateId: string;
         id: string;
         parentId: string | null;
         type: SampleNodeType;
         metadata: Metadata;
-        userMetadata: Metadata;
+        userMetadata: UserMetadata;
     };
+    format: Format;
+    template: Template;
 }
 
 export type GetSampleResult = Sample;
 
 // Get sample format
 
-export interface GetSampleSourceParams {
-    id: string;
-}
+// export interface GetSampleSourceParams {
+//     id: string;
+// }
 
-export interface GetSampleSourceResult {
-    source: SampleSource;
-}
+// export interface GetSampleSourceResult {
+//     source: SampleSource;
+// }
 
 //
+
+interface SimpleMapping { [key: string]: string; };
 
 export default class Model {
     api: SampleServiceClient;
@@ -390,87 +240,225 @@ export default class Model {
         });
     }
 
+    // HACK ALERT: this is not how a template will live in real life
+    // TODO: replace when/if templates are supported.
+    getTemplate(format: Format, rawSample: RawSample): Template {
+        // This is the hardcoded "template"
+        const templateData: { fields: Array<string>; } = (() => {
+            switch (rawSample.format_id) {
+                case 'sesar':
+                    return sesarTemplateData;
+                case 'enigma':
+                    return enigmaTemplateData;
+                default:
+                    throw new Error(`Sorry, no template for format ${rawSample.format_id}`);
+            }
+        })();
+
+
+
+        const metadataFields: Array<TemplateField> = templateData.fields.map((key) => {
+            return {
+                type: 'metadata',
+                key
+            };
+        });
+
+        // now we fetch the user fields from the sample
+        const userFieldLabels = Object.keys(rawSample.node_tree[0].meta_user)
+            .filter((key) => {
+                return !(key in rawSample.node_tree[0].meta_controlled);
+            })
+            .map((key) => {
+                // return rawSample.node_tree[0].source_meta[key].la
+                // TODO: get the label out of source_meta?
+                return key;
+            });
+
+        const userFields: Array<TemplateField> = userFieldLabels.map((label) => {
+            return {
+                type: 'user',
+                label
+            };
+        });
+
+        const sampleMappings = format.mappings.sample as SimpleMapping;
+        const reverseSampleMappings: SimpleMapping = Object.entries(sampleMappings).reduce<SimpleMapping>((mapping, [key, value]) => {
+            mapping[value] = key;
+            return mapping;
+        }, {});
+
+        const correctionMappings = format.mappings.corrections || {};
+        const reverseCorrectionMappings: SimpleMapping = Object.entries(correctionMappings).reduce<SimpleMapping>((mapping, [key, value]) => {
+            mapping[value] = key;
+            return mapping;
+        }, {});
+
+        const missingMetadataFields: Array<TemplateField> = Object.entries(rawSample.node_tree[0].meta_controlled).reduce<Array<TemplateField>>((fields, [rawKey, value]) => {
+            const key = (() => {
+                if (rawKey in reverseSampleMappings) {
+                    return reverseSampleMappings[rawKey];
+                }
+                if (rawKey in reverseCorrectionMappings) {
+                    return reverseCorrectionMappings[rawKey];
+                }
+                return rawKey;
+            })();
+
+            if (key in format.field_definitions) {
+                return fields;
+            }
+            fields.push({
+                type: 'metadata',
+                key
+            });
+            return fields;
+        }, []);
+
+        const fields = metadataFields.concat(missingMetadataFields).concat(userFields);
+
+        // now we merge them together into the format
+        return {
+            fields
+        };
+
+    }
+
     async getSample(params: GetSampleParams): Promise<GetSampleResult> {
+
+        // 1. Get the sample.
         const rawSample = await this.api.get_sample(params);
         const rawRealSample = rawSample.node_tree[0];
 
-        const templateDefinition = (() => {
-            const sampleSourceId = rawRealSample.id;
-            // const metadataKeys = Object.keys(rawRealSample.meta_controlled).concat(Object.keys(rawRealSample.meta_user));
+        // 2. Get the format
+        const { format } = await this.api.get_format({ id: rawSample.format_id, version: rawSample.format_version });
+        // const formatVersion = 1;
 
-            for (const [, def] of Object.entries(templateDefinitions.templates)) {
-                if (sampleSourceId.match(def.idPattern)) {
-                    return def;
-                }
 
-                // if (def.signalFields.includes) {
-                //     if (intersect<string>(def.signalFields.includes, metadataKeys)) {
-                //         return def;
-                //     }
-                // }
-                // if (def.signalFields.does_not_include) {
-                //     if (!intersect(def.signalFields.does_not_include, metadataKeys)) {
-                //         return def;
-                //     }
-                // }
+        // 3. Get the template.
+        // FAKE: now pretend we are fetching the sample set associated with this sample,
+        // which will include the template used to upload.
+
+        // const { template } = await this.api.get_template({id: })
+
+        const template: Template = this.getTemplate(format, rawSample);
+
+
+        // const template: Template = (() => {
+        //     switch (rawSample.format_id) {
+        //         case 'sesar':
+        //             return sesarTemplateData;
+        //         case 'enigma':
+        //             return enigmaTemplateData;
+        //         default:
+        //             throw new Error(`Sorry, no template for format ${rawSample.format_id}`);
+        //     }
+        // })();
+
+        // const sourceMeta = rawRealSample.source_meta.reduce((sourceMeta, { key, skey, svalue: { value } }) => {
+        //     sourceMeta[key] = {
+        //         key, label: skey, value
+        //     };
+        //     return sourceMeta;
+        // }, {} as MetadataSource);
+
+        // We expand the metadata into the full template.
+        const sampleMappings = format.mappings.sample as { [key: string]: string; };
+        const correctionMappings = format.mappings.corrections || {};
+        const recordMappings = format.mappings.record || {};
+
+        // We reconstruct the full metadata here, using the definition of the metadata for this format.
+        // A few gotchas here.
+        // Currently the sample importer will transform some sample fields into canonical non-metadata fields:
+        // id - the user supplied id (e.g. sample_id for enigma, igsn for sesar)
+        // parent_id - the user supplied parent id (e.g. well_name for enigma, parent_igsn for sesar)
+        // name -- ???
+        // we reverse those back to their original sample field names for metadata. They are of retained in the
+        // sample outside of the metadata.
+        // This is done using the mappings part of the sample format definition.
+        // Specifically mappings.sample provides a mapping from the sample fields (id, parent_id) to the 
+        // format-specific names for those fields.
+        // 
+        // Another gotcha is that some fields end up weird after the sample import transformation.
+        // See, the sample importer will construct keys out of column names using certain rules, e.g. space to underscore.
+        // This results in some strange keys.
+        // I refuse to replicate that in the format spec, but accommodate that (for now ONLY) using a "corrections" mapping.
+        // This mapping, mappings.corrections, maps from the incorrect to the correct field.
+        // e.g. redox_potential_?: redox_potential
+        const metadata: Metadata = template.fields.reduce<Metadata>((metadata, field) => {
+            if (field.type === 'user') {
+                return metadata;
             }
 
-            throw new Error('Sorry, template definition not found!');
-        })();
+            const fieldDefinition = format.field_definitions[field.key];
+            if (!fieldDefinition) {
+                console.error('undefined field', format.field_definitions, field.key);
+                throw new Error(`Sorry, field ${field.key} is not defined for format ${format.id}`);
+            }
 
-        const sampleDefinition = await  (async () => {
-            const result =  await this.getSampleSource({
-                id: templateDefinition.source
-            })
-        })();
+            const fieldValue = (() => {
+                if (field.key in recordMappings) {
+                    return rawRealSample.meta_controlled[recordMappings[field.key]];
+                }
+                if (field.key in sampleMappings) {
+                    return rawRealSample.meta_controlled[sampleMappings[field.key]];
+                }
+                if (field.key in correctionMappings) {
+                    return rawRealSample.meta_controlled[correctionMappings[field.key]];
+                }
+                return rawRealSample.meta_controlled[field.key];
+            })();
 
-        const sourceMeta = rawRealSample.source_meta.reduce((sourceMeta, {key, skey, svalue: {value}}) => {
-            sourceMeta[key] = {
-                key, label: skey, value
-            };
-            return sourceMeta;
-        }, {} as MetadataSource);
+            const unit = (() => {
+                if (fieldValue && fieldValue.units) {
+                    return fieldValue.units;
+                }
+                if (!fieldDefinition.units) {
+                    return 'unit';
+                }
+                if (!fieldDefinition.units.canonical) {
+                    return 'unit';
+                }
+                return fieldDefinition.units.canonical;
+            })();
 
-        const metadata: Metadata = (() => {
-            return Object.entries(rawRealSample.meta_controlled).reduce((metadata, [key, field]) => {
-                
-                const label = (() => {
-                    const fieldMeta = sourceMeta[key];
-                    if (!fieldMeta) {
-                        console.warn('field meta not found', key, sourceMeta);
-                        return key;
-                    }
-                    return fieldMeta.label;
-                })();
-                metadata[key] = {
-                    key,
-                    label,
-                    value: field.value,
-                    units: field.units
+            if (!fieldValue) {
+                metadata[field.key] = {
+                    key: field.key,
+                    label: fieldDefinition.label,
+                    value: null,
+                    units: unit,
+                    definition: fieldDefinition
                 };
-                return metadata;
-            }, {} as Metadata)
-        })();
-
-        const userMetadata: Metadata = (() => {
-            return Object.entries(rawRealSample.meta_user).reduce((metadata, [key, field]) => {
-                const label = (() => {
-                    const fieldMeta = sourceMeta[key];
-                    if (!fieldMeta) {
-                        console.warn('field meta not found', key, sourceMeta);
-                        return key;
-                    }
-                    return fieldMeta.label;
-                })();
-                metadata[key] = {
-                    key,
-                    label,
-                    value: field.value,
-                    units: field.units
+            } else {
+                metadata[field.key] = {
+                    key: field.key,
+                    label: fieldDefinition.label,
+                    value: fieldValue.value,
+                    units: unit,
+                    definition: fieldDefinition
                 };
+            }
+            return metadata;
+        }, {});
+
+        const userMetadata: UserMetadata = template.fields.reduce<UserMetadata>((metadata, field) => {
+            if (field.type === 'metadata') {
                 return metadata;
-            }, {} as Metadata)
-        })();
+            }
+            const fieldValue = rawRealSample.meta_user[field.label];
+            metadata[field.label] = String(fieldValue.value);
+            return metadata;
+        }, {});
+
+
+        // const userMetadata2: UserMetadata = (() => {
+        //     return Object.entries(rawRealSample.meta_user).reduce((metadata, [key, field]) => {
+        //         const label = key;
+        //         metadata[label] = String(field.value);
+        //         return metadata;
+        //     }, {} as UserMetadata);
+        // })();
 
         return {
             id: rawSample.id,
@@ -482,11 +470,13 @@ export default class Model {
                 id: rawRealSample.id,
                 type: rawRealSample.type,
                 parentId: rawRealSample.parent,
-                source: templateDefinition.source,
-                templateId: templateDefinition.id,
+                // source: templateDefinition.source,
+                // templateId: templateDefinition.id,
                 metadata,
                 userMetadata
-            }
+            },
+            format,
+            template
         };
     }
 
@@ -503,87 +493,102 @@ export default class Model {
     }
 
     // Not in sample service
-    async getMetadataDefinitions(params: GetMetadataDefinitionsParams): Promise<GetMetadataDefinitionsResult> {
-        const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions;
-        const field_definitions: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
-            field_definitions[def.key] = def;
-            return field_definitions;
-        }, {});
-        return Promise.resolve({
-            field_definitions
-        });
-    }
+    // async getMetadataDefinitions(params: GetMetadataDefinitionsParams): Promise<GetMetadataDefinitionsResult> {
+    //     const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions;
+    //     const field_definitions: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
+    //         field_definitions[def.key] = def;
+    //         return field_definitions;
+    //     }, {});
+    //     return Promise.resolve({
+    //         field_definitions
+    //     });
+    // }
 
-    async getTemplate(params: GetTemplateParams): Promise<GetTemplateResult> {
-        // Look up the template given the id... fake for now.
-        const definition = templateDefinitions.templates[params.id];
-        const template = (() => {
-            switch (params.id) {
-                case 'sesar1':
-                    return sesar1Template;
-                case 'enigma1':
-                    return enigma1Template;
-                default:
-                    throw new Error('Template not found: ' + params.id);
-            }
-        })();
-        const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions;
-        const fieldDefinitionsMap: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
-            field_definitions[def.key] = def;
-            return field_definitions;
-        }, {});
+    // async getTemplate(params: GetTemplateParams): Promise<GetTemplateResult> {
+    //     // Look up the template given the id... fake for now.
+    //     const template = (() => {
+    //         switch (params.sampleSetRef) {
+    //             case 'sesar_sample_set':
+    //                 return sesarTemplateData;
+    //             case 'enigma_sample_set':
+    //                 return enigmaTemplateData;
+    //             default:
+    //                 throw new Error(`Sorry, unsupported fake sample set ref ${params.sampleSetRef}`);
+    //         }
+    //     })();
+    //     return Promise.resolve({ template });
+    //     // const definition = templateDefinitions.templates[params.id];
+    //     // const template = (() => {
+    //     //     switch (params.id) {
+    //     //         case 'sesar1':
+    //     //             return sesar1Template;
+    //     //         case 'enigma1':
+    //     //             return enigma1Template;
+    //     //         default:
+    //     //             throw new Error('Template not found: ' + params.id);
+    //     //     }
+    //     // })();
+    //     // const fieldDefinitions: Array<FieldDefinition> = metadataDefinitions;
+    //     // const fieldDefinitionsMap: FieldDefinitionsMap = fieldDefinitions.reduce((field_definitions: FieldDefinitionsMap, def: FieldDefinition) => {
+    //     //     field_definitions[def.key] = def;
+    //     //     return field_definitions;
+    //     // }, {});
 
-        const metadataFields = template.columns.map((column) => {
-            const field = fieldDefinitionsMap[column];
-            if (!field) {
-                // throw new Error(`Unknown field ${column} in template ${params.id}`);
-                console.warn(`Unknown field ${column} in template ${params.id}`);
-                const x: FieldDefinition = {
-                    key: column,
-                    label: column,
-                    description: `Unknown field ${column} in template ${params.id}`,
-                    type: 'string',
-                    kind: 'descriptive'
-                };
-                return x;
-            }
-            return field;
-        });
+    //     // const metadataFields = template.columns.map((column) => {
+    //     //     const field = fieldDefinitionsMap[column];
+    //     //     if (!field) {
+    //     //         // throw new Error(`Unknown field ${column} in template ${params.id}`);
+    //     //         console.warn(`Unknown field ${column} in template ${params.id}`);
+    //     //         const x: FieldDefinition = {
+    //     //             key: column,
+    //     //             label: column,
+    //     //             description: `Unknown field ${column} in template ${params.id}`,
+    //     //             type: 'string',
+    //     //             kind: 'descriptive'
+    //     //         };
+    //     //         return x;
+    //     //     }
+    //     //     return field;
+    //     // });
 
-        return Promise.resolve({
-            definition, template, metadataFields
-        });
-    }
+    //     // return Promise.resolve({
+    //     //     definition, template, metadataFields
+    //     // });
+    // }
 
     async getGrouping(params: GetGroupingParams): Promise<GetGroupingResult> {
         // get the layout ... faked for now, just one.
-        switch (params.id) {
-            case 'sesar1':
-                // console.log('grouping...', sesar1Template.grouping);
-                return Promise.resolve({
-                    grouping: sesar1Template.grouping
-                });
-            case 'enigma1':
-                return Promise.resolve({
-                    grouping: enigma1Template.grouping
-                });
-            default:
-                throw new Error(`Unrecognized template ${params.id}`)
-        }
+        const { format } = await this.api.get_format({ id: params.format, version: params.version });
+        return {
+            grouping: format.layouts.grouped
+        };
+        // switch (params.id) {
+        //     case 'sesar1':
+        //         // console.log('grouping...', sesar1Template.grouping);
+        //         return Promise.resolve({
+        //             grouping: sesar1Template.grouping
+        //         });
+        //     case 'enigma1':
+        //         return Promise.resolve({
+        //             grouping: enigma1Template.grouping
+        //         });
+        //     default:
+        //         throw new Error(`Unrecognized template ${params.id}`);
+        // }
     }
 
-    async getSampleSource(params: GetSampleSourceParams): Promise<GetSampleSourceResult> {
-        switch (params.id) {
-            case 'sesar':
-                return Promise.resolve({
-                    source: sampleSources.sources.sesar
-                });
-            case 'enigma':
-                return Promise.resolve({
-                    source: sampleSources.sources.enigma
-                })
-            default: 
-                throw new Error(`Unrecognized sample source ${params.id}`);
-        }
-    }
+    // async getSampleSource(params: GetSampleSourceParams): Promise<GetSampleSourceResult> {
+    //     switch (params.id) {
+    //         case 'sesar':
+    //             return Promise.resolve({
+    //                 source: sampleSources.sources.sesar
+    //             });
+    //         case 'enigma':
+    //             return Promise.resolve({
+    //                 source: sampleSources.sources.enigma
+    //             });
+    //         default:
+    //             throw new Error(`Unrecognized sample source ${params.id}`);
+    //     }
+    // }
 }

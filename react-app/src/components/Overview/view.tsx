@@ -4,13 +4,13 @@ import { Sample } from '../Main/types';
 import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';
-import './styles.css';
-import { SampleSource } from '../../lib/Model';
+// import { SampleSource } from '../../lib/Model';
 import { NoData } from '../NoData';
+import './styles.css';
 
 export interface OverviewProps {
     sample: Sample;
-    sampleSource: SampleSource;
+    // sampleSource: SampleSource;
 }
 
 interface OverviewState {
@@ -39,7 +39,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             return;
         }
         return <>
-            <Button type="dashed" size="small" style={{marginLeft: '4px'}} onClick={() => {
+            <Button type="dashed" size="small" style={{ marginLeft: '4px' }} onClick={() => {
                 this.setState({
                     showVersions: !this.state.showVersions
                 });
@@ -58,7 +58,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             >
                 <Versions sample={this.props.sample} onChangeVersion={this.onChangeVersion.bind(this)} />
             </Modal>
-        </>
+        </>;
     }
 
     renderVersions() {
@@ -66,34 +66,33 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
             if (this.props.sample.latestVersion.version === 1) {
                 return <span>
                     {this.props.sample.latestVersion.version}
-                </span>
+                </span>;
             }
             return <span>
-            {this.props.sample.currentVersion.version}
-            {' of '}
-            {this.props.sample.latestVersion.version}
-            </span>
+                {this.props.sample.currentVersion.version}
+                {' of '}
+                {this.props.sample.latestVersion.version}
+            </span>;
         })();
 
         return <>
             {label}
             {this.renderShowVersions()}
-        </>
+        </>;
     }
 
     render() {
         const {
-            name, created, source, sourceId, sourceParentId
+            name, created
         } = this.props.sample;
 
-        const idLabel = this.props.sampleSource.fields.id.label;
-        const parentIdLabel = this.props.sampleSource.fields.parent_id.label;
+        const sampleMappings = this.props.sample.format.mappings.sample;
 
         const sourceTooltip = <div>
-            <img src={this.props.sampleSource.logoURL} height={30} alt={`Logo for ${this.props.sampleSource.name}`}/>
-            <div><a href={this.props.sampleSource.url} target="_blank" rel="noopener noreferrer" className="Overview-sourceUrl">{this.props.sampleSource.title}</a></div>
+            <img src={this.props.sample.format.source.logo_url!} height={30} alt={`Logo for ${this.props.sample.format.source.title}`} />
+            <div><a href={this.props.sample.format.source.url} target="_blank" rel="noopener noreferrer" className="Overview-sourceUrl">{this.props.sample.format.source.title}</a></div>
         </div>;
-
+        console.log('hmm', this.props.sample.metadata, sampleMappings);
         return <div className="Grouper Overview">
             <Row>
                 <Col span={12}>
@@ -108,28 +107,28 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         </div>
                         <div>
                             <div>
-                                Source
+                                Format
                         </div>
                             <div data-testid="id">
                                 <Tooltip title={sourceTooltip}>
-                                    <span>{this.props.sampleSource.name}</span>
+                                    <span>{this.props.sample.format.source.name}</span>
                                 </Tooltip>
                             </div>
                         </div>
                         <div>
                             <div>
-                                {idLabel}
+                                ID
                             </div>
                             <div data-testid="version">
-                                {sourceId.id}
+                                {this.props.sample.sampleId}
                             </div>
                         </div>
                         <div>
                             <div>
-                                {parentIdLabel}
+                                Parent
                             </div>
                             <div data-testid="type">
-                                {sourceParentId?.id || <NoData />}
+                                {this.props.sample.parentSampleId || <NoData />}
                             </div>
                         </div>
 
