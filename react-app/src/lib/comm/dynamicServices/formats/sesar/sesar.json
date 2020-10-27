@@ -579,15 +579,6 @@
             "layouts": {
                 "grouped": [
                     {
-                        "key": "header",
-                        "label": "header",
-                        "description": "Fields in the header section of the sample spreadsheet",
-                        "layout": [
-                            "object_type",
-                            "user_code"
-                        ]
-                    },
-                    {
                         "key": "description",
                         "label": "Description",
                         "description": "Fields which describe the overall sample event",
