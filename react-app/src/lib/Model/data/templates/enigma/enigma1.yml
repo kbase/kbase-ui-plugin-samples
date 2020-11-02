@@ -1,10 +1,10 @@
 # Enigma template
 ---
 fields:
-  - sample_id
+  - sampleid # aka id
   - experiment_name
   - area_name
-  - well_name
+  - well_name #aka parent_id
   - environmental_package
   - material
   - description
@@ -26,7 +26,7 @@ fields:
   - moisture
   - pore_water_extraction_microliters
   - conductivity_ms_cm
-  - redox_potential
+  - redox_potential_?
   - ph
   - aodc_cells_g
   - dapi_cell_count_cells_g
@@ -62,7 +62,7 @@ fields:
   - drive_casing_start_depth_ft_bgs
   - drive_casing_end_depth_ft_bgs
   - packing_type
-  - packing_depth_start
+  - packing_depth_start_ft_bgs
   - packing_depth_end_ft_bgs
   - topofweatheredbedrock_ft_bgs
   - topoffreshbedrock_ft_bgs
@@ -80,7 +80,7 @@ fields:
   - upper_seal_type
   - upper_seal_start_depth
   - upper_seal_end_depth
-  - lower_seal_type_ft_bgs
+  - lower_seal_type
   - lower_seal_start_depth_ft_bgs
   - lower_seal_end_depth_ft_bgs
   - open_casing_type

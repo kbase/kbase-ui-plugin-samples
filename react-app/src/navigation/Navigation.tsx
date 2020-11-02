@@ -99,7 +99,6 @@ export default class NavigationListener extends React.Component<NavigationListen
     //         };
     //     }
 
-    //     console.log('hmm', pluginId, path, params);
     //     throw new Error('Unrecognized nav');
     // }
 

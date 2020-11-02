@@ -4,12 +4,13 @@ import { Sample } from '../Main/types';
 import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';
-// import { SampleSource } from '../../lib/Model';
 import { NoData } from '../NoData';
 import './styles.css';
+import { Format } from '../../lib/comm/dynamicServices/samples/Samples';
 
 export interface OverviewProps {
     sample: Sample;
+    format: Format;
 }
 
 interface OverviewState {
@@ -86,8 +87,8 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
         } = this.props.sample;
 
         const sourceTooltip = <div>
-            <img src={this.props.sample.format.source.logo_url!} height={30} alt={`Logo for ${this.props.sample.format.source.title}`} />
-            <div><a href={this.props.sample.format.source.url} target="_blank" rel="noopener noreferrer" className="Overview-sourceUrl">{this.props.sample.format.source.title}</a></div>
+            <img src={this.props.format.source.logo_url!} height={30} alt={`Logo for ${this.props.format.source.title}`} />
+            <div><a href={this.props.format.source.url} target="_blank" rel="noopener noreferrer" className="Overview-sourceUrl">{this.props.format.source.title}</a></div>
         </div>;
         
         return <div className="Grouper Overview">
@@ -108,7 +109,7 @@ export default class Overview extends React.Component<OverviewProps, OverviewSta
                         </div>
                             <div data-testid="id">
                                 <Tooltip title={sourceTooltip}>
-                                    <span>{this.props.sample.format.source.name}</span>
+                                    <span>{this.props.format.source.name}</span>
                                 </Tooltip>
                             </div>
                         </div>

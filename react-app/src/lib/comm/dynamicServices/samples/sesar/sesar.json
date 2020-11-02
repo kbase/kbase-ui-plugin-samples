@@ -1,0 +1,690 @@
+{
+    "id": "sesar",
+    "description": {
+        "name": "SESAR",
+        "title": "A format compatible with SESAR",
+        "description": "A sample template based on SESAR",
+        "source": {
+            "name": "SESAR",
+            "title": "System for Earth Sample Regsitration (SESAR)",
+            "logo": "https://www.geosamples.org/sites/geosamples.org/files/images/sesar_logo_right.jpg",
+            "url": "https://www.geosamples.org/"
+        }
+    },
+    "latestVersion": 1,
+    "versions": [
+        {
+            "version": 1,
+            "mappings": {
+                "header": [
+                    "object_type",
+                    "user_code"
+                ],
+                "record": {
+                    "sample_name": "name"
+                },
+                "sample": {
+                    "igsn": "id",
+                    "parent_igsn": "parent_id"
+                }
+            },
+            "field_definitions": {
+                "object_type": {
+                    "label": "Object Type",
+                    "description": "Object type of sample. If object type is Individual Sample or Experimental Specimen, user may elect to enter a sub-object type (see below).",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "object-type"
+                    }
+                },
+                "user_code": {
+                    "label": "User code",
+                    "description": "User code to be used as prefix for IGSNs to be assigned or assigned by user in the submitted batch template.",
+                    "notes": [
+                        "Please supply the user code to be used to assign IGSNs. If user assigns IGSNs in the IGSN column, the user code must match the user code in the IGSNs. For example, if the user specifies IEMEG is the user code, any user-specified IGSNs must begin with IEMEG. If a user does not specify the user code to be used, a default user code belonging to the registrant will be used."
+                    ],
+                    "type": "string"
+                },
+                "age_min": {
+                    "label": "Age (min)",
+                    "description": "Numerical value for the maximum age of a sample",
+                    "type": "number",
+                    "constraints": {
+                        "gte": 0
+                    },
+                    "units": {
+                        "availableFromList": "duration",
+                        "canonical": "millisecond",
+                        "fromField": "age_unit"
+                    }
+                },
+                "age_max": {
+                    "label": "Age (max)",
+                    "description": "Numerical value for the minimum age of a sample",
+                    "type": "number",
+                    "constraints": {
+                        "gte": 0
+                    },
+                    "units": {
+                        "availableFromList": "duration",
+                        "canonical": "millisecond",
+                        "fromField": "age_unit"
+                    }
+                },
+                "age_unit": {
+                    "label": "Age unit",
+                    "description": "Unit for the age provided",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "duration"
+                    }
+                },
+                "city_township": {
+                    "label": "City/Township",
+                    "description": "City or Township where the sample was collected",
+                    "type": "string"
+                },
+                "classification": {
+                    "label": "Classification",
+                    "description": "Taxonomy (formal classification) Formal categorization of sample.",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "lists": [
+                            "classification-rock",
+                            "classification-mineral",
+                            "classification-biology"
+                        ]
+                    }
+                },
+                "collection_date": {
+                    "label": "Collection date",
+                    "description": "Date when the sample was collected.",
+                    "type": "string"
+                },
+                "collection_date_end": {
+                    "label": "Collection date (end)",
+                    "description": "Date when the sample collection was finished (if a date range is provided).",
+                    "type": "string"
+                },
+                "collection_date_precision": {
+                    "label": "Collection date precision",
+                    "description": "Precision to display the collection date and time.",
+                    "type": "string",
+                    "constraints": {
+                        "enum": [
+                            "year",
+                            "month",
+                            "day",
+                            "time"
+                        ]
+                    }
+                },
+                "collection_method": {
+                    "label": "Collection method",
+                    "description": "Method by which a sample was collected",
+                    "type": "string",
+                    "constraints": {
+                        "suggested_list": "collection-method"
+                    }
+                },
+                "collection_method_description": {
+                    "label": "Collection method description",
+                    "description": "Additional information about the collection method",
+                    "type": "string"
+                },
+                "collection_time": {
+                    "label": "Collection time",
+                    "description": "Time when the sample was collected.",
+                    "type": "string"
+                },
+                "collection_time_end": {
+                    "label": "Collection time (end)",
+                    "description": "Time when the sample was collected.",
+                    "type": "string"
+                },
+                "collector_chief_scientist": {
+                    "label": "Collector/Chief Scientist name",
+                    "description": "Name of the person who collected the sample. In case of larger field programs, name of chief scientist responsible for  sample collection.",
+                    "type": "string"
+                },
+                "collector_chief_scientist_address": {
+                    "label": "Collector/Chief Scientist address",
+                    "description": "Institution, address, & email of the collector or chief scientist.",
+                    "type": "string"
+                },
+                "comment": {
+                    "label": "Comment",
+                    "description": "Free text to add any comments pertaining to the sample",
+                    "type": "string"
+                },
+                "coordinate_precision?": {
+                    "label": "Coordinate Precision",
+                    "type": "string"
+                },
+                "country": {
+                    "label": "Country",
+                    "description": "Country where the sample was collected",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "country"
+                    }
+                },
+                "county": {
+                    "label": "County",
+                    "description": "County where the sample was collected",
+                    "type": "string"
+                },
+                "current_archive": {
+                    "label": "Current archive",
+                    "description": "Name of institution, museum, or repository where the sample is currently stored.",
+                    "type": "string"
+                },
+                "current_archive_contact": {
+                    "label": "Current archive contact name",
+                    "description": "Address and/or email of the person who should be contacted for information about or access to the sample.",
+                    "type": "string"
+                },
+                "depth_in_core_max": {
+                    "label": "Depth in Core (max)",
+                    "description": "Maximum depth at which a sample was collected from its parent core",
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "meter"
+                        ],
+                        "canonical": "meter"
+                    }
+                },
+                "depth_in_core_min": {
+                    "label": "Depth in Core (min)",
+                    "description": "Minimum depth at which a sample was collected from its parent core",
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "meter"
+                        ],
+                        "canonical": "meter"
+                    }
+                },
+                "depth_scale": {
+                    "label": "Depth scale",
+                    "description": "Unit in which the depth is provided",
+                    "notes": [
+                        "sesar spec does not provide a controlled list for this!"
+                    ],
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "distance"
+                    }
+                },
+                "easting": {
+                    "label": "Easting",
+                    "description": "Geographic Cartesian coordinate of where the sample was collected, in meters, as in UTM. \"305294”",
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "meter"
+                        ],
+                        "canonical": "meter"
+                    }
+                },
+                "elevation_end": {
+                    "label": "Elevation end",
+                    "description": "To be geolocated in the SESAR system, latitude and longitude must be filled out. UTM coordinates can be specified for reference but will not place the sample on the map. There are several web tools for converting from UTM to latitude/longitude, such as http://www.earthpoint.us/Convert.aspx.",
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "meter"
+                        ],
+                        "canonical": "meter",
+                        "fromField": "elevation_unit"
+                    }
+                },
+                "elevation_start": {
+                    "label": "Elevation start",
+                    "description": "Elevation at which a sample was collected. Use negative values for depth below sea level. Minimum elevation if a range is provided for the elevation/depth below sea level.",
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "meter"
+                        ],
+                        "canonical": "meter",
+                        "fromField": "elevation_unit"
+                    }
+                },
+                "elevation_unit": {
+                    "label": "Elevation unit",
+                    "description": "Unit in which elevation start and/or end are provided in.",
+                    "type": "enum<string>",
+                    "constraints": {
+                        "values": [
+                            "meters",
+                            "feet",
+                            "miles",
+                            "kilometers"
+                        ]
+                    }
+                },
+                "field_name": {
+                    "label": "Field name",
+                    "type": "string"
+                },
+                "field_name_informal_classification": {
+                    "label": "Field name (informal classification)",
+                    "description": "Taxonomy (field name) Informal classification of sample.",
+                    "type": "string"
+                },
+                "field_program_cruise": {
+                    "label": "Field program/cruise",
+                    "description": "Name or identifier of the field program (cruise or expedition), during which the sample was collected",
+                    "notes": [
+                        "For ship cruises, we recommended using the R2R Cruise ID at http://www.rvdata.us/catalog"
+                    ],
+                    "type": "string"
+                },
+                "geological_age": {
+                    "label": "Geological Age",
+                    "description": "Age of a sample as described by the stratigraphic  era, period, state, etc.",
+                    "type": "string"
+                },
+                "geological_unit": {
+                    "label": "Geological unit",
+                    "description": "A body of rock established as a distinct entity in the classification of the Earth’s rocks, e.g. Supergroup, Group, Formation, or Flow",
+                    "type": "string"
+                },
+                "igsn": {
+                    "label": "IGSN",
+                    "description": "Leave blank if you want SESAR to assign the IGSN.",
+                    "type": "string"
+                },
+                "latitude": {
+                    "label": "Latitude",
+                    "format": {
+                        "type": "numeric",
+                        "decimalPlaces": 3
+                    },
+                    "description": "Latitude of the location where the sample was collected. (Coordinate system: WGS 84). (‘Start latitude’ for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for South latitudes. ",
+                    "notes": [
+                        "Please supply no more than 6 decimal places (meter scale resolution) in the actual number (not just display format.) No letters are allowed."
+                    ],
+                    "type": "number",
+                    "unit": "degree",
+                    "constraints": {
+                        "gte": -90,
+                        "lte": 90
+                    }
+                },
+                "latitude_end": {
+                    "label": "Latitude (end)",
+                    "format": {
+                        "type": "numeric",
+                        "decimalPlaces": 3
+                    },
+                    "description": "End latitude of the location where the sample was collected. (Coordinate system: WGS 84)",
+                    "notes": [
+                        "Please supply no more than 6 decimal places (meter scale resolution) in the actual number (not just display format.) No letters are allowed."
+                    ],
+                    "type": "number",
+                    "unit": "degree",
+                    "constraints": {
+                        "gte": -90,
+                        "lte": 90
+                    }
+                },
+                "launch_id": {
+                    "label": "Launch ID",
+                    "description": "Further identifying information about the launch",
+                    "type": "string"
+                },
+                "launch_platform_name": {
+                    "label": "Launch platform name",
+                    "description": "The name of the launch used to collect the sample.",
+                    "type": "string"
+                },
+                "launch_type": {
+                    "label": "Launch type",
+                    "description": "The type of launch used to collect the sample.",
+                    "type": "string",
+                    "constraints": {
+                        "suggested_list": "launch-type"
+                    }
+                },
+                "locality": {
+                    "label": "Locality",
+                    "description": "Name of the specific place where your sample was collected. This could be the  name of a mine, a volcanic field, a vent field, or similar",
+                    "type": "string"
+                },
+                "locality_description": {
+                    "label": "Locality description",
+                    "description": "Additional information about the specific place where your sample was collected",
+                    "type": "string"
+                },
+                "location_description": {
+                    "label": "Location description",
+                    "description": "Free text description of the location",
+                    "type": "string"
+                },
+                "longitude": {
+                    "label": "Longitude",
+                    "description": "Longitude of the location where the sample was collected. (Coordinate system: WGS 84). (‘Start longitude’ for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for ‘West’ longitudes.",
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "degree"
+                        ],
+                        "canonical": "degree"
+                    },
+                    "constraints": {
+                        "gte": -180,
+                        "lte": 180
+                    }
+                },
+                "longitude_end": {
+                    "label": "Longitude (end)",
+                    "description": "End longitude of the location where the sample was collected. (Coordinate system: WGS 84).",
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "degree"
+                        ],
+                        "canonical": "degree"
+                    },
+                    "constraints": {
+                        "gte": -180,
+                        "lte": 180
+                    }
+                },
+                "material": {
+                    "label": "Material",
+                    "description": "Material that the sample consists of. Mandatory.",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "material"
+                    }
+                },
+                "name_of_physiographic_feature": {
+                    "label": "Name of physiographic feature",
+                    "description": "Name of the physiographic feature that you entered",
+                    "type": "string"
+                },
+                "navigation_type": {
+                    "label": "Navigation type",
+                    "description": "Navigation type",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "navigation-type"
+                    }
+                },
+                "northing": {
+                    "label": "Northing",
+                    "description": "Geographic Cartesian coordinate of where the sample was collected, in meters, as in UTM. \"4111279”",
+                    "notes": [
+                        "To be geolocated in the SESAR system, latitude and longitude must be filled out. UTM coordinates can be specified for reference but will not place the sample on the map. There are several web tools for converting from UTM to latitude/longitude, such as http://www.earthpoint.us/Convert.aspx."
+                    ],
+                    "type": "number",
+                    "units": {
+                        "available": [
+                            "meter"
+                        ],
+                        "canonical": "meter"
+                    }
+                },
+                "original_archive": {
+                    "label": "Original archive",
+                    "description": "Name of institution, museum, or repository where the sample was originally stored.",
+                    "type": "string"
+                },
+                "original_archive_contact": {
+                    "label": "Original archive contact",
+                    "description": "Address and/or email of the person who should be contacted for information about the sample’s original archive.",
+                    "type": "string"
+                },
+                "other_names": {
+                    "label": "Other Name(s)",
+                    "description": "Other name(s) used for the sample.",
+                    "type": "string",
+                    "notes": [
+                        "Provide multiple other names in a semi-colon delimited fashion."
+                    ]
+                },
+                "parent_igsn": {
+                    "label": "Parent IGSN",
+                    "description": "Leave blank if a parent IGSN does not exist.",
+                    "type": "string"
+                },
+                "platform_description": {
+                    "label": "Platform description",
+                    "description": "Description of the platform for the cruise.",
+                    "type": "string"
+                },
+                "platform_name": {
+                    "label": "Platform name",
+                    "description": "Name of platform for the cruise.",
+                    "type": "string"
+                },
+                "platform_type": {
+                    "label": "Platform type",
+                    "description": "Type of platform for the cruise.",
+                    "type": "string",
+                    "constraints": {
+                        "suggestedList": "platform-type"
+                    }
+                },
+                "primary_physiographic_feature": {
+                    "label": "Primary physiographic feature",
+                    "description": "Type of physical feature that your sample was collected from",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "physiographic-feature"
+                    }
+                },
+                "purpose": {
+                    "label": "Purpose",
+                    "description": "Free text to describe the collection purpose of the sample, e.g.",
+                    "type": "string"
+                },
+                "related_identifiers": {
+                    "label": "Related Identifiers",
+                    "type": "string"
+                },
+                "related_url": {
+                    "label": "Related url",
+                    "description": "Related URL associated with the samples",
+                    "type": "string",
+                    "constraints": {
+                        "url": true
+                    }
+                },
+                "related_url_type": {
+                    "label": "Related URL Type",
+                    "description": "Related URL type. Either DOI or Regular URL",
+                    "type": "enum<string>",
+                    "constraints": {
+                        "values": [
+                            "DOI",
+                            "Regular URL"
+                        ]
+                    }
+                },
+                "related_url_description": {
+                    "label": "Related URL Description",
+                    "description": "Free text description of the related URL",
+                    "type": "string"
+                },
+                "release_date": {
+                    "label": "Release date",
+                    "description": "Date when sample metadata is publicly accessible and searchable. If null, defaults to date of registration (recommended).",
+                    "type": "string",
+                    "notes": [
+                        "SESAR recommends that sample metadata become public within 2 years of sample registration."
+                    ]
+                },
+                "relation_type": {
+                    "label": "Relation Type",
+                    "type": "string"
+                },
+                "sample_description": {
+                    "label": "Sample Description",
+                    "description": "Free text to describe features of a sample such as its components, texture, color, shape, etc.",
+                    "type": "string"
+                },
+                "sample_name": {
+                    "label": "Sample Name",
+                    "description": "Collector's sample name. Mandatory.",
+                    "type": "string",
+                    "constraints": {
+                        "required": true
+                    }
+                },
+                "size": {
+                    "label": "Size",
+                    "description": "Size of the registered object, such as the dimension of a specimen, the length of a core, or the weight of a dredge",
+                    "type": "number",
+                    "units": {
+                        "fromField": "size_unit"
+                    }
+                },
+                "size_unit": {
+                    "label": "Size unit",
+                    "description": "Unit for the numerical value provided for ‘size’.",
+                    "type": "string"
+                },
+                "state_province": {
+                    "label": "State/Province",
+                    "description": "State or Province where the sample was collected",
+                    "type": "string"
+                },
+                "sub_object_type": {
+                    "label": "Sub-object type",
+                    "description": "More descriptive Object Type. This applies only to samples with Object Type set to Individual Sample or Experimental Specimen.",
+                    "type": "controlled_list",
+                    "constraints": {
+                        "list": "sub-object-type"
+                    }
+                },
+                "vertical_datum": {
+                    "label": "Vertical Datum",
+                    "description": "Vertical datum used to calculate the elevation",
+                    "type": "string"
+                },
+                "zone": {
+                    "label": "Zone",
+                    "description": "Zone for the geographic Cartesian coordinate \"11R\"",
+                    "notes": [
+                        "UTM zone, use a number from 1 to 60, followed by a letter between A and Z to specify UTM zone with no spaces in between. Letter must be capitalized."
+                    ],
+                    "type": "string"
+                }
+            },
+            "layouts": {
+                "grouped": [
+                    {
+                        "key": "description",
+                        "label": "Description",
+                        "description": "Fields which describe the overall sample event",
+                        "layout": [
+                            "purpose",
+                            "material",
+                            "field_name",
+                            "field_name_informal_classification",
+                            "classification",
+                            "field_program_cruise",
+                            "igsn",
+                            "sample_name",
+                            "parent_igsn",
+                            "related_identifiers",
+                            "relation_type",
+                            "release_date",
+                            "comment",
+                            "other_names",
+                            "related_url",
+                            "related_url_type",
+                            "related_url_description",
+                            "sub_object_type"
+                        ]
+                    },
+                    {
+                        "key": "collection",
+                        "label": "Collection",
+                        "description": "Fields which describe the collection",
+                        "layout": [
+                            "collection_date",
+                            "collection_date_end",
+                            "collection_time",
+                            "collection_time_end",
+                            "collection_date_precision",
+                            "collector_chief_scientist",
+                            "collector_chief_scientist_address",
+                            "collection_method",
+                            "collection_method_description"
+                        ]
+                    },
+                    {
+                        "key": "geolocation",
+                        "label": "Geolocation",
+                        "description": "Fields which describe the sample collection location",
+                        "layout": [
+                            "coordinate_precision?",
+                            "latitude",
+                            "latitude_end",
+                            "longitude",
+                            "longitude_end",
+                            "vertical_datum",
+                            "northing",
+                            "easting",
+                            "navigation_type",
+                            "locality_description",
+                            "location_description",
+                            "name_of_physiographic_feature",
+                            "primary_physiographic_feature",
+                            "elevation_start",
+                            "elevation_end",
+                            "elevation_unit",
+                            "city_township",
+                            "county",
+                            "locality",
+                            "state_province",
+                            "country",
+                            "zone"
+                        ]
+                    },
+                    {
+                        "key": "sample",
+                        "label": "Sample",
+                        "description": "Sample measurements and observations",
+                        "layout": [
+                            "sample_description",
+                            "depth_in_core_max",
+                            "depth_in_core_min",
+                            "depth_scale",
+                            "launch_id",
+                            "launch_platform_name",
+                            "launch_type",
+                            "platform_type",
+                            "platform_description",
+                            "platform_name",
+                            "size",
+                            "size_unit",
+                            "age_min",
+                            "age_max",
+                            "age_unit",
+                            "geological_age",
+                            "geological_unit"
+                        ]
+                    },
+                    {
+                        "key": "curation",
+                        "label": "Curation",
+                        "description": "Fields which describe the curation of the sample",
+                        "layout": [
+                            "current_archive",
+                            "current_archive_contact",
+                            "original_archive",
+                            "original_archive_contact"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
