@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Table, Tooltip } from 'antd';
-import { LinkOutlined } from '@ant-design/icons';
 import { Sample, Template } from '../Main/types';
 import { TemplateDataSource2 } from './types';
 import { NoData } from '../NoData';
+import { FieldValueString } from '../../lib/comm/dynamicServices/samples/Samples';
+import { MetadataField } from '../../lib/Model';
+import MetadataFieldView from '../MetadataField';
 
 export interface TemplateMetadataProps {
     sample: Sample;
@@ -32,29 +34,8 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
         }}><NoData /></div>;
     }
 
-    renderHeader() {
-        return <div className="Row" style={{ marginBottom: '10px' }}>
-            <div className="Col">
-                <div className="InfoTable">
-                    <div>
-                        <div>
-                            ID
-                        </div>
-                        <div>
-                            {this.props.sample.sampleId}
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Name
-                        </div>
-                        <div>
-                            {this.props.sample.name}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="Col -span1">
+    /*
+    <div className="Col -span1">
                 <div className="InfoTable">
                     <div>
                         <div>
@@ -79,6 +60,31 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                     </div>
                 </div>
             </div>
+    */
+
+    renderHeader() {
+        return <div className="Row" style={{ marginBottom: '10px' }}>
+            <div className="Col">
+                <div className="InfoTable">
+                    <div>
+                        <div>
+                            ID
+                        </div>
+                        <div>
+                            {this.props.sample.sampleId}
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Name
+                        </div>
+                        <div>
+                            {this.props.sample.name}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>;
     }
 
@@ -86,7 +92,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
         const dataSource: Array<TemplateDataSource2> = this.props.template.fields
             .filter((templateField) => {
                 if (templateField.type === 'metadata') {
-                    if (this.props.sample.metadata[templateField.key].value === null) {
+                    if (this.props.sample.metadata[templateField.key].field.value === null) {
                         if (this.state.omitEmpty) {
                             return false;
                         }
@@ -97,7 +103,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
             .map((templateField, index) => {
                 const value = (() => {
                     if (templateField.type === 'metadata') {
-                        return this.props.sample.metadata[templateField.key].value;
+                        return this.props.sample.metadata[templateField.key].field.value;
                     } else {
                         return this.props.sample.userMetadata[templateField.label];
                     }
@@ -113,7 +119,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
 
                 const type = (() => {
                     if (templateField.type === 'metadata') {
-                        return this.props.sample.metadata[templateField.key].definition.type;
+                        return this.props.sample.metadata[templateField.key].field.type;
                     } else {
                         return 'string';
                     }
@@ -127,20 +133,38 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                     }
                 })();
 
+                const field: MetadataField = (() => {
+                    if (templateField.type === 'metadata') {
+                        return this.props.sample.metadata[templateField.key];
+                    } else {
+                        return {
+                            key: templateField.label,
+                            label: templateField.label,
+                            field: {
+                                constraints: {},
+                                storageType: 'string',
+                                type: 'string',
+                                value: this.props.sample.userMetadata[templateField.label]
+                            } as FieldValueString
+                        } as MetadataField;
+                    }
+                })();
+
                 return {
-                    column: key,
+                    key,
                     label,
                     isMissing: value === null,
                     order: index,
                     type,
                     value,
-                    fieldType: templateField.type
+                    fieldType: templateField.type,
+                    field
                 };
             });
 
         return <Table<TemplateDataSource2>
             dataSource={dataSource}
-            rowKey="column"
+            rowKey="key"
             className="AntTable-FullHeight"
             size="small"
             scroll={{ y: '100%' }}
@@ -225,14 +249,11 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
             />
 
             <Table.Column
-                dataIndex="value"
-                key="value"
+                dataIndex="field"
+                key="field"
                 title="Value"
-                render={(value: string | number | null, row: TemplateDataSource2) => {
-                    if (value === null) {
-                        return this.renderNoData();
-                    }
-                    return value;
+                render={(field: MetadataField, row: TemplateDataSource2) => {
+                    return <MetadataFieldView field={field} />
                 }}
             />
         </Table>;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import {
-    Format,
     SampleId, SampleVersion, Username
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
@@ -12,6 +11,7 @@ import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
 import { Sample, User, Template } from './types';
 import Model from '../../lib/Model';
+import { FieldGroup, Format } from '../../lib/comm/dynamicServices/samples/Samples';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -26,6 +26,7 @@ interface State {
     sample: Sample;
     format: Format;
     template: Template;
+    fieldGroups: Array<FieldGroup>;
 }
 
 interface DataState {
@@ -151,15 +152,23 @@ export default class Data extends React.Component<DataProps, DataState> {
                 // type: actualSample.type,
                 metadata: sampleResult.sample.metadata,
                 userMetadata: sampleResult.sample.userMetadata,
-                format: sampleResult.format
+                formatId: sampleResult.formatId
+                // format: sampleResult.format
+                // fieldDefinitions: sampleResult.fieldDefinitions
             };
 
             // const sampleSource = (await client.getSampleSource({id: actualSample.source})).source;
 
+            // const { groups } = await client.getFieldGroups({});
+            
+            const { format } = await client.getFormat({ id: sampleResult.formatId })
+            
+            const fieldGroups = format.layouts.grouped;
+
             return this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
-                    state: { sample, format: sampleResult.format, template: sampleResult.template }
+                    state: { sample, template: sampleResult.template, fieldGroups, format }
                 }
             });
         } catch (ex) {
@@ -234,7 +243,7 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(state: State) {
-        return <Component sample={state.sample} format={state.format} template={state.template} setTitle={this.props.setTitle} />;
+        return <Component sample={state.sample} fieldGroups={state.fieldGroups} template={state.template} format={state.format} setTitle={this.props.setTitle} />;
     }
 
     render() {

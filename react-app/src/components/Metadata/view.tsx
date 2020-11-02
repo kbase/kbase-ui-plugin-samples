@@ -8,16 +8,18 @@ import {
 } from 'react-leaflet';
 import { Sample } from '../Main/types';
 import {
-    FieldLayout, Metadata
+    Metadata
 } from '../../lib/Model';
 import MetadataField from '../MetadataField/view';
-import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
+// import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
 
 import './style.less';
+import { FieldGroup } from '../../lib/comm/dynamicServices/samples/Samples';
 
 export interface MetadataViewerProps {
     sample: Sample;
-    format: Format;
+    fieldGroups: Array<FieldGroup>;
+    // format: Format;
     // template: Template;
     // layout: GroupingLayout;
     // fields: FieldDefinitionsMap;
@@ -39,11 +41,11 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
             return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
         }
-        if (latitude.value === null || longitude.value === null) {
+        if (latitude.field.value === null || longitude.field.value === null) {
             return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
         }
-        const lat = latitude.value as number;
-        const lng = longitude.value as number;
+        const lat = latitude.field.value as number;
+        const lng = longitude.field.value as number;
         return <div style={{ height: '400px' }}>
             <LeafletMap
                 center={[lat, lng]}
@@ -85,8 +87,8 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
 
     /*
     */
-    renderControlledMetadataGroupExtras(data: Metadata, group: FieldLayout) {
-        switch (group.key) {
+    renderControlledMetadataGroupExtras(data: Metadata, group: FieldGroup) {
+        switch (group.name) {
             case 'geolocation':
                 return this.renderGeolocation(data);
         }
@@ -95,8 +97,8 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
     renderControlledMetadataGrouped() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
-        const rows = this.props.format.layouts.grouped.map((group) => {
-            const fields = group.layout.map((fieldName) => {
+        const rows = Array.from(this.props.fieldGroups.entries()).map(([name, group]) => {
+            const fields = group.fields.map((fieldName) => {
                 const field = this.props.sample.metadata[fieldName];
                 if (!field) {
                     console.warn('Field not found in grouped: ' + fieldName, group);
@@ -142,8 +144,8 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
     renderGrouped() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
-        return this.props.format.layouts.grouped.map((group) => {
-            const fields = group.layout
+        return this.props.fieldGroups.map((group) => {
+            const fields = group.fields
                 .map((fieldName) => {
                     return this.props.sample.metadata[fieldName];
                 })
@@ -151,7 +153,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                     if (!field) {
                         return false;
                     }
-                    if (field.value === null && this.state.omitEmpty) {
+                    if (field.field.value === null && this.state.omitEmpty) {
                         return false;
                     }
                     return true;
@@ -172,7 +174,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
             } else {
                 content = <div style={{ fontStyle: 'italic' }}>No data</div>;
             }
-            return <div className="DataGroup" key={group.key}>
+            return <div className="DataGroup" key={group.name}>
                 <div className="-title">
                     {group.label}
                 </div>

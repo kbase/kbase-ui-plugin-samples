@@ -2,7 +2,7 @@ import React from 'react';
 import Overview from './view';
 import { render, waitFor } from '@testing-library/react';
 import { Sample } from '../Main/types';
-import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
+import { Format } from '../../lib/comm/dynamicServices/samples/Samples';
 
 const TIMEOUT = 10000;
 
@@ -19,7 +19,7 @@ test('should render', async () => {
         id: 'format1',
         description: 'a format',
         name: 'Format 1',
-        version: 1,
+        // version: 1,
         title: 'Format 1',
         source: {
             name: 'source',
@@ -28,43 +28,46 @@ test('should render', async () => {
         },
         layouts: {
             grouped: [{
-                key: 'group1',
+                name: 'group1',
                 description: 'some group',
                 label: 'some group',
-                layout: [
+                fields: [
                      'field1', 'field2', 'field3'
                  ]
                 }
             ]
         },
+        fields: [
+            'field1', 'field1', 'sample_name'
+        ],
         mappings: {
             record: {
-                a: 'b'
+                name: 'sample_name'
             },
             sample: {
-                field1: 'id',
-                field2: 'parent_id'
+                id: 'field1',
+                parent_id: 'field2'
             }
         },
-        field_definitions: {
-            field1: {
-                label: 'Field 1',
-                type: 'string'
-            },
-            field2: {
-                label: 'Field 2',
-                type: 'number'
-            },
-            field3: {
-                label: 'Field 3',
-                type: 'boolean'
-            }
-        }
+        // field_definitions: {
+        //     field1: {
+        //         label: 'Field 1',
+        //         type: 'string'
+        //     },
+        //     field2: {
+        //         label: 'Field 2',
+        //         type: 'number'
+        //     },
+        //     field3: {
+        //         label: 'Field 3',
+        //         type: 'boolean'
+        //     }
+        // }
 
     }
     const sample: Sample = {
         id: 'xyz',
-        format,
+        formatId: format.id,
         sampleId: 'abc',
         parentSampleId: 'xyz',
         name: 'abc',
@@ -107,7 +110,7 @@ test('should render', async () => {
 
 
     };
-    const { getByTestId } = render(<Overview sample={sample} />);
+    const { getByTestId } = render(<Overview sample={sample} format={format} />);
     await waitFor(() => {
         const idElement = getByTestId('name');
         expect(idElement).toBeInTheDocument();
