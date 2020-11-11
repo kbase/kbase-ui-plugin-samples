@@ -225,7 +225,9 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         return <div className="Metadata" data-testid="metadataviewer" >
             {this.renderToolbar()}
             <div className="Metadata-body">
-                {this.renderGrouped()}
+                <div className="Metadata-content-wrapper">
+                    {this.renderGrouped()}
+                    </div>
             </div>
         </div>;
     }

@@ -5,10 +5,10 @@ import enigmaData from "./formats/enigma/enigma.json";
 import kbaseData from "./formats/kbase/kbase.json";
 import fieldDefinitions from "./samples/sample-fields.json";
 import {
-  FieldDefinition,
-  FieldDefinitions,
-  FieldGroup,
-  Format,
+    FieldDefinition,
+    FieldDefinitions,
+    FieldGroup,
+    Format,
 } from "./samples/Samples";
 
 import sesarTemplateData from "../../Model/data/templates/sesar/sesar1.json";
@@ -23,18 +23,18 @@ const kbaseFormatData = kbaseData as Format;
 const fieldDefinitionsData = fieldDefinitions as Array<FieldDefinition>;
 
 const fieldDefinitionsMap: FieldDefinitions = fieldDefinitionsData.reduce<
-  FieldDefinitions
+    FieldDefinitions
 >((defMap, fieldDef) => {
-  defMap.set(fieldDef.id, fieldDef);
-  return defMap;
+    defMap.set(fieldDef.id, fieldDef);
+    return defMap;
 }, new Map());
 
 export interface StatusResult {
-  state: string;
-  message: string;
-  version: string;
-  git_url: string;
-  git_commit_hash: string;
+    state: string;
+    message: string;
+    version: string;
+    git_url: string;
+    git_commit_hash: string;
 }
 
 export type SDKBoolean = 0 | 1;
@@ -59,8 +59,8 @@ export type WorkspaceUniquePermanentAddress = WSUPA;
 // }
 
 export interface MetadataValue {
-  value: string | number | boolean;
-  units: string;
+    value: string | number | boolean;
+    units: string;
 }
 
 // TODO: interfaces for specific controlled metadata.
@@ -72,149 +72,149 @@ export interface MetadataValue {
 export type MetadataSource = Array<MetadataSourceField>;
 
 export interface MetadataSourceField {
-  key: string;
-  skey: string;
-  svalue: {
-    value: string;
-  };
+    key: string;
+    skey: string;
+    svalue: {
+        value: string;
+    };
 }
 
 export interface SampleNode {
-  id: SampleNodeId;
-  parent: SampleNodeId | null;
-  type: SampleNodeType;
-  meta_controlled: Metadata;
-  meta_user: Metadata;
-  source_meta: MetadataSource;
+    id: SampleNodeId;
+    parent: SampleNodeId | null;
+    type: SampleNodeType;
+    meta_controlled: Metadata;
+    meta_user: Metadata;
+    source_meta: MetadataSource;
 }
 
 export interface Sample {
-  id: SampleId;
-  user: Username;
-  node_tree: Array<SampleNode>;
-  name: string;
-  save_date: EpochTimeMS;
-  version: SampleVersion;
-  // TODO: these fields don't yet exist upstream.
-  format_id: string;
-  format_version: number;
-  sample_set_ref: string;
+    id: SampleId;
+    user: Username;
+    node_tree: Array<SampleNode>;
+    name: string;
+    save_date: EpochTimeMS;
+    version: SampleVersion;
+    // TODO: these fields don't yet exist upstream.
+    format_id: string;
+    format_version: number;
+    sample_set_ref: string;
 }
 
 /* Types for the get_sample method*/
 export interface GetSampleParams {
-  id: SampleId;
-  version?: number;
-  as_admin?: SDKBoolean;
+    id: SampleId;
+    version?: number;
+    as_admin?: SDKBoolean;
 }
 
 export type GetSampleResult = Sample;
 
 /* Types for the get_data_links_from_sample method */
 export interface GetDataLinksFromSampleParams {
-  id: SampleId;
-  version: SampleVersion;
-  effective_time?: EpochTimeMS;
+    id: SampleId;
+    version: SampleVersion;
+    effective_time?: EpochTimeMS;
 }
 
 export type DataId = string;
 
 export interface DataLink {
-  linkid: string;
-  upa: WSUPA;
-  dataid: DataId | null;
-  id: SampleId;
-  version: SampleVersion;
-  node: SampleNodeId;
-  created: EpochTimeMS;
-  createdby: Username;
-  expiredby: Username | null;
-  expired: EpochTimeMS | null;
+    linkid: string;
+    upa: WSUPA;
+    dataid: DataId | null;
+    id: SampleId;
+    version: SampleVersion;
+    node: SampleNodeId;
+    created: EpochTimeMS;
+    createdby: Username;
+    expiredby: Username | null;
+    expired: EpochTimeMS | null;
 }
 
 export interface GetDataLinksFromSampleResult {
-  links: Array<DataLink>;
+    links: Array<DataLink>;
 }
 
 export type KeyPrefix = 0 | 1 | 2;
 
 export interface GetMetadataKeyStaticMetadataParams {
-  keys: Array<string>;
-  prefix: KeyPrefix;
+    keys: Array<string>;
+    prefix: KeyPrefix;
 }
 
 // export type MetadataValue = int | float | string;
 
 export interface Metadata {
-  [key: string]: MetadataValue;
+    [key: string]: MetadataValue;
 }
 
 export interface StaticMetadataValue {
-  display_name: string;
-  description?: string;
+    display_name: string;
+    description?: string;
 }
 
 export interface StaticMetadata {
-  [key: string]: StaticMetadataValue;
+    [key: string]: StaticMetadataValue;
 }
 
 export interface GetMetadataKeyStaticMetadataResult {
-  static_metadata: StaticMetadata;
+    static_metadata: StaticMetadata;
 }
 
 export interface GetSampleACLsParams {
-  id: SampleId;
-  as_admin: SDKBoolean;
+    id: SampleId;
+    as_admin: SDKBoolean;
 }
 
 export interface SampleACLs {
-  owner: Username;
-  admin: Array<Username>;
-  write: Array<Username>;
-  read: Array<Username>;
+    owner: Username;
+    admin: Array<Username>;
+    write: Array<Username>;
+    read: Array<Username>;
 }
 
 export type GetSampleACLsResult = SampleACLs;
 
 export interface GetFormatParams {
-  id: string;
-  version?: number;
+    id: string;
+    version?: number;
 }
 
 export interface FormatSource {
-  name: string;
-  url: string;
-  logoUrl: string;
+    name: string;
+    url: string;
+    logoUrl: string;
 }
 
 export type FormatFieldType =
-  | "string"
-  | "number"
-  | "boolean"
-  | "date"
-  | "enum<string>"
-  | "controlled_list";
+    | "string"
+    | "number"
+    | "boolean"
+    | "date"
+    | "enum<string>"
+    | "controlled_list";
 
 // Field Definitions
 
 export interface FormatFieldBase {
-  // id: string;
-  type: FormatFieldType;
-  label: string;
-  // tooltip: string;
-  description?: string;
-  notes?: Array<string>;
-  units?: {
-    available?: Array<string>;
-    availableFromList?: string;
-    canonical?: string;
-    fromField?: string;
-  };
-  constraints?: FormatFieldBaseConstraints;
+    // id: string;
+    type: FormatFieldType;
+    label: string;
+    // tooltip: string;
+    description?: string;
+    notes?: Array<string>;
+    units?: {
+        available?: Array<string>;
+        availableFromList?: string;
+        canonical?: string;
+        fromField?: string;
+    };
+    constraints?: FormatFieldBaseConstraints;
 }
 
 export interface FormatFieldBaseConstraints {
-  required?: boolean;
+    required?: boolean;
 }
 
 // NB using type intersection rather than extends, since we are also extending the
@@ -224,78 +224,78 @@ export interface FormatFieldBaseConstraints {
 // String
 
 export interface FormatFieldStringConstraints
-  extends FormatFieldBaseConstraints {
-  minimumLength?: number;
-  maximumLength?: number;
-  regex?: string;
-  suggestedList: string;
-  url?: boolean;
+    extends FormatFieldBaseConstraints {
+    minimumLength?: number;
+    maximumLength?: number;
+    regex?: string;
+    suggestedList: string;
+    url?: boolean;
 }
 export interface FormatFieldString extends FormatFieldBase {
-  type: "string";
-  constraints?: FormatFieldStringConstraints;
+    type: "string";
+    constraints?: FormatFieldStringConstraints;
 } // Controlled List
 
 export interface FormatFieldControlledListConstraints
-  extends FormatFieldBaseConstraints {
-  list?: string;
-  lists?: Array<string>;
+    extends FormatFieldBaseConstraints {
+    list?: string;
+    lists?: Array<string>;
 }
 export interface FormatFieldControlledList extends FormatFieldBase {
-  type: "controlled_list";
-  constraints: FormatFieldControlledListConstraints;
+    type: "controlled_list";
+    constraints: FormatFieldControlledListConstraints;
 } // Number
 
 export interface FormatFieldNumberConstraints
-  extends FormatFieldBaseConstraints {
-  gte?: number;
-  gt?: number;
-  lte?: number;
-  lt?: number;
+    extends FormatFieldBaseConstraints {
+    gte?: number;
+    gt?: number;
+    lte?: number;
+    lt?: number;
 }
 export interface FormatFieldNumber extends FormatFieldBase {
-  type: "number";
-  constraints?: FormatFieldNumberConstraints;
-  format?: {
-    type: string;
-    decimalPlaces?: number;
-  };
+    type: "number";
+    constraints?: FormatFieldNumberConstraints;
+    format?: {
+        type: string;
+        decimalPlaces?: number;
+    };
 } // date
 
 export interface FormatFieldDateConstraints extends FormatFieldBaseConstraints {
-  gte?: number;
-  gt?: number;
-  lte?: number;
-  lt?: number;
+    gte?: number;
+    gt?: number;
+    lte?: number;
+    lt?: number;
 }
 export interface FormatFieldDate extends FormatFieldBase {
-  type: "date";
-  constraints?: FormatFieldDateConstraints;
+    type: "date";
+    constraints?: FormatFieldDateConstraints;
 } // boolean
 
 export interface FormatFieldBooleanConstraints
-  extends FormatFieldBaseConstraints {
+    extends FormatFieldBaseConstraints {
 }
 export interface FormatFieldBoolean extends FormatFieldBase {
-  type: "boolean";
-  constraints?: FormatFieldBooleanConstraints;
+    type: "boolean";
+    constraints?: FormatFieldBooleanConstraints;
 } // enum
 
 export interface FormatFieldEnumConstraints extends FormatFieldBaseConstraints {
-  values: Array<string>;
+    values: Array<string>;
 }
 export interface FormatFieldEnum extends FormatFieldBase {
-  type: "enum<string>";
-  constraints: FormatFieldEnumConstraints;
+    type: "enum<string>";
+    constraints: FormatFieldEnumConstraints;
 }
 
 export type FormatField =
-  | FormatFieldString
-  | FormatFieldNumber
-  | FormatFieldBoolean
-  | FormatFieldDate
-  | FormatFieldEnum
-  | FormatFieldControlledList;
+    | FormatFieldString
+    | FormatFieldNumber
+    | FormatFieldBoolean
+    | FormatFieldDate
+    | FormatFieldEnum
+    | FormatFieldControlledList;
 
 // A format source represents a temporary data structure matching what we have in the JSON file here.
 // export interface FormatData {
@@ -352,204 +352,202 @@ export type FormatField =
 // export type FormatFieldValue = FormatFieldValueString | FormatFieldValueNumber;
 
 export interface GetFormatResult {
-  format: Format;
+    format: Format;
 }
 
 export interface GetFieldDefinitionsParams {
-  keys: Array<string>;
+    keys: Array<string>;
 }
 
 export interface GetFieldDefinitionsResult {
-  fields: Array<FieldDefinition>;
+    fields: Array<FieldDefinition>;
 }
 
 export interface GetFieldGroupsParams {
 }
 
 export interface GetFieldGroupsResult {
-  groups: Array<FieldGroup>;
+    groups: Array<FieldGroup>;
 }
 
 function intersect(arr1: Array<string>, arr2: Array<string>): Array<string> {
-  return arr1.filter((key) => {
-    return arr2.includes(key);
-  });
+    return arr1.filter((key) => {
+        return arr2.includes(key);
+    });
 }
 
 export default class SampleServiceClient extends DynamicServiceClient {
-  static module: string = "SampleService";
+    static module: string = "SampleService";
 
-  async status(): Promise<StatusResult> {
-    const [result] = await this.callFunc<[], [StatusResult]>("status", []);
-    return result;
-  }
-
-  async get_sample(params: GetSampleParams): Promise<GetSampleResult> {
-    const [result] = await this.callFunc<[GetSampleParams], [GetSampleResult]>(
-      "get_sample",
-      [params],
-    );
-
-    // FAKE: this will actually be provided by upstream, if the design goes through.
-
-    function grokFormat(): string {
-      // try again:
-
-      // if a sample contains fields not defined by a format, then it isn't that format!
-      const controlledKeys = Object.keys(result.node_tree[0].meta_controlled);
-      const standardKeys = ["id", "name", "parent_id"];
-      const commonKeys = intersect(
-        sesarFormatData.fields,
-        enigmaFormatData.fields,
-      );
-      const ignoreKeys = commonKeys.concat(standardKeys);
-
-      const notSesar = controlledKeys.filter((key) => {
-        if (ignoreKeys.includes(key)) {
-          return false;
-        }
-        return !sesarFormatData.fields.includes(key);
-      });
-
-      const notEnigma = controlledKeys.filter((key) => {
-        if (ignoreKeys.includes(key)) {
-          return false;
-        }
-        return !enigmaFormatData.fields.includes(key);
-      });
-
-      const sesarIntersect = controlledKeys.filter((key) => {
-        if (ignoreKeys.includes(key)) {
-          return false;
-        }
-        return sesarTemplateData.fields.includes(key);
-      });
-
-      const enigmaIntersect = controlledKeys.filter((key) => {
-        if (ignoreKeys.includes(key)) {
-          return false;
-        }
-        return enigmaTemplateData.fields.includes(key);
-      });
-
-      if (sesarIntersect.length > 0 && notSesar.length === 0) {
-        console.log("SESAR", sesarIntersect);
-        return "sesar";
-      }
-
-      if (enigmaIntersect.length > 0 && notEnigma.length === 0) {
-        console.log("ENIGMA", sesarIntersect);
-        return "enigma";
-      }
-
-      console.log(
-        "KBASE",
-        commonKeys,
-        standardKeys,
-        ignoreKeys,
-        notSesar,
-        notEnigma,
-        sesarIntersect,
-        enigmaIntersect,
-      );
-      return "kbase";
+    async status(): Promise<StatusResult> {
+        const [result] = await this.callFunc<[], [StatusResult]>("status", []);
+        return result;
     }
 
-    result.format_id = grokFormat();
-    result.format_version = 1;
-    result.sample_set_ref = (() => {
-      switch (result.format_id) {
-        case "sesar":
-          return "sesar_sample_set";
-        case "enigma":
-          return "enigma_sample_set";
-        case "kbase":
-          return "kbase_sample_set";
-        default:
-          throw new Error(
-            `Sorry, cannot fake sample set ref for ${result.format_id}`,
-          );
-      }
-    })();
+    async get_sample(params: GetSampleParams): Promise<GetSampleResult> {
+        const [result] = await this.callFunc<[GetSampleParams], [GetSampleResult]>(
+            "get_sample",
+            [params],
+        );
 
-    return result;
-  }
+        // FAKE: this will actually be provided by upstream, if the design goes through.
 
-  async get_data_links_from_sample(
-    params: GetDataLinksFromSampleParams,
-  ): Promise<GetDataLinksFromSampleResult> {
-    const [result] = await this.callFunc<
-      [GetDataLinksFromSampleParams],
-      [GetDataLinksFromSampleResult]
-    >("get_data_links_from_sample", [params]);
-    return result;
-  }
+        function grokFormat(): string {
+            // try again:
 
-  async get_metadata_key_static_metadata(
-    params: GetMetadataKeyStaticMetadataParams,
-  ): Promise<GetMetadataKeyStaticMetadataResult> {
-    const [result] = await this.callFunc<
-      [GetMetadataKeyStaticMetadataParams],
-      [GetMetadataKeyStaticMetadataResult]
-    >("get_metadata_key_static_metadata", [params]);
-    return result;
-  }
+            // if a sample contains fields not defined by a format, then it isn't that format!
+            const controlledKeys = Object.keys(result.node_tree[0].meta_controlled);
+            const standardKeys = ["id", "name", "parent_id"];
+            const commonKeys = intersect(
+                sesarFormatData.fields,
+                enigmaFormatData.fields,
+            );
+            const ignoreKeys = commonKeys.concat(standardKeys);
 
-  // async get_field_definitions(params: GetFieldDefinitionsParams): Promise<GetFieldDefinitionsResult> {
-  //     const [result] = await this.callFunc<[GetFieldDefinitionsParams], [GetFieldDefinitionsResult]>('get_field_definitions', [params]);
-  //     return result;
-  // }
+            const notSesar = controlledKeys.filter((key) => {
+                if (ignoreKeys.includes(key)) {
+                    return false;
+                }
+                return !sesarFormatData.fields.includes(key);
+            });
 
-  async get_field_definitions(
-    params: GetFieldDefinitionsParams,
-  ): Promise<GetFieldDefinitionsResult> {
-    const fields = params.keys.map((key) => {
-      if (!fieldDefinitionsMap.has(key)) {
-        throw new Error(`Field "${key}" is not defined`);
-      }
-      return fieldDefinitionsMap.get(key)!;
-    });
-    return Promise.resolve({
-      fields,
-    });
-  }
+            const notEnigma = controlledKeys.filter((key) => {
+                if (ignoreKeys.includes(key)) {
+                    return false;
+                }
+                return !enigmaFormatData.fields.includes(key);
+            });
 
-  async get_field_groups(
-    params: GetFieldGroupsParams,
-  ): Promise<GetFieldGroupsResult> {
-    const groups = fieldGroupsData;
-    return Promise.resolve({
-      groups,
-    });
-  }
+            const sesarIntersect = controlledKeys.filter((key) => {
+                if (ignoreKeys.includes(key)) {
+                    return false;
+                }
+                return sesarTemplateData.fields.includes(key);
+            });
 
-  async get_sample_acls(
-    params: GetSampleACLsParams,
-  ): Promise<GetSampleACLsResult> {
-    const [result] = await this.callFunc<
-      [GetSampleACLsParams],
-      [GetSampleACLsResult]
-    >("get_sample_acls", [params]);
-    return result;
-  }
+            const enigmaIntersect = controlledKeys.filter((key) => {
+                if (ignoreKeys.includes(key)) {
+                    return false;
+                }
+                return enigmaTemplateData.fields.includes(key);
+            });
 
-  async get_format(params: GetFormatParams): Promise<GetFormatResult> {
-    // const [result] = await this.callFunc<[GetFormatParams], [GetFormatResult]>('get_sample_acls', [params]);
-    const format = (() => {
-      switch (params.id) {
-        case "sesar":
-          return sesarFormatData;
-        case "enigma":
-          return enigmaFormatData;
-        case "kbase":
-          return kbaseFormatData;
-        default:
-          throw new Error(`Sorry, ${params.id} not a recognized format`);
-      }
-    })();
-    // const version = params.version || formatData.latestVersion;
-    return Promise.resolve({
-      format,
-    });
-  }
+            if (sesarIntersect.length > 0 && notSesar.length === 0) {
+                return "sesar";
+            }
+
+            if (enigmaIntersect.length > 0 && notEnigma.length === 0) {
+                return "enigma";
+            }
+
+            // console.log(
+            //     "KBASE",
+            //     commonKeys,
+            //     standardKeys,
+            //     ignoreKeys,
+            //     notSesar,
+            //     notEnigma,
+            //     sesarIntersect,
+            //     enigmaIntersect,
+            // );
+            return "kbase";
+        }
+
+        result.format_id = grokFormat();
+        result.format_version = 1;
+        result.sample_set_ref = (() => {
+            switch (result.format_id) {
+                case "sesar":
+                    return "sesar_sample_set";
+                case "enigma":
+                    return "enigma_sample_set";
+                case "kbase":
+                    return "kbase_sample_set";
+                default:
+                    throw new Error(
+                        `Sorry, cannot fake sample set ref for ${result.format_id}`,
+                    );
+            }
+        })();
+
+        return result;
+    }
+
+    async get_data_links_from_sample(
+        params: GetDataLinksFromSampleParams,
+    ): Promise<GetDataLinksFromSampleResult> {
+        const [result] = await this.callFunc<
+            [GetDataLinksFromSampleParams],
+            [GetDataLinksFromSampleResult]
+        >("get_data_links_from_sample", [params]);
+        return result;
+    }
+
+    async get_metadata_key_static_metadata(
+        params: GetMetadataKeyStaticMetadataParams,
+    ): Promise<GetMetadataKeyStaticMetadataResult> {
+        const [result] = await this.callFunc<
+            [GetMetadataKeyStaticMetadataParams],
+            [GetMetadataKeyStaticMetadataResult]
+        >("get_metadata_key_static_metadata", [params]);
+        return result;
+    }
+
+    // async get_field_definitions(params: GetFieldDefinitionsParams): Promise<GetFieldDefinitionsResult> {
+    //     const [result] = await this.callFunc<[GetFieldDefinitionsParams], [GetFieldDefinitionsResult]>('get_field_definitions', [params]);
+    //     return result;
+    // }
+
+    async get_field_definitions(
+        params: GetFieldDefinitionsParams,
+    ): Promise<GetFieldDefinitionsResult> {
+        const fields = params.keys.map((key) => {
+            if (!fieldDefinitionsMap.has(key)) {
+                throw new Error(`Field "${key}" is not defined`);
+            }
+            return fieldDefinitionsMap.get(key)!;
+        });
+        return Promise.resolve({
+            fields,
+        });
+    }
+
+    async get_field_groups(
+        params: GetFieldGroupsParams,
+    ): Promise<GetFieldGroupsResult> {
+        const groups = fieldGroupsData;
+        return Promise.resolve({
+            groups,
+        });
+    }
+
+    async get_sample_acls(
+        params: GetSampleACLsParams,
+    ): Promise<GetSampleACLsResult> {
+        const [result] = await this.callFunc<
+            [GetSampleACLsParams],
+            [GetSampleACLsResult]
+        >("get_sample_acls", [params]);
+        return result;
+    }
+
+    async get_format(params: GetFormatParams): Promise<GetFormatResult> {
+        // const [result] = await this.callFunc<[GetFormatParams], [GetFormatResult]>('get_sample_acls', [params]);
+        const format = (() => {
+            switch (params.id) {
+                case "sesar":
+                    return sesarFormatData;
+                case "enigma":
+                    return enigmaFormatData;
+                case "kbase":
+                    return kbaseFormatData;
+                default:
+                    throw new Error(`Sorry, ${params.id} not a recognized format`);
+            }
+        })();
+        // const version = params.version || formatData.latestVersion;
+        return Promise.resolve({
+            format,
+        });
+    }
 }

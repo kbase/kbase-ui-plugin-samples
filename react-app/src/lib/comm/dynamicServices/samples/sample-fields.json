@@ -44,7 +44,7 @@
     },
     {
         "id": "age_max",
-        "label": "Age (max)",
+        "label": "Age Max",
         "type": {
             "type": "number",
             "storageType": "number",
@@ -64,7 +64,7 @@
     },
     {
         "id": "age_min",
-        "label": "Age (min)",
+        "label": "Age Min",
         "type": {
             "type": "number",
             "storageType": "number",
@@ -231,6 +231,9 @@
     {
         "id": "city_township",
         "label": "City/Township",
+        "importLabels": [
+            "city"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -255,6 +258,10 @@
     {
         "id": "collection_date",
         "label": "Collection date",
+        "importLabels": [
+            "Collection Start Date",
+            "collection_start_date"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -267,6 +274,11 @@
     {
         "id": "collection_date_end",
         "label": "Collection date (end)",
+        "importLabels": [
+            "Collection date end",
+            "Collection End Date",
+            "collection_end_date"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -303,8 +315,12 @@
     {
         "id": "collection_method_description",
         "label": "Collection method description",
+        "importLabels": [
+            "Collection Method Descr",
+            "collection_method_descr"
+        ],
         "type": {
-            "type": "string",
+            "type": "text",
             "storageType": "string",
             "constraints": {}
         },
@@ -338,7 +354,10 @@
     },
     {
         "id": "collector_chief_scientist",
-        "label": "Collector/Chief Scientist name",
+        "label": "Collector/Chief Scientist",
+        "importLabels": [
+            "collector"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -351,6 +370,21 @@
     {
         "id": "collector_chief_scientist_address",
         "label": "Collector/Chief Scientist address",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "collector_chief_scientist_detail",
+        "label": "Collector/Chief Scientist Detail",
+        "importLabels": [
+            "collector_detail"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -401,7 +435,7 @@
     },
     {
         "id": "coordinate_precision?",
-        "label": "Coordinate Precision",
+        "label": "Coordinate Precision?",
         "type": {
             "type": "string",
             "storageType": "string",
@@ -414,6 +448,9 @@
     {
         "id": "country",
         "label": "Country",
+        "importLabels": [
+            "country_name"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -449,7 +486,7 @@
     },
     {
         "id": "current_archive_contact",
-        "label": "Current archive contact name",
+        "label": "Current archive contact",
         "type": {
             "type": "string",
             "storageType": "string",
@@ -499,6 +536,38 @@
         }
     },
     {
+        "id": "depth_min",
+        "label": "Depth Min",
+        "type": {
+            "type": "number",
+            "storageType": "number",
+            "constraints": {}
+        },
+        "units": {
+            "available": [
+                "meters"
+            ],
+            "canonical": "meters",
+            "takeFromField": "depth_scale"
+        }
+    },
+    {
+        "id": "depth_max",
+        "label": "Depth Max",
+        "type": {
+            "type": "number",
+            "storageType": "number",
+            "constraints": {}
+        },
+        "units": {
+            "available": [
+                "meters"
+            ],
+            "canonical": "meters",
+            "takeFromField": "depth_scale"
+        }
+    },
+    {
         "id": "depth_in_core_max",
         "label": "Depth in Core (max)",
         "type": {
@@ -510,7 +579,8 @@
             "available": [
                 "meters"
             ],
-            "canonical": "meters"
+            "canonical": "meters",
+            "takeFromField": "depth_scale"
         }
     },
     {
@@ -525,7 +595,8 @@
             "available": [
                 "meters"
             ],
-            "canonical": "meters"
+            "canonical": "meters",
+            "takeFromField": "depth_scale"
         }
     },
     {
@@ -544,7 +615,7 @@
         "id": "description",
         "label": "Description",
         "type": {
-            "type": "string",
+            "type": "text",
             "storageType": "string",
             "constraints": {}
         },
@@ -682,7 +753,8 @@
             "available": [
                 "meters"
             ],
-            "canonical": "meters"
+            "canonical": "meters",
+            "inField": "elevation_unit"
         }
     },
     {
@@ -697,7 +769,8 @@
             "available": [
                 "meters"
             ],
-            "canonical": "meters"
+            "canonical": "meters",
+            "takeFromField": "elevation_unit"
         }
     },
     {
@@ -775,6 +848,9 @@
     {
         "id": "field_program_cruise",
         "label": "Field program/cruise",
+        "importLabels": [
+            "cruise_field_prgrm"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -838,18 +914,14 @@
     {
         "id": "geological_age",
         "label": "Geological Age",
+        "description": "Age of a sample as described by the stratigraphic  era, period, state, etc.",
         "type": {
-            "type": "number",
-            "storageType": "number",
-            "constraints": {
-                "gte": 0
-            }
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
         },
         "units": {
-            "available": [
-                "year * 1000000"
-            ],
-            "canonical": "year * 1000000"
+            "canonical": "unit"
         }
     },
     {
@@ -1000,6 +1072,28 @@
         }
     },
     {
+        "id": "latitude_start",
+        "label": "Latitude Start",
+        "type": {
+            "type": "number",
+            "storageType": "number",
+            "constraints": {
+                "gte": -90,
+                "lte": 90
+            },
+            "format": {
+                "minimumFractionDigits": 3,
+                "maximumFractionDigits": 3
+            }
+        },
+        "units": {
+            "available": [
+                "degrees"
+            ],
+            "canonical": "degrees"
+        }
+    },
+    {
         "id": "launch_id",
         "label": "Launch ID",
         "type": {
@@ -1051,7 +1145,7 @@
         "id": "locality_description",
         "label": "Locality description",
         "type": {
-            "type": "string",
+            "type": "text",
             "storageType": "string",
             "constraints": {}
         },
@@ -1063,7 +1157,7 @@
         "id": "location_description",
         "label": "Location description",
         "type": {
-            "type": "string",
+            "type": "text",
             "storageType": "string",
             "constraints": {}
         },
@@ -1074,6 +1168,28 @@
     {
         "id": "longitude",
         "label": "Longitude",
+        "type": {
+            "type": "number",
+            "storageType": "number",
+            "constraints": {
+                "gte": -180,
+                "lte": 180
+            },
+            "format": {
+                "minimumFractionDigits": 3,
+                "maximumFractionDigits": 3
+            }
+        },
+        "units": {
+            "available": [
+                "degrees"
+            ],
+            "canonical": "degrees"
+        }
+    },
+    {
+        "id": "longitude_start",
+        "label": "Longitude Start",
         "type": {
             "type": "number",
             "storageType": "number",
@@ -1285,7 +1401,7 @@
         "id": "nmdc:description_long",
         "label": "NMDC study description",
         "type": {
-            "type": "string",
+            "type": "text",
             "storageType": "string",
             "constraints": {}
         },
@@ -1856,6 +1972,9 @@
     {
         "id": "release_date",
         "label": "Release date",
+        "importLabels": [
+            "publish_date"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
@@ -1895,7 +2014,7 @@
         "id": "sample_description",
         "label": "Sample Description",
         "type": {
-            "type": "string",
+            "type": "text",
             "storageType": "string",
             "constraints": {}
         },
@@ -2041,16 +2160,22 @@
     {
         "id": "size",
         "label": "Size",
+        "description": "Size of the registered object, such as the dimension of a specimen, the length of a core, or the weight of a dredge",
+        "examples": [
+            "Varies between 2-4",
+            "<2, 2 - 64",
+            "(1) 22 x 17 (2) 1-5"
+        ],
         "type": {
-            "type": "number",
-            "storageType": "number",
+            "type": "string",
+            "storageType": "string",
             "constraints": {}
         },
         "units": {
             "available": [
-                "m^3"
+                "unit"
             ],
-            "canonical": "m^3"
+            "canonical": "unit"
         }
     },
     {
@@ -2412,8 +2537,11 @@
     {
         "id": "comment",
         "label": "Comment",
+        "importLabels": [
+            "sample_comment"
+        ],
         "type": {
-            "type": "string",
+            "type": "text",
             "storageType": "string",
             "constraints": {}
         }
@@ -2513,19 +2641,32 @@
     {
         "id": "launch_type",
         "label": "Launch Type",
+        "importLabels": [
+            "Launch Type Name",
+            "launch_type_name"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
             "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
         }
     },
     {
         "id": "platform_description",
         "label": "Platform Description",
+        "importLabels": [
+            "platform_descr"
+        ],
         "type": {
             "type": "string",
             "storageType": "string",
             "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
         }
     },
     {
@@ -2535,6 +2676,9 @@
             "type": "string",
             "storageType": "string",
             "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
         }
     },
     {
@@ -2544,11 +2688,146 @@
             "type": "string",
             "storageType": "string",
             "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
         }
     },
     {
         "id": "geological_unit",
         "label": "Geological unit",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "sample_type",
+        "label": "Sample Type",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "nav_type_name",
+        "label": "Nav Type Name",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "physiographic_feature",
+        "label": "Physiographic Feature",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "cur_registrant_name",
+        "label": "Cur Registrant Name",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "org_registrant_name",
+        "label": "Org Registrant Name",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "classification_comment",
+        "label": "Classification Comment",
+        "type": {
+            "type": "text",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "is_archived",
+        "label": "Is Archived",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "url",
+        "label": "URL",
+        "importLabels": [
+            "build_url"
+        ],
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "top_level_classification",
+        "label": "Top Level Classification",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        },
+        "units": {
+            "canonical": "unit"
+        }
+    },
+    {
+        "id": "primary_location_type",
+        "label": "Primary Location Type",
+        "type": {
+            "type": "string",
+            "storageType": "string",
+            "constraints": {}
+        }
+    },
+    {
+        "id": "primary_location_name",
+        "label": "Primary Location Name",
         "type": {
             "type": "string",
             "storageType": "string",
