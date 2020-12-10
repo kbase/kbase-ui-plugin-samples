@@ -19,6 +19,7 @@ import sesarTemplateData from "./data/templates/sesar/sesar1.json";
 import enigmaTemplateData from "./data/templates/enigma/enigma1.json";
 import { Template, TemplateField } from "../../components/Main/types";
 import {
+    FieldDefinition,
     FieldDefinitions,
     FieldGroup,
     FieldGroups,
@@ -240,6 +241,10 @@ export interface Sample {
 }
 
 export type GetSampleResult = Sample;
+
+export interface GetFieldDefinitionsResult {
+    fields: Array<FieldDefinition>;
+}
 
 // Get sample format
 
@@ -761,6 +766,11 @@ export default class Model {
     async getFormat(params: GetFormatParams): Promise<GetFormatResult> {
         const { format } = await this.api.get_format({ id: params.id });
         return { format };
+    }
+
+    async getFieldDefinitions(): Promise<GetFieldDefinitionsResult> {
+        const result = await this.api.get_field_definitions({});
+        return result;
     }
 
     // async getSampleSource(params: GetSampleSourceParams): Promise<GetSampleSourceResult> {

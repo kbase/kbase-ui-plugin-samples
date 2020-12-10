@@ -4,7 +4,11 @@ import sesarData from "./formats/sesar/sesar.json";
 import enigmaData from "./formats/enigma/enigma.json";
 import kbaseData from "./formats/kbase/kbase.json";
 import fieldDefinitions from "./samples/sample-fields.json";
+import categoriesData from "./samples/categories.json";
+
+
 import {
+    FieldCategory,
     FieldDefinition,
     FieldDefinitions,
     FieldGroup,
@@ -15,12 +19,14 @@ import sesarTemplateData from "../../Model/data/templates/sesar/sesar1.json";
 import enigmaTemplateData from "../../Model/data/templates/enigma/enigma1.json";
 
 import fieldGroups from "./samples/sample-field-groups.json";
+
 const fieldGroupsData = fieldGroups as Array<FieldGroup>;
 
 const sesarFormatData = sesarData as Format;
 const enigmaFormatData = enigmaData as Format;
 const kbaseFormatData = kbaseData as Format;
 const fieldDefinitionsData = fieldDefinitions as Array<FieldDefinition>;
+const categories = categoriesData as Array<FieldCategory>;
 
 const fieldDefinitionsMap: FieldDefinitions = fieldDefinitionsData.reduce<
     FieldDefinitions
@@ -356,7 +362,7 @@ export interface GetFormatResult {
 }
 
 export interface GetFieldDefinitionsParams {
-    keys: Array<string>;
+    keys?: Array<string>;
 }
 
 export interface GetFieldDefinitionsResult {
@@ -368,6 +374,22 @@ export interface GetFieldGroupsParams {
 
 export interface GetFieldGroupsResult {
     groups: Array<FieldGroup>;
+}
+
+export interface GetFieldCategoriesParams {
+
+}
+
+export interface GetFieldCategoriesResult {
+    categories: Array<FieldCategory>;
+}
+
+export interface GetFieldCategoryParams {
+    id: string;
+}
+
+export interface GetFieldCategoryResult {
+    category: FieldCategory;
 }
 
 function intersect(arr1: Array<string>, arr2: Array<string>): Array<string> {
@@ -440,16 +462,6 @@ export default class SampleServiceClient extends DynamicServiceClient {
                 return "enigma";
             }
 
-            // console.log(
-            //     "KBASE",
-            //     commonKeys,
-            //     standardKeys,
-            //     ignoreKeys,
-            //     notSesar,
-            //     notEnigma,
-            //     sesarIntersect,
-            //     enigmaIntersect,
-            // );
             return "kbase";
         }
 
@@ -501,6 +513,11 @@ export default class SampleServiceClient extends DynamicServiceClient {
     async get_field_definitions(
         params: GetFieldDefinitionsParams,
     ): Promise<GetFieldDefinitionsResult> {
+        if (!params.keys) {
+            return Promise.resolve({
+                fields: fieldDefinitionsData
+            });
+        }
         const fields = params.keys.map((key) => {
             if (!fieldDefinitionsMap.has(key)) {
                 throw new Error(`Field "${key}" is not defined`);
@@ -508,7 +525,7 @@ export default class SampleServiceClient extends DynamicServiceClient {
             return fieldDefinitionsMap.get(key)!;
         });
         return Promise.resolve({
-            fields,
+            fields
         });
     }
 
@@ -518,6 +535,31 @@ export default class SampleServiceClient extends DynamicServiceClient {
         const groups = fieldGroupsData;
         return Promise.resolve({
             groups,
+        });
+    }
+
+    async get_field_categories(
+        params: GetFieldCategoriesParams,
+    ): Promise<GetFieldCategoriesResult> {
+        return Promise.resolve({
+            categories
+        });
+    }
+
+    async get_field_category(
+        params: GetFieldCategoryParams,
+    ): Promise<GetFieldCategoryResult> {
+        const found = categories.filter((category) => {
+            return (category.id === params.id);
+        });
+        if (found.length === 0) {
+            throw new Error(`Category ${params.id} not found`);
+        }
+        if (found.length > 1) {
+            throw new Error(`Too many ${params.id} categories found`);
+        }
+        return Promise.resolve({
+            category: categories[0]
         });
     }
 

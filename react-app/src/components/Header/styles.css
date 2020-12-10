@@ -1,0 +1,23 @@
+.Header .InfoTable>div>div:nth-child(1) {
+    flex: 0 0 8em;
+}
+
+.Header .InfoTable>div>div:nth-child(2) {
+    /* flex: 0 0 20em;
+    color: gray;
+    font-style: italic; */
+}
+
+.Header-sourceUrl {
+    color: #BBBBFF;
+}
+
+.Header-sourceUrl:hover {
+    color: #BBBBFF;
+    text-decoration: underline;
+}
+
+.Header-sourceUrl:active {
+    color: white;
+    text-decoration: underline;
+}

@@ -161,6 +161,11 @@ export interface FieldUnits {
     takeFromField?: string;
 }
 
+export interface FieldCategory {
+    id: string;
+    description: string;
+}
+
 export interface FieldDefinition {
     id: string;
     label: string;
@@ -170,6 +175,7 @@ export interface FieldDefinition {
     required: boolean;
     type: FieldType;
     units?: FieldUnits;
+    categories?: Array<string>;
 }
 
 export type FieldDefinitions = Map<string, FieldDefinition>;

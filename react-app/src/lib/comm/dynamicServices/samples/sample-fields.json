@@ -121,7 +121,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "average_water_level_ft_amsl",
@@ -241,7 +244,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "classification",
@@ -431,7 +437,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "coordinate_precision?",
@@ -458,7 +467,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "county",
@@ -470,7 +482,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "current_archive",
@@ -727,7 +742,10 @@
                 "m"
             ],
             "canonical": "m"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "elevation",
@@ -739,7 +757,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "elevation_end",
@@ -755,7 +776,10 @@
             ],
             "canonical": "meters",
             "inField": "elevation_unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "elevation_start",
@@ -771,7 +795,10 @@
             ],
             "canonical": "meters",
             "takeFromField": "elevation_unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "elevation_unit",
@@ -783,7 +810,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "env_package",
@@ -831,7 +861,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "field_name_informal_classification",
@@ -1009,7 +1042,10 @@
                 "ft"
             ],
             "canonical": "ft"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "id",
@@ -1069,7 +1105,10 @@
                 "degrees"
             ],
             "canonical": "degrees"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "latitude_start",
@@ -1091,7 +1130,10 @@
                 "degrees"
             ],
             "canonical": "degrees"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "launch_id",
@@ -1139,7 +1181,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "locality_description",
@@ -1151,7 +1196,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "location_description",
@@ -1163,7 +1211,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "longitude",
@@ -1185,7 +1236,10 @@
                 "degrees"
             ],
             "canonical": "degrees"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "longitude_start",
@@ -1207,7 +1261,10 @@
                 "degrees"
             ],
             "canonical": "degrees"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "lower_seal_end_depth_ft_bgs",
@@ -1359,7 +1416,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "navigation_type",
@@ -1371,7 +1431,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "ncbi:taxonomy_name",
@@ -1524,7 +1587,10 @@
                 "m"
             ],
             "canonical": "m"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "open",
@@ -1890,7 +1956,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "purpose",
@@ -1943,7 +2012,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "related_identifiers",
@@ -2188,7 +2260,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "sub-object_type",
@@ -2614,7 +2689,10 @@
                 "degrees"
             ],
             "canonical": "degrees"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "longitude_end",
@@ -2636,7 +2714,10 @@
                 "degrees"
             ],
             "canonical": "degrees"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "launch_type",
@@ -2739,7 +2820,10 @@
         },
         "units": {
             "canonical": "unit"
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "cur_registrant_name",
@@ -2823,7 +2907,10 @@
             "type": "string",
             "storageType": "string",
             "constraints": {}
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     },
     {
         "id": "primary_location_name",
@@ -2832,6 +2919,9 @@
             "type": "string",
             "storageType": "string",
             "constraints": {}
-        }
+        },
+        "categories": [
+            "geolocation"
+        ]
     }
 ]

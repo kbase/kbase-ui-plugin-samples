@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import SampleServiceClient, {
-    SampleId, Username
+    Username
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -10,13 +10,13 @@ import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 import UserProfileClient, { UserProfile } from '../../lib/comm/coreServices/UserProfileClient';
-import { ACL } from '../Main/types';
+import { ACL, Sample } from '../Main/types';
 
 export interface DataProps {
     serviceWizardURL: string;
     userProfileURL: string;
     token: string;
-    sampleId: SampleId;
+    sample: Sample;
     baseURL: string;
     sampleServiceConfig: DynamicServiceConfig;
 }
@@ -49,7 +49,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             });
 
             const aclResult = await client.get_sample_acls({
-                id: this.props.sampleId,
+                id: this.props.sample.id,
                 as_admin: 0
             });
 
@@ -68,6 +68,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             }, {});
 
             const acl: ACL = {
+
                 admin: aclResult.admin.map((username) => {
                     const profile = profileMap[username];
                     return {
@@ -132,7 +133,7 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(acl: ACL) {
-        return <Component acl={acl} />;
+        return <Component acl={acl} owner={this.props.sample.created.by} />;
     }
 
     render() {
