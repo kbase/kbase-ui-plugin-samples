@@ -36,8 +36,8 @@ export default class DataLinks extends React.Component<AccessListProps, AccessLi
                 <div className="Col -stretch" style={{ marginRight: '10px' }}>
                     <Section title="Owner">
                         <div className="Col -stretch -autoscroll">
-                            <UserCard user={this.props.owner} key="owner" />;
-                    </div>
+                            <UserCard user={this.props.owner} key="owner" />
+                        </div>
                     </Section>
                 </div>
                 <div className="Col -stretch" style={{ marginRight: '10px' }}>
