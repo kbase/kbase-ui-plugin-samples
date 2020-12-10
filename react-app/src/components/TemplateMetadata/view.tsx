@@ -6,6 +6,7 @@ import { NoData } from '../NoData';
 import { FieldValueString } from '../../lib/comm/dynamicServices/samples/Samples';
 import { MetadataField } from '../../lib/Model';
 import MetadataFieldView from '../MetadataField';
+import { Section } from '../Section';
 
 export interface TemplateMetadataProps {
     sample: Sample;
@@ -84,11 +85,12 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                     </div>
                 </div>
             </div>
-            
+
         </div>;
     }
 
     renderTemplate() {
+        console.log('omit empty?', this.state.omitEmpty);
         const dataSource: Array<TemplateDataSource2> = this.props.template.fields
             .filter((templateField) => {
                 if (templateField.type === 'metadata') {
@@ -253,7 +255,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 key="field"
                 title="Value"
                 render={(field: MetadataField, row: TemplateDataSource2) => {
-                    return <MetadataFieldView field={field} />
+                    return <MetadataFieldView field={field} />;
                 }}
             />
         </Table>;
@@ -287,7 +289,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
             }
         })();
         return <div className="Metadata-toolbar">
-            <Button onClick={this.onToggleHideEmpty.bind(this)}>{label}</Button>
+            <Button onClick={this.onToggleHideEmpty.bind(this)} type="text" size="small">{label}</Button>
         </div>;
     }
 
@@ -299,12 +301,9 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
             </div>
         */
         return <div className="Col -stretch">
-            <div className="Col" style={{ flex: '0 0 auto' }}>
-                {this.renderToolbar()}
-            </div>
-            <div className="Col -stretch">
+            <Section title="Sample" renderToolbar={this.renderToolbar.bind(this)}>
                 {this.renderTemplate()}
-            </div>
+            </Section>
         </div>;
     }
 }

@@ -4,9 +4,11 @@ import UserCard from '../UserCard/view';
 import { ACL, User } from '../Main/types';
 
 import './style.css';
+import { Section } from '../Section';
 
 export interface AccessListProps {
     acl: ACL;
+    owner: User;
 }
 
 interface AccessListState {
@@ -32,22 +34,33 @@ export default class DataLinks extends React.Component<AccessListProps, AccessLi
         return <div className="AccessList" data-testid="accesslist">
             <div className="Row -stretch">
                 <div className="Col -stretch" style={{ marginRight: '10px' }}>
-                    <h3>Admin Access</h3>
-                    <div className="Col -stretch -autoscroll">
-                        {this.renderACL(this.props.acl.admin)}
+                    <Section title="Owner">
+                        <div className="Col -stretch -autoscroll">
+                            <UserCard user={this.props.owner} key="owner" />;
                     </div>
+                    </Section>
+                </div>
+                <div className="Col -stretch" style={{ marginRight: '10px' }}>
+                    <Section title="Admin Access">
+                        <div className="Col -stretch -autoscroll">
+                            {this.renderACL(this.props.acl.admin)}
+                        </div>
+                    </Section>
                 </div>
                 <div className="Col -stretch" style={{ marginLeft: '5px', marginRight: '5px' }}>
-                    <h3>Write Access</h3>
-                    <div className="Col -stretch -autoscroll">
-                        {this.renderACL(this.props.acl.write)}
-                    </div>
+                    <Section title="Write Access">
+                        <div className="Col -stretch -autoscroll">
+                            {this.renderACL(this.props.acl.write)}
+                        </div>
+                    </Section>
                 </div>
                 <div className="Col -stretch" style={{ marginLeft: '10px' }}>
-                    <h3>Read-Only Access</h3>
-                    <div className="Col -stretch -autoscroll">
-                        {this.renderACL(this.props.acl.read)}
-                    </div>
+
+                    <Section title="Read-Only Access">
+                        <div className="Col -stretch -autoscroll">
+                            {this.renderACL(this.props.acl.read)}
+                        </div>
+                    </Section>
                 </div>
             </div>
         </div>;
