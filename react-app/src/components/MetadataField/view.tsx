@@ -66,7 +66,7 @@ export default class MetadataFieldView extends React.Component<MetadataFieldView
         }
         // TODO: add timestamp to url
         const url = `/#ontology/term/${field.constraints.ontologyNamespace}/${field.value}/${this.props.sample.created.at}`;
-        return <a href={url}>{field.value}</a>;
+        return <a href={url} target="_parent">{field.value}</a>;
     }
     renderField(metadataField: MetadataField) {
 
