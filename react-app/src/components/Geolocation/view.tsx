@@ -108,7 +108,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             .map((field) => {
                 return <div key={field.key}>
                     <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
-                    <div><MetadataField field={field} /></div>
+                    <div><MetadataField field={field} sample={this.props.sample} /></div>
                 </div>;
             });
 

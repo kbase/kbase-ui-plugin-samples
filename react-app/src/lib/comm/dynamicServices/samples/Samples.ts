@@ -87,8 +87,8 @@ export interface FieldTypeOntologyTerm extends FieldTypeBase {
     type: "OntologyTerm";
     storageType: "string";
     constraints: {
-        ancestor_term: string;
-        ontology_namespace: string;
+        ancestorTerm: string;
+        ontologyNamespace: string;
     };
 }
 

@@ -107,7 +107,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                 // <div><MetadataField value={field.value} fieldKey={field.key} unit={field.units} fields={this.props.sample.metadata} /></div>
                 return <div key={field.key}>
                     <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
-                    <div><MetadataField field={field} /></div>
+                    <div><MetadataField field={field} sample={this.props.sample} /></div>
                 </div>;
 
             })
@@ -161,7 +161,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
                 .map((field) => {
                     return <div key={field.key}>
                         <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
-                        <div><MetadataField field={field} /></div>
+                        <div><MetadataField field={field} sample={sample} /></div>
                     </div>;
 
                 });
@@ -219,7 +219,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
         </div>;
     }
 
-    
+
 
     render() {
         return <div className="Metadata" data-testid="metadataviewer" >
@@ -227,7 +227,7 @@ export default class MetadataViewer extends React.Component<MetadataViewerProps,
             <div className="Metadata-body">
                 <div className="Metadata-content-wrapper">
                     {this.renderGrouped()}
-                    </div>
+                </div>
             </div>
         </div>;
     }

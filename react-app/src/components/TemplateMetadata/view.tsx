@@ -255,7 +255,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 key="field"
                 title="Value"
                 render={(field: MetadataField, row: TemplateDataSource2) => {
-                    return <MetadataFieldView field={field} />;
+                    return <MetadataFieldView field={field} sample={this.props.sample} />;
                 }}
             />
         </Table>;

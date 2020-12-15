@@ -6,9 +6,12 @@ import {
 } from '../../lib/comm/dynamicServices/samples/Samples';
 import { MetadataField } from '../../lib/Model';
 import { NoData } from '../NoData';
+import { Sample } from '../Main/types';
+
 
 export interface MetadataFieldViewProps {
     field: MetadataField;
+    sample: Sample;
 }
 
 interface MetadataFieldViewState {
@@ -20,7 +23,7 @@ export default class MetadataFieldView extends React.Component<MetadataFieldView
         if (field.value === null) {
             return <NoData />;
         }
-        return <span>{field.value}</span>
+        return <span>{field.value}</span>;
     }
 
     renderNumberField(field: FieldValueNumber) {
@@ -33,8 +36,8 @@ export default class MetadataFieldView extends React.Component<MetadataFieldView
             maximumFractionDigits: field.format?.maximumFractionDigits
         }).format(field.value);
         const title = <span>
-        raw value: {String(field.value)}
-        </span>
+            raw value: {String(field.value)}
+        </span>;
         return <Tooltip title={title}><span>{content}</span>
         </Tooltip>;
     }
@@ -43,43 +46,45 @@ export default class MetadataFieldView extends React.Component<MetadataFieldView
         if (field.value === null) {
             return <NoData />;
         }
-        return <span>{field.value}</span>
+        return <span>{field.value}</span>;
     }
     renderDateField(field: FieldValueDate) {
         if (field.value === null) {
             return <NoData />;
         }
-        return <span>{field.value}</span>
+        return <span>{field.value}</span>;
     }
     renderStringEnumField(field: FieldValueStringEnum) {
         if (field.value === null) {
             return <NoData />;
         }
-        return <span>{field.value}</span>
+        return <span>{field.value}</span>;
     }
     renderOntologyTermField(field: FieldValueOntologyTerm) {
         if (field.value === null) {
             return <NoData />;
         }
-        return <span>{field.value}</span>
+        // TODO: add timestamp to url
+        const url = `/#ontology/term/${field.constraints.ontologyNamespace}/${field.value}/${this.props.sample.created.at}`;
+        return <a href={url}>{field.value}</a>;
     }
     renderField(metadataField: MetadataField) {
-       
+
         const field = metadataField.field;
-        
+
         switch (field.type) {
             case 'string':
                 return this.renderStringField(field);
-                case 'number':
+            case 'number':
                 return this.renderNumberField(field);
-                case 'boolean':
+            case 'boolean':
                 return this.renderBooleanField(field);
-                case 'date':
+            case 'date':
                 return this.renderDateField(field);
-                case 'Enum<string>':
+            case 'Enum<string>':
                 return this.renderStringEnumField(field);
-                case 'OntologyTerm':
-                    return this.renderOntologyTermField(field);
+            case 'OntologyTerm':
+                return this.renderOntologyTermField(field);
         }
         // return <span>
         //     {field.value}
