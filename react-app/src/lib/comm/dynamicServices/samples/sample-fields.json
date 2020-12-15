@@ -6,8 +6,8 @@
             "type": "OntologyTerm",
             "storageType": "string",
             "constraints": {
-                "ancestor_term": "ENVO:00010483",
-                "ontology_namespace": "envo_ontology"
+                "ancestorTerm": "ENVO:00010483",
+                "ontologyNamespace": "envo_ontology"
             }
         },
         "units": {
@@ -162,9 +162,12 @@
         "id": "biome",
         "label": "Biome",
         "type": {
-            "type": "string",
+            "type": "OntologyTerm",
             "storageType": "string",
-            "constraints": {}
+            "constraints": {
+                "ontologyNamespace": "envo_ontology",
+                "ancestorTerm": "biomeENVO:00000428"
+            }
         },
         "units": {
             "canonical": "unit"
