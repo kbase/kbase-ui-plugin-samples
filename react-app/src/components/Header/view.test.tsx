@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from './view';
 import { render, waitFor } from '@testing-library/react';
 import { Sample } from '../Main/types';

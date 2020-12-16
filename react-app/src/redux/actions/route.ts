@@ -1,6 +1,4 @@
-import { Action } from "redux";
-import { Nav } from "../store/navigation";
-import { SampleId } from "../../lib/comm/dynamicServices/SampleServiceClient";
+import { SampleId } from "../../lib/comm/dynamicServices/Sample";
 // import { Params } from "@kbase/ui-components/lib/redux/integration/store";
 
 export enum ViewType {

@@ -8,11 +8,6 @@ import SampleServiceClient, {
     GetSampleACLsParams,
     GetSampleACLsResult,
     GetSampleParams,
-    MetadataValue,
-    Sample as RawSample,
-    SampleId,
-    SampleNodeType,
-    SampleVersion,
 } from "../comm/dynamicServices/SampleServiceClient";
 
 import sesarTemplateData from "./data/templates/sesar/sesar1.json";
@@ -26,6 +21,7 @@ import {
     FieldValue,
     Format,
 } from "../comm/dynamicServices/samples/Samples";
+import { MetadataValue, SampleId, SampleNodeType, SampleVersion, Sample as RawSample } from "../comm/dynamicServices/Sample";
 
 // Deal with source definitions.
 

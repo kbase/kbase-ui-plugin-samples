@@ -2,7 +2,7 @@ import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import {
     SampleId, SampleVersion, Username
-} from '../../lib/comm/dynamicServices/SampleServiceClient';
+} from '../../lib/comm/dynamicServices/Sample';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';

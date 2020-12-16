@@ -1,5 +1,4 @@
-import React from 'react';
-import { render, waitFor, findByRole, within } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import UserCard, { UserCardProps } from './view';
 import viewTestData from './view.test.data.json';

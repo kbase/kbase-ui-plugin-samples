@@ -1,7 +1,6 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import SampleServiceClient, {
-    Username
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -11,6 +10,7 @@ import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 import UserProfileClient, { UserProfile } from '../../lib/comm/coreServices/UserProfileClient';
 import { ACL, Sample } from '../Main/types';
+import { Username } from '../../lib/comm/dynamicServices/Sample';
 
 export interface DataProps {
     serviceWizardURL: string;

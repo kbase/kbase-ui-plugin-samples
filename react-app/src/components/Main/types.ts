@@ -1,9 +1,8 @@
-import { FieldDefinitions } from "../../lib/comm/dynamicServices/samples/Samples";
 import {
     EpochTimeMS,
     SampleId,
     Username,
-} from "../../lib/comm/dynamicServices/SampleServiceClient";
+} from "../../lib/comm/dynamicServices/Sample";
 import { Metadata, UserMetadata } from "../../lib/Model";
 
 // export interface MetadataField {
