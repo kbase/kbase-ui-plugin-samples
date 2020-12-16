@@ -19,6 +19,11 @@ import sesarTemplateData from "../../Model/data/templates/sesar/sesar1.json";
 import enigmaTemplateData from "../../Model/data/templates/enigma/enigma1.json";
 
 import fieldGroups from "./samples/sample-field-groups.json";
+import { SDKBoolean } from "../JSONRPC11/types";
+import {
+    Sample, EpochTimeMS, Username, SampleId, SampleVersion,
+    WSUPA, SampleNodeId
+} from "./Sample";
 
 const fieldGroupsData = fieldGroups as Array<FieldGroup>;
 
@@ -43,69 +48,7 @@ export interface StatusResult {
     git_commit_hash: string;
 }
 
-export type SDKBoolean = 0 | 1;
 
-export type SampleNodeId = string;
-
-export type SampleId = string;
-
-export type SampleVersion = number;
-
-export type Username = string;
-
-export type EpochTimeMS = number;
-
-export type SampleNodeType = "BioReplicate" | "TechReplicate" | "SubSample";
-
-export type WSUPA = string;
-export type WorkspaceUniquePermanentAddress = WSUPA;
-
-// export interface UserMetadata {
-//     [k: string]: MetadataValue;
-// }
-
-export interface MetadataValue {
-    value: string | number | boolean;
-    units: string;
-}
-
-// TODO: interfaces for specific controlled metadata.
-// may not be practical, but consider it.
-// export interface ControlledMetadata {
-//     [k: string]: MetadataValue;
-// }
-
-export type MetadataSource = Array<MetadataSourceField>;
-
-export interface MetadataSourceField {
-    key: string;
-    skey: string;
-    svalue: {
-        value: string;
-    };
-}
-
-export interface SampleNode {
-    id: SampleNodeId;
-    parent: SampleNodeId | null;
-    type: SampleNodeType;
-    meta_controlled: Metadata;
-    meta_user: Metadata;
-    source_meta: MetadataSource;
-}
-
-export interface Sample {
-    id: SampleId;
-    user: Username;
-    node_tree: Array<SampleNode>;
-    name: string;
-    save_date: EpochTimeMS;
-    version: SampleVersion;
-    // TODO: these fields don't yet exist upstream.
-    format_id: string;
-    format_version: number;
-    sample_set_ref: string;
-}
 
 /* Types for the get_sample method*/
 export interface GetSampleParams {
@@ -151,9 +94,6 @@ export interface GetMetadataKeyStaticMetadataParams {
 
 // export type MetadataValue = int | float | string;
 
-export interface Metadata {
-    [key: string]: MetadataValue;
-}
 
 export interface StaticMetadataValue {
     display_name: string;
