@@ -1,4 +1,3 @@
-// import { render, waitFor } from '@testing-library/react';
 import PubSub, { Message, PubSubProxy } from './PubSub';
 
 const TIMEOUT = 10000;
@@ -15,103 +14,116 @@ afterEach(() => {
     }
 });
 
-test('listen for and receive a simple message', async (done) => {
-    const pubsub = new PubSub();
+test('listen for and receive a simple message', async () => {
+    return new Promise((resolve) => {
 
-    pubsub.on('test', (message: Message) => {
-        expect(message).toEqual({ it: 'works' });
-        done();
+        const pubsub = new PubSub();
+
+        pubsub.on('test', (message: Message) => {
+            expect(message).toEqual({ it: 'works' });
+            resolve(null);
+        });
+
+        pubsub.send('test', { it: 'works' });
     });
-
-    pubsub.send('test', { it: 'works' });
 });
 
 
-test('listen for and receive multiple simple messages', async (done) => {
-    const pubsub = new PubSub();
+test('listen for and receive multiple simple messages', async () => {
+    return new Promise((resolve) => {
+        const pubsub = new PubSub();
 
-    let messageReceivedCount = 0;
+        let messageReceivedCount = 0;
 
-    pubsub.on('test', (message: Message) => {
-        expect(message).toEqual({ it: 'works' });
-        messageReceivedCount += 1;
+        pubsub.on('test', (message: Message) => {
+            expect(message).toEqual({ it: 'works' });
+            messageReceivedCount += 1;
+        });
+
+        window.setTimeout(() => {
+            expect(messageReceivedCount).toEqual(3);
+            resolve(null);
+        }, 1000);
+
+        pubsub.send('test', { it: 'works' });
+        pubsub.send('test', { it: 'works' });
+        pubsub.send('test', { it: 'works' });
     });
-
-    window.setTimeout(() => {
-        expect(messageReceivedCount).toEqual(3);
-        done();
-    }, 1000);
-
-    pubsub.send('test', { it: 'works' });
-    pubsub.send('test', { it: 'works' });
-    pubsub.send('test', { it: 'works' });
 });
 
 
-test('send non-existent message', async (done) => {
-    const pubsub = new PubSub();
+test('send non-existent message', async () => {
+    return new Promise((resolve) => {
+        const pubsub = new PubSub();
 
-    let shouldNotBeSet: null | boolean = null;
+        let shouldNotBeSet: null | boolean = null;
 
-    pubsub.on('test', (message: Message) => {
-        // expect(message).toEqual({ it: 'does nothing' });
-        // done();
-        shouldNotBeSet = true;
+        pubsub.on('test', (message: Message) => {
+            // expect(message).toEqual({ it: 'does nothing' });
+            // done();
+            shouldNotBeSet = true;
+        });
+
+        pubsub.send('test2', { it: 'does nothing' });
+
+        window.setTimeout(() => {
+            expect(shouldNotBeSet).toBeNull();
+            resolve(null);
+        }, 1000);
     });
-
-    pubsub.send('test2', { it: 'does nothing' });
-
-    window.setTimeout(() => {
-        expect(shouldNotBeSet).toBeNull();
-        done();
-    }, 1000);
 });
 
-test('receive an error which generates an error ', async (done) => {
-    const pubsub = new PubSub();
+test('receive an error which generates an error ', async () => {
+    return new Promise((resolve) => {
+        const pubsub = new PubSub();
 
-    pubsub.on('test', (message: Message) => {
-        throw new Error('an error');
-    }, (err: Error) => {
-        expect(err.message).toEqual('an error');
-        done();
+        pubsub.on('test', (message: Message) => {
+            throw new Error('an error');
+        }, (err: Error) => {
+            expect(err.message).toEqual('an error');
+            resolve(null);
+        });
+
+        pubsub.send('test', { it: 'generates error!' });
     });
-
-    pubsub.send('test', { it: 'generates error!' });
 });
 
-test('receive an error which generates an error ', async (done) => {
-    const pubsub = new PubSub();
+test('receive an error which generates an error ', async () => {
+    return new Promise((resolve) => {
+        const pubsub = new PubSub();
 
-    pubsub.on('test', (message: Message) => {
-        throw new Error('an error');
+        pubsub.on('test', (message: Message) => {
+            throw new Error('an error');
+        });
+
+        pubsub.send('test', { it: 'generates error!' });
+
+        window.setTimeout(() => {
+            expect(console.error).toHaveBeenCalled();
+            expect(spy.mock.calls[0][0]).toContain('ERROR not handled: an error');
+            resolve(null);
+        }, 1000);
     });
-
-    pubsub.send('test', { it: 'generates error!' });
-
-    window.setTimeout(() => {
-        expect(console.error).toHaveBeenCalled();
-        expect(spy.mock.calls[0][0]).toContain('ERROR not handled: an error');
-        done();
-    }, 1000);
 });
 
-test('receive an error which generates an error in the error handler! ', async (done) => {
-    const pubsub = new PubSub();
+test('receive an error which generates an error in the error handler! ', async () => {
+    return new Promise((resolve) => {
+        const pubsub = new PubSub();
 
-    pubsub.on('test', (message: Message) => {
-        throw new Error('an error');
-    }, (err: Error) => {
-        throw new Error('another error!');
+        pubsub.on('test', (message: Message) => {
+            throw new Error('an error');
+        }, (err: Error) => {
+            throw new Error('another error!');
+        });
+
+        window.setTimeout(() => {
+            expect(console.error).toHaveBeenCalled();
+            expect(spy.mock.calls[0][0]).toEqual('ERROR in error handler: another error!');
+            resolve(null);
+        }, 1000);
+
+        pubsub.send('test', { it: 'generates error!' });
     });
-
-    window.setTimeout(() => {
-        expect(console.error).toHaveBeenCalled();
-        expect(spy.mock.calls[0][0]).toEqual('ERROR in error handler: another error!');
-        done();
-    }, 1000);
-
-    pubsub.send('test', { it: 'generates error!' });
 });
 
 
@@ -127,7 +139,7 @@ test('send a message, receive, off it, send again, does nothing', async () => {
         pubsub.send('test', { it: 'works' });
         window.setTimeout(() => {
             expect(temp).toEqual('works');
-            resolve();
+            resolve(null);
         }, 1000);
     })
         .then(() => {
@@ -137,7 +149,7 @@ test('send a message, receive, off it, send again, does nothing', async () => {
             return new Promise((resolve) => {
                 window.setTimeout(() => {
                     expect(temp).toBeNull();
-                    resolve();
+                    resolve(null);
                 }, 1000);
             });
         });
@@ -155,7 +167,7 @@ test('send a message, receive, wrong off it, send again, still works', async () 
         pubsub.send('test', { it: 'works' });
         window.setTimeout(() => {
             expect(temp).toEqual('works');
-            resolve();
+            resolve(null);
         }, 1000);
     })
         .then(() => {
@@ -165,22 +177,24 @@ test('send a message, receive, wrong off it, send again, still works', async () 
             return new Promise((resolve) => {
                 window.setTimeout(() => {
                     expect(temp).toEqual('works');
-                    resolve();
+                    resolve(null);
                 }, 1000);
             });
         });
 });
 
-test('send and receive via the proxy', (done) => {
-    const pubsub = new PubSub();
-    const proxy = new PubSubProxy(pubsub);
+test('send and receive via the proxy', () => {
+    return new Promise((resolve) => {
+        const pubsub = new PubSub();
+        const proxy = new PubSubProxy(pubsub);
 
-    proxy.on('test', (message: Message) => {
-        expect(message).toEqual({ it: 'works' });
-        done();
+        proxy.on('test', (message: Message) => {
+            expect(message).toEqual({ it: 'works' });
+            resolve(null);
+        });
+
+        pubsub.send('test', { it: 'works' });
     });
-
-    pubsub.send('test', { it: 'works' });
 });
 
 function doTimes(times: number, doit: (time: number) => void) {
@@ -212,7 +226,7 @@ test('create and remove several listeners', async () => {
             doTimes(10, (i) => {
                 expect(temp[i]).toEqual(`works ${i}`);
             });
-            resolve();
+            resolve(null);
         }, 1000);
     })
         .then(() => {
@@ -226,7 +240,7 @@ test('create and remove several listeners', async () => {
                     doTimes(10, (i) => {
                         expect(temp[i]).toBeNull();
                     });
-                    resolve();
+                    resolve(null);
                 }, 1000);
             });
         });

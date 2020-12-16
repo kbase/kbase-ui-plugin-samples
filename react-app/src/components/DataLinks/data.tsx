@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import SampleServiceClient, {
-    SampleId, SampleVersion, DataLink
+    DataLink
 } from '../../lib/comm/dynamicServices/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
@@ -10,6 +10,7 @@ import { Alert } from 'antd';
 import { WorkspaceClient, ObjectInfo } from '../../lib/comm/coreServices/Workspace';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
+import { SampleId, SampleVersion } from '../../lib/comm/dynamicServices/Sample';
 
 export interface DataLink2 extends DataLink {
     key: string;

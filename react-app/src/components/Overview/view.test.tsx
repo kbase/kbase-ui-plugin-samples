@@ -1,4 +1,3 @@
-import React from 'react';
 import Overview from './view';
 import { render, waitFor } from '@testing-library/react';
 import { Sample } from '../Main/types';
@@ -32,9 +31,9 @@ test('should render', async () => {
                 description: 'some group',
                 label: 'some group',
                 fields: [
-                     'field1', 'field2', 'field3'
-                 ]
-                }
+                    'field1', 'field2', 'field3'
+                ]
+            }
             ]
         },
         fields: [
@@ -64,7 +63,7 @@ test('should render', async () => {
         //     }
         // }
 
-    }
+    };
     const sample: Sample = {
         id: 'xyz',
         formatId: format.id,
