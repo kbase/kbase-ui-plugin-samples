@@ -3,7 +3,7 @@ import React from 'react';
 import {
     FieldValueBoolean, FieldValueDate, FieldValueNumber,
     FieldValueOntologyTerm, FieldValueString, FieldValueStringEnum
-} from '../../lib/comm/dynamicServices/samples/Samples';
+} from 'lib/client/samples/Samples';
 import { MetadataField } from '../../lib/Model';
 import { NoData } from '../NoData';
 import { Sample } from '../Main/types';
@@ -66,7 +66,7 @@ export default class MetadataFieldView extends React.Component<MetadataFieldView
         }
         // TODO: add timestamp to url
         const url = `/#ontology/term/${field.constraints.ontologyNamespace}/${field.value}/${this.props.sample.created.at}`;
-        return <a href={url} target="_blank">{field.value}</a>;
+        return <a href={url} target="_blank" rel="noreferrer">{field.value}</a>;
     }
     renderField(metadataField: MetadataField) {
 

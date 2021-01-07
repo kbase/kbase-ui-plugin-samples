@@ -1,7 +1,7 @@
 import Overview from './view';
 import { render, waitFor } from '@testing-library/react';
 import { Sample } from '../Main/types';
-import { Format } from '../../lib/comm/dynamicServices/samples/Samples';
+import { Format } from 'lib/client/samples/Samples';
 
 const TIMEOUT = 10000;
 

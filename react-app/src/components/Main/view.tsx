@@ -8,7 +8,7 @@ import Overview from '../Overview/view';
 import TemplateMetadata from '../TemplateMetadata/view';
 import { Sample, Template } from './types';
 import AccessList from '../AccessList';
-import { FieldGroup, Format } from '../../lib/comm/dynamicServices/samples/Samples';
+import { FieldGroup, Format } from 'lib/client/samples/Samples';
 import GeolocationViewer from '../Geolocation/view';
 import { FieldDefinitionsMap } from './data';
 import Header from '../Header/view';

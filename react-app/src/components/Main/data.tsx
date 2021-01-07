@@ -2,16 +2,16 @@ import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import {
     SampleId, SampleVersion, Username
-} from '../../lib/comm/dynamicServices/Sample';
+} from 'lib/client/Sample';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
-import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
+import UserProfileClient from 'lib/comm/coreServices/UserProfileClient';
 import { Sample, User, Template } from './types';
 import Model from '../../lib/Model';
-import { FieldDefinition, FieldGroup, Format } from '../../lib/comm/dynamicServices/samples/Samples';
+import { FieldDefinition, FieldGroup, Format } from 'lib/client/samples/Samples';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -48,7 +48,7 @@ export default class Data extends React.Component<DataProps, DataState> {
 
     async fetchUsers(usernames: Array<Username>) {
         const userProfileClient = new UserProfileClient({
-            authorization: this.props.token,
+            token: this.props.token,
             url: this.props.userProfileURL,
             timeout: UPSTREAM_TIMEOUT,
         });

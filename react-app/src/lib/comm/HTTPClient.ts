@@ -2,13 +2,6 @@ import { HTTPQuery, QueryMap } from './HTTPUtils';
 
 const DEFAULT_TIMEOUT = 10000;
 
-// import * as Bluebird from 'bluebird';
-
-// Bluebird.config({
-//     cancellation: true
-// });
-
-
 export type HTTPHeaderFields = { [key: string]: string; };
 
 interface ContentType {
@@ -104,12 +97,6 @@ export class HTTPHeader {
     }
 }
 
-// interface HttpHeaderField {
-//     name: string;
-//     value: string;
-// }
-
-
 export class TimeoutError extends Error {
     timeout: number;
     elapsed: number;
@@ -169,10 +156,10 @@ export class AbortError extends Error {
 export interface RequestOptions {
     url: string,
     method: string,
+    responseType: XMLHttpRequestResponseType,
     query?: QueryMap,
     timeout: number,
     header?: HTTPHeader,
-    responseType?: string,
     withCredentials?: boolean,
     data?: null | string | Array<number>;
     onCancel?: (callback: () => void) => void;
@@ -180,10 +167,9 @@ export interface RequestOptions {
 
 export type ResponseType = string;
 
-
 export interface Response<T extends ResponseType> {
     status: number,
-    response: ResponseType,
+    response: T,
     responseType: XMLHttpRequestResponseType,
     header: HTTPHeader;
 }
@@ -202,8 +188,8 @@ export default class HTTPClient {
     constructor(options?: HTTPClientOptions) {
         this.options = options;
     }
-    async request<T extends ResponseType>(options: RequestOptions): Promise<Response<T>> {
-        let startTime = new Date().getTime();
+    async request<T extends ResponseType>(options: RequestOptions): Promise<StringResponse> {
+        const startTime = new Date().getTime();
         const timeout = options.timeout || this.options?.timeout || DEFAULT_TIMEOUT;
         return new Promise((resolve, reject) => {
             const xhr: XMLHttpRequest = new XMLHttpRequest();
@@ -220,9 +206,7 @@ export default class HTTPClient {
                         return;
                     default:
                         throw new Error(`Unsupported response type ${xhr.responseType}`);
-
                 }
-
             };
             xhr.ontimeout = () => {
                 var elapsed = (new Date().getTime()) - startTime;

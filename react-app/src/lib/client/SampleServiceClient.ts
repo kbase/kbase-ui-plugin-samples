@@ -1,12 +1,8 @@
-import { DynamicServiceClient } from "../JSONRPC11x/DynamicServiceClient";
-
 import sesarData from "./formats/sesar/sesar.json";
 import enigmaData from "./formats/enigma/enigma.json";
 import kbaseData from "./formats/kbase/kbase.json";
 import fieldDefinitions from "./samples/sample-fields.json";
 import categoriesData from "./samples/categories.json";
-
-
 import {
     FieldCategory,
     FieldDefinition,
@@ -15,15 +11,18 @@ import {
     Format,
 } from "./samples/Samples";
 
-import sesarTemplateData from "../../Model/data/templates/sesar/sesar1.json";
-import enigmaTemplateData from "../../Model/data/templates/enigma/enigma1.json";
+import sesarTemplateData from "lib/Model/data/templates/sesar/sesar1.json";
+import enigmaTemplateData from "lib/Model/data/templates/enigma/enigma1.json";
 
 import fieldGroups from "./samples/sample-field-groups.json";
-import { SDKBoolean } from "../JSONRPC11/types";
+// import { SDKBoolean } from "../JSONRPC11/types";
 import {
     Sample, EpochTimeMS, Username, SampleId, SampleVersion,
-    WSUPA, SampleNodeId
+    WSUPA, SampleNodeId, SDKBoolean
 } from "./Sample";
+import { DynamicServiceClient } from "lib/comm/JSONRPC11/DynamicServiceClient";
+import { JSONObject, objectToJSONObject } from "lib/json";
+
 
 const fieldGroupsData = fieldGroups as Array<FieldGroup>;
 
@@ -40,15 +39,13 @@ const fieldDefinitionsMap: FieldDefinitions = fieldDefinitionsData.reduce<
     return defMap;
 }, new Map());
 
-export interface StatusResult {
+export interface StatusResult extends JSONObject {
     state: string;
     message: string;
     version: string;
     git_url: string;
     git_commit_hash: string;
 }
-
-
 
 /* Types for the get_sample method*/
 export interface GetSampleParams {
@@ -87,7 +84,7 @@ export interface GetDataLinksFromSampleResult {
 
 export type KeyPrefix = 0 | 1 | 2;
 
-export interface GetMetadataKeyStaticMetadataParams {
+export interface GetMetadataKeyStaticMetadataParams extends JSONObject {
     keys: Array<string>;
     prefix: KeyPrefix;
 }
@@ -108,12 +105,12 @@ export interface GetMetadataKeyStaticMetadataResult {
     static_metadata: StaticMetadata;
 }
 
-export interface GetSampleACLsParams {
+export interface GetSampleACLsParams extends JSONObject {
     id: SampleId;
     as_admin: SDKBoolean;
 }
 
-export interface SampleACLs {
+export interface SampleACLs extends JSONObject {
     owner: Username;
     admin: Array<Username>;
     write: Array<Username>;
@@ -339,7 +336,7 @@ function intersect(arr1: Array<string>, arr2: Array<string>): Array<string> {
 }
 
 export default class SampleServiceClient extends DynamicServiceClient {
-    static module: string = "SampleService";
+    module: string = "SampleService";
 
     async status(): Promise<StatusResult> {
         const [result] = await this.callFunc<[], [StatusResult]>("status", []);
@@ -347,10 +344,12 @@ export default class SampleServiceClient extends DynamicServiceClient {
     }
 
     async get_sample(params: GetSampleParams): Promise<GetSampleResult> {
-        const [result] = await this.callFunc<[GetSampleParams], [GetSampleResult]>(
+        // TODO: revive the effort to provide result verification and type coercion.
+        const [result] = (await this.callFunc<[JSONObject], [JSONObject]>(
             "get_sample",
-            [params],
-        );
+            [objectToJSONObject(params)],
+        ) as unknown) as Array<GetSampleResult>;
+
 
         // FAKE: this will actually be provided by upstream, if the design goes through.
 
@@ -429,10 +428,10 @@ export default class SampleServiceClient extends DynamicServiceClient {
         params: GetDataLinksFromSampleParams,
     ): Promise<GetDataLinksFromSampleResult> {
         const [result] = await this.callFunc<
-            [GetDataLinksFromSampleParams],
-            [GetDataLinksFromSampleResult]
-        >("get_data_links_from_sample", [params]);
-        return result;
+            [JSONObject],
+            [JSONObject]
+        >("get_data_links_from_sample", [objectToJSONObject(params)]);
+        return (result as unknown) as GetDataLinksFromSampleResult;
     }
 
     async get_metadata_key_static_metadata(
@@ -440,9 +439,9 @@ export default class SampleServiceClient extends DynamicServiceClient {
     ): Promise<GetMetadataKeyStaticMetadataResult> {
         const [result] = await this.callFunc<
             [GetMetadataKeyStaticMetadataParams],
-            [GetMetadataKeyStaticMetadataResult]
+            [JSONObject]
         >("get_metadata_key_static_metadata", [params]);
-        return result;
+        return (result as unknown) as GetMetadataKeyStaticMetadataResult;
     }
 
     // async get_field_definitions(params: GetFieldDefinitionsParams): Promise<GetFieldDefinitionsResult> {

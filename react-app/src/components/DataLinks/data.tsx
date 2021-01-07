@@ -1,16 +1,16 @@
 import React from 'react';
-import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
+import { AsyncProcess, AsyncProcessStatus } from 'redux/store/processing';
 import SampleServiceClient, {
     DataLink
-} from '../../lib/comm/dynamicServices/SampleServiceClient';
+} from 'lib/client/SampleServiceClient';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
-import { WorkspaceClient, ObjectInfo } from '../../lib/comm/coreServices/Workspace';
+import { WorkspaceClient, ObjectInfo } from 'lib/comm/coreServices/Workspace';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
-import { SampleId, SampleVersion } from '../../lib/comm/dynamicServices/Sample';
+import { SampleId, SampleVersion } from 'lib/comm/dynamicServices/Sample';
 
 export interface DataLink2 extends DataLink {
     key: string;
@@ -72,7 +72,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             }
 
             const workspaceClient = new WorkspaceClient({
-                authorization: this.props.token,
+                token: this.props.token,
                 url: this.props.workspaceURL,
                 timeout: UPSTREAM_TIMEOUT
             });
@@ -111,6 +111,7 @@ export default class Data extends React.Component<DataProps, DataState> {
                 }
             });
         } catch (ex) {
+            console.error('error', ex);
             this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.ERROR,

@@ -1,4 +1,4 @@
-import { SampleId } from "../../lib/comm/dynamicServices/Sample";
+import { SampleId } from "lib/client/Sample";
 // import { Params } from "@kbase/ui-components/lib/redux/integration/store";
 
 export enum ViewType {

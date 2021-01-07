@@ -101,13 +101,13 @@ export class DynamicServiceClient {
             (): Promise<GetServiceStatusResult> => {
                 const client = new ServiceWizardClient({
                     url: this.url,
-                    authorization: this.token,
+                    token: this.token,
                     timeout: this.timeout
                 });
                 // NB wrapped in promise.resolve because the promise we have 
                 // here is bluebird, which supports cancellation, which we need.
                 return Promise.resolve(
-                    client.getServiceStatus({
+                    client.get_service_status({
                         module_name: this.getModule(),
                         version: this.version
                     })

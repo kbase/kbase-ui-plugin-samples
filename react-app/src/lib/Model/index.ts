@@ -8,7 +8,7 @@ import SampleServiceClient, {
     GetSampleACLsParams,
     GetSampleACLsResult,
     GetSampleParams,
-} from "../comm/dynamicServices/SampleServiceClient";
+} from "lib/client/SampleServiceClient";
 
 import sesarTemplateData from "./data/templates/sesar/sesar1.json";
 import enigmaTemplateData from "./data/templates/enigma/enigma1.json";
@@ -20,8 +20,8 @@ import {
     FieldGroups,
     FieldValue,
     Format,
-} from "../comm/dynamicServices/samples/Samples";
-import { MetadataValue, SampleId, SampleNodeType, SampleVersion, Sample as RawSample } from "../comm/dynamicServices/Sample";
+} from "lib/client/samples/Samples";
+import { MetadataValue, SampleId, SampleNodeType, SampleVersion, Sample as RawSample } from "lib/client/Sample";
 
 // Deal with source definitions.
 
