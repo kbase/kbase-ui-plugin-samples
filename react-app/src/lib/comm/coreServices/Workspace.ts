@@ -1,6 +1,6 @@
 import { ServiceClient } from "../JSONRPC11/ServiceClient";
 import { EpochTime, SDKBoolean } from "../JSONRPC11/types";
-import { JSONObjectOf } from "../../json";
+import { JSONObject, JSONObjectOf, objectToJSONObject } from "../../json";
 
 
 export interface ObjectIdentity {
@@ -68,7 +68,7 @@ export type WorkspaceInfo = [
 
 export type Metadata = JSONObjectOf<string>;
 
-export interface GetObjectInfo3Result {
+export interface GetObjectInfo3Result extends JSONObject {
     infos: Array<ObjectInfo>;
     paths: Array<Array<string>>;
 }
@@ -103,20 +103,22 @@ export class WorkspaceClient extends ServiceClient {
 
     // TODO: should be void not null
     async ver(): Promise<string> {
-        return this.callFunc<null, string>('ver', null);
+        const [result] = await this.callFunc<[null], [string]>('ver', [null]);
+        return result;
     }
 
     async get_object_info3(params: GetObjectInfo3Params): Promise<GetObjectInfo3Result> {
-        const objectInfo = this.callFunc<GetObjectInfo3Params, GetObjectInfo3Result>('get_object_info3', params);
+        const [objectInfo] = await this.callFunc<[JSONObject], [GetObjectInfo3Result]>('get_object_info3', [objectToJSONObject(params)]);
         return objectInfo;
     }
 
     async get_workspace_info(params: GetWorkspaceInfoParams): Promise<WorkspaceInfo> {
-        return this.callFunc<GetWorkspaceInfoParams, WorkspaceInfo>('get_workspace_info', params);
+        const [result] = await this.callFunc<[JSONObject], [WorkspaceInfo]>('get_workspace_info', [objectToJSONObject(params)]);
+        return result;
     }
 
     async list_workspace_info(params: ListWorkspaceInfoParams): Promise<ListWorkspaceInfoResult> {
-        return this.callFunc<ListWorkspaceInfoParams, ListWorkspaceInfoResult>('list_workspace_info', params);
+        const [result] = await this.callFunc<[JSONObject], [ListWorkspaceInfoResult]>('list_workspace_info', [objectToJSONObject(params)]);
+        return result;
     }
-
 }

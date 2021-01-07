@@ -3,7 +3,7 @@ import {
     Alert, Button, Tooltip
 } from 'antd';
 import {
-    Map as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
+    MapContainer as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
     CircleMarker, ScaleControl
 } from 'react-leaflet';
 import { Sample } from '../Main/types';
@@ -11,10 +11,10 @@ import {
     Metadata
 } from '../../lib/Model';
 import MetadataField from '../MetadataField/view';
-// import { Format } from '../../lib/comm/dynamicServices/SampleServiceClient';
+// import { Format } from 'lib/client/SampleServiceClient';
 
 import './style.less';
-import { FieldGroup } from '../../lib/comm/dynamicServices/samples/Samples';
+import { FieldGroup } from 'lib/client/samples/Samples';
 
 export interface MetadataViewerProps {
     sample: Sample;

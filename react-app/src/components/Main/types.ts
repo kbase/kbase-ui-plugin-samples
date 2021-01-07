@@ -2,7 +2,7 @@ import {
     EpochTimeMS,
     SampleId,
     Username,
-} from "../../lib/comm/dynamicServices/Sample";
+} from "lib/client/Sample";
 import { Metadata, UserMetadata } from "../../lib/Model";
 
 // export interface MetadataField {

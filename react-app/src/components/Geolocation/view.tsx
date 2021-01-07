@@ -3,7 +3,7 @@ import {
     Alert, Button, Col, Row, Tooltip
 } from 'antd';
 import {
-    Map as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
+    MapContainer as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
     CircleMarker, ScaleControl
 } from 'react-leaflet';
 import { Sample } from '../Main/types';

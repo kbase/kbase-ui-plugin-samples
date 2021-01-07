@@ -1,3 +1,4 @@
+import { JSONObject } from 'lib/json';
 import { ServiceClient } from '../JSONRPC11/ServiceClient';
 
 // types from module
@@ -78,12 +79,25 @@ function isGetServiceStatusResult(x: any): x is GetServiceStatusResult {
 /**
  * Params (input) structure for the get_service_status call
  */
-export interface GetServiceStatusParams extends Service { }
+export interface GetServiceStatusParams extends JSONObject {
+    module_name: string;
+    version: string | null;
+}
 
 /**
  * Result (output) structure for the get_service_status call.
  */
-export interface GetServiceStatusResult extends ServiceStatus { }
+export interface GetServiceStatusResult extends JSONObject {
+    module_name: string;
+    version: string;
+    git_commit_hash: string;
+    release_tags: Array<string>;
+    hash: string;
+    url: string;
+    up: number; // aka boolean
+    status: string;
+    health: string;
+}
 
 /**
  * The service wizard client.
@@ -95,9 +109,8 @@ export class ServiceWizardClient extends ServiceClient {
     //     super(params);
     // }
 
-    async getServiceStatus(params: GetServiceStatusParams): Promise<GetServiceStatusResult> {
-        const result = await this.callFunc<GetServiceStatusParams, GetServiceStatusResult>('get_service_status', params);
-
+    async get_service_status(params: GetServiceStatusParams): Promise<GetServiceStatusResult> {
+        const [result] = await this.callFunc<Array<GetServiceStatusParams>, Array<GetServiceStatusResult>>('get_service_status', [params]);
         if (!result) {
             throw new Error('Crazy as it seems, result is falsy');
         }

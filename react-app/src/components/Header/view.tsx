@@ -5,7 +5,7 @@ import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';
 import './styles.css';
-import { Format } from '../../lib/comm/dynamicServices/samples/Samples';
+import { Format } from 'lib/client/samples/Samples';
 
 export interface HeaderProps {
     sample: Sample;

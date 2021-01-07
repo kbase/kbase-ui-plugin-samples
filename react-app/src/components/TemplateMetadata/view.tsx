@@ -3,7 +3,7 @@ import { Button, Table, Tooltip } from 'antd';
 import { Sample, Template } from '../Main/types';
 import { TemplateDataSource2 } from './types';
 import { NoData } from '../NoData';
-import { FieldValueString } from '../../lib/comm/dynamicServices/samples/Samples';
+import { FieldValueString } from 'lib/client/samples/Samples';
 import { MetadataField } from '../../lib/Model';
 import MetadataFieldView from '../MetadataField';
 import { Section } from '../Section';

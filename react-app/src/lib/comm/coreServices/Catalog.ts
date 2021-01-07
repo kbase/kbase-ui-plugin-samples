@@ -1,3 +1,4 @@
+import { JSONArrayOf, JSONObject, JSONValue, objectToJSONObject } from 'lib/json';
 import { ServiceClient } from '../JSONRPC11/ServiceClient';
 
 // interface IsAdminParam {
@@ -13,7 +14,7 @@ interface GetExecAggrTableParam {
     end?: number;
 }
 
-interface GetExecAggrTableResult {
+interface GetExecAggrTableResult extends JSONObject {
     app: string;
     func: string;
     func_mod: string;
@@ -22,11 +23,11 @@ interface GetExecAggrTableResult {
 }
 
 interface GetExecAggrStatsParam {
-    full_app_ids?: Array<string>;
+    full_app_ids?: JSONArrayOf<string>;
     per_week?: boolean;
 }
 
-interface GetExecAggrStatsResult {
+interface GetExecAggrStatsResult extends JSONObject {
     full_app_id: string;
     time_range: string;
     type: string;
@@ -37,23 +38,29 @@ interface GetExecAggrStatsResult {
     total_exec_time: number;
 }
 
+// interface SimpleObject {
+//     [k: string]: 
+// }
+
+
+
 export default class CatalogClient extends ServiceClient {
     module: string = 'Catalog';
 
-    async isAdmin(): Promise<IsAdminResult> {
+    async is_admin(): Promise<JSONArrayOf<IsAdminResult>> {
         try {
-            return await this.callFunc<IsAdminParam, IsAdminResult>('is_admin', null);
+            return await this.callFunc<JSONArrayOf<IsAdminParam>, JSONArrayOf<IsAdminResult>>('is_admin', [null]);
         } catch (ex) {
             console.error('ERROR', ex);
             throw ex;
         }
     }
 
-    async getExecAggrTable(param: GetExecAggrTableParam): Promise<Array<GetExecAggrTableResult>> {
-        return await this.callFunc<GetExecAggrTableParam, Array<GetExecAggrTableResult>>('get_exec_aggr_table', param);
+    async get_exec_aggr_table(param: GetExecAggrTableParam): Promise<Array<GetExecAggrTableResult>> {
+        return await this.callFunc<JSONArrayOf<JSONObject>, JSONArrayOf<GetExecAggrTableResult>>('get_exec_aggr_table', [objectToJSONObject(param)]);
     }
 
-    async getExecAggrStats(param: GetExecAggrStatsParam): Promise<Array<GetExecAggrStatsResult>> {
-        return await this.callFunc<GetExecAggrStatsParam, Array<GetExecAggrStatsResult>>('get_exec_aggr_stats', param);
+    async get_exec_aggr_stats(param: GetExecAggrStatsParam): Promise<Array<GetExecAggrStatsResult>> {
+        return await this.callFunc<JSONArrayOf<JSONObject>, JSONArrayOf<GetExecAggrStatsResult>>('get_exec_aggr_stats', [objectToJSONObject(param)]);
     }
 }

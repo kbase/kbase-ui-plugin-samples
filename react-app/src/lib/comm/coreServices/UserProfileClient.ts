@@ -1,11 +1,12 @@
+import { JSONArrayOf, JSONObject } from 'lib/json';
 import { ServiceClient } from '../JSONRPC11/ServiceClient';
 
-export interface User {
+export interface User extends JSONObject {
     username: string;
     realname: string;
 }
 
-export interface UserProfile {
+export interface UserProfile extends JSONObject {
     user: User,
     profile: {
         synced: {
@@ -38,32 +39,8 @@ export type GetUserProfileResult = Array<UserProfile>;
 export default class UserProfileClient extends ServiceClient {
     module: string = 'UserProfile';
 
-    // async status(): Promise<StatusResult> {
-    //     const [result] = await this.callFunc<[], [StatusResult]>('status', []);
-    //     return result;
-    // }
-
-    // async get_sample(params: GetSampleParams): Promise<GetSampleResult> {
-    //     const [result] = await this.callFunc<[GetSampleParams], [GetSampleResult]>('get_sample', [params]);
-    //     return result;
-    // }
-
-    // async get_data_links_from_sample(params: GetDataLinksFromSampleParams): Promise<GetDataLinksFromSampleResult> {
-    //     const [result] = await this.callFunc<[GetDataLinksFromSampleParams], [GetDataLinksFromSampleResult]>('get_data_links_from_sample', [params]);
-    //     return result;
-    // }
-
-    // async get_metadata_key_static_metadata(params: GetMetadataKeyStaticMetadataParams): Promise<GetMetadataKeyStaticMetadataResult> {
-    //     const [result] = await this.callFunc<[GetMetadataKeyStaticMetadataParams], [GetMetadataKeyStaticMetadataResult]>('get_metadata_key_static_metadata', [params]);
-    //     return result;
-    // }
-
-    // async get_sample_acls(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {
-    //     const [result] = await this.callFunc<[GetSampleACLsParams], [GetSampleACLsResult]>('get_sample_acls', [params]);
-    //     return result;
-    // }
-
     async get_user_profile(params: GetUserProfileParams): Promise<GetUserProfileResult> {
-        return await this.callFunc<GetUserProfileParams, GetUserProfileResult>('get_user_profile', params);
+        const [result] = await this.callFunc<JSONArrayOf<GetUserProfileParams>, JSONArrayOf<GetUserProfileResult>>('get_user_profile', [params]);
+        return result;
     }
 }
