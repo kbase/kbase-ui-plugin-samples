@@ -1,13 +1,17 @@
+import { Tooltip } from 'antd';
 import React from 'react';
+import {
+    FieldValueBoolean, FieldValueDate, FieldValueNumber,
+    FieldValueOntologyTerm, FieldValueString, FieldValueStringEnum
+} from 'lib/client/samples/Samples';
 import { MetadataField } from '../../lib/Model';
 import { NoData } from '../NoData';
+import { Sample } from '../Main/types';
+
 
 export interface MetadataFieldViewProps {
-    // value: string | number | boolean | null;
-    // fieldKey: string;
-    // unit?: string;
-    // fields: Metadata;
     field: MetadataField;
+    sample: Sample;
 }
 
 interface MetadataFieldViewState {
@@ -15,13 +19,76 @@ interface MetadataFieldViewState {
 
 export default class MetadataFieldView extends React.Component<MetadataFieldViewProps, MetadataFieldViewState> {
 
-    renderField(field: MetadataField) {
+    renderStringField(field: FieldValueString) {
         if (field.value === null) {
             return <NoData />;
         }
-        return <span>
-            {field.value}
+        return <span>{field.value}</span>;
+    }
+
+    renderNumberField(field: FieldValueNumber) {
+        if (field.value === null) {
+            return <NoData />;
+        }
+        const content = new Intl.NumberFormat('en-US', {
+            useGrouping: field.format?.useGrouping,
+            minimumFractionDigits: field.format?.minimumFractionDigits,
+            maximumFractionDigits: field.format?.maximumFractionDigits
+        }).format(field.value);
+        const title = <span>
+            raw value: {String(field.value)}
         </span>;
+        return <Tooltip title={title}><span>{content}</span>
+        </Tooltip>;
+    }
+
+    renderBooleanField(field: FieldValueBoolean) {
+        if (field.value === null) {
+            return <NoData />;
+        }
+        return <span>{field.value}</span>;
+    }
+    renderDateField(field: FieldValueDate) {
+        if (field.value === null) {
+            return <NoData />;
+        }
+        return <span>{field.value}</span>;
+    }
+    renderStringEnumField(field: FieldValueStringEnum) {
+        if (field.value === null) {
+            return <NoData />;
+        }
+        return <span>{field.value}</span>;
+    }
+    renderOntologyTermField(field: FieldValueOntologyTerm) {
+        if (field.value === null) {
+            return <NoData />;
+        }
+        // TODO: add timestamp to url
+        const url = `/#ontology/term/${field.constraints.ontologyNamespace}/${field.value}/${this.props.sample.created.at}`;
+        return <a href={url} target="_blank" rel="noreferrer">{field.value}</a>;
+    }
+    renderField(metadataField: MetadataField) {
+
+        const field = metadataField.field;
+
+        switch (field.type) {
+            case 'string':
+                return this.renderStringField(field);
+            case 'number':
+                return this.renderNumberField(field);
+            case 'boolean':
+                return this.renderBooleanField(field);
+            case 'date':
+                return this.renderDateField(field);
+            case 'Enum<string>':
+                return this.renderStringEnumField(field);
+            case 'OntologyTerm':
+                return this.renderOntologyTermField(field);
+        }
+        // return <span>
+        //     {field.value}
+        // </span>;
     }
 
     renderUnit(field: MetadataField) {

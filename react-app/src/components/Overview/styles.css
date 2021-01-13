@@ -1,3 +1,11 @@
+.Overview {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+}
+
 .Overview .InfoTable>div>div:nth-child(1) {
     flex: 0 0 8em;
 }

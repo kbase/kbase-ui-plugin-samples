@@ -1,17 +1,17 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
 import {
-    Format,
     SampleId, SampleVersion, Username
-} from '../../lib/comm/dynamicServices/SampleServiceClient';
+} from 'lib/client/Sample';
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
-import UserProfileClient from '../../lib/comm/coreServices/UserProfileClient';
+import UserProfileClient from 'lib/comm/coreServices/UserProfileClient';
 import { Sample, User, Template } from './types';
 import Model from '../../lib/Model';
+import { FieldDefinition, FieldGroup, Format } from 'lib/client/samples/Samples';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -26,11 +26,15 @@ interface State {
     sample: Sample;
     format: Format;
     template: Template;
+    fieldGroups: Array<FieldGroup>;
+    fieldDefinitionsMap: FieldDefinitionsMap;
 }
 
 interface DataState {
     loadingState: AsyncProcess<State, AppError>;
 }
+
+export type FieldDefinitionsMap = { [key: string]: FieldDefinition; };
 
 export default class Data extends React.Component<DataProps, DataState> {
     constructor(props: DataProps) {
@@ -44,7 +48,7 @@ export default class Data extends React.Component<DataProps, DataState> {
 
     async fetchUsers(usernames: Array<Username>) {
         const userProfileClient = new UserProfileClient({
-            authorization: this.props.token,
+            token: this.props.token,
             url: this.props.userProfileURL,
             timeout: UPSTREAM_TIMEOUT,
         });
@@ -77,20 +81,7 @@ export default class Data extends React.Component<DataProps, DataState> {
 
     async fetchSample(props: DataProps) {
         try {
-            if (this.state.loadingState.status === AsyncProcessStatus.SUCCESS) {
-                this.setState({
-                    loadingState: {
-                        status: AsyncProcessStatus.REPROCESSING,
-                        state: this.state.loadingState.state
-                    }
-                });
-            } else {
-                this.setState({
-                    loadingState: {
-                        status: AsyncProcessStatus.PROCESSING
-                    }
-                });
-            }
+
             const client = new Model({
                 token: props.token,
                 url: props.serviceWizardURL,
@@ -151,15 +142,30 @@ export default class Data extends React.Component<DataProps, DataState> {
                 // type: actualSample.type,
                 metadata: sampleResult.sample.metadata,
                 userMetadata: sampleResult.sample.userMetadata,
-                format: sampleResult.format
+                formatId: sampleResult.formatId
+                // format: sampleResult.format
+                // fieldDefinitions: sampleResult.fieldDefinitions
             };
 
             // const sampleSource = (await client.getSampleSource({id: actualSample.source})).source;
 
+            // const { groups } = await client.getFieldGroups({});
+
+            const { format } = await client.getFormat({ id: sampleResult.formatId });
+
+            const fieldGroups = format.layouts.grouped;
+
+            const { fields } = await client.getFieldDefinitions();
+
+            const fieldDefinitionsMap: FieldDefinitionsMap = fields.reduce<FieldDefinitionsMap>((accum, def) => {
+                accum[def.id] = def;
+                return accum;
+            }, {});
+
             return this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.SUCCESS,
-                    state: { sample, format: sampleResult.format, template: sampleResult.template }
+                    state: { sample, template: sampleResult.template, fieldGroups, fieldDefinitionsMap, format }
                 }
             });
         } catch (ex) {
@@ -176,12 +182,31 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     async componentDidMount() {
+        this.setState({
+            loadingState: {
+                status: AsyncProcessStatus.PROCESSING
+            }
+        });
         this.fetchSample(this.props);
     }
 
     async componentDidUpdate(prevProps: DataProps, prevState: DataState) {
         if (prevProps.sampleId !== this.props.sampleId ||
             prevProps.sampleVersion !== this.props.sampleVersion) {
+            if (this.state.loadingState.status === AsyncProcessStatus.SUCCESS) {
+                this.setState({
+                    loadingState: {
+                        status: AsyncProcessStatus.REPROCESSING,
+                        state: this.state.loadingState.state
+                    }
+                });
+            } else {
+                this.setState({
+                    loadingState: {
+                        status: AsyncProcessStatus.PROCESSING
+                    }
+                });
+            }
             this.fetchSample(this.props);
         }
     }
@@ -234,7 +259,12 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(state: State) {
-        return <Component sample={state.sample} format={state.format} template={state.template} setTitle={this.props.setTitle} />;
+        return <Component sample={state.sample}
+            fieldGroups={state.fieldGroups}
+            template={state.template}
+            format={state.format}
+            fieldDefinitions={state.fieldDefinitionsMap}
+            setTitle={this.props.setTitle} />;
     }
 
     render() {

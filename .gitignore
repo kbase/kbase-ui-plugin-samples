@@ -10,7 +10,7 @@ node_modules/
 false
 
 # created by yarn, but causes problems with kbase-ui builds.
-yarn.lock
+# yarn.lock
 
 # Artifact of local github pages development
 _site
@@ -27,6 +27,7 @@ _trash
 
 # IDEs
 .vscode
+.eslintcache
 
 _attic
 _test_data/

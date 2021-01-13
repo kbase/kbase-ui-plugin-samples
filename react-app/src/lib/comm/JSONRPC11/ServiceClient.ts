@@ -1,36 +1,37 @@
+import { JSONArray } from 'lib/json';
 import { JSONRPCClient } from './JSONRPC11';
 
 export interface ServiceClientParams {
     url: string;
     timeout: number;
-    authorization?: string;
+    token?: string;
 }
 
 export abstract class ServiceClient {
     abstract module: string;
     url: string;
     timeout: number;
-    authorization?: string;
-    constructor({ url, timeout, authorization }: ServiceClientParams) {
+    token?: string;
+    constructor({ url, timeout, token }: ServiceClientParams) {
         this.url = url;
         this.timeout = timeout;
-        this.authorization = authorization;
+        this.token = token;
     }
-    async callFunc<ParamType, ReturnType>(funcName: string, params: ParamType): Promise<ReturnType> {
-        const client = new JSONRPCClient({ url: this.url, timeout: this.timeout, authorization: this.authorization });
-        const method = this.module + '.' + funcName;
-        const result = await client.callMethod(method, [params], { timeout: this.timeout });
+    async callFunc<ParamType extends JSONArray, ReturnType extends JSONArray>(funcName: string, params: ParamType): Promise<ReturnType> {
+        const client = new JSONRPCClient({ url: this.url, timeout: this.timeout, token: this.token });
+        const method = `${this.module}.${funcName}`;
+        const result = await client.callMethod(method, params, { timeout: this.timeout });
 
         if (result.length === 0) {
             throw new Error('Too few (none) return values in return array');
         }
 
-        return (result[0] as unknown) as ReturnType;
+        return (result as unknown) as ReturnType;
     }
-    async callFuncEmptyResult<ParamType, ReturnType>(funcName: string, params: ParamType): Promise<void> {
-        const client = new JSONRPCClient({ url: this.url, timeout: this.timeout, authorization: this.authorization });
-        const method = this.module + '.' + funcName;
-        const result = await client.callMethod(method, [params], { timeout: this.timeout });
+    async callFuncEmptyResult<ParamType extends JSONArray>(funcName: string, params: ParamType): Promise<void> {
+        const client = new JSONRPCClient({ url: this.url, timeout: this.timeout, token: this.token });
+        const method = `${this.module}.${funcName}`;
+        const result = await client.callMethod(method, params, { timeout: this.timeout });
 
         if (result.length !== 0) {
             throw new Error(`Too many (${result.length}) return values in return array`);
@@ -38,5 +39,4 @@ export abstract class ServiceClient {
 
         return;
     }
-
 }

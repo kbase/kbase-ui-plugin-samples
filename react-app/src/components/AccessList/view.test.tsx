@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 
 import AccessList, { AccessListProps } from './view';
@@ -7,6 +6,11 @@ const TIMEOUT = 10000;
 
 test('renders data links with no links', async () => {
     const props: AccessListProps = {
+        owner: {
+            username: 'kbaseuitest',
+            realname: 'KBase UI Test User',
+            gravatarHash: 'b4d95f8595104614355e6ee9c4c03e3f'
+        },
         acl: {
             read: [],
             write: [],
@@ -27,6 +31,11 @@ test('renders data links with no links', async () => {
 
 test('renders data links with links', async () => {
     const props: AccessListProps = {
+        owner: {
+            username: 'kbaseuitest',
+            realname: 'KBase UI Test User',
+            gravatarHash: 'b4d95f8595104614355e6ee9c4c03e3f'
+        },
         acl: {
             read: [{
                 username: 'kbaseuitest',

@@ -1,4 +1,4 @@
-import { Sample } from "../../lib/comm/dynamicServices/SampleServiceClient";
+import { Sample } from "lib/client/Sample";
 
 // VIEW STATES
 

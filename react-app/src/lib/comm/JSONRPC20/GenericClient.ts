@@ -19,7 +19,7 @@ export interface JSONRPCPayload<T> {
 export interface JSONRPCError<T> {
     code: number;
     message: string;
-    data: T
+    data: T;
 }
 
 // export interface MethodSuccessResult<T> {
@@ -63,15 +63,15 @@ export class classJSONRPCServerException extends Error {
 
 export interface JSONRPCResultBase {
     jsonrpc: '2.0',
-    id: string
+    id: string;
 }
 
 export interface JSONRPCSuccessResult<T> extends JSONRPCResultBase {
-    result: T
+    result: T;
 }
 
 export interface JSONRPCErrorResult<T> extends JSONRPCResultBase {
-    error: JSONRPCError<T>
+    error: JSONRPCError<T>;
 }
 
 export type JSONRPCResult<T, E> = JSONRPCSuccessResult<T> | JSONRPCErrorResult<E>;
@@ -113,15 +113,16 @@ export class GenericClient {
         const responseText = response.data;
 
         if (responseText.length === 0) {
-            throw new Error('Empty response')
+            throw new Error('Empty response');
         }
 
         // try to parse as json
         let responseData: JSONRPCResult<T, any>;
         try {
-            responseData = ((JSON.parse(responseText) as unknown) as JSONRPCResult<T, any>)
+            responseData = ((JSON.parse(responseText) as unknown) as JSONRPCResult<T, any>);
         } catch (ex) {
-            throw new Error('Error parsing response as JSON: ' + ex.message)
+            console.error('error', ex);
+            throw new Error('Error parsing response as JSON: ' + ex.message);
         }
 
         if ('error' in responseData) {
@@ -171,7 +172,7 @@ export class GenericClient {
         const headers: any = {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-        }
+        };
         if (this.token) {
             headers['Authorization'] = this.token;
         }
@@ -207,7 +208,7 @@ export class AuthorizedGenericClient extends GenericClient {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': this.token
-        }
+        };
         if (this.token) {
             headers['Authorization'] = this.token;
         }

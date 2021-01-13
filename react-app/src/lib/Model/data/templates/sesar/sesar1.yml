@@ -1,8 +1,8 @@
 ---
 fields:
   - sample_name
-  - igsn
-  - parent_igsn
+  - igsn # aka igsn
+  - parent_igsn # aka parent_igsn
   - release_date
   - material
   - field_name_informal_classification

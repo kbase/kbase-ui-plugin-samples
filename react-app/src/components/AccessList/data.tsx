@@ -1,22 +1,22 @@
 import React from 'react';
 import { AsyncProcess, AsyncProcessStatus } from '../../redux/store/processing';
-import SampleServiceClient, {
-    SampleId, Username
-} from '../../lib/comm/dynamicServices/SampleServiceClient';
+
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
-import UserProfileClient, { UserProfile } from '../../lib/comm/coreServices/UserProfileClient';
-import { ACL } from '../Main/types';
+import { ACL, Sample } from '../Main/types';
+import { Username } from 'lib/client/Sample';
+import UserProfileClient, { UserProfile } from 'lib/comm/coreServices/UserProfileClient';
+import SampleServiceClient from 'lib/client/SampleServiceClient';
 
 export interface DataProps {
     serviceWizardURL: string;
     userProfileURL: string;
     token: string;
-    sampleId: SampleId;
+    sample: Sample;
     baseURL: string;
     sampleServiceConfig: DynamicServiceConfig;
 }
@@ -49,14 +49,14 @@ export default class Data extends React.Component<DataProps, DataState> {
             });
 
             const aclResult = await client.get_sample_acls({
-                id: this.props.sampleId,
+                id: this.props.sample.id,
                 as_admin: 0
             });
 
             const usersToFetch: Array<Username> = aclResult.admin.concat(aclResult.read).concat(aclResult.write);
 
             const userProfileClient = new UserProfileClient({
-                authorization: this.props.token,
+                token: this.props.token,
                 url: this.props.userProfileURL,
                 timeout: UPSTREAM_TIMEOUT,
             });
@@ -68,6 +68,7 @@ export default class Data extends React.Component<DataProps, DataState> {
             }, {});
 
             const acl: ACL = {
+
                 admin: aclResult.admin.map((username) => {
                     const profile = profileMap[username];
                     return {
@@ -107,6 +108,7 @@ export default class Data extends React.Component<DataProps, DataState> {
                 }
             });
         } catch (ex) {
+            console.error('error', ex);
             this.setState({
                 loadingState: {
                     status: AsyncProcessStatus.ERROR,
@@ -132,7 +134,7 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderSuccess(acl: ACL) {
-        return <Component acl={acl} />;
+        return <Component acl={acl} owner={this.props.sample.created.by} />;
     }
 
     render() {

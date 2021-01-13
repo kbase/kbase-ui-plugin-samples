@@ -1,6 +1,7 @@
-import { ServiceWizardClient, GetServiceStatusResult, ServiceStatus } from '../coreServices/ServiceWizard';
+import { ServiceWizardClient, ServiceStatus } from '../coreServices/ServiceWizard';
 import { ServiceClient, ServiceClientParams } from './ServiceClient';
 import Cache from '../Cache';
+import { JSONArray } from 'lib/json';
 
 const ITEM_LIFETIME = 1800000;
 const MONITORING_FREQUENCY = 60000;
@@ -11,10 +12,10 @@ const WAITER_FREQUENCY = 100;
 
 // type Promise<T> = Promise<T>
 
-interface ModuleInfo {
+// interface ModuleInfo {
 
-    module_name: string;
-}
+//     module_name: string;
+// }
 
 var moduleCache = new Cache<ServiceStatus>({
     itemLifetime: ITEM_LIFETIME,
@@ -72,7 +73,7 @@ export abstract class DynamicServiceClient extends ServiceClient {
         return moduleId;
     }
 
-    private getCached(fetcher: () => Promise<GetServiceStatusResult>) {
+    private getCached(fetcher: () => Promise<ServiceStatus>) {
         return moduleCache.getItemWithWait({
             id: this.moduleId(),
             fetcher: fetcher
@@ -84,22 +85,21 @@ export abstract class DynamicServiceClient extends ServiceClient {
     // }
 
     // TODO: Promise<any> -> Promise<ServiceStatusResult>
-    private async lookupModule(): Promise<GetServiceStatusResult> {
+    private async lookupModule(): Promise<ServiceStatus> {
         const moduleInfo = await this.getCached(
-            (): Promise<GetServiceStatusResult> => {
+            async (): Promise<ServiceStatus> => {
                 const client = new ServiceWizardClient({
                     url: this.serviceDiscoveryURL!,
-                    authorization: this.authorization,
+                    token: this.token,
                     timeout: this.timeout
                 });
                 // NB wrapped in promise.resolve because the promise we have 
                 // here is bluebird, which supports cancellation, which we need.
-                return Promise.resolve(
-                    client.getServiceStatus({
-                        module_name: this.module,
-                        version: this.version
-                    })
-                );
+                const status = await client.get_service_status({
+                    module_name: this.module,
+                    version: this.version
+                });
+                return status;
             }
         );
         this.module = moduleInfo.module_name;
@@ -120,11 +120,11 @@ export abstract class DynamicServiceClient extends ServiceClient {
     //     return await client.callFunc<P, T>(funcName, params);
     // }
 
-    async callFunc<ParamType, ReturnType>(funcName: string, params: ParamType): Promise<ReturnType> {
+    async callFunc<ParamType extends JSONArray, ReturnType extends JSONArray>(funcName: string, params: ParamType): Promise<ReturnType> {
         await this.lookupModule();
         return super.callFunc(funcName, params);
     }
-    async callFuncEmptyResult<ParamType, ReturnType>(funcName: string, params: ParamType): Promise<void> {
+    async callFuncEmptyResult<ParamType extends JSONArray>(funcName: string, params: ParamType): Promise<void> {
         await this.lookupModule();
         return super.callFuncEmptyResult(funcName, params);
     }

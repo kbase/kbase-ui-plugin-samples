@@ -1,5 +1,9 @@
-import { SampleId, EpochTimeMS, Username, Format } from "../../lib/comm/dynamicServices/SampleServiceClient";
-import { FieldDefinition, UserMetadata, Metadata } from "../../lib/Model";
+import {
+    EpochTimeMS,
+    SampleId,
+    Username,
+} from "lib/client/Sample";
+import { Metadata, UserMetadata } from "../../lib/Model";
 
 // export interface MetadataField {
 //     value: string | number | boolean;
@@ -41,12 +45,13 @@ export interface TemplateFieldBase {
 }
 
 export interface TemplateFormatField extends TemplateFieldBase {
-    type: 'metadata',
+    type: "metadata";
     key: string;
 }
 
 export interface TemplateUserField extends TemplateFieldBase {
-    type: 'user',
+    type: "user";
+    key: string;
     label: string;
 }
 
@@ -69,8 +74,8 @@ export interface Sample {
     name: string;
 
     // supplied in the sample as some field mapped to the sample id; must be
-    // unique 
-    sampleId: string,
+    // unique
+    sampleId: string;
 
     // Supplied in the sample as some field mapped to another sample
     parentSampleId: string | null;
@@ -96,5 +101,7 @@ export interface Sample {
 
     metadata: Metadata;
     userMetadata: UserMetadata;
-    format: Format;
+    formatId: string;
+    // format: Format;
+    //   fieldDefinitions: FieldDefinitions;
 }

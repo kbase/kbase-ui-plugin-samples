@@ -1,0 +1,22 @@
+[
+    {
+        "id": "description",
+        "description": "Description of the sample"
+    },
+    {
+        "id": "collection",
+        "description": "The act of collecting the sample"
+    },
+    {
+        "id": "geolocation",
+        "description": "Geographic location, address, etc; basically the location in space"
+    },
+    {
+        "id": "curation",
+        "description": "Storage and maintenance of the sample and sample metadata"
+    },
+    {
+        "id": "sample",
+        "description": "Characteristics of the sample itself, including categorization, measurements"
+    }
+]
