@@ -1,0 +1,13 @@
+---
+description: Accessing Samples Plugin
+cases:
+  - description: should load the samples plugin about page
+    tasks:
+      - subtask: login
+      - action: navigate
+        path: samples/about
+      - subtask: plugin
+      - wait: forElement
+        selector:
+          - type: plugin
+            value: samples
