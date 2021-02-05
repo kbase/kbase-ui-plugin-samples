@@ -4,8 +4,9 @@ import {
 } from 'antd';
 import {
     MapContainer as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
-    CircleMarker, ScaleControl
+    CircleMarker, ScaleControl, Marker, Popup
 } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import { Sample } from '../Main/types';
 import MetadataField from '../MetadataField/view';
 
@@ -41,11 +42,12 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         }
         const lat = latitude.field.value as number;
         const lng = longitude.field.value as number;
+
         return <div className="Geolocation-map">
             <LeafletMap
                 center={[lat, lng]}
-                zoom={3}
-                style={{ width: '100%', height: '100%' }}>
+                zoom={12}
+                style={{ flex: '1 1 0px' }}>
                 <ScaleControl position="topleft" />
                 <LayersControl position="topright" >
                     <LayersControl.BaseLayer name="OpenStreetMap">
