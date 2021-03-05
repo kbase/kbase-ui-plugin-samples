@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/nav_type_name.json",
+  "title": "Nav Type Name",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Nav Type Name"
+    },
+    "sample": {
+      "key": "nav_type_name",
+      "columnTitle": "Nav Type Name"
+    }
+  }
+}

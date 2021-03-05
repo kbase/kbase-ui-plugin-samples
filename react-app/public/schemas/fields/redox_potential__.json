@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/redox_potential_?.json",
+  "title": "Redox Potential",
+  "type": "number",
+  "kbase": {
+    "display": {
+      "label": "Redox Potential"
+    },
+    "format": {
+      "useGrouping": true,
+      "minimumFractionDigits": 2,
+      "maximumFractionDigits": 2
+    },
+    "sample": {
+      "key": "redox_potential_?",
+      "columnTitle": "Redox Potential"
+    }
+  }
+}

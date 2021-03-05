@@ -3,7 +3,7 @@ import { Button, Table, Tooltip } from 'antd';
 import { Sample, Template } from '../Main/types';
 import { TemplateDataSource2 } from './types';
 import { NoData } from '../NoData';
-import { FieldValueString } from 'lib/client/samples/Samples';
+// import { FieldStringValue, FieldValue } from 'lib/client/samples/Samples';
 import { MetadataField } from '../../lib/Model';
 import MetadataFieldView from '../MetadataField';
 import { Section } from '../Section';
@@ -85,16 +85,14 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                     </div>
                 </div>
             </div>
-
         </div>;
     }
 
-    renderTemplate() {
-        console.log('omit empty?', this.state.omitEmpty);
-        const dataSource: Array<TemplateDataSource2> = this.props.template.fields
-            .filter((templateField) => {
-                if (templateField.type === 'metadata') {
-                    if (this.props.sample.metadata[templateField.key].field.value === null) {
+    renderMetadata() {
+        const dataSource: Array<TemplateDataSource2> = this.props.sample.metadata
+            .filter((metadataField) => {
+                if (metadataField.type === 'controlled') {
+                    if (metadataField.field.isEmpty) {
                         if (this.state.omitEmpty) {
                             return false;
                         }
@@ -102,66 +100,123 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 }
                 return true;
             })
-            .map((templateField, index) => {
-                const value = (() => {
-                    if (templateField.type === 'metadata') {
-                        return this.props.sample.metadata[templateField.key].field.value;
-                    } else {
-                        return this.props.sample.userMetadata[templateField.label];
-                    }
-                })();
+            .map((metadataField, index) => {
+                // const value = (() => {
+                //     if (templateField.type === 'metadata') {
+                //         return this.props.sample.metadata[templateField.key].field.value;
+                //     } else {
+                //         return this.props.sample.userMetadata[templateField.label];
+                //     }
+                // })();
 
-                const label = (() => {
-                    if (templateField.type === 'metadata') {
-                        return this.props.sample.metadata[templateField.key].label;
-                    } else {
-                        return templateField.label;
-                    }
-                })();
+                const label = metadataField.label;
 
+                // const label = (() => {
+                //     if (metadataField.type === 'metadata') {
+                //         return metadataField.label;
+                //     } else {
+                //         return templateField.label;
+                //     }
+                // })();
+
+                // TOODO: not sure worth showing?
                 const type = (() => {
-                    if (templateField.type === 'metadata') {
-                        return this.props.sample.metadata[templateField.key].field.type;
+                    if (metadataField.type === 'controlled') {
+                        return metadataField.field.type;
                     } else {
                         return 'string';
                     }
                 })();
 
-                const key = (() => {
-                    if (templateField.type === 'metadata') {
-                        return this.props.sample.metadata[templateField.key].key;
+                const key = metadataField.key;
+
+                // const key = (() => {
+                //     if (metadataField.type === 'controlled') {
+                //         return this.props.sample.metadata[templateField.key].key;
+                //     } else {
+                //         return templateField.label;
+                //     }
+                // })();
+
+                const isMissing = (() => {
+                    if (metadataField.type === 'controlled') {
+                        return metadataField.field.isEmpty;
                     } else {
-                        return templateField.label;
+                        return metadataField.field === "" ? true :  false
                     }
                 })();
 
-                const field: MetadataField = (() => {
-                    if (templateField.type === 'metadata') {
-                        return this.props.sample.metadata[templateField.key];
-                    } else {
-                        return {
-                            key: templateField.label,
-                            label: templateField.label,
-                            field: {
-                                constraints: {},
-                                storageType: 'string',
-                                type: 'string',
-                                value: this.props.sample.userMetadata[templateField.label]
-                            } as FieldValueString
-                        } as MetadataField;
-                    }
-                })();
+                /**
+                 * leaving off here:
+                 * need to wrap the metadata (controlled) or user field into
+                 * a generic MetadataField which can be used in a combined view
+                 * of controlled and user metadata.
+                 */
+                // const field: MetadataField = (() => {
+                //     if (templateField.type === 'metadata') {
+                //         return this.props.sample.metadata[templateField.key];
+                //     } else {
+                //         return {
+                //             key: templateField.label,
+                //             label: templateField.label,
+                //             field: {
+                //                 constraints: {},
+                //                 storageType: 'string',
+                //                 type: 'string',
+                //                 value: this.props.sample.userMetadata[templateField.label]
+                //             } as FieldValueString
+                //         } as MetadataField;
+                //     }
+                // })();
 
-                return {
-                    key,
-                    label,
-                    isMissing: value === null,
-                    order: index,
-                    type,
-                    value,
-                    fieldType: templateField.type,
-                    field
-                };
+                // const field: TemplateField = (() => {
+                //     if (templateField.type === 'metadata') {
+                //         return {
+                //             type: 'metadata',
+                //             field: this.props.sample.metadata[templateField.key].field
+                //         }
+                //     } else {
+                //         return {
+                //             type: 'user',
+                //             field: this.props.sample.userMetadata[templateField.label]
+                //         }
+                //     }
+                // })();
+
+                if (metadataField.type === 'controlled') {
+                    return {
+                        key,
+                        label,
+                        isMissing,
+                        order: index,
+                        type,
+                        // value,
+                        fieldType: 'controlled',
+                        field: metadataField
+                    };
+                } else {
+                    return {
+                        key,
+                        label,
+                        isMissing,
+                        order: index,
+                        type,
+                        // value,
+                        fieldType: 'user',
+                        field: metadataField
+                    };
+                }
+
+                // return {
+                //     key,
+                //     label,
+                //     isMissing,
+                //     order: index,
+                //     type,
+                //     // value,
+                //     fieldType: templateField.type,
+                //     field
+                // };
             });
 
         return <Table<TemplateDataSource2>
@@ -293,7 +348,6 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
         </div>;
     }
 
-
     render() {
         /*
          <div className="Col -auto">
@@ -302,7 +356,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
         */
         return <div className="Col -stretch">
             <Section title="Sample" renderToolbar={this.renderToolbar.bind(this)}>
-                {this.renderTemplate()}
+                {this.renderMetadata()}
             </Section>
         </div>;
     }

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/current_archive.json",
+  "title": "Current archive",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Current archive"
+    },
+    "sample": {
+      "key": "current_archive",
+      "columnTitle": "Current archive"
+    }
+  }
+}

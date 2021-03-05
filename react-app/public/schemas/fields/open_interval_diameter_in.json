@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/open_interval_diameter_in.json",
+  "title": "Open Interval Diameter",
+  "type": "number",
+  "minimum": 0,
+  "kbase": {
+    "units": {
+      "available": [
+        "in"
+      ],
+      "canonical": "in"
+    },
+    "display": {
+      "label": "Open Interval Diameter"
+    },
+    "sample": {
+      "key": "open_interval_diameter_in",
+      "columnTitle": "Open Interval Diameter"
+    }
+  }
+}

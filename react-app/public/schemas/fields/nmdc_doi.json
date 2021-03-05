@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/nmdc:doi.json",
+  "title": "NMDC study DOI",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "NMDC study DOI"
+    },
+    "sample": {
+      "key": "nmdc:doi",
+      "columnTitle": "NMDC study DOI"
+    }
+  }
+}

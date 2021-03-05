@@ -30,6 +30,15 @@ export interface Metadata {
     [key: string]: MetadataValue;
 }
 
+export interface UserMetadataValue {
+    value: string;
+    units: string;
+}
+
+export interface UserMetadata {
+    [key: string]: UserMetadataValue;
+}
+
 // TODO: interfaces for specific controlled metadata.
 // may not be practical, but consider it.
 // export interface ControlledMetadata {
@@ -51,7 +60,7 @@ export interface SampleNode {
     parent: SampleNodeId | null;
     type: SampleNodeType;
     meta_controlled: Metadata;
-    meta_user: Metadata;
+    meta_user: UserMetadata;
     source_meta: MetadataSource;
 }
 

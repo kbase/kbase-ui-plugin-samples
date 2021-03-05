@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_start_depth_ft_bgs.json",
+  "title": "Lower Seal Start Depth",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Lower Seal Start Depth"
+    },
+    "sample": {
+      "key": "lower_seal_start_depth_ft_bgs",
+      "columnTitle": "Lower Seal Start Depth"
+    }
+  }
+}

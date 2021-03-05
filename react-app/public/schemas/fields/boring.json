@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/boring.json",
+  "title": "Boring depth",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Boring depth"
+    },
+    "sample": {
+      "key": "boring",
+      "columnTitle": "Boring depth"
+    }
+  }
+}

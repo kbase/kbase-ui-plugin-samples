@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import {
     MapContainer as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
-    CircleMarker, ScaleControl, Marker, Popup
+    CircleMarker, ScaleControl
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Sample } from '../Main/types';
@@ -32,16 +32,29 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
     }
 
     renderMap() {
-        const data = this.props.sample.metadata;
+        const data = this.props.sample.controlled;
         const { latitude, longitude } = data;
+
+        // We don't know if they exist...
         if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
             return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
         }
-        if (latitude.field.value === null || longitude.field.value === null) {
+
+        // And we don't know if they are the proper type of field...
+        if (latitude.field.type !== 'number') {
+            return <Alert type="warning" message="latitude must be numeric fields" />;
+        }
+
+        if (longitude.field.type !== 'number') {
+            return <Alert type="warning" message="longitude must be numeric fields" />;
+        }
+
+        if (latitude.field.numberValue === null || longitude.field.numberValue === null) {
             return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
         }
-        const lat = latitude.field.value as number;
-        const lng = longitude.field.value as number;
+
+        const lat = latitude.field.numberValue;
+        const lng = longitude.field.numberValue;
 
         return <div className="Geolocation-map">
             <LeafletMap
@@ -94,10 +107,11 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         const fields = Object.values(metadata)
             .filter((field) => {
                 const def = this.props.fieldDefinitions[field.key];
-                return def && def.categories && def.categories.includes('geolocation');
+                console.log('def', def);
+                return def && def.kbase.categories && def.kbase.categories.includes('geolocation');
             })
             .filter((field) => {
-                if (field.field.value === null && this.state.omitEmpty) {
+                if (field.isEmpty && this.state.omitEmpty) {
                     return false;
                 }
                 return true;

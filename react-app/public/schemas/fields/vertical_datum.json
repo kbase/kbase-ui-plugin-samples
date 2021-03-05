@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/vertical_datum.json",
+  "title": "Vertical Datum",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Vertical Datum"
+    },
+    "sample": {
+      "key": "vertical_datum",
+      "columnTitle": "Vertical Datum"
+    }
+  }
+}

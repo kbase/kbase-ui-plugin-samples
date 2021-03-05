@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/primary_location_name.json",
+  "title": "Primary Location Name",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Primary Location Name"
+    },
+    "categories": [
+      "geolocation"
+    ],
+    "sample": {
+      "key": "primary_location_name",
+      "columnTitle": "Primary Location Name"
+    }
+  }
+}

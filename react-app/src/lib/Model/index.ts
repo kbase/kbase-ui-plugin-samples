@@ -12,22 +12,26 @@ import SampleServiceClient, {
 
 import sesarTemplateData from "./data/templates/sesar/sesar1.json";
 import enigmaTemplateData from "./data/templates/enigma/enigma1.json";
-import { Template, TemplateField } from "../../components/Main/types";
+import {Template, TemplateField} from "../../components/Main/types";
 import {
-    FieldDefinition,
-    FieldDefinitions,
+    // FieldDefinition,
+    // FieldDefinitions,
     FieldGroup,
     FieldGroups,
+    FieldNumberValue,
+    FieldStringValue,
     FieldValue,
     Format,
+    SchemaField, UserFieldValue,
 } from "lib/client/samples/Samples";
-import { MetadataValue, SampleId, SampleNodeType, SampleVersion, Sample as RawSample } from "lib/client/Sample";
+import {MetadataValue, SampleId, SampleNodeType, SampleVersion, Sample as RawSample} from "lib/client/Sample";
 
 // Deal with source definitions.
 
 export interface FieldMapping {
     [key: string]: string;
 }
+
 export interface GroupingLayout {
     id: string;
     name: string;
@@ -62,6 +66,7 @@ export interface TemplateDefinition {
     };
     idPattern: string;
 }
+
 export interface ModelParams {
     url: string;
     token: string;
@@ -178,25 +183,47 @@ export type Username = string;
 
 export type EpochTimeMS = number;
 
-export interface Metadata {
-    [key: string]: MetadataField;
+//
+
+
+// Metadata
+
+export interface SimpleMap<T> {
+    [key: string]: T
 }
+
+// export interface Metadata {
+//     [key: string]: MetadataField;
+// }
 
 export interface UserMetadata {
     [label: string]: string;
 }
 
-export interface MetadataField {
+export interface MetadataFieldBase {
+    type: string;
     key: string;
     label: string;
+    isEmpty: boolean;
     //   value: string | number | boolean | null;
-    units: string;
+    // units: string;
     //   definition: FieldDefinition;
-    field: FieldValue;
+    // field: FieldValue;
 }
 
-export interface MetadataStringField {
+export interface MetadataControlledField extends MetadataFieldBase {
+    type: 'controlled',
+    field: FieldValue
 }
+
+export interface MetadataUserField extends MetadataFieldBase {
+    type: 'user',
+    field: UserFieldValue
+}
+
+export type MetadataField =
+    MetadataControlledField |
+    MetadataUserField;
 
 // export interface UserMetadataField {
 //     label: string;
@@ -227,8 +254,9 @@ export interface Sample {
         id: string;
         parentId: string | null;
         type: SampleNodeType;
-        metadata: Metadata;
-        userMetadata: UserMetadata;
+        metadata: Array<MetadataField>;
+        controlled: SimpleMap<MetadataControlledField>
+        // userMetadata: SimpleMap<string>
     };
     //   format: Format;
     formatId: string;
@@ -238,8 +266,12 @@ export interface Sample {
 
 export type GetSampleResult = Sample;
 
+export interface GetFieldDefinitionsParams {
+    keys: Array<string>;
+}
+
 export interface GetFieldDefinitionsResult {
-    fields: Array<FieldDefinition>;
+    fields: Array<SchemaField>;
 }
 
 // Get sample format
@@ -260,7 +292,8 @@ interface SimpleMapping {
 
 export default class Model {
     api: SampleServiceClient;
-    constructor({ url, token, timeout, version }: ModelParams) {
+
+    constructor({url, token, timeout, version}: ModelParams) {
         this.api = new SampleServiceClient({
             url,
             token,
@@ -312,7 +345,7 @@ export default class Model {
             (key) => {
                 return {
                     type: "metadata",
-                    key,
+                    key
                 };
             },
         );
@@ -322,6 +355,10 @@ export default class Model {
             rawSample.node_tree[0].meta_user,
         )
             .filter((key) => {
+                // Here we filter out user keys which are (in error)
+                // included in the controlled metadata. This is due
+                // to a bug in the importer, and this code should
+                // eventually be removed.
                 return !(key in rawSample.node_tree[0].meta_controlled);
             })
             .map((key) => {
@@ -329,7 +366,6 @@ export default class Model {
                 // but since there have been import bugs regarding
                 // incorrect user metadata, we have to detect if they
                 // are actually controlled fields.
-                // console.log("user label?", key, templateFieldKeys);
                 const label = (() => {
                     if (templateFieldKeys.includes(key)) {
                         return `USER ${key}`;
@@ -340,7 +376,7 @@ export default class Model {
                 return {
                     type: "user",
                     key,
-                    label,
+                    label
                 };
             });
 
@@ -358,6 +394,9 @@ export default class Model {
             },
             new Set(),
         );
+
+        // Here we handle controlled fields which we know are absent because they
+        // are in the template, but not in the sample itself.
         const missingMetadataFields: Array<TemplateField> = Object.entries(
             rawSample.node_tree[0].meta_controlled,
         ).reduce<Array<TemplateField>>((fields, [key, value]) => {
@@ -374,9 +413,7 @@ export default class Model {
             return fields;
         }, []);
 
-        const fields = metadataFields.concat(missingMetadataFields).concat(
-            userFields,
-        );
+        const fields = metadataFields.concat(missingMetadataFields).concat(userFields);
 
         // now we merge them together into the format
         return {
@@ -390,7 +427,7 @@ export default class Model {
         const rawRealSample = rawSample.node_tree[0];
 
         // 2. Get the format
-        const { format } = await this.api.get_format({ id: rawSample.format_id });
+        const {format} = await this.api.get_format({id: rawSample.format_id});
         const sampleMapping = format.mappings.sample;
         const reverseSampleMapping: SimpleMapping = Object.entries(sampleMapping)
             .reduce<SimpleMapping>((mapping, [key, value]) => {
@@ -429,7 +466,6 @@ export default class Model {
                     throw new Error("Impossible!");
                 }
             });
-
         // keys.forEach((key) => {
         //   if (key in reverseRecordMapping) {
         //     keys.push(reverseRecordMapping[key]);
@@ -441,13 +477,11 @@ export default class Model {
 
         // also include mapped keys
 
-        const { fields } = await this.api.get_field_definitions({ keys });
+        const {fields} = await this.api.get_field_definitions({keys});
 
-        //   const { fields } = await this.api.get_all_field_definitions({ keys });
-        const fieldDefinitions: FieldDefinitions = fields.reduce<
-            FieldDefinitions
-        >((defMap, fieldDef) => {
-            defMap.set(fieldDef.id, fieldDef);
+        // Make a map for quick lookup.
+        const fieldDefinitions: Map<string, SchemaField> = fields.reduce((defMap, fieldDef) => {
+            defMap.set(fieldDef.kbase.sample.key, fieldDef);
             return defMap;
         }, new Map());
 
@@ -469,149 +503,181 @@ export default class Model {
         // format-specific names for those fields.
         //
         // Another gotcha is that some fields end up weird after the sample import transformation.
-        // See, the sample importer will construct keys out of column names using certain rules, e.g. space to underscore.
+        // See, the sample importer will construct keys schema of column names using certain rules, e.g. space to underscore.
         // This results in some strange keys.
         // I refuse to replicate that in the format spec, but accommodate that (for now ONLY) using a "corrections" mapping.
         // This mapping, mappings.corrections, maps from the incorrect to the correct field.
         // e.g. redox_potential_?: redox_potential
-        const metadata: Metadata = template.fields.reduce<Metadata>(
-            (metadata, rawField) => {
-                if (rawField.type === "user") {
-                    return metadata;
+        const controlled: SimpleMap<MetadataControlledField> = {};
+        const metadata = template.fields.map<MetadataField>((templateField) => {
+            // Skip user fields in the template.
+            if (templateField.type === "user")  {
+                const userFieldValue = rawRealSample.meta_user[templateField.key].value;
+                const a: MetadataUserField = {
+                    type: 'user',
+                    key: templateField.key,
+                    label: templateField.label,
+                    // value: fieldValue.value,
+                    // units: unit,
+                    isEmpty: userFieldValue ? true : false,
+                    field: userFieldValue
+                    // definition: fieldDefinition,
+                };
+                return a;
+            }
+
+            const fieldDefinition = fieldDefinitions.get(templateField.key);
+
+            if (!fieldDefinition) {
+                console.error("undefined field", fieldDefinitions, templateField.key);
+                throw new Error(
+                    `Sorry, field "${templateField.key}" is not defined`,
+                );
+            }
+
+            // map the template key back to the mapped key.
+            const reverseMappedKey = ((key) => {
+                // sample mapping is first, because the record mapping (name)
+                // may be the same as the sample mapping (id)
+                if (key in reverseSampleMapping) {
+                    return reverseSampleMapping[key];
+                }
+                if (key in reverseRecordMapping) {
+                    return reverseRecordMapping[key];
                 }
 
-                const fieldDefinition = fieldDefinitions.get(rawField.key);
+                return key;
+            })(templateField.key);
 
-                if (!fieldDefinition) {
-                    console.error("undefined field", fieldDefinitions, rawField.key);
-                    throw new Error(
-                        `Sorry, field "${rawField.key}" is not defined`,
-                    );
+            const mappedKey = templateField.key;
+
+            const fieldValue: MetadataValue | null = (() => {
+                const value = rawRealSample.meta_controlled[reverseMappedKey];
+                if (typeof value === "undefined") {
+                    return null;
                 }
+                return value;
+            })();
 
-                // map the template key back to the mapped key.
-                const reverseMappedKey = ((key) => {
-                    // sample mapping is first, because the record mapping (name)
-                    // may be the same as the sample mapping (id)
-                    if (key in reverseSampleMapping) {
-                        return reverseSampleMapping[key];
-                    }
-                    if (key in reverseRecordMapping) {
-                        return reverseRecordMapping[key];
-                    }
-
-                    return key;
-                })(rawField.key);
-
-                const mappedKey = rawField.key;
-
-                const fieldValue: MetadataValue | null = (() => {
-                    const value = rawRealSample.meta_controlled[reverseMappedKey];
-                    if (typeof value === "undefined") {
-                        return null;
-                    }
-                    return value;
-                })();
-
-                const unit = (() => {
-                    if (fieldValue && fieldValue.units) {
-                        return fieldValue.units;
-                    }
-                    if (!fieldDefinition.units) {
-                        return "unit";
-                    }
-                    if (!fieldDefinition.units.canonical) {
-                        return "unit";
-                    }
-                    return fieldDefinition.units.canonical;
-                })();
-
-                const field: FieldValue = (() => {
-                    switch (fieldDefinition.type.type) {
-                        case "string":
-                            return {
-                                ...fieldDefinition.type,
-                                value: fieldValue === null
-                                    ? fieldValue
-                                    : fieldValue.value as string | null,
-                            };
-                        case "text":
-                            return {
-                                ...fieldDefinition.type,
-                                value: fieldValue === null
-                                    ? fieldValue
-                                    : fieldValue.value as string | null,
-                            };
-                        case "number":
-                            return {
-                                ...fieldDefinition.type,
-                                value: fieldValue === null
-                                    ? fieldValue
-                                    : fieldValue.value as number | null,
-                            };
-                        case "boolean":
-                            return {
-                                ...fieldDefinition.type,
-                                value: fieldValue === null
-                                    ? fieldValue
-                                    : fieldValue.value as boolean | null,
-                            };
-                        case "Enum<string>":
-                            return {
-                                ...fieldDefinition.type,
-                                value: fieldValue === null
-                                    ? fieldValue
-                                    : fieldValue.value as string | null,
-                            };
-                        case "OntologyTerm":
-                            return {
-                                ...fieldDefinition.type,
-                                value: fieldValue === null
-                                    ? fieldValue
-                                    : fieldValue.value as string | null,
-                            };
-                        default:
-                            throw new Error(
-                                `Unsupported field type ${fieldDefinition.type.type}`,
-                            );
-                    }
-                })();
-
-                if (!fieldValue) {
-                    metadata[mappedKey] = {
-                        key: mappedKey,
-                        label: fieldDefinition.label,
-                        // value: null,
-                        units: unit,
-                        // definition: fieldDefinition,
-                        field,
-                    };
-                } else {
-                    metadata[mappedKey] = {
-                        key: mappedKey,
-                        label: fieldDefinition.label,
-                        // value: fieldValue.value,
-                        units: unit,
-                        field,
-                        // definition: fieldDefinition,
-                    };
+            const unit = (() => {
+                if (fieldValue && fieldValue.units) {
+                    return fieldValue.units;
                 }
-                return metadata;
-            },
-            {},
-        );
-
-        const userMetadata: UserMetadata = template.fields.reduce<UserMetadata>(
-            (metadata, field) => {
-                if (field.type === "metadata") {
-                    return metadata;
+                if (!fieldDefinition.kbase.units) {
+                    return "unit";
                 }
-                const fieldValue = rawRealSample.meta_user[field.key];
-                metadata[field.label] = String(fieldValue.value);
-                return metadata;
-            },
-            {},
-        );
+                if (!fieldDefinition.kbase.units.canonical) {
+                    return "unit";
+                }
+                return fieldDefinition.kbase.units.canonical;
+            })();
+
+            const field: FieldValue = (() => {
+                switch (fieldDefinition.type) {
+                    case "string":
+                        const y: FieldStringValue = {
+                            type: 'string',
+                            format: fieldDefinition.format,
+                            schema: fieldDefinition,
+                            isEmpty: fieldValue === null,
+                            unit: fieldValue !== null ? fieldValue.units : undefined,
+                            stringValue: fieldValue === null
+                                ? fieldValue
+                                : fieldValue.value as string,
+                        };
+                        return y;
+                    // case "text":
+                    //     return {
+                    //         schema: fieldDefinition,
+                    //         value: fieldValue === null
+                    //             ? fieldValue
+                    //             : fieldValue.value as string | null,
+                    //     };
+                    case "number":
+                        const x: FieldNumberValue = {
+                            type: 'number',
+                            schema: fieldDefinition,
+                            isEmpty: fieldValue === null,
+                            unit: fieldValue !== null ? fieldValue.units : undefined,
+                            numberValue: fieldValue === null
+                                ? fieldValue
+                                : fieldValue.value as number,
+                        };
+                        return x;
+                    // case "boolean":
+                    //     return {
+                    //         schema: fieldDefinition,
+                    //         value: fieldValue === null
+                    //             ? fieldValue
+                    //             : fieldValue.value as boolean | null,
+                    //     };
+                    // case "Enum<string>":
+                    //     return {
+                    //         ...fieldDefinition.type,
+                    //         value: fieldValue === null
+                    //             ? fieldValue
+                    //             : fieldValue.value as string | null,
+                    //     };
+                    // case "OntologyTerm":
+                    //     return {
+                    //         ...fieldDefinition.type,
+                    //         value: fieldValue === null
+                    //             ? fieldValue
+                    //             : fieldValue.value as string | null,
+                    //     };
+                    // default:
+                    //     throw new Error(
+                    //         `Unsupported field type ${fieldDefinition.type}`,
+                    //     );
+                }
+            })();
+
+            const controlledField: MetadataControlledField = {
+                type: 'controlled',
+                key: mappedKey,
+                label: fieldDefinition.kbase.display.label,
+                // value: fieldValue.value,
+                // units: unit,
+                isEmpty: field.isEmpty,
+                field,
+                // definition: fieldDefinition,
+            };
+            controlled[mappedKey] = controlledField;
+            return controlledField;
+
+            // if (!fieldValue) {
+            //     metadata[mappedKey] = {
+            //         key: mappedKey,
+            //         label: fieldDefinition.kbase.display.label,
+            //         // value: null,
+            //         units: unit,
+            //         // definition: fieldDefinition,
+            //         field,
+            //     };
+            // } else {
+            //     metadata[mappedKey] = {
+            //         key: mappedKey,
+            //         label: fieldDefinition.kbase.display.label,
+            //         // value: fieldValue.value,
+            //         units: unit,
+            //         field,
+            //         // definition: fieldDefinition,
+            //     };
+            // }
+            // return metadata;
+        });
+
+        // const userMetadata: UserMetadata = template.fields.reduce<UserMetadata>(
+        //     (metadata, field) => {
+        //         if (field.type === "metadata") {
+        //             return metadata;
+        //         }
+        //         const fieldValue = rawRealSample.meta_user[field.key];
+        //         metadata[field.label] = String(fieldValue.value);
+        //         return metadata;
+        //     },
+        //     {},
+        // );
 
         // const userMetadata2: UserMetadata = (() => {
         //     return Object.entries(rawRealSample.meta_user).reduce((metadata, [key, field]) => {
@@ -634,7 +700,7 @@ export default class Model {
                 // source: templateDefinition.source,
                 // templateId: templateDefinition.id,
                 metadata,
-                userMetadata,
+                controlled
             },
             formatId: rawSample.format_id,
             template,
@@ -724,7 +790,7 @@ export default class Model {
 
     async getGrouping(params: GetGroupingParams): Promise<GetGroupingResult> {
         // get the layout ... faked for now, just one.
-        const { groups } = await this.api.get_field_groups(
+        const {groups} = await this.api.get_field_groups(
             {},
         );
         const fieldGroups = groups.reduce<FieldGroups>((groups, group) => {
@@ -753,20 +819,19 @@ export default class Model {
         params: GetFieldGroupsParams,
     ): Promise<GetFieldGroupsResult> {
         // get the layout ... faked for now, just one.
-        const { groups } = await this.api.get_field_groups(
+        const {groups} = await this.api.get_field_groups(
             {},
         );
-        return { groups };
+        return {groups};
     }
 
     async getFormat(params: GetFormatParams): Promise<GetFormatResult> {
-        const { format } = await this.api.get_format({ id: params.id });
-        return { format };
+        const {format} = await this.api.get_format({id: params.id});
+        return {format};
     }
 
-    async getFieldDefinitions(): Promise<GetFieldDefinitionsResult> {
-        const result = await this.api.get_field_definitions({});
-        return result;
+    async getFieldDefinitions(params: GetFieldDefinitionsParams): Promise<GetFieldDefinitionsResult> {
+        return await this.api.get_field_definitions({keys: params.keys});
     }
 
     // async getSampleSource(params: GetSampleSourceParams): Promise<GetSampleSourceResult> {

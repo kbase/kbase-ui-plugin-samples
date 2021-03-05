@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/field_name.json",
+  "title": "Field Name",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Field Name"
+    },
+    "sample": {
+      "key": "field_name",
+      "columnTitle": "Field Name"
+    }
+  }
+}

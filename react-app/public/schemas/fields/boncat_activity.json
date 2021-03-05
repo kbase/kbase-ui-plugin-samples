@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/boncat_activity.json",
+  "title": "BONCAT Activity",
+  "type": "number",
+  "minimum": 0,
+  "kbase": {
+    "units": {
+      "available": [
+        "cells/g"
+      ],
+      "canonical": "cells/g"
+    },
+    "display": {
+      "label": "BONCAT Activity"
+    },
+    "sample": {
+      "key": "boncat_activity",
+      "columnTitle": "BONCAT Activity"
+    }
+  }
+}

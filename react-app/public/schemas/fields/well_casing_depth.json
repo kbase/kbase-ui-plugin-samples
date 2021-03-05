@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_depth.json",
+  "title": "Well Casing Depth",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Well Casing Depth"
+    },
+    "sample": {
+      "key": "well_casing_depth",
+      "columnTitle": "Well Casing Depth"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/screened_interval.json",
+  "title": "Screened Interval",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Screened Interval"
+    },
+    "sample": {
+      "key": "screened_interval",
+      "columnTitle": "Screened Interval"
+    }
+  }
+}

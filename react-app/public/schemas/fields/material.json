@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/material.json",
+  "title": "Material",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Material"
+    },
+    "sample": {
+      "key": "material",
+      "columnTitle": "Material"
+    }
+  }
+}

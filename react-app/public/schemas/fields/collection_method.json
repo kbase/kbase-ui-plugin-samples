@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/collection_method.json",
+  "title": "Collection method",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Collection method"
+    },
+    "sample": {
+      "key": "collection_method",
+      "columnTitle": "Collection method"
+    }
+  }
+}

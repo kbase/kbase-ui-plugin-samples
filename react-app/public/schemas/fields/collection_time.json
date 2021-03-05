@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/collection_time.json",
+  "title": "Collection time",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Collection time"
+    },
+    "sample": {
+      "key": "collection_time",
+      "columnTitle": "Collection time"
+    }
+  }
+}

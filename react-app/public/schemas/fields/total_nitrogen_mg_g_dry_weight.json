@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/total_nitrogen_mg_g_dry_weight.json",
+  "title": "Total Nitrogen",
+  "type": "number",
+  "minimum": 0,
+  "kbase": {
+    "units": {
+      "available": [
+        "mg/g"
+      ],
+      "canonical": "mg/g"
+    },
+    "display": {
+      "label": "Total Nitrogen"
+    },
+    "sample": {
+      "key": "total_nitrogen_mg_g_dry_weight",
+      "columnTitle": "Total Nitrogen"
+    }
+  }
+}

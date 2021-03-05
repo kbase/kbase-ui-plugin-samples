@@ -198,7 +198,7 @@ versions:
 
       elevation_end:
         label: Elevation end
-        description: To be geolocated in the SESAR system, latitude and longitude must be filled out. UTM coordinates can be specified for reference but will not place the sample on the map. There are several web tools for converting from UTM to latitude/longitude, such as http://www.earthpoint.us/Convert.aspx.
+        description: To be geolocated in the SESAR system, latitude and longitude must be filled schema. UTM coordinates can be specified for reference but will not place the sample on the map. There are several web tools for converting from UTM to latitude/longitude, such as http://www.earthpoint.us/Convert.aspx.
         type: number
         units:
           available: [meter]
@@ -358,7 +358,7 @@ versions:
         label: Northing
         description: Geographic Cartesian coordinate of where the sample was collected, in meters, as in UTM. "4111279”
         notes:
-          - To be geolocated in the SESAR system, latitude and longitude must be filled out. UTM coordinates can be specified for reference but will not place the sample on the map. There are several web tools for converting from UTM to latitude/longitude, such as http://www.earthpoint.us/Convert.aspx.
+          - To be geolocated in the SESAR system, latitude and longitude must be filled schema. UTM coordinates can be specified for reference but will not place the sample on the map. There are several web tools for converting from UTM to latitude/longitude, such as http://www.earthpoint.us/Convert.aspx.
         type: number
         units:
           available: [meter]

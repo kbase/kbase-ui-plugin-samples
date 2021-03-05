@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/gold:biosample_id.json",
+  "title": "Ecosystem Type",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Ecosystem Type"
+    },
+    "sample": {
+      "key": "gold:biosample_id",
+      "columnTitle": "Ecosystem Type"
+    }
+  }
+}

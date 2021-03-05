@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/filter.json",
+  "title": "Filter",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "microns"
+      ],
+      "canonical": "microns"
+    },
+    "display": {
+      "label": "Filter"
+    },
+    "sample": {
+      "key": "filter",
+      "columnTitle": "Filter"
+    }
+  }
+}

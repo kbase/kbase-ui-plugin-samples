@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/ground_elevation_ft_amsl.json",
+  "title": "Ground Elevation",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Ground Elevation"
+    },
+    "categories": [
+      "geolocation"
+    ],
+    "sample": {
+      "key": "ground_elevation_ft_amsl",
+      "columnTitle": "Ground Elevation"
+    }
+  }
+}

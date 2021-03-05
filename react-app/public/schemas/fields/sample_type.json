@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/sample_type.json",
+  "title": "Sample Type",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Sample Type"
+    },
+    "sample": {
+      "key": "sample_type",
+      "columnTitle": "Sample Type"
+    }
+  }
+}

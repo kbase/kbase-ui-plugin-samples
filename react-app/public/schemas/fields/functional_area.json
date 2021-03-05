@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/functional_area.json",
+  "title": "Functional Area",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Functional Area"
+    },
+    "sample": {
+      "key": "functional_area",
+      "columnTitle": "Functional Area"
+    }
+  }
+}

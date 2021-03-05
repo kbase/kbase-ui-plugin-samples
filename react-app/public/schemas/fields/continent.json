@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/continent.json",
+  "title": "Continent",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Continent"
+    },
+    "categories": [
+      "geolocation"
+    ],
+    "sample": {
+      "key": "continent",
+      "columnTitle": "Continent"
+    }
+  }
+}

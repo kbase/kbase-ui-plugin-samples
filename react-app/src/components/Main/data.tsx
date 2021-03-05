@@ -11,7 +11,11 @@ import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from 'lib/comm/coreServices/UserProfileClient';
 import { Sample, User, Template } from './types';
 import Model from '../../lib/Model';
-import { FieldDefinition, FieldGroup, Format } from 'lib/client/samples/Samples';
+import {
+    // FieldDefinition,
+    SchemaField,
+    FieldGroup,
+    Format } from 'lib/client/samples/Samples';
 
 export interface DataProps {
     serviceWizardURL: string;
@@ -34,7 +38,7 @@ interface DataState {
     loadingState: AsyncProcess<State, AppError>;
 }
 
-export type FieldDefinitionsMap = { [key: string]: FieldDefinition; };
+export type FieldDefinitionsMap = { [key: string]: SchemaField; };
 
 export default class Data extends React.Component<DataProps, DataState> {
     constructor(props: DataProps) {
@@ -141,7 +145,8 @@ export default class Data extends React.Component<DataProps, DataState> {
                 // template: sampleResult.template
                 // type: actualSample.type,
                 metadata: sampleResult.sample.metadata,
-                userMetadata: sampleResult.sample.userMetadata,
+                controlled: sampleResult.sample.controlled,
+                // userMetadata: sampleResult.sample.userMetadata,
                 formatId: sampleResult.formatId
                 // format: sampleResult.format
                 // fieldDefinitions: sampleResult.fieldDefinitions
@@ -151,14 +156,16 @@ export default class Data extends React.Component<DataProps, DataState> {
 
             // const { groups } = await client.getFieldGroups({});
 
+            const fieldKeys: Array<string> = Object.keys(sampleResult.sample.controlled);
+
             const { format } = await client.getFormat({ id: sampleResult.formatId });
 
             const fieldGroups = format.layouts.grouped;
 
-            const { fields } = await client.getFieldDefinitions();
+            const { fields } = await client.getFieldDefinitions({keys: fieldKeys});
 
             const fieldDefinitionsMap: FieldDefinitionsMap = fields.reduce<FieldDefinitionsMap>((accum, def) => {
-                accum[def.id] = def;
+                accum[def.kbase.sample.key] = def;
                 return accum;
             }, {});
 

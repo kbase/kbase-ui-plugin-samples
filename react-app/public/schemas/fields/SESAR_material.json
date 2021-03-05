@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/SESAR:material.json",
+  "title": "Material",
+  "type": "string",
+  "enum": [
+    "Biology",
+    "Gas",
+    "Ice",
+    "Liquid>aqueous",
+    "Liquid>organic",
+    "Mineral",
+    "NotApplicable",
+    "Other",
+    "Particulate",
+    "Rock",
+    "Sediment",
+    "Soil",
+    "Synthetic"
+  ],
+  "kbase": {
+    "display": {
+      "label": "Material"
+    },
+    "sample": {
+      "key": "SESAR:material",
+      "columnTitle": "Material"
+    }
+  }
+}

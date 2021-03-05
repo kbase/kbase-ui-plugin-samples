@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/feature.json",
+  "title": "Feature",
+  "type": "string",
+  "format": "ontologyTerm",
+  "ancestorTerm": "ENVO:01000813",
+  "ontologyNamespace": "envo_ontology",
+  "kbase": {
+    "display": {
+      "label": "Feature"
+    },
+    "categories": [
+      "geolocation"
+    ],
+    "sample": {
+      "key": "feature",
+      "columnTitle": "Feature"
+    }
+  }
+}
