@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/nmdc:env_local_scale_term.json",
+  "title": "NMDC environment term, local scale",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "NMDC environment term, local scale"
+    },
+    "sample": {
+      "key": "nmdc:env_local_scale_term",
+      "columnTitle": "NMDC environment term, local scale"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/latitude_start.json",
+  "title": "Latitude Start",
+  "type": "number",
+  "minimum": -90,
+  "maximum": 90,
+  "kbase": {
+    "units": {
+      "available": [
+        "degrees"
+      ],
+      "canonical": "degrees"
+    },
+    "display": {
+      "label": "Latitude Start"
+    },
+    "categories": [
+      "geolocation"
+    ],
+    "format": {
+      "minimumFractionDigits": 3,
+      "maximumFractionDigits": 3
+    },
+    "sample": {
+      "key": "latitude_start",
+      "columnTitle": "Latitude Start"
+    }
+  }
+}

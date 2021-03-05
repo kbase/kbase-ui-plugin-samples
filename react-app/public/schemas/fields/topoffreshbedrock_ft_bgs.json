@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/topoffreshbedrock_ft_bgs.json",
+  "title": "Top of Fresh Bedrock",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Top of Fresh Bedrock"
+    },
+    "sample": {
+      "key": "topoffreshbedrock_ft_bgs",
+      "columnTitle": "Top of Fresh Bedrock"
+    }
+  }
+}

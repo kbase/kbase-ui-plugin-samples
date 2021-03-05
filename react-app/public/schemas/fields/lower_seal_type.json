@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_type.json",
+  "title": "Lower Seal Type",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Lower Seal Type"
+    },
+    "sample": {
+      "key": "lower_seal_type",
+      "columnTitle": "Lower Seal Type"
+    }
+  }
+}

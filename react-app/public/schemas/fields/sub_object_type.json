@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/sub_object_type.json",
+  "title": "Sub Object Type",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Sub Object Type"
+    },
+    "sample": {
+      "key": "sub_object_type",
+      "columnTitle": "Sub Object Type"
+    }
+  }
+}

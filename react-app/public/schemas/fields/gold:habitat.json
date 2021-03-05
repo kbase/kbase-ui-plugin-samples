@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/gold:habitat.json",
+  "title": "Habitat",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Habitat"
+    },
+    "sample": {
+      "key": "gold:habitat",
+      "columnTitle": "Habitat"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/other_names.json",
+  "title": "Other name(s)",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Other name(s)"
+    },
+    "sample": {
+      "key": "other_names",
+      "columnTitle": "Other name(s)"
+    }
+  }
+}

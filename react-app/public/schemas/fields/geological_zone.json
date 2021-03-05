@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/geological_zone.json",
+  "title": "Geological Zone",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Geological Zone"
+    },
+    "sample": {
+      "key": "geological_zone",
+      "columnTitle": "Geological Zone"
+    }
+  }
+}

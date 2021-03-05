@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/screen_end_depth.json",
+  "title": "Screen End Depth",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Screen End Depth"
+    },
+    "sample": {
+      "key": "screen_end_depth",
+      "columnTitle": "Screen End Depth"
+    }
+  }
+}

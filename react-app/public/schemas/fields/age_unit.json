@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/age_unit.json",
+  "title": "Age unit",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Age unit"
+    },
+    "sample": {
+      "key": "age_unit",
+      "columnTitle": "Age unit"
+    }
+  }
+}

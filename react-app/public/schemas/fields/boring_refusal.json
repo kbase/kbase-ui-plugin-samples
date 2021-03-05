@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/boring_refusal.json",
+  "title": "Boring Refusal",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Boring Refusal"
+    },
+    "sample": {
+      "key": "boring_refusal",
+      "columnTitle": "Boring Refusal"
+    }
+  }
+}

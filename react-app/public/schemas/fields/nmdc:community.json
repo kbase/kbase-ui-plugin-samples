@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/nmdc:community.json",
+  "title": "Community",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Community"
+    },
+    "sample": {
+      "key": "nmdc:community",
+      "columnTitle": "Community"
+    }
+  }
+}

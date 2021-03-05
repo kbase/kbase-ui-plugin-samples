@@ -7,7 +7,7 @@ export type PathElement = string;
 export type Path = Array<PathElement>;
 
 export interface Request {
-    hash: string; // original hash 
+    hash: string; // original hash
     plugin: string;
     view: string;
     path: Path;
@@ -84,7 +84,7 @@ export default class RequestFetcher {
                 return decodeURIComponent(pathComponent);
             });
 
-        // Extract out the standard bits from the format:
+        // Extract schema the standard bits from the format:
         // plugin/view/rest
         const [plugin, view, ...rest] = path;
 

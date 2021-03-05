@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/total_carbon_mg_g_dry_weight.json",
+  "title": "Total Carbon",
+  "type": "number",
+  "minimum": 0,
+  "kbase": {
+    "units": {
+      "available": [
+        "mg/g"
+      ],
+      "canonical": "mg/g"
+    },
+    "display": {
+      "label": "Total Carbon"
+    },
+    "sample": {
+      "key": "total_carbon_mg_g_dry_weight",
+      "columnTitle": "Total Carbon"
+    }
+  }
+}

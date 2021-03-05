@@ -1,55 +1,57 @@
+import { FieldValue } from "lib/client/samples/Samples";
 import { Sample } from "../Main/types";
+import {MetadataControlledField, MetadataField, MetadataUserField} from "../../lib/Model";
 
-interface TemplateDefinition {
-  id: string;
-  name: string;
-  description: string;
-  reference: string;
-}
+// interface TemplateDefinition {
+//   id: string;
+//   name: string;
+//   description: string;
+//   reference: string;
+// }
 
-interface TemplateDefinitions {
-  templates: Array<TemplateDefinition>;
-}
+// interface TemplateDefinitions {
+//   templates: Array<TemplateDefinition>;
+// }
 
-type TemplateDefinitionsMap = Map<string, TemplateDefinition>;
+// type TemplateDefinitionsMap = Map<string, TemplateDefinition>;
 
-interface Reference {
-  title: string;
-  url: string;
-}
+// interface Reference {
+//   title: string;
+//   url: string;
+// }
 
-interface TemplateFieldBase {
-  type: "sample" | "metadata" | "usermetadata";
-  column: string;
-  key: string;
-}
+// interface TemplateFieldBase {
+//   type: "sample" | "metadata" | "usermetadata";
+//   column: string;
+//   key: string;
+// }
 
-interface TemplateSampleField extends TemplateFieldBase {
-  type: "sample";
-}
+// interface TemplateSampleField extends TemplateFieldBase {
+//   type: "sample";
+// }
 
-interface TemplateMetadataField extends TemplateFieldBase {
-  type: "metadata";
-}
+// interface TemplateMetadataField extends TemplateFieldBase {
+//   type: "metadata";
+// }
 
-interface TemplateUserMetadataField extends TemplateFieldBase {
-  type: "usermetadata";
-}
+// interface TemplateUserMetadataField extends TemplateFieldBase {
+//   type: "usermetadata";
+// }
 
-type TemplateField =
-  | TemplateSampleField
-  | TemplateMetadataField
-  | TemplateUserMetadataField;
+// type TemplateField =
+//   | TemplateSampleField
+//   | TemplateMetadataField
+//   | TemplateUserMetadataField;
 
-interface HeaderField {
-  key: string;
-  column: string;
-}
+// interface HeaderField {
+//   key: string;
+//   column: string;
+// }
 
-interface Template {
-  header: Array<HeaderField>;
-  columns: Array<TemplateField>;
-}
+// interface Template {
+//   header: Array<HeaderField>;
+//   columns: Array<TemplateField>;
+// }
 
 export interface WrappedMetadataValue {
   type: string;
@@ -67,17 +69,51 @@ export interface TemplateDataSource {
   isMissing: boolean;
 }
 
-export interface TemplateDataSource2 {
+interface TemplateFieldBase {
+  type: string;
+  field: any;
+}
+
+export interface TemplateFieldMetadata extends TemplateFieldBase {
+  type: 'metadata',
+  field: FieldValue
+}
+
+export interface  TemplateFieldUser extends TemplateFieldBase {
+  type: 'user',
+  field: string;
+}
+
+export type TemplateField =
+  TemplateFieldMetadata |
+  TemplateFieldUser;
+
+export interface TemplateDataSource2Base {
   order: number;
   key: string;
   label: string;
   type: string;
-  value: string | number | boolean | null;
+  // value: string | number | boolean | null;
   // value: string | number | boolean | null;
   // units: string | null;
   isMissing: boolean;
-  fieldType: "metadata" | "user";
+  fieldType: "controlled" | "user";
+  field: MetadataField
 }
+
+export interface TemplateDataSourceMetadata extends TemplateDataSource2Base  {
+  fieldType: 'controlled',
+  field: MetadataControlledField
+}
+
+export interface TemplateDataSourceUser extends TemplateDataSource2Base{
+  fieldType: 'user',
+  field: MetadataUserField;
+}
+
+export type TemplateDataSource2 =
+  TemplateDataSourceMetadata |
+  TemplateDataSourceUser;
 
 export interface SpreadsheetFieldDefinition {
   order: number;

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/gold:study_id.json",
+  "title": "GOLD study identifier",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "GOLD study identifier"
+    },
+    "sample": {
+      "key": "gold:study_id",
+      "columnTitle": "GOLD study identifier"
+    }
+  }
+}

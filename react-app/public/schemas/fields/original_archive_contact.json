@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/original_archive_contact.json",
+  "title": "Original archive contact",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Original archive contact"
+    },
+    "sample": {
+      "key": "original_archive_contact",
+      "columnTitle": "Original archive contact"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_type.json",
+  "title": "Well Casing Type",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Well Casing Type"
+    },
+    "sample": {
+      "key": "well_casing_type",
+      "columnTitle": "Well Casing Type"
+    }
+  }
+}

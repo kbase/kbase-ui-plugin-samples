@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/upper_seal_start_depth.json",
+  "title": "Upper Seal Start Depth",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Upper Seal Start Depth"
+    },
+    "sample": {
+      "key": "upper_seal_start_depth",
+      "columnTitle": "Upper Seal Start Depth"
+    }
+  }
+}

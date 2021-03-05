@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/env_package.json",
+  "title": "Env_package",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Env_package"
+    },
+    "sample": {
+      "key": "env_package",
+      "columnTitle": "Env_package"
+    }
+  }
+}

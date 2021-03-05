@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/moisture.json",
+  "title": "Moisture",
+  "type": "number",
+  "minimum": 0,
+  "maximum": 100,
+  "kbase": {
+    "units": {
+      "available": [
+        "percent"
+      ],
+      "canonical": "percent"
+    },
+    "display": {
+      "label": "Moisture"
+    },
+    "sample": {
+      "key": "moisture",
+      "columnTitle": "Moisture"
+    }
+  }
+}

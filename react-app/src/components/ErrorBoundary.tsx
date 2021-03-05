@@ -7,6 +7,7 @@ export interface ErrorBoundaryProps {
 
 interface ErrorBoundaryState {
     error: null | {
+        error: any,
         message: string;
     };
 }
@@ -23,6 +24,7 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
         if (this.state.error === null) {
             return;
         }
+        console.error('Caught by ErrorBoundary', this.state.error);
         return <Alert type="error" message={
             <div>
                 <p>Error!</p>
@@ -35,18 +37,21 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
         if (error.message) {
             return {
                 error: {
+                    error,
                     message: error.message
                 }
             };
         } else if (typeof error === 'string') {
             return {
                 error: {
+                    error,
                     message: error
                 }
             };
         } else {
             return {
                 error: {
+                    error,
                     message: 'Unknown error'
                 }
             };

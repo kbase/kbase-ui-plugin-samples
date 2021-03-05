@@ -1,14 +1,16 @@
 import sesarData from "./formats/sesar/sesar.json";
 import enigmaData from "./formats/enigma/enigma.json";
 import kbaseData from "./formats/kbase/kbase.json";
-import fieldDefinitions from "./samples/sample-fields.json";
+// import fieldDefinitions from "./samples/sample-fields.json";
 import categoriesData from "./samples/categories.json";
 import {
     FieldCategory,
-    FieldDefinition,
-    FieldDefinitions,
+    // FieldDefinition,
+    // FieldDefinitions,
     FieldGroup,
+    // FieldUnits,
     Format,
+    SchemaField,
 } from "./samples/Samples";
 
 import sesarTemplateData from "lib/Model/data/templates/sesar/sesar1.json";
@@ -29,15 +31,15 @@ const fieldGroupsData = fieldGroups as Array<FieldGroup>;
 const sesarFormatData = sesarData as Format;
 const enigmaFormatData = enigmaData as Format;
 const kbaseFormatData = kbaseData as Format;
-const fieldDefinitionsData = fieldDefinitions as Array<FieldDefinition>;
+// const fieldDefinitionsData = fieldDefinitions as Array<FieldDefinition>;
 const categories = categoriesData as Array<FieldCategory>;
 
-const fieldDefinitionsMap: FieldDefinitions = fieldDefinitionsData.reduce<
-    FieldDefinitions
->((defMap, fieldDef) => {
-    defMap.set(fieldDef.id, fieldDef);
-    return defMap;
-}, new Map());
+// const fieldDefinitionsMap: FieldDefinitions = fieldDefinitionsData.reduce<
+//     FieldDefinitions
+// >((defMap, fieldDef) => {
+//     defMap.set(fieldDef.id, fieldDef);
+//     return defMap;
+// }, new Map());
 
 export interface StatusResult extends JSONObject {
     state: string;
@@ -299,11 +301,35 @@ export interface GetFormatResult {
 }
 
 export interface GetFieldDefinitionsParams {
-    keys?: Array<string>;
+    keys: Array<string>;
 }
 
+// export interface FieldSchema {
+//     $schema: string;
+//     $id: string;
+//     title: string;
+//     description?: string;
+//     display: {
+//         label: string,
+//         tooltip?: string
+//     },
+//     type: string,
+//     format?: string
+//     minimum?: number,
+//     maximum?: number,
+//     enum?: Array<string>
+//     minLength?: number,
+//     maxLength?: number,
+//     examples: Array<string>,
+//     units: string;
+//     sample: {
+//         key: string;
+//         columnTitle: string;
+//     }
+// }
+
 export interface GetFieldDefinitionsResult {
-    fields: Array<FieldDefinition>;
+    fields: Array<SchemaField>;
 }
 
 export interface GetFieldGroupsParams {
@@ -365,6 +391,8 @@ export default class SampleServiceClient extends DynamicServiceClient {
             );
             const ignoreKeys = commonKeys.concat(standardKeys);
 
+            // console.log('grokking format...', controlledKeys, standardKeys,commonKeys);
+
             const notSesar = controlledKeys.filter((key) => {
                 if (ignoreKeys.includes(key)) {
                     return false;
@@ -392,6 +420,22 @@ export default class SampleServiceClient extends DynamicServiceClient {
                 }
                 return enigmaTemplateData.fields.includes(key);
             });
+
+            // console.log('well',  notSesar, sesarIntersect, notEnigma, enigmaIntersect);
+
+            const sesarRatio = sesarIntersect.length / controlledKeys.length;
+            const enigmaRatio = enigmaIntersect.length / controlledKeys.length;
+
+            // if (sesarRatio > 0.5) {
+            //     if (sesarRatio > enigmaRatio) {
+            //         return  'sesar';
+            //     }
+            //     return 'sesar';
+            // } else if (enigmaRatio > 0.5) {
+            //
+            // } else {
+            //     return 'kbase';
+            // }
 
             if (sesarIntersect.length > 0 && notSesar.length === 0) {
                 return "sesar";
@@ -452,20 +496,52 @@ export default class SampleServiceClient extends DynamicServiceClient {
     async get_field_definitions(
         params: GetFieldDefinitionsParams,
     ): Promise<GetFieldDefinitionsResult> {
-        if (!params.keys) {
-            return Promise.resolve({
-                fields: fieldDefinitionsData
-            });
-        }
-        const fields = params.keys.map((key) => {
-            if (!fieldDefinitionsMap.has(key)) {
-                throw new Error(`Field "${key}" is not defined`);
+        // if (!params.keys) {
+        //     return Promise.resolve({
+        //         fields: fieldDefinitionsData
+        //     });
+        // }
+        const fields = await Promise.all(params.keys.map(async (key) => {
+            const scrubbedKey = key.replace(/[?:#$%^&*()-+=]/, '_');
+            const result = await fetch(`${process.env.PUBLIC_URL}/schemas/fields/${scrubbedKey}.json`);
+
+            if (result.status >= 300) {
+                throw new Error(`Error fetching scheme for ${key}`);
             }
-            return fieldDefinitionsMap.get(key)!;
-        });
-        return Promise.resolve({
-            fields
-        });
+
+            return await (async () => {
+                const payload = await result.text();
+                try {
+                    return JSON.parse(payload) as SchemaField;
+                } catch (ex) {
+                    throw new Error(`Invalid JSON schema for field "${key}": ${ex.message}`);
+                }
+            })();
+
+            // const units: FieldUnits | undefined = (() => {
+            //     if (!('units' in schema)) {
+            //         return;
+            //     }
+            //     const unit = schema['units'];
+            //     return {
+            //         available: [unit],
+            //         canonical: unit
+            //     };
+            // })();
+            // return {
+            //     id: key,
+            //     label: schema.display.label,
+            //     description: schema.description,
+            //     examples: schema.examples,
+            //     type: schema.type,
+            //     units
+            // }
+            // if (!fieldDefinitionsMap.has(key)) {
+            //     throw new Error(`Fieldn "${key}" is not defined`);
+            // }
+            // return fieldDefinitionsMap.get(key)!;
+        }));
+        return {fields};
     }
 
     async get_field_groups(

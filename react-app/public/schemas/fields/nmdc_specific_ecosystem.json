@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/nmdc:specific_ecosystem.json",
+  "title": "NMDC specific ecosystem term",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "NMDC specific ecosystem term"
+    },
+    "sample": {
+      "key": "nmdc:specific_ecosystem",
+      "columnTitle": "NMDC specific ecosystem term"
+    }
+  }
+}

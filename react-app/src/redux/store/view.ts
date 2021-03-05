@@ -29,7 +29,7 @@ export interface SyncViewSuccess<S> {
 export type SyncView<S, E> = SyncViewNone | SyncViewSuccess<S> | SyncViewError<E>;
 
 
-// Views which are async in nature 
+// Views which are async in nature
 
 export enum AsyncViewStatus {
     NONE,
@@ -74,11 +74,11 @@ export enum ViewType {
 
 /*
 A view is composed of three generic attributes:
-type - an enumeration used to sort out views at compile/run time (discriminated type)
+type - an enumeration used to sort schema views at compile/run time (discriminated type)
 params - required and optional parameters passed from the url, or otherwise;
          these are the external inputs to the view
 state - any state the view wants to play with outside of components, or shared across components;
-        may be 
+        may be
 */
 
 export interface ViewBase<S extends ViewType, ParamType, StateType> {

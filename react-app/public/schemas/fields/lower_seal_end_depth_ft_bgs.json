@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_end_depth_ft_bgs.json",
+  "title": "Lower Seal End Depth",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Lower Seal End Depth"
+    },
+    "sample": {
+      "key": "lower_seal_end_depth_ft_bgs",
+      "columnTitle": "Lower Seal End Depth"
+    }
+  }
+}

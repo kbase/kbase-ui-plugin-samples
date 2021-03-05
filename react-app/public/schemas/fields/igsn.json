@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/igsn.json",
+  "title": "IGSN",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "IGSN"
+    },
+    "sample": {
+      "key": "igsn",
+      "columnTitle": "IGSN"
+    }
+  }
+}

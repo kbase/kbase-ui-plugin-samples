@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/average_water_level_ft_amsl.json",
+  "title": "Average Water Level",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "ft"
+      ],
+      "canonical": "ft"
+    },
+    "display": {
+      "label": "Average Water Level"
+    },
+    "sample": {
+      "key": "average_water_level_ft_amsl",
+      "columnTitle": "Average Water Level"
+    }
+  }
+}

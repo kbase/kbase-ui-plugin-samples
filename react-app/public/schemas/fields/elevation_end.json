@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/elevation_end.json",
+  "title": "Elevation end",
+  "type": "number",
+  "kbase": {
+    "units": {
+      "available": [
+        "meters"
+      ],
+      "canonical": "meters"
+    },
+    "display": {
+      "label": "Elevation end"
+    },
+    "categories": [
+      "geolocation"
+    ],
+    "sample": {
+      "key": "elevation_end",
+      "columnTitle": "Elevation end"
+    }
+  }
+}

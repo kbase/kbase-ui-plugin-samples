@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_type.json",
+  "title": "Drive Casing Type",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Drive Casing Type"
+    },
+    "sample": {
+      "key": "drive_casing_type",
+      "columnTitle": "Drive Casing Type"
+    }
+  }
+}

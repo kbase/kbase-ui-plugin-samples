@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://kbase.us/schemas/samples/fields/sesar/locality_description.json",
+  "title": "Locality description",
+  "type": "string",
+  "kbase": {
+    "display": {
+      "label": "Locality description"
+    },
+    "categories": [
+      "geolocation"
+    ],
+    "sample": {
+      "key": "locality_description",
+      "columnTitle": "Locality description"
+    }
+  }
+}
