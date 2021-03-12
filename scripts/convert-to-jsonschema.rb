@@ -113,7 +113,7 @@ fields.each do |field|
 
   # TODO: the field ids should be stricter - just lower alphanumeric and _.
   scrubbedId = field['id'].gsub(/[?:#$%^&*()-+=]/, '_')
-  filename = "../react-app/public/schemas/fields/#{scrubbedId}.json"
+  filename = "../react-app/public/schemas/fields/#{scrubbedId}.1-0-0.json"
   File.write(filename, JSON.pretty_generate(schema))
 
   # puts schema

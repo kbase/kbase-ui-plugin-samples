@@ -4,15 +4,12 @@ import store from "./redux/store";
 import { AppBase, AuthGate } from "@kbase/ui-components";
 import "./App.css";
 import Dispatcher from "./ui/dispatcher";
-// import Navigation from "./navigation";
 import { Unsubscribe } from "redux";
 import { navigate } from "./redux/actions";
 import { Nav } from "./redux/store/navigation";
-// import devConfig from './devConfig.json';
 import ErrorBoundary from "./components/ErrorBoundary";
 
 interface AppProps { }
-
 interface AppState { }
 
 /*
@@ -42,11 +39,11 @@ export default class App<AppProps, AppState> extends React.Component {
     }
 
     setupNavDev() {
-
     }
+
     setupNavProd() {
-
     }
+
     componentDidMount() {
         let last: {
             view: string | null;

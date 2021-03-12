@@ -1,70 +1,56 @@
 import React from 'react';
-import { Button, Table, Tooltip } from 'antd';
-import { Sample, Template } from '../Main/types';
-import { TemplateDataSource2 } from './types';
-import { NoData } from '../NoData';
+import {Button, Switch, Table, Tooltip} from 'antd';
+import {Sample, Template} from '../Main/types';
+import {TemplateDataSource2} from './types';
+import {NoData} from '../NoData';
 // import { FieldStringValue, FieldValue } from 'lib/client/samples/Samples';
-import { MetadataField } from '../../lib/Model';
+import {MetadataField} from '../../lib/Model';
 import MetadataFieldView from '../MetadataField';
-import { Section } from '../Section';
+import {Section} from '../Section';
 
 export interface TemplateMetadataProps {
     sample: Sample;
-    // format: Format;
     template: Template;
-    // template: Template;
-    // definition: TemplateDefinition;
-    // fields: FieldDefinitionsMap;
 }
 
 interface TemplateMetadataState {
     omitEmpty: boolean;
+    hasEmpty: boolean;
+    emptyFieldCount: number;
+    dataSource: Array<TemplateDataSource2>;
 }
 
 export default class TemplateMetadata extends React.Component<TemplateMetadataProps, TemplateMetadataState> {
     constructor(props: TemplateMetadataProps) {
         super(props);
         this.state = {
-            omitEmpty: false
+            omitEmpty: true,
+            hasEmpty: this.hasEmptyFields(),
+            dataSource: [],
+            emptyFieldCount: this.emptyFieldCount()
         };
     }
+
+    componentDidMount() {
+        this.updateDataSource();
+    }
+
+    componentDidUpdate(prevProps: TemplateMetadataProps, prevState: TemplateMetadataState) {
+        if (prevState.omitEmpty === this.state.omitEmpty) {
+            return;
+        }
+        this.updateDataSource();
+    }
+
     renderNoData() {
         return <div style={{
             fontStyle: 'italic',
             color: 'silver'
-        }}><NoData /></div>;
+        }}><NoData/></div>;
     }
 
-    /*
-    <div className="Col -span1">
-                <div className="InfoTable">
-                    <div>
-                        <div>
-                            Description
-                        </div>
-                        <div>
-                            {this.props.sample.format.source.title}
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            Link
-                        </div>
-                        <div>
-                            <a href={this.props.sample.format.source.url}
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                <LinkOutlined />{' '}
-                                {this.props.sample.format.source.url}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    */
-
     renderHeader() {
-        return <div className="Row" style={{ marginBottom: '10px' }}>
+        return <div className="Row" style={{marginBottom: '10px'}}>
             <div className="Col">
                 <div className="InfoTable">
                     <div>
@@ -88,7 +74,7 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
         </div>;
     }
 
-    renderMetadata() {
+    updateDataSource() {
         const dataSource: Array<TemplateDataSource2> = this.props.sample.metadata
             .filter((metadataField) => {
                 if (metadataField.type === 'controlled') {
@@ -101,25 +87,9 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 return true;
             })
             .map((metadataField, index) => {
-                // const value = (() => {
-                //     if (templateField.type === 'metadata') {
-                //         return this.props.sample.metadata[templateField.key].field.value;
-                //     } else {
-                //         return this.props.sample.userMetadata[templateField.label];
-                //     }
-                // })();
-
                 const label = metadataField.label;
 
-                // const label = (() => {
-                //     if (metadataField.type === 'metadata') {
-                //         return metadataField.label;
-                //     } else {
-                //         return templateField.label;
-                //     }
-                // })();
-
-                // TOODO: not sure worth showing?
+                // TODO: not sure worth showing?
                 const type = (() => {
                     if (metadataField.type === 'controlled') {
                         return metadataField.field.type;
@@ -130,19 +100,11 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
 
                 const key = metadataField.key;
 
-                // const key = (() => {
-                //     if (metadataField.type === 'controlled') {
-                //         return this.props.sample.metadata[templateField.key].key;
-                //     } else {
-                //         return templateField.label;
-                //     }
-                // })();
-
                 const isMissing = (() => {
                     if (metadataField.type === 'controlled') {
                         return metadataField.field.isEmpty;
                     } else {
-                        return metadataField.field === "" ? true :  false
+                        return metadataField.field === ""
                     }
                 })();
 
@@ -152,36 +114,6 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                  * a generic MetadataField which can be used in a combined view
                  * of controlled and user metadata.
                  */
-                // const field: MetadataField = (() => {
-                //     if (templateField.type === 'metadata') {
-                //         return this.props.sample.metadata[templateField.key];
-                //     } else {
-                //         return {
-                //             key: templateField.label,
-                //             label: templateField.label,
-                //             field: {
-                //                 constraints: {},
-                //                 storageType: 'string',
-                //                 type: 'string',
-                //                 value: this.props.sample.userMetadata[templateField.label]
-                //             } as FieldValueString
-                //         } as MetadataField;
-                //     }
-                // })();
-
-                // const field: TemplateField = (() => {
-                //     if (templateField.type === 'metadata') {
-                //         return {
-                //             type: 'metadata',
-                //             field: this.props.sample.metadata[templateField.key].field
-                //         }
-                //     } else {
-                //         return {
-                //             type: 'user',
-                //             field: this.props.sample.userMetadata[templateField.label]
-                //         }
-                //     }
-                // })();
 
                 if (metadataField.type === 'controlled') {
                     return {
@@ -206,103 +138,97 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                         field: metadataField
                     };
                 }
-
-                // return {
-                //     key,
-                //     label,
-                //     isMissing,
-                //     order: index,
-                //     type,
-                //     // value,
-                //     fieldType: templateField.type,
-                //     field
-                // };
             });
+        this.setState({
+            dataSource
+        });
+    }
 
+    renderMetadata() {
         return <Table<TemplateDataSource2>
-            dataSource={dataSource}
+            dataSource={this.state.dataSource}
             rowKey="key"
             className="AntTable-FullHeight"
             size="small"
-            scroll={{ y: '100%' }}
+            scroll={{y: '100%'}}
             pagination={false}
             showSorterTooltip={false}
 
         >
             <Table.Column dataIndex="order"
-                key="order"
-                title="Order"
-                width="5em"
-                sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
-                    return a.order - b.order;
-                }}
+                          key="order"
+                          title="Order"
+                          width="5em"
+                          sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
+                              return a.order - b.order;
+                          }}
             />
 
             <Table.Column dataIndex="fieldType"
-                key="fieldType"
-                title="Field Type"
-                width="8em"
-                sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
-                    return a.fieldType.localeCompare(b.fieldType);
-                }}
-                render={(fieldType: string, row: TemplateDataSource2) => {
-                    if (row.isMissing) {
-                        return <Tooltip title="No mapping found for this key">
-                            <span style={{ color: 'gray' }}>
+                          key="fieldType"
+                          title="Field Type"
+                          width="8em"
+                          sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
+                              return a.fieldType.localeCompare(b.fieldType);
+                          }}
+                          render={(fieldType: string, row: TemplateDataSource2) => {
+                              if (row.isMissing) {
+                                  return <Tooltip title="No mapping found for this key">
+                            <span style={{color: 'gray'}}>
                                 {fieldType}
                             </span>
-                        </Tooltip>;
-                    } else {
-                        return <span>
+                                  </Tooltip>;
+                              } else {
+                                  return <span>
                             {fieldType}
                         </span>;
-                    }
-                }}
+                              }
+                          }}
             />
 
             <Table.Column dataIndex="type"
-                key="type"
-                title="Data Type"
-                width="8em"
-                sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
-                    return a.type.localeCompare(b.type);
-                }}
-                render={(type: string, row: TemplateDataSource2) => {
-                    if (row.isMissing) {
-                        return <Tooltip title="No mapping found for this key">
-                            <span style={{ color: 'gray' }}>
+                          key="type"
+                          title="Data Type"
+                          width="8em"
+                          sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
+                              return a.type.localeCompare(b.type);
+                          }}
+                          render={(type: string, row: TemplateDataSource2) => {
+                              if (row.isMissing) {
+                                  return <Tooltip title="No mapping found for this key">
+                            <span style={{color: 'gray'}}>
                                 {type}
                             </span>
-                        </Tooltip>;
-                    } else {
-                        return <span>
+                                  </Tooltip>;
+                              } else {
+                                  return <span>
                             {type}
                         </span>;
-                    }
-                }}
+                              }
+                          }}
             />
 
             <Table.Column dataIndex="label"
-                key="label"
-                title="Column"
-                width="20em"
-                sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
-                    return a.label.localeCompare(b.label);
-                }}
-                render={(label: string, row: TemplateDataSource2) => {
-                    if (row.isMissing) {
-                        return <Tooltip title="No mapping found for this key">
-                            <span style={{ color: 'gray' }}>
+                          key="label"
+                          title="Column"
+                          width="20em"
+                          sorter={(a: TemplateDataSource2, b: TemplateDataSource2) => {
+                              return a.label.localeCompare(b.label);
+                          }}
+                          render={(label: string, row: TemplateDataSource2) => {
+                              if (row.isMissing) {
+                                  return <Tooltip title="No mapping found for this key">
+                            <span style={{color: 'gray'}}>
                                 {label}
                             </span>
-                        </Tooltip>;
-                    }
-                    // TODO: add description to tooltip below
-                    return <Tooltip title="Description here..."><span>
+                                  </Tooltip>;
+                              }
+                              // TODO: add description to tooltip below
+                              return <Tooltip title="Description here..."><span>
                         {label}
                     </span>
-                    </Tooltip>;
-                }}
+                              </Tooltip>;
+                          }}
             />
 
             <Table.Column
@@ -310,24 +236,11 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 key="field"
                 title="Value"
                 render={(field: MetadataField, row: TemplateDataSource2) => {
-                    return <MetadataFieldView field={field} sample={this.props.sample} />;
+                    return <MetadataFieldView field={field} sample={this.props.sample}/>;
                 }}
             />
         </Table>;
     }
-
-    // onChangeHideEmpty(ev: CheckboxChangeEvent) {
-    //     const omitEmpty = ev.target.checked;
-    //     this.setState({
-    //         omitEmpty
-    //     });
-    // }
-
-    // renderToolbar() {
-    //     return <div className="Metadata-toolbar">
-    //         <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
-    //     </div>;
-    // }
 
     onToggleHideEmpty() {
         this.setState({
@@ -335,7 +248,24 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
         });
     }
 
-    renderToolbar() {
+    hasEmptyFields() {
+        return Object.values(this.props.sample.metadata)
+            .some((field) => {
+                return field.isEmpty && field.type === 'controlled';
+            });
+    }
+
+    emptyFieldCount() {
+        return Object.values(this.props.sample.metadata)
+            .filter((field) => {
+                 return field.isEmpty && field.type === 'controlled';
+            }).length;
+    }
+
+    renderShowEmptyButton() {
+        if (!this.state.hasEmpty) {
+            return;
+        }
         const label = (() => {
             if (this.state.omitEmpty) {
                 return 'Show Empty Fields';
@@ -343,17 +273,39 @@ export default class TemplateMetadata extends React.Component<TemplateMetadataPr
                 return 'Hide Empty Fields';
             }
         })();
+        return <Button onClick={this.onToggleHideEmpty.bind(this)} type="default" size="small">
+            {label}
+        </Button>;
+    }
+
+    renderToggleEmptySwitch() {
+        if (!this.state.hasEmpty) {
+            return;
+        }
+        return <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+            <span style={{marginRight: '1ex'}}>{this.state.emptyFieldCount} empty fields</span>
+            <Switch
+                onChange={this.onChangeEmptySwitch.bind(this)}
+                checkedChildren={'showing'}
+                unCheckedChildren={'hidden'}
+                defaultChecked={false}
+            />
+        </div>
+    }
+
+    onChangeEmptySwitch(checked: boolean | undefined) {
+        this.setState({
+            omitEmpty: !checked
+        })
+    }
+
+    renderToolbar() {
         return <div className="Metadata-toolbar">
-            <Button onClick={this.onToggleHideEmpty.bind(this)} type="text" size="small">{label}</Button>
+            {this.renderToggleEmptySwitch()}
         </div>;
     }
 
     render() {
-        /*
-         <div className="Col -auto">
-                {this.renderHeader()}
-            </div>
-        */
         return <div className="Col -stretch">
             <Section title="Sample" renderToolbar={this.renderToolbar.bind(this)}>
                 {this.renderMetadata()}

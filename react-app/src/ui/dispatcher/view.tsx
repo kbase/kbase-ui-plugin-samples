@@ -1,10 +1,7 @@
 import React from 'react';
-import { RootState, AppError } from '@kbase/ui-components';
 import { Alert } from 'antd';
+import { RootState, AppError } from '@kbase/ui-components';
 import { Params } from '.';
-// import TermView from '../../components/term';
-// import { OntologyReference } from '../../types/ontology';
-// import { Namespace } from '../../lib/OntologyAPIClient';
 import Navigation from '../navigation';
 import { RouteConfig, routeConfigToSpec } from '../navigation/RouteConfig';
 import Main from '../../components/Main';
@@ -70,14 +67,8 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
                     if (!params.sampleId) {
                         throw new Error('No sampleId!!');
                     }
-                    // const ref: OntologyReference = {
-                    //     namespace: stringToNamespace(params.namespace),
-                    //     term: params.term
-                    // };
-                    // return <TermView termRef={ref} />;
                     const version = params.sampleVersion ? parseInt(params.sampleVersion) : undefined;
                     return <Main sampleId={params.sampleId} sampleVersion={version} />;
-
                 }
             }
         };
@@ -114,22 +105,6 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
         return <Alert type="error" message={message} />;
     }
 
-    // componentDidMount() {
-    //     if (this.props.view === null) {
-    //         return;
-    //     }
-
-    //     const route = this.routes[this.props.view];
-
-    //     if (!route) {
-    //         return;
-    //     }
-
-    //     this.setState({
-    //         currentRoute: route
-    //     });
-    // }
-
     renderError(error: AppError) {
         return <Alert type="error" message={error.message} />;
     }
@@ -152,7 +127,6 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
         if (!route) {
             return this.renderEmptyRoute();
         }
-        // console.log('rendering', this.props.path, this.props.params);
         return route.router(this.props.path, this.props.params);
     }
 

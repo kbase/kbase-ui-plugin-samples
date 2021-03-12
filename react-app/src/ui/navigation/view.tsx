@@ -9,7 +9,6 @@ import { RouteSpec } from './RouteSpec';
 export interface NavigationListenerProps {
     routes: Array<RouteSpec>;
     rootState: RootState;
-    // navigationView: NavigationView;
     trigger: number;
     navigation: Navigation;
     navigate: (nav: Navigation) => void;

@@ -6,7 +6,7 @@ import {
 import { AppError } from '@kbase/ui-components';
 import Component from './view';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Alert } from 'antd';
+import {Alert, Spin} from 'antd';
 import { UPSTREAM_TIMEOUT } from '../../constants';
 import UserProfileClient from 'lib/comm/coreServices/UserProfileClient';
 import { Sample, User, Template } from './types';
@@ -258,7 +258,22 @@ export default class Data extends React.Component<DataProps, DataState> {
     }
 
     renderProcessing() {
-        return <LoadingOutlined />;
+        const message = (
+            <div>
+                Loading Sample ... <Spin />
+            </div>
+        );
+        return (
+            <Alert
+                type="info"
+                message={message}
+                style={{
+                    width: '20em',
+                    padding: '20px',
+                    margin: '20px auto'
+                }}
+            />
+        );
     }
 
     renderError(error: AppError) {
