@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Alert, Button, Col, Row, Tooltip
+    Alert, Button, Col, Row, Switch, Tooltip
 } from 'antd';
 import {
     MapContainer as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
@@ -21,13 +21,17 @@ export interface GeolocationViewerProps {
 
 interface GeolocationViewerState {
     omitEmpty: boolean;
+    hasEmpty: boolean;
+    emptyFieldCount: number;
 }
 
 export default class GeolocationViewer extends React.Component<GeolocationViewerProps, GeolocationViewerState> {
     constructor(props: GeolocationViewerProps) {
         super(props);
         this.state = {
-            omitEmpty: true
+            omitEmpty: true,
+            hasEmpty: this.hasEmptyFields(),
+            emptyFieldCount: this.emptyFieldCount()
         };
     }
 
@@ -101,20 +105,40 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         });
     }
 
+    hasEmptyFields() {
+        return Object.values(this.props.sample.metadata)
+            .some((field) => {
+                const def = this.props.fieldDefinitions[field.key];
+                return field.isEmpty &&
+                       field.type === 'controlled'  &&
+                       def && def.kbase.categories && def.kbase.categories.includes('geolocation');
+            });
+    }
+
+    emptyFieldCount() {
+        return Object.values(this.props.sample.metadata)
+            .filter((field) => {
+                const def = this.props.fieldDefinitions[field.key];
+                return field.isEmpty &&
+                       field.type === 'controlled'  &&
+                       def && def.kbase.categories && def.kbase.categories.includes('geolocation');
+            }).length;
+    }
+
     renderFields() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
         const fields = Object.values(metadata)
             .filter((field) => {
                 const def = this.props.fieldDefinitions[field.key];
-                console.log('def', def);
                 return def && def.kbase.categories && def.kbase.categories.includes('geolocation');
             })
             .filter((field) => {
                 if (field.isEmpty && this.state.omitEmpty) {
                     return false;
+                } else {
+                    return true;
                 }
-                return true;
             })
             .sort((a, b) => {
                 return a.label.localeCompare(b.label);
@@ -133,7 +157,10 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         </div>;
     }
 
-    renderToolbar() {
+    renderToggleEmptyButton() {
+        if (!this.state.hasEmpty) {
+            return;
+        }
         const label = (() => {
             if (this.state.omitEmpty) {
                 return 'Show Empty Fields';
@@ -141,23 +168,36 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                 return 'Hide Empty Fields';
             }
         })();
-        return <div>
-            <Button onClick={this.onToggleHideEmpty.bind(this)}
-                type="text"
-                size="small">{label}</Button>
-        </div>;
+        return <Button onClick={this.onToggleHideEmpty.bind(this)}
+                size="small">
+            {label}
+        </Button>;
     }
 
-    renderToolbarx() {
-        const label = (() => {
-            if (this.state.omitEmpty) {
-                return 'Show Empty Fields';
-            } else {
-                return 'Hide Empty Fields';
-            }
-        })();
-        return <div className="Geolocation-toolbar">
-            <Button onClick={this.onToggleHideEmpty.bind(this)}>{label}</Button>
+    onChangeEmptySwitch(checked: boolean | undefined) {
+        this.setState({
+            omitEmpty: !checked
+        })
+    }
+
+    renderToggleEmptySwitch() {
+        if (!this.state.hasEmpty) {
+            return;
+        }
+        return <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+            <span style={{marginRight: '1ex'}}>{this.state.emptyFieldCount} empty fields</span>
+            <Switch
+            onChange={this.onChangeEmptySwitch.bind(this)}
+            checkedChildren={'showing'}
+            unCheckedChildren={'hidden'}
+            defaultChecked={false}
+            />
+        </div>
+    }
+
+    renderToolbar() {
+        return <div>
+            {this.renderToggleEmptySwitch()}
         </div>;
     }
 

@@ -25,7 +25,7 @@ export default class MetadataControlledField extends React.Component<MetadataCon
     }
 
     renderStringField(field: FieldStringValue) {
-        if (field.isEmpty === null) {
+        if (field.stringValue === null) {
             return <NoData />;
         }
         return <span>{field.stringValue}</span>;
@@ -80,8 +80,6 @@ export default class MetadataControlledField extends React.Component<MetadataCon
 
         const field = metadataField.field;
 
-        console.log('HMM, field', field);
-
         switch (field.type) {
             case 'string':
 
@@ -124,8 +122,6 @@ export default class MetadataControlledField extends React.Component<MetadataCon
 
     render() {
         const {field} = this.props;
-
-        console.log('field', field);
 
         if (field.field.unit) {
             return <span>

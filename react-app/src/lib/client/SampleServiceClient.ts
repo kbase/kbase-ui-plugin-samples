@@ -503,7 +503,7 @@ export default class SampleServiceClient extends DynamicServiceClient {
         // }
         const fields = await Promise.all(params.keys.map(async (key) => {
             const scrubbedKey = key.replace(/[?:#$%^&*()-+=]/, '_');
-            const result = await fetch(`${process.env.PUBLIC_URL}/schemas/fields/${scrubbedKey}.json`);
+            const result = await fetch(`${process.env.PUBLIC_URL}/schemas/fields/${scrubbedKey}.1-0-0.json`);
 
             if (result.status >= 300) {
                 throw new Error(`Error fetching scheme for ${key}`);
