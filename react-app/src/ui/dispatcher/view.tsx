@@ -1,9 +1,9 @@
 import React from 'react';
-import { Alert } from 'antd';
-import { RootState, AppError } from '@kbase/ui-components';
-import { Params } from '.';
+import {Alert} from 'antd';
+import {RootState, AppError} from '@kbase/ui-components';
+import {Params} from '.';
 import Navigation from '../navigation';
-import { RouteConfig, routeConfigToSpec } from '../navigation/RouteConfig';
+import {RouteConfig, routeConfigToSpec} from '../navigation/RouteConfig';
 import Main from '../../components/Main';
 
 const routes: Array<RouteConfig> = [
@@ -68,7 +68,7 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
                         throw new Error('No sampleId!!');
                     }
                     const version = params.sampleVersion ? parseInt(params.sampleVersion) : undefined;
-                    return <Main sampleId={params.sampleId} sampleVersion={version} />;
+                    return <Main sampleId={params.sampleId} sampleVersion={version}/>;
                 }
             }
         };
@@ -102,21 +102,19 @@ export class Dispatcher extends React.Component<DispatcherProps, DispatcherState
         const message = <div>
             NONE
         </div>;
-        return <Alert type="error" message={message} />;
+        return <Alert type="error" message={message}/>;
     }
 
     renderError(error: AppError) {
-        return <Alert type="error" message={error.message} />;
+        return <Alert type="error" message={error.message}/>;
     }
 
     renderNotFound(view: string) {
-        return <Alert type="warning" message={`Not Found: ${view}`} />;
+        return <Alert type="warning" message={`Not Found: ${view}`}/>;
     }
 
     renderEmptyRoute() {
-        return <div>
-            Sorry, empty route.
-        </div>;
+        return <div></div>;
     }
 
     renderRoute() {
