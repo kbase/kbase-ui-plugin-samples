@@ -34,7 +34,6 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         }
     } = state;
 
-
     // Auth integration.
     let token;
     if (!userAuthorization) {
@@ -58,7 +57,7 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
 
     const view = (() => {
         if (!navView) {
-            return 'about';
+            return null;
         }
         return navView;
     })();
