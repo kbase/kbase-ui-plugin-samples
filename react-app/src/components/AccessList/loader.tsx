@@ -45,7 +45,9 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
         }
     }
     renderLoading() {
-        return <Loading message="Loading Access List..." />
+        return <div className="FullyCenteredFLex">
+            <Loading message="Loading Access List..." />
+        </div>
     }
     renderError(error: UIError) {
         return <Alert message="Error" description={error.message} type="error" />

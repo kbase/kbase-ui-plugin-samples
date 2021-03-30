@@ -44,7 +44,9 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
         this.props.load();
     }
     renderLoading() {
-        return <Loading message="Loading Linked Data..." />
+        return <div className="FullyCenteredFLex">
+            <Loading message="Loading Linked Data..." />
+        </div>
     }
     renderError(error: UIError) {
         return <div>
