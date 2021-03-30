@@ -6,11 +6,12 @@ import { AppBase, AuthGate } from "@kbase/ui-components";
 import "./App.css";
 import Router from "./components/Router";
 import { Unsubscribe } from "redux";
-import { Nav } from "./redux/store/navigation";
-import { navigate } from "redux/actions/navigate";
 import { AsyncProcessStatus } from "redux/store/processing";
-import { StepForwardOutlined } from "@ant-design/icons/lib/icons";
-import { get } from "redux/actions/sample";
+import { get as getSample } from "redux/actions/sample";
+import { get as getLinkedData } from "redux/actions/linkedData";
+import { get as getAccess } from "redux/actions/access";
+
+
 
 interface AppProps { }
 interface AppState { }
@@ -141,21 +142,23 @@ export default class App<AppProps, AppState> extends React.Component {
             // Our cheap observables here... until we use react-observables or whatever.
 
             // SampleID
-            console.log('HERE', params)
-            console.log('  sampleId:', params['sampleId'], lastNavigation.params['sampleId']);
-            console.log('  sampleVersion:', params['sampleVersion'], lastNavigation.params['sampleVersion']);
+            // console.log('HERE', params)
+            // console.log('  sampleId:', params['sampleId'], lastNavigation.params['sampleId']);
+            // console.log('  sampleVersion:', params['sampleVersion'], lastNavigation.params['sampleVersion']);
+
+            const newSampleId = params['sampleId'];
+            const newSampleVersion = parseInt(params['sampleVersion']);
+            const oldSampleId = lastNavigation.params['sampleId'];
+            const oldSampleVersion = parseInt(lastNavigation.params['sampleVersion']);
+
+            lastNavigation.params = params;
+            lastNavigation.view = view;
 
 
-            if ((('sampleId' in params) && (params['sampleId'] !== lastNavigation.params['sampleId'])) ||
-                (('sampleVersion' in params) && (params['sampleVersion'] !== lastNavigation.params['sampleVersion']))) {
-                console.log('change detected');
-                const newSampleId = params['sampleId'];
-                const newSampleVersion = parseInt(params['sampleVersion']);
-                const oldSampleId = lastNavigation.params['sampleId'];
-                lastNavigation.params = params;
-                lastNavigation.view = view;
-                // store.dispatch(get(newSampleId, newSampleVersion) as any)
-                console.log('change detected', newSampleId, oldSampleId);
+            if ((newSampleId && newSampleId !== oldSampleId) ||
+                (newSampleVersion && newSampleVersion !== oldSampleVersion)) {
+
+                // Handle sample data loading and reloading
                 const {
                     data: {
                         sample: sampleState
@@ -163,21 +166,70 @@ export default class App<AppProps, AppState> extends React.Component {
                 } = state;
                 switch (sampleState.status) {
                     case AsyncProcessStatus.NONE:
-                        store.dispatch(get(newSampleId, newSampleVersion) as any);
+                        store.dispatch(getSample(newSampleId, newSampleVersion) as any);
                         break;
                     case AsyncProcessStatus.PROCESSING:
-                        store.dispatch(get(newSampleId, newSampleVersion) as any);
+                        store.dispatch(getSample(newSampleId, newSampleVersion) as any);
                         break;
                     case AsyncProcessStatus.ERROR:
-                        store.dispatch(get(newSampleId, newSampleVersion) as any);
+                        store.dispatch(getSample(newSampleId, newSampleVersion) as any);
                         break;
                     case AsyncProcessStatus.SUCCESS:
-                        store.dispatch(get(newSampleId, newSampleVersion) as any)
+                        store.dispatch(getSample(newSampleId, newSampleVersion) as any)
                         break;
                     case AsyncProcessStatus.REPROCESSING:
-                        store.dispatch(get(newSampleId, newSampleVersion) as any)
+                        store.dispatch(getSample(newSampleId, newSampleVersion) as any)
                         break;
                 }
+
+                // Handle linkedData
+                const {
+                    data: {
+                        linkedData
+                    }
+                } = state;
+                switch (linkedData.status) {
+                    case AsyncProcessStatus.NONE:
+                        // store.dispatch(getLinkedData(newSampleId, newSampleVersion) as any);
+                        break;
+                    case AsyncProcessStatus.PROCESSING:
+                        // store.dispatch(getLinkedData(newSampleId, newSampleVersion) as any);
+                        break;
+                    case AsyncProcessStatus.ERROR:
+                        store.dispatch(getLinkedData(newSampleId, newSampleVersion) as any);
+                        break;
+                    case AsyncProcessStatus.SUCCESS:
+                        store.dispatch(getLinkedData(newSampleId, newSampleVersion) as any)
+                        break;
+                    case AsyncProcessStatus.REPROCESSING:
+                        store.dispatch(getLinkedData(newSampleId, newSampleVersion) as any)
+                        break;
+                }
+
+                // Handle linkedData
+                const {
+                    data: {
+                        access
+                    }
+                } = state;
+                switch (access.status) {
+                    case AsyncProcessStatus.NONE:
+                        // store.dispatch(getLinkedData(newSampleId, newSampleVersion) as any);
+                        break;
+                    case AsyncProcessStatus.PROCESSING:
+                        // store.dispatch(getLinkedData(newSampleId, newSampleVersion) as any);
+                        break;
+                    case AsyncProcessStatus.ERROR:
+                        store.dispatch(getAccess(newSampleId) as any);
+                        break;
+                    case AsyncProcessStatus.SUCCESS:
+                        store.dispatch(getAccess(newSampleId) as any)
+                        break;
+                    case AsyncProcessStatus.REPROCESSING:
+                        store.dispatch(getAccess(newSampleId) as any)
+                        break;
+                }
+
             }
 
             lastNavigation.params = params;
