@@ -246,6 +246,8 @@ export type SchemaFieldType =
     'boolean';
 
 export interface SchemaFieldBase {
+    $schema: string;
+    $id: string;
     type: SchemaFieldType
     format?: string
     title: string
@@ -274,6 +276,7 @@ export interface SchemaFieldString extends SchemaFieldBase {
     minLength?: number
     maxLength?: number
     enum?: Array<string>;
+    pattern?: string;
 }
 
 export interface SchemaFieldOntologyTerm extends SchemaFieldBase {

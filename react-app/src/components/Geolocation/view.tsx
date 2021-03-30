@@ -7,16 +7,14 @@ import {
     CircleMarker, ScaleControl
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Sample } from '../Main/types';
 import MetadataField from '../MetadataField/view';
 
 import './style.less';
-import { FieldDefinitionsMap } from '../Main/data';
-import { Section } from '../Section';
+import Section from '../Section';
+import { Sample } from "../../lib/ViewModel";
 
 export interface GeolocationViewerProps {
     sample: Sample;
-    fieldDefinitions: FieldDefinitionsMap;
 }
 
 interface GeolocationViewerState {
@@ -108,20 +106,20 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
     hasEmptyFields() {
         return Object.values(this.props.sample.metadata)
             .some((field) => {
-                const def = this.props.fieldDefinitions[field.key];
                 return field.isEmpty &&
-                       field.type === 'controlled'  &&
-                       def && def.kbase.categories && def.kbase.categories.includes('geolocation');
+                    field.type === 'controlled' &&
+                    field.field.schema.kbase.categories &&
+                    field.field.schema.kbase.categories.includes('geolocation');
             });
     }
 
     emptyFieldCount() {
         return Object.values(this.props.sample.metadata)
             .filter((field) => {
-                const def = this.props.fieldDefinitions[field.key];
                 return field.isEmpty &&
-                       field.type === 'controlled'  &&
-                       def && def.kbase.categories && def.kbase.categories.includes('geolocation');
+                    field.type === 'controlled' &&
+                    field.field.schema.kbase.categories &&
+                    field.field.schema.kbase.categories.includes('geolocation');
             }).length;
     }
 
@@ -130,8 +128,9 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         const metadata = sample.metadata;
         const fields = Object.values(metadata)
             .filter((field) => {
-                const def = this.props.fieldDefinitions[field.key];
-                return def && def.kbase.categories && def.kbase.categories.includes('geolocation');
+                return field.type === 'controlled' &&
+                    field.field.schema.kbase.categories &&
+                    field.field.schema.kbase.categories.includes('geolocation');
             })
             .filter((field) => {
                 if (field.isEmpty && this.state.omitEmpty) {
@@ -169,7 +168,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             }
         })();
         return <Button onClick={this.onToggleHideEmpty.bind(this)}
-                size="small">
+            size="small">
             {label}
         </Button>;
     }
@@ -184,13 +183,13 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         if (!this.state.hasEmpty) {
             return;
         }
-        return <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
-            <span style={{marginRight: '1ex'}}>{this.state.emptyFieldCount} empty fields</span>
+        return <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center' }}>
+            <span style={{ marginRight: '1ex' }}>{this.state.emptyFieldCount} empty fields</span>
             <Switch
-            onChange={this.onChangeEmptySwitch.bind(this)}
-            checkedChildren={'showing'}
-            unCheckedChildren={'hidden'}
-            defaultChecked={false}
+                onChange={this.onChangeEmptySwitch.bind(this)}
+                checkedChildren={'showing'}
+                unCheckedChildren={'hidden'}
+                defaultChecked={false}
             />
         </div>
     }

@@ -1,11 +1,14 @@
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { StoreState } from '../../redux/store';
-import Component from './data';
-import { sendTitle } from '@kbase/ui-components';
+import Loader from './loader';
 import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
+import { AccessStoreState } from 'redux/store/access';
+import { Sample } from 'lib/ViewModel';
+import { get } from 'redux/actions/access';
 
 export interface OwnProps {
+    sample: Sample
 }
 
 interface StateProps {
@@ -14,10 +17,11 @@ interface StateProps {
     userProfileURL: string;
     baseURL: string;
     sampleServiceConfig: DynamicServiceConfig;
+    accessState: AccessStoreState;
 }
 
 interface DispatchProps {
-    setTitle: (title: string) => void;
+    load: () => void;
 }
 
 function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
@@ -34,6 +38,9 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
                     SampleService: sampleServiceConfig
                 }
             }
+        },
+        data: {
+            access: accessState
         }
     } = state;
 
@@ -43,13 +50,13 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     } else {
         token = userAuthorization.token;
     }
-    return { token, serviceWizardURL, userProfileURL, baseURL, sampleServiceConfig };
+    return { token, serviceWizardURL, userProfileURL, baseURL, sampleServiceConfig, accessState };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {
     return {
-        setTitle(title: string) {
-            dispatch(sendTitle(title) as any);
+        load() {
+            dispatch(get(ownProps.sample.id) as any);
         }
     };
 }
@@ -57,4 +64,4 @@ function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): Dis
 export default connect<StateProps, DispatchProps, OwnProps, StoreState>(
     mapStateToProps,
     mapDispatchToProps
-)(Component);
+)(Loader);

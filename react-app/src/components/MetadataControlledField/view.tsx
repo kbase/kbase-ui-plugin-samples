@@ -1,13 +1,9 @@
-import { Tooltip } from 'antd';
 import React from 'react';
-// import {
-//     FieldValueBoolean, FieldValueDate, FieldValueNumber,
-//     FieldValueOntologyTerm, FieldValueString, FieldValueStringEnum
-// } from 'lib/client/samples/Samples';
-import {MetadataField, MetadataControlledField as _MetadataControlledField} from '../../lib/Model';
-import { NoData } from '../NoData';
-import { Sample } from '../Main/types';
+import { Tooltip } from 'antd';
+import { NoData } from '@kbase/ui-components';
+import { MetadataControlledField as _MetadataControlledField } from '../../lib/Model';
 import { FieldNumberValue, FieldOntologyTermValue, FieldStringValue } from 'lib/client/samples/Samples';
+import { Sample } from 'lib/ViewModel';
 
 
 export interface MetadataControlledFieldProps {
@@ -19,11 +15,6 @@ interface MetadataControlledFieldState {
 }
 
 export default class MetadataControlledField extends React.Component<MetadataControlledFieldProps, MetadataControlledFieldState> {
-
-    constructor(props: MetadataControlledFieldProps) {
-        super(props);
-    }
-
     renderStringField(field: FieldStringValue) {
         if (field.stringValue === null) {
             return <NoData />;
@@ -73,13 +64,8 @@ export default class MetadataControlledField extends React.Component<MetadataCon
         const url = `/#ontology/term/${field.schema.ontologyNamespace}/${field.stringValue}/${this.props.sample.created.at}`;
         return <a href={url} target="_blank" rel="noreferrer">{field.stringValue}</a>;
     }
-    renderField(metadataField: MetadataField) {
-        if (metadataField.type === 'user') {
-            return metadataField.field;
-        }
-
+    renderField(metadataField: _MetadataControlledField) {
         const field = metadataField.field;
-
         switch (field.type) {
             case 'string':
 
@@ -90,12 +76,12 @@ export default class MetadataControlledField extends React.Component<MetadataCon
                 } else {
                     return this.renderStringField(field);
                 }
-                // switch (field.format) {
-                //     case 'ontologyTerm':
-                //         return this.renderOntologyTermField(field);
-                //     default:
-                //         return this.renderStringField(field);
-                // }
+            // switch (field.format) {
+            //     case 'ontologyTerm':
+            //         return this.renderOntologyTermField(field);
+            //     default:
+            //         return this.renderStringField(field);
+            // }
 
             case 'number':
                 return this.renderNumberField(field);
@@ -115,21 +101,15 @@ export default class MetadataControlledField extends React.Component<MetadataCon
 
     renderUnit(field: _MetadataControlledField) {
         if (!(field.field.unit)) {
-            return '';
+            return;
         }
-        return field.field.unit;
+        return <span>{' '}<i>{field.field.unit}</i></span>;
     }
 
     render() {
-        const {field} = this.props;
-
-        if (field.field.unit) {
-            return <span>
-                {this.renderField(field)} <i>{this.renderUnit(field)}</i>
-            </span>;
-        }
+        const { field } = this.props;
         return <span>
-            {this.renderField(field)}
+            {this.renderField(field)}{this.renderUnit(field)}
         </span>;
     }
 }

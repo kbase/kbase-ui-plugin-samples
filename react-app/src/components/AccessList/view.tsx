@@ -1,10 +1,8 @@
 import React from 'react';
-
 import UserCard from '../UserCard/view';
-import { ACL, User } from '../Main/types';
-
 import './style.css';
-import { Section } from '../Section';
+import Section from '../Section';
+import { ACL, User } from "../../lib/ViewModel";
 
 export interface AccessListProps {
     acl: ACL;
@@ -55,7 +53,6 @@ export default class DataLinks extends React.Component<AccessListProps, AccessLi
                     </Section>
                 </div>
                 <div className="Col -stretch" style={{ marginLeft: '10px' }}>
-
                     <Section title="Read-Only Access">
                         <div className="Col -stretch -autoscroll">
                             {this.renderACL(this.props.acl.read)}

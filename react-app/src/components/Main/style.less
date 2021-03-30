@@ -1,38 +1,39 @@
-@import '../../base.less';
+@import "../../base.less";
 
-.Sample {
-    flex: 1 1 0px;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+.Main {
+  flex: 1 1 0px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
 }
 
-.Sample .ant-row {
-    flex: 1 1 0px;
+.Main .ant-row {
+  flex: 1 1 0px;
 }
 
 .Nav-item {
-    border: 1px silver solid;
-    padding: 4px;
+  border: 1px silver solid;
+  padding: 4px;
 }
 
 .Nav-item:hover {
-    background-color: silver;
-    cursor: pointer;
+  background-color: silver;
+  cursor: pointer;
 }
 
-.Main .InfoTable.UserMetadata>div>div:nth-child(1) {
-    flex: 0 0 20em;
+.Main .InfoTable.UserMetadata > div > div:nth-child(1) {
+  flex: 0 0 20em;
 }
 
-.Main .InfoTable.UserMetadata>div>div:nth-child(2) {
-    flex: 0 0 20em;
-    color: gray;
-    font-style: italic;
+.Main .InfoTable.UserMetadata > div > div:nth-child(2) {
+  flex: 0 0 20em;
+  color: gray;
+  font-style: italic;
 }
 
-.Main .InfoTable.ControlledMetadata>div>div:nth-child(1) {
-    flex: 0 0 20em;
+.Main .InfoTable.ControlledMetadata > div > div:nth-child(1) {
+  flex: 0 0 20em;
 }
 
 /* .InfoTable.ControlledMetadata>div>div:nth-child(2) {
@@ -41,24 +42,45 @@
     font-style: italic;
 } */
 
-.Main .InfoTable.TemplateMetadata>div>div:nth-child(1) {
-    flex: 0 0 20em;
-    text-align: left;
+.Main .InfoTable.TemplateMetadata > div > div:nth-child(1) {
+  flex: 0 0 20em;
+  text-align: left;
 }
 
-.Main .InfoTable.TemplateMetadata>div>div:nth-child(2) {
-    flex: 0 0 10em;
-    text-align: left;
+.Main .InfoTable.TemplateMetadata > div > div:nth-child(2) {
+  flex: 0 0 10em;
+  text-align: left;
 }
 
-.Main .InfoTable.TemplateMetadata>div>div:nth-child(3) {
-    /* flex: 0 0 20em; */
-    flex: 1 1 0px;
-    text-align: left;
+.Main .InfoTable.TemplateMetadata > div > div:nth-child(3) {
+  /* flex: 0 0 20em; */
+  flex: 1 1 0px;
+  text-align: left;
 }
-
 
 .map-marker {
-    color: red;
-    font-size: 20px;
+  color: red;
+  font-size: 20px;
+}
+
+.Main .LoadingCover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(200, 200, 200, 0.5);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.FullyCenteredFLex {
+  flex: 1 1 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

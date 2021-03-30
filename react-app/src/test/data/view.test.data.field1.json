@@ -1,0 +1,26 @@
+{
+  "type": "controlled",
+  "key": "sampleid",
+  "label": "SampleID",
+  "isEmpty": false,
+  "field": {
+    "type": "string",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "$id": "http://kbase.us/schemas/samples/fields/sesar/sampleid.json",
+      "title": "SampleID",
+      "type": "string",
+      "kbase": {
+        "display": {
+          "label": "SampleID"
+        },
+        "sample": {
+          "key": "sampleid",
+          "columnTitle": "SampleID"
+        }
+      }
+    },
+    "isEmpty": false,
+    "stringValue": "ont_term_04"
+  }
+}

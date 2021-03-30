@@ -1,5 +1,5 @@
 import { SampleId } from "lib/client/Sample";
-// import { Params } from "@kbase/ui-components/lib/redux/integration/store";
+import { CategoryAction } from "./base";
 
 export enum ViewType {
     SAMPLE_VIEW,
@@ -26,3 +26,26 @@ export interface SampleSetView extends ViewBase<ViewType.SAMPLE_SET_VIEW, Sample
 
 export type View = SampleView | SampleSetView;
 
+export enum ActionType {
+    ROUTE = "@samples/route"
+}
+
+// Action type interfaces
+
+// Navigation
+
+
+
+// Routing
+
+export interface Route extends CategoryAction<'route', ActionType.ROUTE> {
+    view: View;
+}
+
+export function route(view: View): Route {
+    return {
+        category: 'route',
+        type: ActionType.ROUTE,
+        view
+    };
+}

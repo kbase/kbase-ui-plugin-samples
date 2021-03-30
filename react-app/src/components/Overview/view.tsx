@@ -1,13 +1,13 @@
 import React from 'react';
 import { Row, Col, Modal, Button, Tooltip } from 'antd';
-import { Sample } from '../Main/types';
 import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';
-import { NoData } from '../NoData';
 import './styles.css';
 import { Format } from 'lib/client/samples/Samples';
-import { Section } from '../Section';
+import Section from '../Section';
 import SubSection from '../SubSection';
+import { Sample } from 'lib/ViewModel';
+import { NoData } from '@kbase/ui-components';
 
 export interface OverviewProps {
     sample: Sample;

@@ -1,0 +1,414 @@
+{
+  "fields": [
+    {
+      "type": "metadata",
+      "key": "sampleid"
+    },
+    {
+      "type": "metadata",
+      "key": "experiment_name"
+    },
+    {
+      "type": "metadata",
+      "key": "area_name"
+    },
+    {
+      "type": "metadata",
+      "key": "well_name"
+    },
+    {
+      "type": "metadata",
+      "key": "environmental_package"
+    },
+    {
+      "type": "metadata",
+      "key": "material"
+    },
+    {
+      "type": "metadata",
+      "key": "description"
+    },
+    {
+      "type": "metadata",
+      "key": "filter"
+    },
+    {
+      "type": "metadata",
+      "key": "date"
+    },
+    {
+      "type": "metadata",
+      "key": "collection_time"
+    },
+    {
+      "type": "metadata",
+      "key": "time_zone"
+    },
+    {
+      "type": "metadata",
+      "key": "latitude"
+    },
+    {
+      "type": "metadata",
+      "key": "longitude"
+    },
+    {
+      "type": "metadata",
+      "key": "depth"
+    },
+    {
+      "type": "metadata",
+      "key": "geological_zone"
+    },
+    {
+      "type": "metadata",
+      "key": "recovery_factor"
+    },
+    {
+      "type": "metadata",
+      "key": "method"
+    },
+    {
+      "type": "metadata",
+      "key": "fraction"
+    },
+    {
+      "type": "metadata",
+      "key": "replicate"
+    },
+    {
+      "type": "metadata",
+      "key": "maturation_time"
+    },
+    {
+      "type": "metadata",
+      "key": "treatment"
+    },
+    {
+      "type": "metadata",
+      "key": "temperature"
+    },
+    {
+      "type": "metadata",
+      "key": "moisture"
+    },
+    {
+      "type": "metadata",
+      "key": "pore_water_extraction_microliters"
+    },
+    {
+      "type": "metadata",
+      "key": "conductivity_ms_cm"
+    },
+    {
+      "type": "metadata",
+      "key": "redox_potential_?"
+    },
+    {
+      "type": "metadata",
+      "key": "ph"
+    },
+    {
+      "type": "metadata",
+      "key": "aodc_cells_g"
+    },
+    {
+      "type": "metadata",
+      "key": "dapi_cell_count_cells_g"
+    },
+    {
+      "type": "metadata",
+      "key": "dna_picogreen_total_ng"
+    },
+    {
+      "type": "metadata",
+      "key": "total_carbon_mg_g_dry_weight"
+    },
+    {
+      "type": "metadata",
+      "key": "organic_carbon"
+    },
+    {
+      "type": "metadata",
+      "key": "biomass_carbon_mg_g"
+    },
+    {
+      "type": "metadata",
+      "key": "total_nitrogen_mg_g_dry_weight"
+    },
+    {
+      "type": "metadata",
+      "key": "boncat_activity"
+    },
+    {
+      "type": "metadata",
+      "key": "leucine_activity_ngc_day_cell"
+    },
+    {
+      "type": "metadata",
+      "key": "functional_area"
+    },
+    {
+      "type": "metadata",
+      "key": "type_of_well"
+    },
+    {
+      "type": "metadata",
+      "key": "top_of_casing_stickup"
+    },
+    {
+      "type": "metadata",
+      "key": "top_of_casing_elevation"
+    },
+    {
+      "type": "metadata",
+      "key": "ground_elevation_ft_amsl"
+    },
+    {
+      "type": "metadata",
+      "key": "installation_method"
+    },
+    {
+      "type": "metadata",
+      "key": "boring"
+    },
+    {
+      "type": "metadata",
+      "key": "boring_refusal"
+    },
+    {
+      "type": "metadata",
+      "key": "boring_diameter_in"
+    },
+    {
+      "type": "metadata",
+      "key": "screen_type"
+    },
+    {
+      "type": "metadata",
+      "key": "screened_interval"
+    },
+    {
+      "type": "metadata",
+      "key": "screen_start_depth"
+    },
+    {
+      "type": "metadata",
+      "key": "screen_end_depth"
+    },
+    {
+      "type": "metadata",
+      "key": "screen_top_elevation"
+    },
+    {
+      "type": "metadata",
+      "key": "screen_bottom_elevation"
+    },
+    {
+      "type": "metadata",
+      "key": "well_casing_type"
+    },
+    {
+      "type": "metadata",
+      "key": "well_casing_od"
+    },
+    {
+      "type": "metadata",
+      "key": "well_casing_id"
+    },
+    {
+      "type": "metadata",
+      "key": "well_casing_depth"
+    },
+    {
+      "type": "metadata",
+      "key": "drive_casing_type"
+    },
+    {
+      "type": "metadata",
+      "key": "drive_casing_id_in"
+    },
+    {
+      "type": "metadata",
+      "key": "drive_casing_od_in"
+    },
+    {
+      "type": "metadata",
+      "key": "drive_casing_start_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "drive_casing_end_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "packing_type"
+    },
+    {
+      "type": "metadata",
+      "key": "packing_depth_start_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "packing_depth_end_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "topofweatheredbedrock_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "topoffreshbedrock_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "aquifer"
+    },
+    {
+      "type": "metadata",
+      "key": "fractures_cavities_waterbreaks"
+    },
+    {
+      "type": "metadata",
+      "key": "other_name"
+    },
+    {
+      "type": "metadata",
+      "key": "screened"
+    },
+    {
+      "type": "metadata",
+      "key": "open"
+    },
+    {
+      "type": "metadata",
+      "key": "well_status"
+    },
+    {
+      "type": "metadata",
+      "key": "condition"
+    },
+    {
+      "type": "metadata",
+      "key": "origination_or_plug_abandon"
+    },
+    {
+      "type": "metadata",
+      "key": "min_water_level_ft_amsl"
+    },
+    {
+      "type": "metadata",
+      "key": "average_water_level_ft_amsl"
+    },
+    {
+      "type": "metadata",
+      "key": "max_water_level_ft_amsl"
+    },
+    {
+      "type": "metadata",
+      "key": "upper_seal_type"
+    },
+    {
+      "type": "metadata",
+      "key": "upper_seal_start_depth"
+    },
+    {
+      "type": "metadata",
+      "key": "upper_seal_end_depth"
+    },
+    {
+      "type": "metadata",
+      "key": "lower_seal_type"
+    },
+    {
+      "type": "metadata",
+      "key": "lower_seal_start_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "lower_seal_end_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "open_casing_type"
+    },
+    {
+      "type": "metadata",
+      "key": "open_casing_od_in"
+    },
+    {
+      "type": "metadata",
+      "key": "open_casing_id_in"
+    },
+    {
+      "type": "metadata",
+      "key": "open_casing_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "open_hole_diameter_in"
+    },
+    {
+      "type": "metadata",
+      "key": "open_hole_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "open_interval_start_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "open_interval_end_depth_ft_bgs"
+    },
+    {
+      "type": "metadata",
+      "key": "open_interval_diameter_in"
+    },
+    {
+      "type": "metadata",
+      "key": "rock_formation"
+    },
+    {
+      "type": "metadata",
+      "key": "biome"
+    },
+    {
+      "type": "metadata",
+      "key": "country"
+    },
+    {
+      "type": "metadata",
+      "key": "continent"
+    },
+    {
+      "type": "metadata",
+      "key": "env_package"
+    },
+    {
+      "type": "metadata",
+      "key": "feature"
+    },
+    {
+      "type": "metadata",
+      "key": "region"
+    },
+    {
+      "type": "metadata",
+      "key": "timezone"
+    },
+    {
+      "type": "metadata",
+      "key": "well"
+    },
+    {
+      "type": "user",
+      "key": "enigma:material",
+      "label": "enigma:material"
+    },
+    {
+      "type": "user",
+      "key": "material_description",
+      "label": "material_description"
+    }
+  ]
+}

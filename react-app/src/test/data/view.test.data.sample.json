@@ -1,0 +1,5677 @@
+{
+	"id": "b68aeaa0-6cc9-473b-a9c1-67620858c787",
+	"sampleId": "ont_term_04",
+	"parentSampleId": null,
+	"type": "BioReplicate",
+	"name": "Material Test 2",
+	"created": {
+		"at": 1614646747646,
+		"by": {
+			"username": "eapearson",
+			"realname": "Erik A Pearson",
+			"gravatarHash": "be173a4408235829a61143d696b55a50",
+			"gravatarDefault": "identicon",
+			"avatarOption": ""
+		}
+	},
+	"currentVersion": {
+		"at": 1614646747646,
+		"by": {
+			"username": "eapearson",
+			"realname": "Erik A Pearson",
+			"gravatarHash": "be173a4408235829a61143d696b55a50",
+			"gravatarDefault": "identicon",
+			"avatarOption": ""
+		},
+		"version": 1
+	},
+	"latestVersion": {
+		"at": 1614646747646,
+		"by": {
+			"username": "eapearson",
+			"realname": "Erik A Pearson",
+			"gravatarHash": "be173a4408235829a61143d696b55a50",
+			"gravatarDefault": "identicon",
+			"avatarOption": ""
+		},
+		"version": 1
+	},
+	"metadata": [{
+		"type": "controlled",
+		"key": "sampleid",
+		"label": "SampleID",
+		"isEmpty": false,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/sampleid.json",
+				"title": "SampleID",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "SampleID"
+					},
+					"sample": {
+						"key": "sampleid",
+						"columnTitle": "SampleID"
+					}
+				}
+			},
+			"isEmpty": false,
+			"stringValue": "ont_term_04"
+		}
+	}, {
+		"type": "controlled",
+		"key": "experiment_name",
+		"label": "Experiment Name",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/experiment_name.json",
+				"title": "Experiment Name",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Experiment Name"
+					},
+					"sample": {
+						"key": "experiment_name",
+						"columnTitle": "Experiment Name"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "area_name",
+		"label": "Area Name",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/area_name.json",
+				"title": "Area Name",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Area Name"
+					},
+					"categories": ["geolocation"],
+					"sample": {
+						"key": "area_name",
+						"columnTitle": "Area Name"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "well_name",
+		"label": "Well Name",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/well_name.json",
+				"title": "Well Name",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Well Name"
+					},
+					"sample": {
+						"key": "well_name",
+						"columnTitle": "Well Name"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "environmental_package",
+		"label": "Environmental Package",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/environmental_package.json",
+				"title": "Environmental Package",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Environmental Package"
+					},
+					"sample": {
+						"key": "environmental_package",
+						"columnTitle": "Environmental Package"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "material",
+		"label": "Material",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/material.json",
+				"title": "Material",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Material"
+					},
+					"sample": {
+						"key": "material",
+						"columnTitle": "Material"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "description",
+		"label": "Description",
+		"isEmpty": false,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/description.json",
+				"title": "Description",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Description"
+					},
+					"sample": {
+						"key": "description",
+						"columnTitle": "Description"
+					}
+				}
+			},
+			"isEmpty": false,
+			"stringValue": "A test sample to exercise the \"material\" field"
+		}
+	}, {
+		"type": "controlled",
+		"key": "filter",
+		"label": "Filter",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/filter.json",
+				"title": "Filter",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["microns"],
+						"canonical": "microns"
+					},
+					"display": {
+						"label": "Filter"
+					},
+					"sample": {
+						"key": "filter",
+						"columnTitle": "Filter"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "date",
+		"label": "Date",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/date.json",
+				"title": "Date",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Date"
+					},
+					"sample": {
+						"key": "date",
+						"columnTitle": "Date"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "collection_time",
+		"label": "Collection time",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/collection_time.json",
+				"title": "Collection time",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Collection time"
+					},
+					"sample": {
+						"key": "collection_time",
+						"columnTitle": "Collection time"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "time_zone",
+		"label": "Time Zone",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/time_zone.json",
+				"title": "Time Zone",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Time Zone"
+					},
+					"sample": {
+						"key": "time_zone",
+						"columnTitle": "Time Zone"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "latitude",
+		"label": "Latitude",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
+				"title": "Latitude",
+				"type": "number",
+				"minimum": -90,
+				"maximum": 90,
+				"kbase": {
+					"units": {
+						"available": ["degrees"],
+						"canonical": "degrees"
+					},
+					"display": {
+						"label": "Latitude"
+					},
+					"categories": ["geolocation"],
+					"format": {
+						"minimumFractionDigits": 3,
+						"maximumFractionDigits": 3
+					},
+					"sample": {
+						"key": "latitude",
+						"columnTitle": "Latitude"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "longitude",
+		"label": "Longitude",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
+				"title": "Longitude",
+				"type": "number",
+				"minimum": -180,
+				"maximum": 180,
+				"kbase": {
+					"units": {
+						"available": ["degrees"],
+						"canonical": "degrees"
+					},
+					"display": {
+						"label": "Longitude"
+					},
+					"categories": ["geolocation"],
+					"format": {
+						"minimumFractionDigits": 3,
+						"maximumFractionDigits": 3
+					},
+					"sample": {
+						"key": "longitude",
+						"columnTitle": "Longitude"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "depth",
+		"label": "Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/depth.json",
+				"title": "Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["cm"],
+						"canonical": "cm"
+					},
+					"display": {
+						"label": "Depth"
+					},
+					"sample": {
+						"key": "depth",
+						"columnTitle": "Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "geological_zone",
+		"label": "Geological Zone",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/geological_zone.json",
+				"title": "Geological Zone",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Geological Zone"
+					},
+					"sample": {
+						"key": "geological_zone",
+						"columnTitle": "Geological Zone"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "recovery_factor",
+		"label": "Recovery Factor",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/recovery_factor.json",
+				"title": "Recovery Factor",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Recovery Factor"
+					},
+					"sample": {
+						"key": "recovery_factor",
+						"columnTitle": "Recovery Factor"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "method",
+		"label": "Method",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/method.json",
+				"title": "Method",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Method"
+					},
+					"sample": {
+						"key": "method",
+						"columnTitle": "Method"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "fraction",
+		"label": "Fraction",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/fraction.json",
+				"title": "Fraction",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Fraction"
+					},
+					"sample": {
+						"key": "fraction",
+						"columnTitle": "Fraction"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "replicate",
+		"label": "Replicate",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/replicate.json",
+				"title": "Replicate",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Replicate"
+					},
+					"sample": {
+						"key": "replicate",
+						"columnTitle": "Replicate"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "maturation_time",
+		"label": "Maturation Time",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/maturation_time.json",
+				"title": "Maturation Time",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Maturation Time"
+					},
+					"sample": {
+						"key": "maturation_time",
+						"columnTitle": "Maturation Time"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "treatment",
+		"label": "Treatment",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/treatment.json",
+				"title": "Treatment",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Treatment"
+					},
+					"sample": {
+						"key": "treatment",
+						"columnTitle": "Treatment"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "temperature",
+		"label": "Temperature",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/temperature.json",
+				"title": "Temperature",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["celsius"],
+						"canonical": "celsius"
+					},
+					"display": {
+						"label": "Temperature"
+					},
+					"sample": {
+						"key": "temperature",
+						"columnTitle": "Temperature"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "moisture",
+		"label": "Moisture",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/moisture.json",
+				"title": "Moisture",
+				"type": "number",
+				"minimum": 0,
+				"maximum": 100,
+				"kbase": {
+					"units": {
+						"available": ["percent"],
+						"canonical": "percent"
+					},
+					"display": {
+						"label": "Moisture"
+					},
+					"sample": {
+						"key": "moisture",
+						"columnTitle": "Moisture"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "pore_water_extraction_microliters",
+		"label": "Pore Water Extraction",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/pore_water_extraction_microliters.json",
+				"title": "Pore Water Extraction",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["microliters"],
+						"canonical": "microliters"
+					},
+					"display": {
+						"label": "Pore Water Extraction"
+					},
+					"sample": {
+						"key": "pore_water_extraction_microliters",
+						"columnTitle": "Pore Water Extraction"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "conductivity_ms_cm",
+		"label": "Conductivity",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/conductivity_ms_cm.json",
+				"title": "Conductivity",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["mS/cm"],
+						"canonical": "mS/cm"
+					},
+					"display": {
+						"label": "Conductivity"
+					},
+					"sample": {
+						"key": "conductivity_ms_cm",
+						"columnTitle": "Conductivity"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "redox_potential_?",
+		"label": "Redox Potential",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/redox_potential_?.json",
+				"title": "Redox Potential",
+				"type": "number",
+				"kbase": {
+					"display": {
+						"label": "Redox Potential"
+					},
+					"format": {
+						"useGrouping": true,
+						"minimumFractionDigits": 2,
+						"maximumFractionDigits": 2
+					},
+					"sample": {
+						"key": "redox_potential_?",
+						"columnTitle": "Redox Potential"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "ph",
+		"label": "pH",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/ph.json",
+				"title": "pH",
+				"type": "number",
+				"minimum": -10,
+				"maximum": 20,
+				"kbase": {
+					"units": {
+						"available": ["pH"],
+						"canonical": "pH"
+					},
+					"display": {
+						"label": "pH"
+					},
+					"sample": {
+						"key": "ph",
+						"columnTitle": "pH"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "aodc_cells_g",
+		"label": "AODC",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/aodc_cells_g.json",
+				"title": "AODC",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["cells/g"],
+						"canonical": "cells/g"
+					},
+					"display": {
+						"label": "AODC"
+					},
+					"sample": {
+						"key": "aodc_cells_g",
+						"columnTitle": "AODC"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "dapi_cell_count_cells_g",
+		"label": "DAPI Cell Count",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/dapi_cell_count_cells_g.json",
+				"title": "DAPI Cell Count",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"display": {
+						"label": "DAPI Cell Count"
+					},
+					"sample": {
+						"key": "dapi_cell_count_cells_g",
+						"columnTitle": "DAPI Cell Count"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "dna_picogreen_total_ng",
+		"label": "DNA Picogreen Total",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/dna_picogreen_total_ng.json",
+				"title": "DNA Picogreen Total",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ng"],
+						"canonical": "ng"
+					},
+					"display": {
+						"label": "DNA Picogreen Total"
+					},
+					"sample": {
+						"key": "dna_picogreen_total_ng",
+						"columnTitle": "DNA Picogreen Total"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "total_carbon_mg_g_dry_weight",
+		"label": "Total Carbon",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/total_carbon_mg_g_dry_weight.json",
+				"title": "Total Carbon",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["mg/g"],
+						"canonical": "mg/g"
+					},
+					"display": {
+						"label": "Total Carbon"
+					},
+					"sample": {
+						"key": "total_carbon_mg_g_dry_weight",
+						"columnTitle": "Total Carbon"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "organic_carbon",
+		"label": "Organic Carbon",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/organic_carbon.json",
+				"title": "Organic Carbon",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["mg/g"],
+						"canonical": "mg/g"
+					},
+					"display": {
+						"label": "Organic Carbon"
+					},
+					"sample": {
+						"key": "organic_carbon",
+						"columnTitle": "Organic Carbon"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "biomass_carbon_mg_g",
+		"label": "Biomass Carbon",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/biomass_carbon_mg_g.json",
+				"title": "Biomass Carbon",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["mg/g"],
+						"canonical": "mg/g"
+					},
+					"display": {
+						"label": "Biomass Carbon"
+					},
+					"sample": {
+						"key": "biomass_carbon_mg_g",
+						"columnTitle": "Biomass Carbon"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "total_nitrogen_mg_g_dry_weight",
+		"label": "Total Nitrogen",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/total_nitrogen_mg_g_dry_weight.json",
+				"title": "Total Nitrogen",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["mg/g"],
+						"canonical": "mg/g"
+					},
+					"display": {
+						"label": "Total Nitrogen"
+					},
+					"sample": {
+						"key": "total_nitrogen_mg_g_dry_weight",
+						"columnTitle": "Total Nitrogen"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "boncat_activity",
+		"label": "BONCAT Activity",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/boncat_activity.json",
+				"title": "BONCAT Activity",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["cells/g"],
+						"canonical": "cells/g"
+					},
+					"display": {
+						"label": "BONCAT Activity"
+					},
+					"sample": {
+						"key": "boncat_activity",
+						"columnTitle": "BONCAT Activity"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "leucine_activity_ngc_day_cell",
+		"label": "Leucine Activity (ngC/day cell)",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/leucine_activity_ngc_day_cell.json",
+				"title": "Leucine Activity (ngC/day cell)",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Leucine Activity (ngC/day cell)"
+					},
+					"sample": {
+						"key": "leucine_activity_ngc_day_cell",
+						"columnTitle": "Leucine Activity (ngC/day cell)"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "functional_area",
+		"label": "Functional Area",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/functional_area.json",
+				"title": "Functional Area",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Functional Area"
+					},
+					"sample": {
+						"key": "functional_area",
+						"columnTitle": "Functional Area"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "type_of_well",
+		"label": "Type of Well",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/type_of_well.json",
+				"title": "Type of Well",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Type of Well"
+					},
+					"sample": {
+						"key": "type_of_well",
+						"columnTitle": "Type of Well"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "top_of_casing_stickup",
+		"label": "Top of Casing Stickup",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/top_of_casing_stickup.json",
+				"title": "Top of Casing Stickup",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Top of Casing Stickup"
+					},
+					"sample": {
+						"key": "top_of_casing_stickup",
+						"columnTitle": "Top of Casing Stickup"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "top_of_casing_elevation",
+		"label": "Top of Casing Elevation",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/top_of_casing_elevation.json",
+				"title": "Top of Casing Elevation",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Top of Casing Elevation"
+					},
+					"sample": {
+						"key": "top_of_casing_elevation",
+						"columnTitle": "Top of Casing Elevation"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "ground_elevation_ft_amsl",
+		"label": "Ground Elevation",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/ground_elevation_ft_amsl.json",
+				"title": "Ground Elevation",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Ground Elevation"
+					},
+					"categories": ["geolocation"],
+					"sample": {
+						"key": "ground_elevation_ft_amsl",
+						"columnTitle": "Ground Elevation"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "installation_method",
+		"label": "Installation Method",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/installation_method.json",
+				"title": "Installation Method",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Installation Method"
+					},
+					"sample": {
+						"key": "installation_method",
+						"columnTitle": "Installation Method"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "boring",
+		"label": "Boring depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/boring.json",
+				"title": "Boring depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Boring depth"
+					},
+					"sample": {
+						"key": "boring",
+						"columnTitle": "Boring depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "boring_refusal",
+		"label": "Boring Refusal",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/boring_refusal.json",
+				"title": "Boring Refusal",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Boring Refusal"
+					},
+					"sample": {
+						"key": "boring_refusal",
+						"columnTitle": "Boring Refusal"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "boring_diameter_in",
+		"label": "Boring Diameter",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/boring_diameter_in.json",
+				"title": "Boring Diameter",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Boring Diameter"
+					},
+					"sample": {
+						"key": "boring_diameter_in",
+						"columnTitle": "Boring Diameter"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "screen_type",
+		"label": "Screen Type",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_type.json",
+				"title": "Screen Type",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Screen Type"
+					},
+					"sample": {
+						"key": "screen_type",
+						"columnTitle": "Screen Type"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "screened_interval",
+		"label": "Screened Interval",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/screened_interval.json",
+				"title": "Screened Interval",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Screened Interval"
+					},
+					"sample": {
+						"key": "screened_interval",
+						"columnTitle": "Screened Interval"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "screen_start_depth",
+		"label": "Screen Start Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_start_depth.json",
+				"title": "Screen Start Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Screen Start Depth"
+					},
+					"sample": {
+						"key": "screen_start_depth",
+						"columnTitle": "Screen Start Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "screen_end_depth",
+		"label": "Screen End Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_end_depth.json",
+				"title": "Screen End Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Screen End Depth"
+					},
+					"sample": {
+						"key": "screen_end_depth",
+						"columnTitle": "Screen End Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "screen_top_elevation",
+		"label": "Screen Top Elevation",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_top_elevation.json",
+				"title": "Screen Top Elevation",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Screen Top Elevation"
+					},
+					"sample": {
+						"key": "screen_top_elevation",
+						"columnTitle": "Screen Top Elevation"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "screen_bottom_elevation",
+		"label": "Screen Bottom Elevation",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_bottom_elevation.json",
+				"title": "Screen Bottom Elevation",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Screen Bottom Elevation"
+					},
+					"sample": {
+						"key": "screen_bottom_elevation",
+						"columnTitle": "Screen Bottom Elevation"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "well_casing_type",
+		"label": "Well Casing Type",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_type.json",
+				"title": "Well Casing Type",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Well Casing Type"
+					},
+					"sample": {
+						"key": "well_casing_type",
+						"columnTitle": "Well Casing Type"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "well_casing_od",
+		"label": "Well Casing OD",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_od.json",
+				"title": "Well Casing OD",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Well Casing OD"
+					},
+					"sample": {
+						"key": "well_casing_od",
+						"columnTitle": "Well Casing OD"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "well_casing_id",
+		"label": "Well Casing ID",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_id.json",
+				"title": "Well Casing ID",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Well Casing ID"
+					},
+					"sample": {
+						"key": "well_casing_id",
+						"columnTitle": "Well Casing ID"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "well_casing_depth",
+		"label": "Well Casing Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_depth.json",
+				"title": "Well Casing Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Well Casing Depth"
+					},
+					"sample": {
+						"key": "well_casing_depth",
+						"columnTitle": "Well Casing Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "drive_casing_type",
+		"label": "Drive Casing Type",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_type.json",
+				"title": "Drive Casing Type",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Drive Casing Type"
+					},
+					"sample": {
+						"key": "drive_casing_type",
+						"columnTitle": "Drive Casing Type"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "drive_casing_id_in",
+		"label": "Drive Casing ID",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_id_in.json",
+				"title": "Drive Casing ID",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Drive Casing ID"
+					},
+					"sample": {
+						"key": "drive_casing_id_in",
+						"columnTitle": "Drive Casing ID"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "drive_casing_od_in",
+		"label": "Drive Casing OD",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_od_in.json",
+				"title": "Drive Casing OD",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Drive Casing OD"
+					},
+					"sample": {
+						"key": "drive_casing_od_in",
+						"columnTitle": "Drive Casing OD"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "drive_casing_start_depth_ft_bgs",
+		"label": "Drive Casing Start Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_start_depth_ft_bgs.json",
+				"title": "Drive Casing Start Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Drive Casing Start Depth"
+					},
+					"sample": {
+						"key": "drive_casing_start_depth_ft_bgs",
+						"columnTitle": "Drive Casing Start Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "drive_casing_end_depth_ft_bgs",
+		"label": "Drive Casing End Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_end_depth_ft_bgs.json",
+				"title": "Drive Casing End Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Drive Casing End Depth"
+					},
+					"sample": {
+						"key": "drive_casing_end_depth_ft_bgs",
+						"columnTitle": "Drive Casing End Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "packing_type",
+		"label": "Packing Type",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/packing_type.json",
+				"title": "Packing Type",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Packing Type"
+					},
+					"sample": {
+						"key": "packing_type",
+						"columnTitle": "Packing Type"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "packing_depth_start_ft_bgs",
+		"label": "Packing Depth Start",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/packing_depth_start_ft_bgs.json",
+				"title": "Packing Depth Start",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Packing Depth Start"
+					},
+					"sample": {
+						"key": "packing_depth_start_ft_bgs",
+						"columnTitle": "Packing Depth Start"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "packing_depth_end_ft_bgs",
+		"label": "Packing Depth End",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/packing_depth_end_ft_bgs.json",
+				"title": "Packing Depth End",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Packing Depth End"
+					},
+					"sample": {
+						"key": "packing_depth_end_ft_bgs",
+						"columnTitle": "Packing Depth End"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "topofweatheredbedrock_ft_bgs",
+		"label": "Top of Weathered Bedrock",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/topofweatheredbedrock_ft_bgs.json",
+				"title": "Top of Weathered Bedrock",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Top of Weathered Bedrock"
+					},
+					"sample": {
+						"key": "topofweatheredbedrock_ft_bgs",
+						"columnTitle": "Top of Weathered Bedrock"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "topoffreshbedrock_ft_bgs",
+		"label": "Top of Fresh Bedrock",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/topoffreshbedrock_ft_bgs.json",
+				"title": "Top of Fresh Bedrock",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Top of Fresh Bedrock"
+					},
+					"sample": {
+						"key": "topoffreshbedrock_ft_bgs",
+						"columnTitle": "Top of Fresh Bedrock"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "aquifer",
+		"label": "Aquifer",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/aquifer.json",
+				"title": "Aquifer",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Aquifer"
+					},
+					"sample": {
+						"key": "aquifer",
+						"columnTitle": "Aquifer"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "fractures_cavities_waterbreaks",
+		"label": "Fractures/Cavities/WaterBreaks",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/fractures_cavities_waterbreaks.json",
+				"title": "Fractures/Cavities/WaterBreaks",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Fractures/Cavities/WaterBreaks"
+					},
+					"sample": {
+						"key": "fractures_cavities_waterbreaks",
+						"columnTitle": "Fractures/Cavities/WaterBreaks"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "other_name",
+		"label": "Other Name",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/other_name.json",
+				"title": "Other Name",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Other Name"
+					},
+					"sample": {
+						"key": "other_name",
+						"columnTitle": "Other Name"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "screened",
+		"label": "Screened",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/screened.json",
+				"title": "Screened",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Screened"
+					},
+					"sample": {
+						"key": "screened",
+						"columnTitle": "Screened"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open",
+		"label": "Open",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open.json",
+				"title": "Open",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Open"
+					},
+					"sample": {
+						"key": "open",
+						"columnTitle": "Open"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "well_status",
+		"label": "Well Status",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/well_status.json",
+				"title": "Well Status",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Well Status"
+					},
+					"sample": {
+						"key": "well_status",
+						"columnTitle": "Well Status"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "condition",
+		"label": "Condition",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/condition.json",
+				"title": "Condition",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Condition"
+					},
+					"sample": {
+						"key": "condition",
+						"columnTitle": "Condition"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "origination_or_plug_abandon",
+		"label": "Origination or Plug/Abandon",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/origination_or_plug_abandon.json",
+				"title": "Origination or Plug/Abandon",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Origination or Plug/Abandon"
+					},
+					"sample": {
+						"key": "origination_or_plug_abandon",
+						"columnTitle": "Origination or Plug/Abandon"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "min_water_level_ft_amsl",
+		"label": "Min Water Level",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/min_water_level_ft_amsl.json",
+				"title": "Min Water Level",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Min Water Level"
+					},
+					"sample": {
+						"key": "min_water_level_ft_amsl",
+						"columnTitle": "Min Water Level"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "average_water_level_ft_amsl",
+		"label": "Average Water Level",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/average_water_level_ft_amsl.json",
+				"title": "Average Water Level",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Average Water Level"
+					},
+					"sample": {
+						"key": "average_water_level_ft_amsl",
+						"columnTitle": "Average Water Level"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "max_water_level_ft_amsl",
+		"label": "Max Water Level",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/max_water_level_ft_amsl.json",
+				"title": "Max Water Level",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Max Water Level"
+					},
+					"sample": {
+						"key": "max_water_level_ft_amsl",
+						"columnTitle": "Max Water Level"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "upper_seal_type",
+		"label": "Upper Seal Type",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/upper_seal_type.json",
+				"title": "Upper Seal Type",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Upper Seal Type"
+					},
+					"sample": {
+						"key": "upper_seal_type",
+						"columnTitle": "Upper Seal Type"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "upper_seal_start_depth",
+		"label": "Upper Seal Start Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/upper_seal_start_depth.json",
+				"title": "Upper Seal Start Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Upper Seal Start Depth"
+					},
+					"sample": {
+						"key": "upper_seal_start_depth",
+						"columnTitle": "Upper Seal Start Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "upper_seal_end_depth",
+		"label": "Upper Seal End Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/upper_seal_end_depth.json",
+				"title": "Upper Seal End Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Upper Seal End Depth"
+					},
+					"sample": {
+						"key": "upper_seal_end_depth",
+						"columnTitle": "Upper Seal End Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "lower_seal_type",
+		"label": "Lower Seal Type",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_type.json",
+				"title": "Lower Seal Type",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Lower Seal Type"
+					},
+					"sample": {
+						"key": "lower_seal_type",
+						"columnTitle": "Lower Seal Type"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "lower_seal_start_depth_ft_bgs",
+		"label": "Lower Seal Start Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_start_depth_ft_bgs.json",
+				"title": "Lower Seal Start Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Lower Seal Start Depth"
+					},
+					"sample": {
+						"key": "lower_seal_start_depth_ft_bgs",
+						"columnTitle": "Lower Seal Start Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "lower_seal_end_depth_ft_bgs",
+		"label": "Lower Seal End Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_end_depth_ft_bgs.json",
+				"title": "Lower Seal End Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Lower Seal End Depth"
+					},
+					"sample": {
+						"key": "lower_seal_end_depth_ft_bgs",
+						"columnTitle": "Lower Seal End Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_casing_type",
+		"label": "Open Casing Type",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_type.json",
+				"title": "Open Casing Type",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Open Casing Type"
+					},
+					"sample": {
+						"key": "open_casing_type",
+						"columnTitle": "Open Casing Type"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_casing_od_in",
+		"label": "Open Casing OD",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_od_in.json",
+				"title": "Open Casing OD",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Open Casing OD"
+					},
+					"sample": {
+						"key": "open_casing_od_in",
+						"columnTitle": "Open Casing OD"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_casing_id_in",
+		"label": "Open Casing ID",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_id_in.json",
+				"title": "Open Casing ID",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Open Casing ID"
+					},
+					"sample": {
+						"key": "open_casing_id_in",
+						"columnTitle": "Open Casing ID"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_casing_depth_ft_bgs",
+		"label": "Open Casing Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_depth_ft_bgs.json",
+				"title": "Open Casing Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Open Casing Depth"
+					},
+					"sample": {
+						"key": "open_casing_depth_ft_bgs",
+						"columnTitle": "Open Casing Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_hole_diameter_in",
+		"label": "Open Hole Diameter",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_hole_diameter_in.json",
+				"title": "Open Hole Diameter",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Open Hole Diameter"
+					},
+					"sample": {
+						"key": "open_hole_diameter_in",
+						"columnTitle": "Open Hole Diameter"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_hole_depth_ft_bgs",
+		"label": "Open Hole Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_hole_depth_ft_bgs.json",
+				"title": "Open Hole Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Open Hole Depth"
+					},
+					"sample": {
+						"key": "open_hole_depth_ft_bgs",
+						"columnTitle": "Open Hole Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_interval_start_depth_ft_bgs",
+		"label": "Open Interval Start Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_interval_start_depth_ft_bgs.json",
+				"title": "Open Interval Start Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Open Interval Start Depth"
+					},
+					"sample": {
+						"key": "open_interval_start_depth_ft_bgs",
+						"columnTitle": "Open Interval Start Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_interval_end_depth_ft_bgs",
+		"label": "Open Interval End Depth",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_interval_end_depth_ft_bgs.json",
+				"title": "Open Interval End Depth",
+				"type": "number",
+				"kbase": {
+					"units": {
+						"available": ["ft"],
+						"canonical": "ft"
+					},
+					"display": {
+						"label": "Open Interval End Depth"
+					},
+					"sample": {
+						"key": "open_interval_end_depth_ft_bgs",
+						"columnTitle": "Open Interval End Depth"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "open_interval_diameter_in",
+		"label": "Open Interval Diameter",
+		"isEmpty": true,
+		"field": {
+			"type": "number",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/open_interval_diameter_in.json",
+				"title": "Open Interval Diameter",
+				"type": "number",
+				"minimum": 0,
+				"kbase": {
+					"units": {
+						"available": ["in"],
+						"canonical": "in"
+					},
+					"display": {
+						"label": "Open Interval Diameter"
+					},
+					"sample": {
+						"key": "open_interval_diameter_in",
+						"columnTitle": "Open Interval Diameter"
+					}
+				}
+			},
+			"isEmpty": true,
+			"numberValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "rock_formation",
+		"label": "Rock Formation",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/rock_formation.json",
+				"title": "Rock Formation",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Rock Formation"
+					},
+					"sample": {
+						"key": "rock_formation",
+						"columnTitle": "Rock Formation"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "biome",
+		"label": "Biome",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"format": "ontologyTerm",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/biome.json",
+				"title": "Biome",
+				"type": "string",
+				"format": "ontologyTerm",
+				"ancestorTerm": "ENVO:00000428",
+				"ontologyNamespace": "envo_ontology",
+				"kbase": {
+					"display": {
+						"label": "Biome"
+					},
+					"sample": {
+						"key": "biome",
+						"columnTitle": "Biome"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "country",
+		"label": "Country",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
+				"title": "Country",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Country"
+					},
+					"categories": ["geolocation"],
+					"sample": {
+						"key": "country",
+						"columnTitle": "Country"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "continent",
+		"label": "Continent",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/continent.json",
+				"title": "Continent",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Continent"
+					},
+					"categories": ["geolocation"],
+					"sample": {
+						"key": "continent",
+						"columnTitle": "Continent"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "env_package",
+		"label": "Env_package",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/env_package.json",
+				"title": "Env_package",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Env_package"
+					},
+					"sample": {
+						"key": "env_package",
+						"columnTitle": "Env_package"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "feature",
+		"label": "Feature",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"format": "ontologyTerm",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/feature.json",
+				"title": "Feature",
+				"type": "string",
+				"format": "ontologyTerm",
+				"ancestorTerm": "ENVO:01000813",
+				"ontologyNamespace": "envo_ontology",
+				"kbase": {
+					"display": {
+						"label": "Feature"
+					},
+					"categories": ["geolocation"],
+					"sample": {
+						"key": "feature",
+						"columnTitle": "Feature"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "region",
+		"label": "Region",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/region.json",
+				"title": "Region",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Region"
+					},
+					"categories": ["geolocation"],
+					"sample": {
+						"key": "region",
+						"columnTitle": "Region"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "timezone",
+		"label": "Timezone",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/timezone.json",
+				"title": "Timezone",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Timezone"
+					},
+					"sample": {
+						"key": "timezone",
+						"columnTitle": "Timezone"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "controlled",
+		"key": "well",
+		"label": "Well",
+		"isEmpty": true,
+		"field": {
+			"type": "string",
+			"schema": {
+				"$schema": "http://json-schema.org/draft-07/schema",
+				"$id": "http://kbase.us/schemas/samples/fields/sesar/well.json",
+				"title": "Well",
+				"type": "string",
+				"kbase": {
+					"display": {
+						"label": "Well"
+					},
+					"sample": {
+						"key": "well",
+						"columnTitle": "Well"
+					}
+				}
+			},
+			"isEmpty": true,
+			"stringValue": null
+		}
+	}, {
+		"type": "user",
+		"key": "enigma:material",
+		"label": "enigma:material",
+		"isEmpty": true,
+		"field": "ENVO:00003032"
+	}, {
+		"type": "user",
+		"key": "material_description",
+		"label": "material_description",
+		"isEmpty": true,
+		"field": "Dog poop"
+	}],
+	"controlled": {
+		"sampleid": {
+			"type": "controlled",
+			"key": "sampleid",
+			"label": "SampleID",
+			"isEmpty": false,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/sampleid.json",
+					"title": "SampleID",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "SampleID"
+						},
+						"sample": {
+							"key": "sampleid",
+							"columnTitle": "SampleID"
+						}
+					}
+				},
+				"isEmpty": false,
+				"stringValue": "ont_term_04"
+			}
+		},
+		"experiment_name": {
+			"type": "controlled",
+			"key": "experiment_name",
+			"label": "Experiment Name",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/experiment_name.json",
+					"title": "Experiment Name",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Experiment Name"
+						},
+						"sample": {
+							"key": "experiment_name",
+							"columnTitle": "Experiment Name"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"area_name": {
+			"type": "controlled",
+			"key": "area_name",
+			"label": "Area Name",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/area_name.json",
+					"title": "Area Name",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Area Name"
+						},
+						"categories": ["geolocation"],
+						"sample": {
+							"key": "area_name",
+							"columnTitle": "Area Name"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"well_name": {
+			"type": "controlled",
+			"key": "well_name",
+			"label": "Well Name",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/well_name.json",
+					"title": "Well Name",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Well Name"
+						},
+						"sample": {
+							"key": "well_name",
+							"columnTitle": "Well Name"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"environmental_package": {
+			"type": "controlled",
+			"key": "environmental_package",
+			"label": "Environmental Package",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/environmental_package.json",
+					"title": "Environmental Package",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Environmental Package"
+						},
+						"sample": {
+							"key": "environmental_package",
+							"columnTitle": "Environmental Package"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"material": {
+			"type": "controlled",
+			"key": "material",
+			"label": "Material",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/material.json",
+					"title": "Material",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Material"
+						},
+						"sample": {
+							"key": "material",
+							"columnTitle": "Material"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"description": {
+			"type": "controlled",
+			"key": "description",
+			"label": "Description",
+			"isEmpty": false,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/description.json",
+					"title": "Description",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Description"
+						},
+						"sample": {
+							"key": "description",
+							"columnTitle": "Description"
+						}
+					}
+				},
+				"isEmpty": false,
+				"stringValue": "A test sample to exercise the \"material\" field"
+			}
+		},
+		"filter": {
+			"type": "controlled",
+			"key": "filter",
+			"label": "Filter",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/filter.json",
+					"title": "Filter",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["microns"],
+							"canonical": "microns"
+						},
+						"display": {
+							"label": "Filter"
+						},
+						"sample": {
+							"key": "filter",
+							"columnTitle": "Filter"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"date": {
+			"type": "controlled",
+			"key": "date",
+			"label": "Date",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/date.json",
+					"title": "Date",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Date"
+						},
+						"sample": {
+							"key": "date",
+							"columnTitle": "Date"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"collection_time": {
+			"type": "controlled",
+			"key": "collection_time",
+			"label": "Collection time",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/collection_time.json",
+					"title": "Collection time",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Collection time"
+						},
+						"sample": {
+							"key": "collection_time",
+							"columnTitle": "Collection time"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"time_zone": {
+			"type": "controlled",
+			"key": "time_zone",
+			"label": "Time Zone",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/time_zone.json",
+					"title": "Time Zone",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Time Zone"
+						},
+						"sample": {
+							"key": "time_zone",
+							"columnTitle": "Time Zone"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"latitude": {
+			"type": "controlled",
+			"key": "latitude",
+			"label": "Latitude",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
+					"title": "Latitude",
+					"type": "number",
+					"minimum": -90,
+					"maximum": 90,
+					"kbase": {
+						"units": {
+							"available": ["degrees"],
+							"canonical": "degrees"
+						},
+						"display": {
+							"label": "Latitude"
+						},
+						"categories": ["geolocation"],
+						"format": {
+							"minimumFractionDigits": 3,
+							"maximumFractionDigits": 3
+						},
+						"sample": {
+							"key": "latitude",
+							"columnTitle": "Latitude"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"longitude": {
+			"type": "controlled",
+			"key": "longitude",
+			"label": "Longitude",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
+					"title": "Longitude",
+					"type": "number",
+					"minimum": -180,
+					"maximum": 180,
+					"kbase": {
+						"units": {
+							"available": ["degrees"],
+							"canonical": "degrees"
+						},
+						"display": {
+							"label": "Longitude"
+						},
+						"categories": ["geolocation"],
+						"format": {
+							"minimumFractionDigits": 3,
+							"maximumFractionDigits": 3
+						},
+						"sample": {
+							"key": "longitude",
+							"columnTitle": "Longitude"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"depth": {
+			"type": "controlled",
+			"key": "depth",
+			"label": "Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/depth.json",
+					"title": "Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["cm"],
+							"canonical": "cm"
+						},
+						"display": {
+							"label": "Depth"
+						},
+						"sample": {
+							"key": "depth",
+							"columnTitle": "Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"geological_zone": {
+			"type": "controlled",
+			"key": "geological_zone",
+			"label": "Geological Zone",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/geological_zone.json",
+					"title": "Geological Zone",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Geological Zone"
+						},
+						"sample": {
+							"key": "geological_zone",
+							"columnTitle": "Geological Zone"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"recovery_factor": {
+			"type": "controlled",
+			"key": "recovery_factor",
+			"label": "Recovery Factor",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/recovery_factor.json",
+					"title": "Recovery Factor",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Recovery Factor"
+						},
+						"sample": {
+							"key": "recovery_factor",
+							"columnTitle": "Recovery Factor"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"method": {
+			"type": "controlled",
+			"key": "method",
+			"label": "Method",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/method.json",
+					"title": "Method",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Method"
+						},
+						"sample": {
+							"key": "method",
+							"columnTitle": "Method"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"fraction": {
+			"type": "controlled",
+			"key": "fraction",
+			"label": "Fraction",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/fraction.json",
+					"title": "Fraction",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Fraction"
+						},
+						"sample": {
+							"key": "fraction",
+							"columnTitle": "Fraction"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"replicate": {
+			"type": "controlled",
+			"key": "replicate",
+			"label": "Replicate",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/replicate.json",
+					"title": "Replicate",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Replicate"
+						},
+						"sample": {
+							"key": "replicate",
+							"columnTitle": "Replicate"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"maturation_time": {
+			"type": "controlled",
+			"key": "maturation_time",
+			"label": "Maturation Time",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/maturation_time.json",
+					"title": "Maturation Time",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Maturation Time"
+						},
+						"sample": {
+							"key": "maturation_time",
+							"columnTitle": "Maturation Time"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"treatment": {
+			"type": "controlled",
+			"key": "treatment",
+			"label": "Treatment",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/treatment.json",
+					"title": "Treatment",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Treatment"
+						},
+						"sample": {
+							"key": "treatment",
+							"columnTitle": "Treatment"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"temperature": {
+			"type": "controlled",
+			"key": "temperature",
+			"label": "Temperature",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/temperature.json",
+					"title": "Temperature",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["celsius"],
+							"canonical": "celsius"
+						},
+						"display": {
+							"label": "Temperature"
+						},
+						"sample": {
+							"key": "temperature",
+							"columnTitle": "Temperature"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"moisture": {
+			"type": "controlled",
+			"key": "moisture",
+			"label": "Moisture",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/moisture.json",
+					"title": "Moisture",
+					"type": "number",
+					"minimum": 0,
+					"maximum": 100,
+					"kbase": {
+						"units": {
+							"available": ["percent"],
+							"canonical": "percent"
+						},
+						"display": {
+							"label": "Moisture"
+						},
+						"sample": {
+							"key": "moisture",
+							"columnTitle": "Moisture"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"pore_water_extraction_microliters": {
+			"type": "controlled",
+			"key": "pore_water_extraction_microliters",
+			"label": "Pore Water Extraction",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/pore_water_extraction_microliters.json",
+					"title": "Pore Water Extraction",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["microliters"],
+							"canonical": "microliters"
+						},
+						"display": {
+							"label": "Pore Water Extraction"
+						},
+						"sample": {
+							"key": "pore_water_extraction_microliters",
+							"columnTitle": "Pore Water Extraction"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"conductivity_ms_cm": {
+			"type": "controlled",
+			"key": "conductivity_ms_cm",
+			"label": "Conductivity",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/conductivity_ms_cm.json",
+					"title": "Conductivity",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["mS/cm"],
+							"canonical": "mS/cm"
+						},
+						"display": {
+							"label": "Conductivity"
+						},
+						"sample": {
+							"key": "conductivity_ms_cm",
+							"columnTitle": "Conductivity"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"redox_potential_?": {
+			"type": "controlled",
+			"key": "redox_potential_?",
+			"label": "Redox Potential",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/redox_potential_?.json",
+					"title": "Redox Potential",
+					"type": "number",
+					"kbase": {
+						"display": {
+							"label": "Redox Potential"
+						},
+						"format": {
+							"useGrouping": true,
+							"minimumFractionDigits": 2,
+							"maximumFractionDigits": 2
+						},
+						"sample": {
+							"key": "redox_potential_?",
+							"columnTitle": "Redox Potential"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"ph": {
+			"type": "controlled",
+			"key": "ph",
+			"label": "pH",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/ph.json",
+					"title": "pH",
+					"type": "number",
+					"minimum": -10,
+					"maximum": 20,
+					"kbase": {
+						"units": {
+							"available": ["pH"],
+							"canonical": "pH"
+						},
+						"display": {
+							"label": "pH"
+						},
+						"sample": {
+							"key": "ph",
+							"columnTitle": "pH"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"aodc_cells_g": {
+			"type": "controlled",
+			"key": "aodc_cells_g",
+			"label": "AODC",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/aodc_cells_g.json",
+					"title": "AODC",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["cells/g"],
+							"canonical": "cells/g"
+						},
+						"display": {
+							"label": "AODC"
+						},
+						"sample": {
+							"key": "aodc_cells_g",
+							"columnTitle": "AODC"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"dapi_cell_count_cells_g": {
+			"type": "controlled",
+			"key": "dapi_cell_count_cells_g",
+			"label": "DAPI Cell Count",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/dapi_cell_count_cells_g.json",
+					"title": "DAPI Cell Count",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"display": {
+							"label": "DAPI Cell Count"
+						},
+						"sample": {
+							"key": "dapi_cell_count_cells_g",
+							"columnTitle": "DAPI Cell Count"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"dna_picogreen_total_ng": {
+			"type": "controlled",
+			"key": "dna_picogreen_total_ng",
+			"label": "DNA Picogreen Total",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/dna_picogreen_total_ng.json",
+					"title": "DNA Picogreen Total",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ng"],
+							"canonical": "ng"
+						},
+						"display": {
+							"label": "DNA Picogreen Total"
+						},
+						"sample": {
+							"key": "dna_picogreen_total_ng",
+							"columnTitle": "DNA Picogreen Total"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"total_carbon_mg_g_dry_weight": {
+			"type": "controlled",
+			"key": "total_carbon_mg_g_dry_weight",
+			"label": "Total Carbon",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/total_carbon_mg_g_dry_weight.json",
+					"title": "Total Carbon",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["mg/g"],
+							"canonical": "mg/g"
+						},
+						"display": {
+							"label": "Total Carbon"
+						},
+						"sample": {
+							"key": "total_carbon_mg_g_dry_weight",
+							"columnTitle": "Total Carbon"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"organic_carbon": {
+			"type": "controlled",
+			"key": "organic_carbon",
+			"label": "Organic Carbon",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/organic_carbon.json",
+					"title": "Organic Carbon",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["mg/g"],
+							"canonical": "mg/g"
+						},
+						"display": {
+							"label": "Organic Carbon"
+						},
+						"sample": {
+							"key": "organic_carbon",
+							"columnTitle": "Organic Carbon"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"biomass_carbon_mg_g": {
+			"type": "controlled",
+			"key": "biomass_carbon_mg_g",
+			"label": "Biomass Carbon",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/biomass_carbon_mg_g.json",
+					"title": "Biomass Carbon",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["mg/g"],
+							"canonical": "mg/g"
+						},
+						"display": {
+							"label": "Biomass Carbon"
+						},
+						"sample": {
+							"key": "biomass_carbon_mg_g",
+							"columnTitle": "Biomass Carbon"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"total_nitrogen_mg_g_dry_weight": {
+			"type": "controlled",
+			"key": "total_nitrogen_mg_g_dry_weight",
+			"label": "Total Nitrogen",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/total_nitrogen_mg_g_dry_weight.json",
+					"title": "Total Nitrogen",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["mg/g"],
+							"canonical": "mg/g"
+						},
+						"display": {
+							"label": "Total Nitrogen"
+						},
+						"sample": {
+							"key": "total_nitrogen_mg_g_dry_weight",
+							"columnTitle": "Total Nitrogen"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"boncat_activity": {
+			"type": "controlled",
+			"key": "boncat_activity",
+			"label": "BONCAT Activity",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/boncat_activity.json",
+					"title": "BONCAT Activity",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["cells/g"],
+							"canonical": "cells/g"
+						},
+						"display": {
+							"label": "BONCAT Activity"
+						},
+						"sample": {
+							"key": "boncat_activity",
+							"columnTitle": "BONCAT Activity"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"leucine_activity_ngc_day_cell": {
+			"type": "controlled",
+			"key": "leucine_activity_ngc_day_cell",
+			"label": "Leucine Activity (ngC/day cell)",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/leucine_activity_ngc_day_cell.json",
+					"title": "Leucine Activity (ngC/day cell)",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Leucine Activity (ngC/day cell)"
+						},
+						"sample": {
+							"key": "leucine_activity_ngc_day_cell",
+							"columnTitle": "Leucine Activity (ngC/day cell)"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"functional_area": {
+			"type": "controlled",
+			"key": "functional_area",
+			"label": "Functional Area",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/functional_area.json",
+					"title": "Functional Area",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Functional Area"
+						},
+						"sample": {
+							"key": "functional_area",
+							"columnTitle": "Functional Area"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"type_of_well": {
+			"type": "controlled",
+			"key": "type_of_well",
+			"label": "Type of Well",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/type_of_well.json",
+					"title": "Type of Well",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Type of Well"
+						},
+						"sample": {
+							"key": "type_of_well",
+							"columnTitle": "Type of Well"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"top_of_casing_stickup": {
+			"type": "controlled",
+			"key": "top_of_casing_stickup",
+			"label": "Top of Casing Stickup",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/top_of_casing_stickup.json",
+					"title": "Top of Casing Stickup",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Top of Casing Stickup"
+						},
+						"sample": {
+							"key": "top_of_casing_stickup",
+							"columnTitle": "Top of Casing Stickup"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"top_of_casing_elevation": {
+			"type": "controlled",
+			"key": "top_of_casing_elevation",
+			"label": "Top of Casing Elevation",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/top_of_casing_elevation.json",
+					"title": "Top of Casing Elevation",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Top of Casing Elevation"
+						},
+						"sample": {
+							"key": "top_of_casing_elevation",
+							"columnTitle": "Top of Casing Elevation"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"ground_elevation_ft_amsl": {
+			"type": "controlled",
+			"key": "ground_elevation_ft_amsl",
+			"label": "Ground Elevation",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/ground_elevation_ft_amsl.json",
+					"title": "Ground Elevation",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Ground Elevation"
+						},
+						"categories": ["geolocation"],
+						"sample": {
+							"key": "ground_elevation_ft_amsl",
+							"columnTitle": "Ground Elevation"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"installation_method": {
+			"type": "controlled",
+			"key": "installation_method",
+			"label": "Installation Method",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/installation_method.json",
+					"title": "Installation Method",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Installation Method"
+						},
+						"sample": {
+							"key": "installation_method",
+							"columnTitle": "Installation Method"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"boring": {
+			"type": "controlled",
+			"key": "boring",
+			"label": "Boring depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/boring.json",
+					"title": "Boring depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Boring depth"
+						},
+						"sample": {
+							"key": "boring",
+							"columnTitle": "Boring depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"boring_refusal": {
+			"type": "controlled",
+			"key": "boring_refusal",
+			"label": "Boring Refusal",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/boring_refusal.json",
+					"title": "Boring Refusal",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Boring Refusal"
+						},
+						"sample": {
+							"key": "boring_refusal",
+							"columnTitle": "Boring Refusal"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"boring_diameter_in": {
+			"type": "controlled",
+			"key": "boring_diameter_in",
+			"label": "Boring Diameter",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/boring_diameter_in.json",
+					"title": "Boring Diameter",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Boring Diameter"
+						},
+						"sample": {
+							"key": "boring_diameter_in",
+							"columnTitle": "Boring Diameter"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"screen_type": {
+			"type": "controlled",
+			"key": "screen_type",
+			"label": "Screen Type",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_type.json",
+					"title": "Screen Type",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Screen Type"
+						},
+						"sample": {
+							"key": "screen_type",
+							"columnTitle": "Screen Type"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"screened_interval": {
+			"type": "controlled",
+			"key": "screened_interval",
+			"label": "Screened Interval",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/screened_interval.json",
+					"title": "Screened Interval",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Screened Interval"
+						},
+						"sample": {
+							"key": "screened_interval",
+							"columnTitle": "Screened Interval"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"screen_start_depth": {
+			"type": "controlled",
+			"key": "screen_start_depth",
+			"label": "Screen Start Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_start_depth.json",
+					"title": "Screen Start Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Screen Start Depth"
+						},
+						"sample": {
+							"key": "screen_start_depth",
+							"columnTitle": "Screen Start Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"screen_end_depth": {
+			"type": "controlled",
+			"key": "screen_end_depth",
+			"label": "Screen End Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_end_depth.json",
+					"title": "Screen End Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Screen End Depth"
+						},
+						"sample": {
+							"key": "screen_end_depth",
+							"columnTitle": "Screen End Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"screen_top_elevation": {
+			"type": "controlled",
+			"key": "screen_top_elevation",
+			"label": "Screen Top Elevation",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_top_elevation.json",
+					"title": "Screen Top Elevation",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Screen Top Elevation"
+						},
+						"sample": {
+							"key": "screen_top_elevation",
+							"columnTitle": "Screen Top Elevation"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"screen_bottom_elevation": {
+			"type": "controlled",
+			"key": "screen_bottom_elevation",
+			"label": "Screen Bottom Elevation",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/screen_bottom_elevation.json",
+					"title": "Screen Bottom Elevation",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Screen Bottom Elevation"
+						},
+						"sample": {
+							"key": "screen_bottom_elevation",
+							"columnTitle": "Screen Bottom Elevation"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"well_casing_type": {
+			"type": "controlled",
+			"key": "well_casing_type",
+			"label": "Well Casing Type",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_type.json",
+					"title": "Well Casing Type",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Well Casing Type"
+						},
+						"sample": {
+							"key": "well_casing_type",
+							"columnTitle": "Well Casing Type"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"well_casing_od": {
+			"type": "controlled",
+			"key": "well_casing_od",
+			"label": "Well Casing OD",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_od.json",
+					"title": "Well Casing OD",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Well Casing OD"
+						},
+						"sample": {
+							"key": "well_casing_od",
+							"columnTitle": "Well Casing OD"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"well_casing_id": {
+			"type": "controlled",
+			"key": "well_casing_id",
+			"label": "Well Casing ID",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_id.json",
+					"title": "Well Casing ID",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Well Casing ID"
+						},
+						"sample": {
+							"key": "well_casing_id",
+							"columnTitle": "Well Casing ID"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"well_casing_depth": {
+			"type": "controlled",
+			"key": "well_casing_depth",
+			"label": "Well Casing Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/well_casing_depth.json",
+					"title": "Well Casing Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Well Casing Depth"
+						},
+						"sample": {
+							"key": "well_casing_depth",
+							"columnTitle": "Well Casing Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"drive_casing_type": {
+			"type": "controlled",
+			"key": "drive_casing_type",
+			"label": "Drive Casing Type",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_type.json",
+					"title": "Drive Casing Type",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Drive Casing Type"
+						},
+						"sample": {
+							"key": "drive_casing_type",
+							"columnTitle": "Drive Casing Type"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"drive_casing_id_in": {
+			"type": "controlled",
+			"key": "drive_casing_id_in",
+			"label": "Drive Casing ID",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_id_in.json",
+					"title": "Drive Casing ID",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Drive Casing ID"
+						},
+						"sample": {
+							"key": "drive_casing_id_in",
+							"columnTitle": "Drive Casing ID"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"drive_casing_od_in": {
+			"type": "controlled",
+			"key": "drive_casing_od_in",
+			"label": "Drive Casing OD",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_od_in.json",
+					"title": "Drive Casing OD",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Drive Casing OD"
+						},
+						"sample": {
+							"key": "drive_casing_od_in",
+							"columnTitle": "Drive Casing OD"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"drive_casing_start_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "drive_casing_start_depth_ft_bgs",
+			"label": "Drive Casing Start Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_start_depth_ft_bgs.json",
+					"title": "Drive Casing Start Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Drive Casing Start Depth"
+						},
+						"sample": {
+							"key": "drive_casing_start_depth_ft_bgs",
+							"columnTitle": "Drive Casing Start Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"drive_casing_end_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "drive_casing_end_depth_ft_bgs",
+			"label": "Drive Casing End Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/drive_casing_end_depth_ft_bgs.json",
+					"title": "Drive Casing End Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Drive Casing End Depth"
+						},
+						"sample": {
+							"key": "drive_casing_end_depth_ft_bgs",
+							"columnTitle": "Drive Casing End Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"packing_type": {
+			"type": "controlled",
+			"key": "packing_type",
+			"label": "Packing Type",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/packing_type.json",
+					"title": "Packing Type",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Packing Type"
+						},
+						"sample": {
+							"key": "packing_type",
+							"columnTitle": "Packing Type"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"packing_depth_start_ft_bgs": {
+			"type": "controlled",
+			"key": "packing_depth_start_ft_bgs",
+			"label": "Packing Depth Start",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/packing_depth_start_ft_bgs.json",
+					"title": "Packing Depth Start",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Packing Depth Start"
+						},
+						"sample": {
+							"key": "packing_depth_start_ft_bgs",
+							"columnTitle": "Packing Depth Start"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"packing_depth_end_ft_bgs": {
+			"type": "controlled",
+			"key": "packing_depth_end_ft_bgs",
+			"label": "Packing Depth End",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/packing_depth_end_ft_bgs.json",
+					"title": "Packing Depth End",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Packing Depth End"
+						},
+						"sample": {
+							"key": "packing_depth_end_ft_bgs",
+							"columnTitle": "Packing Depth End"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"topofweatheredbedrock_ft_bgs": {
+			"type": "controlled",
+			"key": "topofweatheredbedrock_ft_bgs",
+			"label": "Top of Weathered Bedrock",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/topofweatheredbedrock_ft_bgs.json",
+					"title": "Top of Weathered Bedrock",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Top of Weathered Bedrock"
+						},
+						"sample": {
+							"key": "topofweatheredbedrock_ft_bgs",
+							"columnTitle": "Top of Weathered Bedrock"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"topoffreshbedrock_ft_bgs": {
+			"type": "controlled",
+			"key": "topoffreshbedrock_ft_bgs",
+			"label": "Top of Fresh Bedrock",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/topoffreshbedrock_ft_bgs.json",
+					"title": "Top of Fresh Bedrock",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Top of Fresh Bedrock"
+						},
+						"sample": {
+							"key": "topoffreshbedrock_ft_bgs",
+							"columnTitle": "Top of Fresh Bedrock"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"aquifer": {
+			"type": "controlled",
+			"key": "aquifer",
+			"label": "Aquifer",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/aquifer.json",
+					"title": "Aquifer",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Aquifer"
+						},
+						"sample": {
+							"key": "aquifer",
+							"columnTitle": "Aquifer"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"fractures_cavities_waterbreaks": {
+			"type": "controlled",
+			"key": "fractures_cavities_waterbreaks",
+			"label": "Fractures/Cavities/WaterBreaks",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/fractures_cavities_waterbreaks.json",
+					"title": "Fractures/Cavities/WaterBreaks",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Fractures/Cavities/WaterBreaks"
+						},
+						"sample": {
+							"key": "fractures_cavities_waterbreaks",
+							"columnTitle": "Fractures/Cavities/WaterBreaks"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"other_name": {
+			"type": "controlled",
+			"key": "other_name",
+			"label": "Other Name",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/other_name.json",
+					"title": "Other Name",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Other Name"
+						},
+						"sample": {
+							"key": "other_name",
+							"columnTitle": "Other Name"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"screened": {
+			"type": "controlled",
+			"key": "screened",
+			"label": "Screened",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/screened.json",
+					"title": "Screened",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Screened"
+						},
+						"sample": {
+							"key": "screened",
+							"columnTitle": "Screened"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"open": {
+			"type": "controlled",
+			"key": "open",
+			"label": "Open",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open.json",
+					"title": "Open",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Open"
+						},
+						"sample": {
+							"key": "open",
+							"columnTitle": "Open"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"well_status": {
+			"type": "controlled",
+			"key": "well_status",
+			"label": "Well Status",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/well_status.json",
+					"title": "Well Status",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Well Status"
+						},
+						"sample": {
+							"key": "well_status",
+							"columnTitle": "Well Status"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"condition": {
+			"type": "controlled",
+			"key": "condition",
+			"label": "Condition",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/condition.json",
+					"title": "Condition",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Condition"
+						},
+						"sample": {
+							"key": "condition",
+							"columnTitle": "Condition"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"origination_or_plug_abandon": {
+			"type": "controlled",
+			"key": "origination_or_plug_abandon",
+			"label": "Origination or Plug/Abandon",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/origination_or_plug_abandon.json",
+					"title": "Origination or Plug/Abandon",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Origination or Plug/Abandon"
+						},
+						"sample": {
+							"key": "origination_or_plug_abandon",
+							"columnTitle": "Origination or Plug/Abandon"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"min_water_level_ft_amsl": {
+			"type": "controlled",
+			"key": "min_water_level_ft_amsl",
+			"label": "Min Water Level",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/min_water_level_ft_amsl.json",
+					"title": "Min Water Level",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Min Water Level"
+						},
+						"sample": {
+							"key": "min_water_level_ft_amsl",
+							"columnTitle": "Min Water Level"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"average_water_level_ft_amsl": {
+			"type": "controlled",
+			"key": "average_water_level_ft_amsl",
+			"label": "Average Water Level",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/average_water_level_ft_amsl.json",
+					"title": "Average Water Level",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Average Water Level"
+						},
+						"sample": {
+							"key": "average_water_level_ft_amsl",
+							"columnTitle": "Average Water Level"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"max_water_level_ft_amsl": {
+			"type": "controlled",
+			"key": "max_water_level_ft_amsl",
+			"label": "Max Water Level",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/max_water_level_ft_amsl.json",
+					"title": "Max Water Level",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Max Water Level"
+						},
+						"sample": {
+							"key": "max_water_level_ft_amsl",
+							"columnTitle": "Max Water Level"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"upper_seal_type": {
+			"type": "controlled",
+			"key": "upper_seal_type",
+			"label": "Upper Seal Type",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/upper_seal_type.json",
+					"title": "Upper Seal Type",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Upper Seal Type"
+						},
+						"sample": {
+							"key": "upper_seal_type",
+							"columnTitle": "Upper Seal Type"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"upper_seal_start_depth": {
+			"type": "controlled",
+			"key": "upper_seal_start_depth",
+			"label": "Upper Seal Start Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/upper_seal_start_depth.json",
+					"title": "Upper Seal Start Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Upper Seal Start Depth"
+						},
+						"sample": {
+							"key": "upper_seal_start_depth",
+							"columnTitle": "Upper Seal Start Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"upper_seal_end_depth": {
+			"type": "controlled",
+			"key": "upper_seal_end_depth",
+			"label": "Upper Seal End Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/upper_seal_end_depth.json",
+					"title": "Upper Seal End Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Upper Seal End Depth"
+						},
+						"sample": {
+							"key": "upper_seal_end_depth",
+							"columnTitle": "Upper Seal End Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"lower_seal_type": {
+			"type": "controlled",
+			"key": "lower_seal_type",
+			"label": "Lower Seal Type",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_type.json",
+					"title": "Lower Seal Type",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Lower Seal Type"
+						},
+						"sample": {
+							"key": "lower_seal_type",
+							"columnTitle": "Lower Seal Type"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"lower_seal_start_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "lower_seal_start_depth_ft_bgs",
+			"label": "Lower Seal Start Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_start_depth_ft_bgs.json",
+					"title": "Lower Seal Start Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Lower Seal Start Depth"
+						},
+						"sample": {
+							"key": "lower_seal_start_depth_ft_bgs",
+							"columnTitle": "Lower Seal Start Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"lower_seal_end_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "lower_seal_end_depth_ft_bgs",
+			"label": "Lower Seal End Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/lower_seal_end_depth_ft_bgs.json",
+					"title": "Lower Seal End Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Lower Seal End Depth"
+						},
+						"sample": {
+							"key": "lower_seal_end_depth_ft_bgs",
+							"columnTitle": "Lower Seal End Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_casing_type": {
+			"type": "controlled",
+			"key": "open_casing_type",
+			"label": "Open Casing Type",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_type.json",
+					"title": "Open Casing Type",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Open Casing Type"
+						},
+						"sample": {
+							"key": "open_casing_type",
+							"columnTitle": "Open Casing Type"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"open_casing_od_in": {
+			"type": "controlled",
+			"key": "open_casing_od_in",
+			"label": "Open Casing OD",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_od_in.json",
+					"title": "Open Casing OD",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Open Casing OD"
+						},
+						"sample": {
+							"key": "open_casing_od_in",
+							"columnTitle": "Open Casing OD"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_casing_id_in": {
+			"type": "controlled",
+			"key": "open_casing_id_in",
+			"label": "Open Casing ID",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_id_in.json",
+					"title": "Open Casing ID",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Open Casing ID"
+						},
+						"sample": {
+							"key": "open_casing_id_in",
+							"columnTitle": "Open Casing ID"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_casing_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "open_casing_depth_ft_bgs",
+			"label": "Open Casing Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_casing_depth_ft_bgs.json",
+					"title": "Open Casing Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Open Casing Depth"
+						},
+						"sample": {
+							"key": "open_casing_depth_ft_bgs",
+							"columnTitle": "Open Casing Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_hole_diameter_in": {
+			"type": "controlled",
+			"key": "open_hole_diameter_in",
+			"label": "Open Hole Diameter",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_hole_diameter_in.json",
+					"title": "Open Hole Diameter",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Open Hole Diameter"
+						},
+						"sample": {
+							"key": "open_hole_diameter_in",
+							"columnTitle": "Open Hole Diameter"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_hole_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "open_hole_depth_ft_bgs",
+			"label": "Open Hole Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_hole_depth_ft_bgs.json",
+					"title": "Open Hole Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Open Hole Depth"
+						},
+						"sample": {
+							"key": "open_hole_depth_ft_bgs",
+							"columnTitle": "Open Hole Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_interval_start_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "open_interval_start_depth_ft_bgs",
+			"label": "Open Interval Start Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_interval_start_depth_ft_bgs.json",
+					"title": "Open Interval Start Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Open Interval Start Depth"
+						},
+						"sample": {
+							"key": "open_interval_start_depth_ft_bgs",
+							"columnTitle": "Open Interval Start Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_interval_end_depth_ft_bgs": {
+			"type": "controlled",
+			"key": "open_interval_end_depth_ft_bgs",
+			"label": "Open Interval End Depth",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_interval_end_depth_ft_bgs.json",
+					"title": "Open Interval End Depth",
+					"type": "number",
+					"kbase": {
+						"units": {
+							"available": ["ft"],
+							"canonical": "ft"
+						},
+						"display": {
+							"label": "Open Interval End Depth"
+						},
+						"sample": {
+							"key": "open_interval_end_depth_ft_bgs",
+							"columnTitle": "Open Interval End Depth"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"open_interval_diameter_in": {
+			"type": "controlled",
+			"key": "open_interval_diameter_in",
+			"label": "Open Interval Diameter",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/open_interval_diameter_in.json",
+					"title": "Open Interval Diameter",
+					"type": "number",
+					"minimum": 0,
+					"kbase": {
+						"units": {
+							"available": ["in"],
+							"canonical": "in"
+						},
+						"display": {
+							"label": "Open Interval Diameter"
+						},
+						"sample": {
+							"key": "open_interval_diameter_in",
+							"columnTitle": "Open Interval Diameter"
+						}
+					}
+				},
+				"isEmpty": true,
+				"numberValue": null
+			}
+		},
+		"rock_formation": {
+			"type": "controlled",
+			"key": "rock_formation",
+			"label": "Rock Formation",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/rock_formation.json",
+					"title": "Rock Formation",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Rock Formation"
+						},
+						"sample": {
+							"key": "rock_formation",
+							"columnTitle": "Rock Formation"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"biome": {
+			"type": "controlled",
+			"key": "biome",
+			"label": "Biome",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"format": "ontologyTerm",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/biome.json",
+					"title": "Biome",
+					"type": "string",
+					"format": "ontologyTerm",
+					"ancestorTerm": "ENVO:00000428",
+					"ontologyNamespace": "envo_ontology",
+					"kbase": {
+						"display": {
+							"label": "Biome"
+						},
+						"sample": {
+							"key": "biome",
+							"columnTitle": "Biome"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"country": {
+			"type": "controlled",
+			"key": "country",
+			"label": "Country",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
+					"title": "Country",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Country"
+						},
+						"categories": ["geolocation"],
+						"sample": {
+							"key": "country",
+							"columnTitle": "Country"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"continent": {
+			"type": "controlled",
+			"key": "continent",
+			"label": "Continent",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/continent.json",
+					"title": "Continent",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Continent"
+						},
+						"categories": ["geolocation"],
+						"sample": {
+							"key": "continent",
+							"columnTitle": "Continent"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"env_package": {
+			"type": "controlled",
+			"key": "env_package",
+			"label": "Env_package",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/env_package.json",
+					"title": "Env_package",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Env_package"
+						},
+						"sample": {
+							"key": "env_package",
+							"columnTitle": "Env_package"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"feature": {
+			"type": "controlled",
+			"key": "feature",
+			"label": "Feature",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"format": "ontologyTerm",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/feature.json",
+					"title": "Feature",
+					"type": "string",
+					"format": "ontologyTerm",
+					"ancestorTerm": "ENVO:01000813",
+					"ontologyNamespace": "envo_ontology",
+					"kbase": {
+						"display": {
+							"label": "Feature"
+						},
+						"categories": ["geolocation"],
+						"sample": {
+							"key": "feature",
+							"columnTitle": "Feature"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"region": {
+			"type": "controlled",
+			"key": "region",
+			"label": "Region",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/region.json",
+					"title": "Region",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Region"
+						},
+						"categories": ["geolocation"],
+						"sample": {
+							"key": "region",
+							"columnTitle": "Region"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"timezone": {
+			"type": "controlled",
+			"key": "timezone",
+			"label": "Timezone",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/timezone.json",
+					"title": "Timezone",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Timezone"
+						},
+						"sample": {
+							"key": "timezone",
+							"columnTitle": "Timezone"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		},
+		"well": {
+			"type": "controlled",
+			"key": "well",
+			"label": "Well",
+			"isEmpty": true,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/well.json",
+					"title": "Well",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Well"
+						},
+						"sample": {
+							"key": "well",
+							"columnTitle": "Well"
+						}
+					}
+				},
+				"isEmpty": true,
+				"stringValue": null
+			}
+		}
+	},
+	"formatId": "enigma"
+}

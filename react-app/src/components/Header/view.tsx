@@ -1,11 +1,11 @@
 import React from 'react';
-import {Row, Col, Modal, Button, Tooltip} from 'antd';
-import { Sample } from '../Main/types';
+import { Row, Col, Modal, Button, Tooltip } from 'antd';
 import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';
 import './styles.css';
 import { Format } from 'lib/client/samples/Samples';
+import { Sample } from "../../lib/ViewModel";
 
 export interface HeaderProps {
     sample: Sample;
@@ -43,7 +43,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                     showVersions: !this.state.showVersions
                 });
             }}>
-                Show All Versions…
+                Select a Version…
             </Button>
             <Modal title="All Versions"
                 visible={this.state.showVersions}
@@ -151,6 +151,15 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                                     second: 'numeric',
                                     timeZoneName: 'short'
                                 }).format(created.at)}
+                            </div>
+
+                        </div>
+                        <div>
+                            <div>
+                                Versions
+                            </div>
+                            <div>
+                                {this.renderVersions()}
                             </div>
                         </div>
                     </div>

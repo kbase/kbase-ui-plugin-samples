@@ -1,5 +1,5 @@
 import { FieldValue } from "lib/client/samples/Samples";
-import { Sample } from "../Main/types";
+import { Sample } from "lib/ViewModel";
 import {MetadataControlledField, MetadataField, MetadataUserField} from "../../lib/Model";
 
 // interface TemplateDefinition {

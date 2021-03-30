@@ -1,0 +1,325 @@
+{
+  "id": "3dd4d171-dcb0-48a5-a405-a418392cd9ce",
+  "sampleId": "BLCG-28-3",
+  "parentSampleId": null,
+  "type": "BioReplicate",
+  "name": "BLCG-28-3",
+  "created": {
+    "at": 1594239611410,
+    "by": {
+      "username": "pranjan77",
+      "realname": "Priya Ranjan",
+      "gravatarHash": "e36e4342a6030eaba97d33a720c20132"
+    }
+  },
+  "currentVersion": {
+    "at": 1594239611410,
+    "by": {
+      "username": "pranjan77",
+      "realname": "Priya Ranjan",
+      "gravatarHash": "e36e4342a6030eaba97d33a720c20132"
+    },
+    "version": 1
+  },
+  "latestVersion": {
+    "at": 1594239611410,
+    "by": {
+      "username": "pranjan77",
+      "realname": "Priya Ranjan",
+      "gravatarHash": "e36e4342a6030eaba97d33a720c20132"
+    },
+    "version": 1
+  },
+  "metadata": [
+    {
+      "type": "controlled",
+      "key": "id",
+      "label": "Id",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/id.json",
+          "title": "Id",
+          "type": "string",
+          "maxLength": 120,
+          "kbase": {
+            "display": {
+              "label": "Id"
+            },
+            "sample": {
+              "key": "id",
+              "columnTitle": "Id"
+            }
+          }
+        },
+        "isEmpty": false,
+        "stringValue": "BLCG-28-3"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "latitude",
+      "label": "Latitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
+          "title": "Latitude",
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "kbase": {
+            "units": {
+              "available": [
+                "degrees"
+              ],
+              "canonical": "degrees"
+            },
+            "display": {
+              "label": "Latitude"
+            },
+            "categories": [
+              "geolocation"
+            ],
+            "format": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            },
+            "sample": {
+              "key": "latitude",
+              "columnTitle": "Latitude"
+            }
+          }
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": 49.83333333
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "longitude",
+      "label": "Longitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
+          "title": "Longitude",
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "kbase": {
+            "units": {
+              "available": [
+                "degrees"
+              ],
+              "canonical": "degrees"
+            },
+            "display": {
+              "label": "Longitude"
+            },
+            "categories": [
+              "geolocation"
+            ],
+            "format": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            },
+            "sample": {
+              "key": "longitude",
+              "columnTitle": "Longitude"
+            }
+          }
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": -125.18333329999999
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "country",
+      "label": "Country",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
+          "title": "Country",
+          "type": "string",
+          "kbase": {
+            "display": {
+              "label": "Country"
+            },
+            "categories": [
+              "geolocation"
+            ],
+            "sample": {
+              "key": "country",
+              "columnTitle": "Country"
+            }
+          }
+        },
+        "isEmpty": false,
+        "stringValue": "Canada"
+      }
+    },
+    {
+      "type": "user",
+      "key": "organism_part",
+      "label": "organism_part",
+      "isEmpty": true,
+      "field": "leaf"
+    }
+  ],
+  "controlled": {
+    "id": {
+      "type": "controlled",
+      "key": "id",
+      "label": "Id",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/id.json",
+          "title": "Id",
+          "type": "string",
+          "maxLength": 120,
+          "kbase": {
+            "display": {
+              "label": "Id"
+            },
+            "sample": {
+              "key": "id",
+              "columnTitle": "Id"
+            }
+          }
+        },
+        "isEmpty": false,
+        "stringValue": "BLCG-28-3"
+      }
+    },
+    "latitude": {
+      "type": "controlled",
+      "key": "latitude",
+      "label": "Latitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
+          "title": "Latitude",
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "kbase": {
+            "units": {
+              "available": [
+                "degrees"
+              ],
+              "canonical": "degrees"
+            },
+            "display": {
+              "label": "Latitude"
+            },
+            "categories": [
+              "geolocation"
+            ],
+            "format": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            },
+            "sample": {
+              "key": "latitude",
+              "columnTitle": "Latitude"
+            }
+          }
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": 49.83333333
+      }
+    },
+    "longitude": {
+      "type": "controlled",
+      "key": "longitude",
+      "label": "Longitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
+          "title": "Longitude",
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "kbase": {
+            "units": {
+              "available": [
+                "degrees"
+              ],
+              "canonical": "degrees"
+            },
+            "display": {
+              "label": "Longitude"
+            },
+            "categories": [
+              "geolocation"
+            ],
+            "format": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            },
+            "sample": {
+              "key": "longitude",
+              "columnTitle": "Longitude"
+            }
+          }
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": -125.18333329999999
+      }
+    },
+    "country": {
+      "type": "controlled",
+      "key": "country",
+      "label": "Country",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
+          "title": "Country",
+          "type": "string",
+          "kbase": {
+            "display": {
+              "label": "Country"
+            },
+            "categories": [
+              "geolocation"
+            ],
+            "sample": {
+              "key": "country",
+              "columnTitle": "Country"
+            }
+          }
+        },
+        "isEmpty": false,
+        "stringValue": "Canada"
+      }
+    }
+  },
+  "formatId": "kbase"
+}

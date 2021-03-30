@@ -19,8 +19,7 @@ export interface JSONRPCRequest {
     method: string,
     version: '1.1',
     id: string,
-    params: Array<JSONValue>,
-    context?: any;
+    params: JSONArrayOf<JSONValue>,
 }
 
 export interface JSONRPCErrorInfo {
