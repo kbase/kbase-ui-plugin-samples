@@ -1,0 +1,30 @@
+{
+  "type": "controlled",
+  "key": "biome",
+  "label": "Biome",
+  "isEmpty": true,
+  "field": {
+    "type": "string",
+    "format": "ontologyTerm",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "$id": "http://kbase.us/schemas/samples/fields/sesar/biome.json",
+      "title": "Biome",
+      "type": "string",
+      "format": "ontologyTerm",
+      "ancestorTerm": "ENVO:00000428",
+      "ontologyNamespace": "envo_ontology",
+      "kbase": {
+        "display": {
+          "label": "Biome"
+        },
+        "sample": {
+          "key": "biome",
+          "columnTitle": "Biome"
+        }
+      }
+    },
+    "isEmpty": true,
+    "stringValue": null
+  }
+}

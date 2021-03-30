@@ -1,15 +1,12 @@
 import React from 'react';
 import { Table, Tooltip, Empty } from 'antd';
-
 import { countedTerm } from '../../lib/utils';
-import { NoData } from '../NoData';
-
-import { DataLink2 } from './data';
+import { NoData } from '@kbase/ui-components';
 import './style.css';
-
+import { DataLink2, LinkedData } from 'redux/store/linkedData';
 
 export interface DataLinksProps {
-    dataLinks: Array<DataLink2>;
+    linkedData: LinkedData;
     baseURL: string;
 }
 
@@ -18,12 +15,11 @@ interface DataLinksState {
 
 export default class DataLinks extends React.Component<DataLinksProps, DataLinksState> {
     renderDataLinks() {
-        if (this.props.dataLinks.length === 0) {
+        if (this.props.linkedData.length === 0) {
             return;
         }
-        // console.log('data links', JSON.stringify(this.props.dataLinks));
         return <Table<DataLink2>
-            dataSource={this.props.dataLinks}
+            dataSource={this.props.linkedData}
             className="AntTable-FullHeight"
             rowKey="upa"
             size="small"
@@ -157,7 +153,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
     }
 
     renderSummary() {
-        const count = this.props.dataLinks.length;
+        const count = this.props.linkedData.length;
         if (count === 0) {
             //return <Alert
             //    type="info"
