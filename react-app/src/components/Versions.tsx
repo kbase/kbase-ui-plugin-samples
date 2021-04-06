@@ -3,7 +3,7 @@ import { ArrowRightOutlined } from '@ant-design/icons/lib/icons';
 import Select from 'antd/lib/select';
 import { Button } from 'antd';
 import UserCard from './UserCard/view';
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 
 export interface VersionsProps {
     sample: Sample;
@@ -130,6 +130,7 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
             <td>
                 <Button
                     href={`/#samples/view/${id}/${currentVersion.version}`}
+                    role="button"
                     style={{ display: 'block' }}
                     target="_parent">{currentVersion.version}</Button>
             </td>
@@ -165,6 +166,8 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
             <td>
                 <Button
                     href={`/#samples/view/${id}/${latestVersion.version}`}
+                    role="button"
+                    aria-label={`Click to select the latest version (${latestVersion.version})`}
                     style={{ display: 'block' }}
                     target="_parent">{latestVersion.version}</Button>
             </td>
@@ -208,21 +211,17 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
                     <td>
                         <Button
                             href={`/#samples/view/${id}/1`}
+                            role="button"
+                            aria-label={`Click to select the first version`}
                             style={{ display: 'block' }}
                             target="_parent">1</Button>
                     </td>
 
                 </tr>
-
                 {this.renderPreviousVersionsRow()}
-
                 {this.renderCurrentVersionRow()}
-
                 {this.renderNextVersionsRow()}
-
                 {this.renderLatestVersionRow()}
-
-
             </tbody>
         </table>;
     }

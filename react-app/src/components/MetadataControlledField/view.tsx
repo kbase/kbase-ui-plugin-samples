@@ -1,9 +1,9 @@
 import React from 'react';
 import { Tooltip } from 'antd';
 import { NoData } from '@kbase/ui-components';
-import { MetadataControlledField as _MetadataControlledField } from '../../lib/Model';
+import { MetadataControlledField as _MetadataControlledField } from '../../lib/ViewModel/ViewModel';
 import { FieldNumberValue, FieldOntologyTermValue, FieldStringValue } from 'lib/client/samples/Samples';
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 
 
 export interface MetadataControlledFieldProps {

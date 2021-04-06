@@ -5,7 +5,7 @@ import Versions from '../Versions';
 import UserCard from '../UserCard/view';
 import './styles.css';
 import { Format } from 'lib/client/samples/Samples';
-import { Sample } from "../../lib/ViewModel";
+import { Sample } from "../../lib/ViewModel/ViewModel";
 
 export interface HeaderProps {
     sample: Sample;

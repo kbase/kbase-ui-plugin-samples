@@ -1,4 +1,4 @@
-import { ACL } from "lib/ViewModel";
+import { ACL } from "lib/ViewModel/ViewModel";
 import { UIError } from "./error";
 import { AsyncProcess } from "./processing";
 

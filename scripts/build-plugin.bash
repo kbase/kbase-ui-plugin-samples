@@ -1,16 +1,16 @@
 echo "Building plugin"
 cd react-app
 echo "Installing npm dependencies..."
-yarn install
+npm install
 echo "✓ dependencies installed successfully"
 echo "Building app..."
-yarn build
+npm run build
 echo "✓ built successfully"
 echo "Testing app..."
-yarn test --watchAll=false
+npm run test -- --watchAll=false
 echo "✓ tested successfully"
 cd ..
 echo "Creating plugin distribution..."
-yarn dist 
+npm run dist 
 echo "✓ plugin distribution created successfully" 
 echo "✓ plugin build completed"

@@ -1,6 +1,6 @@
 import { FieldValue } from "lib/client/samples/Samples";
-import { Sample } from "lib/ViewModel";
-import {MetadataControlledField, MetadataField, MetadataUserField} from "../../lib/Model";
+import { Sample } from "lib/ViewModel/ViewModel";
+import { MetadataControlledField, MetadataField, MetadataUserField } from "../../lib/ViewModel/ViewModel";
 
 // interface TemplateDefinition {
 //   id: string;
@@ -79,7 +79,7 @@ export interface TemplateFieldMetadata extends TemplateFieldBase {
   field: FieldValue
 }
 
-export interface  TemplateFieldUser extends TemplateFieldBase {
+export interface TemplateFieldUser extends TemplateFieldBase {
   type: 'user',
   field: string;
 }
@@ -101,12 +101,12 @@ export interface TemplateDataSource2Base {
   field: MetadataField
 }
 
-export interface TemplateDataSourceMetadata extends TemplateDataSource2Base  {
+export interface TemplateDataSourceMetadata extends TemplateDataSource2Base {
   fieldType: 'controlled',
   field: MetadataControlledField
 }
 
-export interface TemplateDataSourceUser extends TemplateDataSource2Base{
+export interface TemplateDataSourceUser extends TemplateDataSource2Base {
   fieldType: 'user',
   field: MetadataUserField;
 }

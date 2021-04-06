@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Switch, Table, Tooltip } from 'antd';
 import { TemplateDataSource2 } from './types';
-import { MetadataField } from '../../lib/Model';
+import { MetadataField } from '../../lib/ViewModel/ViewModel';
 import MetadataFieldView from '../MetadataField/view';
 import Section from '../Section';
-import { Sample, Template } from 'lib/ViewModel';
+import { Sample, Template } from 'lib/ViewModel/ViewModel';
 import { NoData } from '@kbase/ui-components';
 
 export interface TemplateMetadataProps {

@@ -1,6 +1,6 @@
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 import React from 'react';
-import {MetadataUserField as _MetadataUserField} from '../../lib/Model';
+import { MetadataUserField as _MetadataUserField } from '../../lib/ViewModel/ViewModel';
 
 
 export interface MetadataUserFieldProps {

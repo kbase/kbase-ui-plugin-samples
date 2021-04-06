@@ -20,7 +20,7 @@
 
 // External imports
 import { Loading } from '@kbase/ui-components';
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 import React from 'react';
 
 // Internal imports
@@ -32,38 +32,66 @@ import { SampleStoreState } from 'redux/store/sample';
 import Main from './view';
 
 export interface LoaderProps {
+    id: string;
+    version?: number;
     sampleState: SampleStoreState;
-    load: () => void;
+    load: (id: string, version?: number) => void;
     setTitle: (title: string) => void;
 }
 
 interface LoaderState {
-    dataVersion: number;
+    // dataVersion: number;
 }
 
 export default class LoaderView extends React.Component<LoaderProps, LoaderState> {
+    current: {
+        id: string;
+        version?: number;
+    } | null;
     constructor(props: LoaderProps) {
         super(props);
         this.state = {
-            dataVersion: 1
+            // dataVersion: 1
         }
+        this.current = null;
     }
 
     componentDidMount() {
         if (this.props.sampleState.status === AsyncProcessStatus.NONE) {
-            this.props.load();
+            this.current = {
+                id: this.props.id,
+                version: this.props.version
+            };
+            this.props.load(this.props.id, this.props.version);
         }
     }
 
-    // componentDidUpdate(prevProps: LoaderProps, prevState: LoaderState) {
-    //     if (this.props.sampleState.status === AsyncProcessStatus.SUCCESS) {
-    //         if (prevProps.sampleState.status === AsyncProcessStatus.SUCCESS) {
-    //         if (this.props.sampleState.state.sample.id !== prevProps.sampleState.state.sample.id ||
-    //             this.props.sampleState.state.sample.) {
-    //             this.props.load();
-    //         }
-    //     }
-    // }
+    componentDidUpdate(prevProps: LoaderProps, prevState: LoaderState) {
+        // console.log('componentDidUpdate 1', this.props.sampleState);
+        // this.props.load();
+        if (this.props.sampleState.status === AsyncProcessStatus.SUCCESS) {
+            if (prevProps.sampleState.status === AsyncProcessStatus.SUCCESS) {
+                // console.log(
+                //     'componentDidUpdate 2',
+                //     prevProps.sampleState.state.sample.id,
+                //     this.props.sampleState.state.sample.id,
+                //     this.props.id,
+                //     prevProps.sampleState.state.sample.currentVersion.version,
+                //     this.props.sampleState.state.sample.currentVersion.version,
+                //     this.props.version
+                // );
+                if (this.current == null ||
+                    (this.current.id !== this.props.id ||
+                        this.current.version !== this.props.version)) {
+                    this.current = {
+                        id: this.props.id,
+                        version: this.props.version
+                    };
+                    this.props.load(this.props.id, this.props.version);
+                }
+            }
+        }
+    }
 
     renderLoading() {
         return <div className="FullyCenteredFLex">

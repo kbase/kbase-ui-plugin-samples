@@ -4,7 +4,7 @@ import { sendTitle } from '@kbase/ui-components';
 
 import { StoreState } from '../../redux/store';
 import Component from './loader';
-import { get } from 'redux/actions/sample';
+import { fetch } from 'redux/actions/sample';
 import { SampleStoreState } from 'redux/store/sample';
 
 export interface OwnProps {
@@ -13,41 +13,21 @@ export interface OwnProps {
 }
 
 interface StateProps {
-    token: string;
-    serviceWizardURL: string;
-    userProfileURL: string;
     sampleState: SampleStoreState
 }
 
 interface DispatchProps {
     setTitle: (title: string) => void;
-    load: () => void;
+    load: (id: string, version?: number) => void;
 }
 
 function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     const {
-        auth: { userAuthorization },
-        app: {
-            config: {
-                services: {
-                    ServiceWizard: { url: serviceWizardURL },
-                    UserProfile: { url: userProfileURL }
-                }
-            }
-        },
         data: {
             sample: sampleState
         }
     } = state;
-
-    let token;
-    if (!userAuthorization) {
-        throw new Error('Invalid state: token required');
-    } else {
-        token = userAuthorization.token;
-    }
-
-    return { token, serviceWizardURL, userProfileURL, sampleState };
+    return { sampleState };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {
@@ -55,8 +35,8 @@ function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): Dis
         setTitle(title: string) {
             dispatch(sendTitle(title) as any);
         },
-        load() {
-            dispatch(get(ownProps.id, ownProps.version) as any);
+        load(id: string, version?: number) {
+            dispatch(fetch(id, version) as any);
         }
     };
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-import { MetadataField } from '../../lib/Model';
+import { MetadataField } from '../../lib/ViewModel/ViewModel';
 import MetadataUserField from "../MetadataUserField/view";
 import MetadataControlledField from "../MetadataControlledField/view";
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 
 export interface MetadataFieldViewProps {
     field: MetadataField;

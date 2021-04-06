@@ -11,7 +11,7 @@ import MetadataField from '../MetadataField/view';
 
 import './style.less';
 import Section from '../Section';
-import { Sample } from "../../lib/ViewModel";
+import { Sample } from "../../lib/ViewModel/ViewModel";
 
 export interface GeolocationViewerProps {
     sample: Sample;
@@ -34,8 +34,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
     }
 
     renderMap() {
-        const data = this.props.sample.controlled;
-        const { latitude, longitude } = data;
+        const { latitude, longitude } = this.props.sample.controlled;
 
         // We don't know if they exist...
         if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
@@ -44,11 +43,11 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
 
         // And we don't know if they are the proper type of field...
         if (latitude.field.type !== 'number') {
-            return <Alert type="warning" message="latitude must be numeric fields" />;
+            return <Alert type="warning" message="latitude must be numeric field" />;
         }
 
         if (longitude.field.type !== 'number') {
-            return <Alert type="warning" message="longitude must be numeric fields" />;
+            return <Alert type="warning" message="longitude must be numeric field" />;
         }
 
         if (latitude.field.numberValue === null || longitude.field.numberValue === null) {
@@ -201,7 +200,8 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
     }
 
     render() {
-        return <div className="Geolocation" data-testid="metadataviewer" >
+        // console.log('sample', JSON.stringify(this.props.sample));
+        return <div className="Geolocation" data-testid="geolocation-view" >
             <div className="Geolocation-body">
                 <Row gutter={10}>
                     <Col span={12} flex="1 1 0px" style={{ display: 'flex', flexDirection: 'column' }}>

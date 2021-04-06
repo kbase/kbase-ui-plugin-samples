@@ -4,7 +4,7 @@ import testData from './view.test-data.json';
 
 const TIMEOUT = 10000;
 
-describe('The DataLinks viewer', () => {
+describe('The LinkedData viewer', () => {
     test('renders data links with no links', async () => {
         const props: DataLinksProps = {
             linkedData: [
@@ -14,7 +14,7 @@ describe('The DataLinks viewer', () => {
 
         const { getByTestId, getByText } = render(<DataLinks {...props} />);
         await waitFor(() => {
-            const linkElement = getByTestId('datalinks');
+            const linkElement = getByTestId('linkeddata');
             expect(linkElement).toBeInTheDocument();
             // const messageElement = getByText('No data linked to this sample.');
             // expect(messageElement).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('The DataLinks viewer', () => {
 
         const { getByTestId, getByText } = render(<DataLinks {...props} />);
         await waitFor(() => {
-            const linkElement = getByTestId('datalinks');
+            const linkElement = getByTestId('linkeddata');
             expect(linkElement).toBeInTheDocument();
 
             const message = getByText('This sample is linked to 1 data object.');
@@ -52,7 +52,7 @@ describe('The DataLinks viewer', () => {
 
         const { findByText, findByTestId } = render(<DataLinks {...props} />);
 
-        const linkElement = await findByTestId('datalinks');
+        const linkElement = await findByTestId('linkeddata');
         expect(linkElement).toBeInTheDocument();
 
         const message = await findByText('This sample is linked to 4 data objects.');

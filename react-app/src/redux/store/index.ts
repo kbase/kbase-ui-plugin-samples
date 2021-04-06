@@ -12,6 +12,7 @@ import { AsyncProcessStatus } from "./processing";
 import { SampleStoreState } from "./sample";
 import { AccessStoreState } from "./access";
 import { LinkedDataStoreState } from "./linkedData";
+import { makeFan } from "../middleware/fun";
 
 export interface SampleViewState {
   sampleId: string;
@@ -60,7 +61,7 @@ function createReduxStore() {
   return createStore(
     reducer,
     makeInitialStoreState(),
-    compose(applyMiddleware(thunk)),
+    compose(applyMiddleware(thunk, makeFan())),
   );
 }
 

@@ -5,7 +5,7 @@ import Component from "./view";
 
 import testUserFieldData from '../../test/data/view.test.data.sample.userField.json';
 import testSampleData from '../../test/data/view.test.data.sample.json';
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 
 const testUserField: MetadataField = (testUserFieldData as unknown) as MetadataField;
 const testSample: Sample = (testSampleData as unknown) as Sample;

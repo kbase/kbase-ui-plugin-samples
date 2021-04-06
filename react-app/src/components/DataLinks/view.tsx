@@ -155,11 +155,6 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
     renderSummary() {
         const count = this.props.linkedData.length;
         if (count === 0) {
-            //return <Alert
-            //    type="info"
-            //    message="This sample is not linked to any data."
-            //    style={{ maxWidth: '40em', alignSelf: 'center' }}
-            ///>;
             return <Empty description="This sample is not linked to any data." />;
         }
         return <p className="-message">
@@ -168,7 +163,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
     }
 
     render() {
-        return <div className="DataLinks" data-testid="datalinks">
+        return <div className="DataLinks" data-testid="linkeddata">
             {this.renderSummary()}
             {this.renderDataLinks()}
         </div>;

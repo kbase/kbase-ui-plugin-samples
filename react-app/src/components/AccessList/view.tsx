@@ -2,7 +2,7 @@ import React from 'react';
 import UserCard from '../UserCard/view';
 import './style.css';
 import Section from '../Section';
-import { ACL, User } from "../../lib/ViewModel";
+import { ACL, User } from "../../lib/ViewModel/ViewModel";
 
 export interface AccessListProps {
     acl: ACL;

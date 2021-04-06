@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    Alert,
     Tabs
 } from 'antd';
 
@@ -12,7 +11,7 @@ import GeolocationViewer from '../Geolocation/view';
 import Header from '../Header/view';
 
 import './style.less';
-import { Sample } from "../../lib/ViewModel";
+import { Sample } from "../../lib/ViewModel/ViewModel";
 import { Loading } from '@kbase/ui-components';
 
 export interface MainProps {
@@ -40,7 +39,6 @@ export default class Main extends React.Component<MainProps, MainState> {
     }
 
     render() {
-        // console.log('main props', JSON.stringify(this.props));
         // <Tabs.TabPane tab="History" key="history">
         //             <HistoryTool sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version} />
         //         </Tabs.TabPane>
