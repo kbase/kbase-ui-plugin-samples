@@ -3,7 +3,7 @@ import { AccessStoreState } from 'redux/store/access';
 import { AsyncProcessStatus } from 'redux/store/processing';
 import Loader, { LoaderProps } from './loader';
 import sampleData from '../../test/data/view.test.data.sample.json';
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 
 const sample = (sampleData as unknown) as Sample;
 const TIMEOUT = 10000;

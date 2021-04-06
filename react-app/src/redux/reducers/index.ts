@@ -31,6 +31,9 @@ const reducer: Reducer<StoreState | undefined, AppAction> = (
         return navigate(state, action);
       case "sample":
         const sample = sampleReducer(state, action);
+        if (!sample) {
+          return null;
+        }
         return {
           ...state,
           data: {
@@ -40,6 +43,9 @@ const reducer: Reducer<StoreState | undefined, AppAction> = (
         };
       case "access":
         const access = accessReducer(state, action);
+        if (!access) {
+          return null;
+        }
         return {
           ...state,
           data: {
@@ -49,6 +55,9 @@ const reducer: Reducer<StoreState | undefined, AppAction> = (
         };
       case "linkedData":
         const linkedData = linkedDataReducer(state, action);
+        if (!linkedData) {
+          return null;
+        }
         return {
           ...state,
           data: {

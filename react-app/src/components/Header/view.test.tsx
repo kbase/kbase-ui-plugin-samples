@@ -1,150 +1,136 @@
 import Header from './view';
-import { render, waitFor } from '@testing-library/react';
-import {Sample} from '../Main/types';
+import { render, waitFor, screen } from '@testing-library/react';
+
 import { Format } from 'lib/client/samples/Samples';
 
+import sampleWithVersionsData from '../../test/data/sample-with-versions.json';
 import sampleData from '../../test/data/view.test.data.sample.json';
+
 import formatData from '../../test/data/sesar-format.json';
+import { Sample } from 'lib/ViewModel/ViewModel';
 const sample: Sample = (sampleData as unknown) as Sample;
+const sampleWithVersions: Sample = (sampleWithVersionsData as unknown) as Sample;
 const format: Format = (formatData as unknown) as Format;
 
 const TIMEOUT = 10000;
 
-test('should render', async () => {
-    // const now = Date.now();
-    // const sampleNode: SampleNode = {
-    //     id: 'xyz',
-    //     parent: null,
-    //     type: 'BioReplicate',
-    //     meta_controlled: {},
-    //     meta_user: {}
-    // };
-    // const format: Format = {
-    //     id: 'format1',
-    //     description: 'a format',
-    //     name: 'Format 1',
-    //     // version: 1,
-    //     title: 'Format 1',
-    //     source: {
-    //         name: 'source',
-    //         title: 'A Source',
-    //         url: 'https://example.com/source'
-    //     },
-    //     layouts: {
-    //         grouped: [{
-    //             name: 'group1',
-    //             description: 'some group',
-    //             label: 'some group',
-    //             fields: [
-    //                 'field1', 'field2', 'field3'
-    //             ]
-    //         }
-    //         ]
-    //     },
-    //     fields: [
-    //         'field1', 'field1', 'sample_name'
-    //     ],
-    //     mappings: {
-    //         record: {
-    //             name: 'sample_name'
-    //         },
-    //         sample: {
-    //             id: 'field1',
-    //             parent_id: 'field2'
-    //         }
-    //     },
-    //     // field_definitions: {
-    //     //     field1: {
-    //     //         label: 'Field 1',
-    //     //         type: 'string'
-    //     //     },
-    //     //     field2: {
-    //     //         label: 'Field 2',
-    //     //         type: 'number'
-    //     //     },
-    //     //     field3: {
-    //     //         label: 'Field 3',
-    //     //         type: 'boolean'
-    //     //     }
-    //     // }
-    //
-    // };
-    // const sample: Sample = {
-    //     id: 'xyz',
-    //     formatId: format.id,
-    //     sampleId: 'abc',
-    //     parentSampleId: 'xyz',
-    //     name: 'abc',
-    //     type: 'BioReplicate',
-    //     created: {
-    //         at: 0,
-    //         by: {
-    //             username: 'foo',
-    //             realname: 'Foo',
-    //             gravatarHash: ''
-    //         }
-    //
-    //
-    //     },
-    //     currentVersion: {
-    //         at: 0,
-    //         by: {
-    //             username: 'bar',
-    //             realname: 'Bar',
-    //             gravatarHash: '',
-    //         },
-    //         version: 1
-    //     },
-    //     latestVersion: {
-    //         at: 0,
-    //         by: {
-    //             username: 'baz',
-    //             realname: 'Baz',
-    //             gravatarHash: ''
-    //         },
-    //         version: 2
-    //
-    //     },
-    //     metadata: {
-    //
-    //     },
-    //     userMetadata: {
-    //
-    //     }
-    //
-    //
-    // };
-    const { getByTestId } = render(<Header sample={sample} format={format} />);
-    await waitFor(() => {
-        const idElement = getByTestId('name');
-        expect(idElement).toBeInTheDocument();
-        expect(idElement).toHaveTextContent(sample['name']);
+describe('Header', () => {
+    test('should render with a single versions', async () => {
+        const { getByTestId } = render(<Header sample={sample} format={format} />);
+        await waitFor(() => {
+            const nameElement = getByTestId('name');
+            expect(nameElement).toBeInTheDocument();
+            expect(nameElement).toHaveTextContent(sample['name']);
 
-        // const userElement = getByTestId('user');
-        // expect(userElement).toBeInTheDocument();
-        // expect(userElement).toHaveTextContent(sample['user']);
+            // const userElement = getByTestId('user');
+            // expect(userElement).toBeInTheDocument();
+            // expect(userElement).toHaveTextContent(sample['user']);
 
-        // const nameElement = getByTestId('name');
-        // expect(nameElement).toBeInTheDocument();
-        // expect(nameElement).toHaveTextContent(sample['name']);
+            // const nameElement = getByTestId('name');
+            // expect(nameElement).toBeInTheDocument();
+            // expect(nameElement).toHaveTextContent(sample['name']);
 
-        // const saveDateElement = getByTestId('save_date');
-        // expect(saveDateElement).toBeInTheDocument();
-        // const dateDisplay = Intl.DateTimeFormat('en-US', {
-        //     year: 'numeric',
-        //     month: 'numeric',
-        //     day: 'numeric',
-        //     hour: 'numeric',
-        //     minute: 'numeric',
-        //     second: 'numeric',
-        //     timeZoneName: 'short'
-        // }).format(sample['save_date']);
-        // expect(saveDateElement).toHaveTextContent(dateDisplay);
+            // const saveDateElement = getByTestId('save_date');
+            // expect(saveDateElement).toBeInTheDocument();
+            // const dateDisplay = Intl.DateTimeFormat('en-US', {
+            //     year: 'numeric',
+            //     month: 'numeric',
+            //     day: 'numeric',
+            //     hour: 'numeric',
+            //     minute: 'numeric',
+            //     second: 'numeric',
+            //     timeZoneName: 'short'
+            // }).format(sample['save_date']);
+            // expect(saveDateElement).toHaveTextContent(dateDisplay);
 
-        // const versionElement = getByTestId('version');
-        // expect(versionElement).toBeInTheDocument();
-        // expect(versionElement).toHaveTextContent(String(sample['version']));
-    }, {
-        timeout: TIMEOUT
+            // const versionElement = getByTestId('version');
+            // expect(versionElement).toBeInTheDocument();
+            // expect(versionElement).toHaveTextContent(String(sample['version']));
+        }, {
+            timeout: TIMEOUT
+        });
+    });
+
+    test('should render with multiple versions', async () => {
+        const { getByTestId } = render(<Header sample={sampleWithVersions} format={format} />);
+        await waitFor(() => {
+            const nameElement = getByTestId('name');
+            expect(nameElement).toBeInTheDocument();
+            expect(nameElement).toHaveTextContent(sampleWithVersions['name']);
+
+        }, {
+            timeout: TIMEOUT
+        });
+    });
+
+    test('should select a different version', async () => {
+        const { getByText } = render(<Header sample={sampleWithVersions} format={format} />);
+        const button = getByText('Select a Version…');
+        expect(button).toBeInTheDocument();
+        button.click();
+
+        await waitFor(() => {
+            const modalTitle = getByText('All Versions');
+            expect(modalTitle).toBeInTheDocument();
+        }, {
+            timeout: TIMEOUT
+        });
+
+        // const cancelButton = s.querySelector('span.ant-modal-close-x');
+
+        const dialog = screen.getByRole('dialog');
+        expect(dialog).toBeInTheDocument();
+
+        const versionButton = dialog.querySelector('[role="button"][aria-label="Click to select the latest version (7)"]');
+        expect(versionButton).toBeInTheDocument();
+        const event = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+        });
+
+        versionButton?.dispatchEvent(event);
+
+        // TODO: for some reason this does not tickle coverage for the 
+        // button event handler in Header.
+        await waitFor(() => {
+            const hash = window.location.hash;
+            expect(hash).toEqual(`#samples/view/${sampleWithVersions.id}/7`);
+        }, {
+            timeout: TIMEOUT
+        });
+    });
+
+    test('should open and then cancel the dialog to switch versions', async () => {
+        const { getByText } = render(<Header sample={sampleWithVersions} format={format} />);
+        const button = getByText('Select a Version…');
+        expect(button).toBeInTheDocument();
+        button.click();
+
+        await waitFor(() => {
+            const modalTitle = getByText('All Versions');
+            expect(modalTitle).toBeInTheDocument();
+        }, {
+            timeout: TIMEOUT
+        });
+
+        const dialog = screen.getByRole('dialog');
+        expect(dialog).toBeInTheDocument();
+
+        const cancelButtonImage = dialog.querySelector('[role="img"]');
+        expect(cancelButtonImage).toBeInTheDocument();
+        const event = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+        });
+        cancelButtonImage?.dispatchEvent(event);
+
+        await waitFor(() => {
+            const modalTitle = getByText('All Versions');
+            expect(modalTitle).not.toBeVisible();
+        }, {
+            timeout: TIMEOUT
+        });
     });
 });

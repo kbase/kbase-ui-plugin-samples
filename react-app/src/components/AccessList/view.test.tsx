@@ -59,7 +59,7 @@ describe('AccessList view component', () => {
             }
         };
 
-        const { getByTestId, getByText } = render(<AccessList {...props} />);
+        const { getByTestId } = render(<AccessList {...props} />);
         await waitFor(() => {
             const linkElement = getByTestId('accesslist');
             expect(linkElement).toBeInTheDocument();

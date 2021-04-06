@@ -8,8 +8,8 @@ import {
   Format,
   SchemaField,
 } from "./samples/Samples";
-import sesarTemplateData from "lib/Model/data/templates/sesar/sesar1.json";
-import enigmaTemplateData from "lib/Model/data/templates/enigma/enigma1.json";
+import sesarTemplateData from "lib/ViewModel/data/templates/sesar/sesar1.json";
+import enigmaTemplateData from "lib/ViewModel/data/templates/enigma/enigma1.json";
 import fieldGroups from "./samples/sample-field-groups.json";
 import {
   EpochTimeMS,
@@ -21,8 +21,8 @@ import {
   Username,
   WSUPA,
 } from "./Sample";
-import { DynamicServiceClient } from "lib/comm/JSONRPC11/DynamicServiceClient";
 import { JSONObject, objectToJSONObject } from "lib/json";
+import { DynamicServiceClient } from "@kbase/ui-lib";
 
 const fieldGroupsData = fieldGroups as Array<FieldGroup>;
 const sesarFormatData = sesarData as Format;
@@ -595,4 +595,5 @@ export default class SampleServiceClient extends DynamicServiceClient {
       format,
     });
   }
+
 }

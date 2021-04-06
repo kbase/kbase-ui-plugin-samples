@@ -6,7 +6,7 @@
     "source": {
         "name": "SESAR",
         "title": "System for Earth Sample Registration (SESAR)",
-        "logo": "https://www.geosamples.org/sites/geosamples.org/files/images/sesar_logo_right.jpg",
+        "logo_url": "https://www.geosamples.org/sites/geosamples.org/files/images/sesar_logo_right.jpg",
         "url": "https://www.geosamples.org/"
     },
     "mappings": {

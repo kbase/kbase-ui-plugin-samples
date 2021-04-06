@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import Gravatar from '../Gravatar/Gravatar';
-import { User } from 'lib/ViewModel';
+import { User } from 'lib/ViewModel/ViewModel';
 
 export interface UserCardProps {
     user: User;

@@ -1,0 +1,792 @@
+{
+	"id": "3dd4d171-dcb0-48a5-a405-a418392cd9ce",
+	"sampleId": "BLCG-28-3",
+	"parentSampleId": null,
+	"type": "BioReplicate",
+	"name": "BLCG-28-3",
+	"created": {
+		"at": 1594239611410,
+		"by": {
+			"username": "pranjan77",
+			"realname": "Priya Ranjan",
+			"gravatarHash": "e36e4342a6030eaba97d33a720c20132"
+		}
+	},
+	"currentVersion": {
+		"at": 1594239611410,
+		"by": {
+			"username": "pranjan77",
+			"realname": "Priya Ranjan",
+			"gravatarHash": "e36e4342a6030eaba97d33a720c20132"
+		},
+		"version": 1
+	},
+	"latestVersion": {
+		"at": 1594239611410,
+		"by": {
+			"username": "pranjan77",
+			"realname": "Priya Ranjan",
+			"gravatarHash": "e36e4342a6030eaba97d33a720c20132"
+		},
+		"version": 1
+	},
+	"metadata": [
+		{
+			"type": "controlled",
+			"key": "id",
+			"label": "Id",
+			"isEmpty": false,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/id.json",
+					"title": "Id",
+					"type": "string",
+					"maxLength": 120,
+					"kbase": {
+						"display": {
+							"label": "Id"
+						},
+						"sample": {
+							"key": "id",
+							"columnTitle": "Id"
+						}
+					}
+				},
+				"isEmpty": false,
+				"stringValue": "BLCG-28-3"
+			}
+		},
+		{
+			"type": "controlled",
+			"key": "latitude",
+			"label": "Latitude",
+			"isEmpty": false,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
+					"title": "Latitude",
+					"type": "number",
+					"minimum": -90,
+					"maximum": 90,
+					"kbase": {
+						"units": {
+							"available": [
+								"degrees"
+							],
+							"canonical": "degrees"
+						},
+						"display": {
+							"label": "Latitude"
+						},
+						"categories": [
+							"geolocation"
+						],
+						"format": {
+							"minimumFractionDigits": 3,
+							"maximumFractionDigits": 3
+						},
+						"sample": {
+							"key": "latitude",
+							"columnTitle": "Latitude"
+						}
+					}
+				},
+				"isEmpty": false,
+				"unit": "degrees",
+				"numberValue": 49.83333333
+			}
+		},
+		{
+			"type": "controlled",
+			"key": "longitude",
+			"label": "Longitude",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
+					"title": "Longitude",
+					"type": "number",
+					"minimum": -180,
+					"maximum": 180,
+					"kbase": {
+						"units": {
+							"available": [
+								"degrees"
+							],
+							"canonical": "degrees"
+						},
+						"display": {
+							"label": "Longitude"
+						},
+						"categories": [
+							"geolocation"
+						],
+						"format": {
+							"minimumFractionDigits": 3,
+							"maximumFractionDigits": 3
+						},
+						"sample": {
+							"key": "longitude",
+							"columnTitle": "Longitude"
+						}
+					}
+				},
+				"isEmpty": true,
+				"unit": "degrees",
+				"numberValue": null
+			}
+		},
+		{
+			"type": "controlled",
+			"key": "country",
+			"label": "Country",
+			"isEmpty": false,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
+					"title": "Country",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Country"
+						},
+						"categories": [
+							"geolocation"
+						],
+						"sample": {
+							"key": "country",
+							"columnTitle": "Country"
+						}
+					}
+				},
+				"isEmpty": false,
+				"stringValue": "Canada"
+			}
+		},
+		{
+			"type": "user",
+			"key": "organism_part",
+			"label": "organism_part",
+			"isEmpty": true,
+			"field": "leaf"
+		}
+	],
+	"controlled": {
+		"id": {
+			"type": "controlled",
+			"key": "id",
+			"label": "Id",
+			"isEmpty": false,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/id.json",
+					"title": "Id",
+					"type": "string",
+					"maxLength": 120,
+					"kbase": {
+						"display": {
+							"label": "Id"
+						},
+						"sample": {
+							"key": "id",
+							"columnTitle": "Id"
+						}
+					}
+				},
+				"isEmpty": false,
+				"stringValue": "BLCG-28-3"
+			}
+		},
+		"latitude": {
+			"type": "controlled",
+			"key": "latitude",
+			"label": "Latitude",
+			"isEmpty": false,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
+					"title": "Latitude",
+					"type": "number",
+					"minimum": -90,
+					"maximum": 90,
+					"kbase": {
+						"units": {
+							"available": [
+								"degrees"
+							],
+							"canonical": "degrees"
+						},
+						"display": {
+							"label": "Latitude"
+						},
+						"categories": [
+							"geolocation"
+						],
+						"format": {
+							"minimumFractionDigits": 3,
+							"maximumFractionDigits": 3
+						},
+						"sample": {
+							"key": "latitude",
+							"columnTitle": "Latitude"
+						}
+					}
+				},
+				"isEmpty": false,
+				"unit": "degrees",
+				"numberValue": 49.83333333
+			}
+		},
+		"longitude": {
+			"type": "controlled",
+			"key": "longitude",
+			"label": "Longitude",
+			"isEmpty": true,
+			"field": {
+				"type": "number",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
+					"title": "Longitude",
+					"type": "number",
+					"minimum": -180,
+					"maximum": 180,
+					"kbase": {
+						"units": {
+							"available": [
+								"degrees"
+							],
+							"canonical": "degrees"
+						},
+						"display": {
+							"label": "Longitude"
+						},
+						"categories": [
+							"geolocation"
+						],
+						"format": {
+							"minimumFractionDigits": 3,
+							"maximumFractionDigits": 3
+						},
+						"sample": {
+							"key": "longitude",
+							"columnTitle": "Longitude"
+						}
+					}
+				},
+				"isEmpty": true,
+				"unit": "degrees",
+				"numberValue": null
+			}
+		},
+		"country": {
+			"type": "controlled",
+			"key": "country",
+			"label": "Country",
+			"isEmpty": false,
+			"field": {
+				"type": "string",
+				"schema": {
+					"$schema": "http://json-schema.org/draft-07/schema",
+					"$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
+					"title": "Country",
+					"type": "string",
+					"kbase": {
+						"display": {
+							"label": "Country"
+						},
+						"categories": [
+							"geolocation"
+						],
+						"sample": {
+							"key": "country",
+							"columnTitle": "Country"
+						}
+					}
+				},
+				"isEmpty": false,
+				"stringValue": "Canada"
+			}
+		}
+	},
+	"formatId": "kbase",
+	"format": {
+		"description": "A global format for KBase custom samples",
+		"fields": [
+			"aodc",
+			"aquifer",
+			"area_name",
+			"average_water_level",
+			"biomass_carbon",
+			"biome",
+			"boncat_activity",
+			"boring",
+			"boring_diameter",
+			"boring_refusal",
+			"city_township",
+			"classification",
+			"collection_date",
+			"collection_date_end",
+			"collection_date_precision",
+			"collection_method",
+			"collection_method_description",
+			"collection_time",
+			"collection_time",
+			"collection_time_end",
+			"collector_chief_scientist",
+			"collector_chief_scientist_address",
+			"comment",
+			"condition",
+			"conductivity",
+			"continent",
+			"coordinate_precision?",
+			"country",
+			"county",
+			"dapi_cell_count",
+			"date",
+			"description",
+			"dna_picogreen_total",
+			"drive_casing_end_depth",
+			"drive_casing_id",
+			"drive_casing_od",
+			"drive_casing_start_depth",
+			"drive_casing_type",
+			"easting",
+			"elevation",
+			"elevation_end",
+			"elevation_start",
+			"elevation_unit",
+			"ENIGMA:material",
+			"env_package",
+			"environmental_package",
+			"experiment_name",
+			"feature",
+			"field_name",
+			"field_name_informal_classification",
+			"field_program_cruise",
+			"filter",
+			"fraction",
+			"fractures_cavities_waterbreaks",
+			"functional_area",
+			"geological_zone",
+			"gold:biosample_id",
+			"gold:ecosystem_subtype",
+			"gold:ecosystem_type",
+			"gold:habitat",
+			"gold:study_id",
+			"ground_elevation",
+			"id",
+			"igsn",
+			"installation_method",
+			"latitude",
+			"latitude_end",
+			"leucine_activity_ngc_day_cell",
+			"locality",
+			"locality_description",
+			"location_description",
+			"longitude",
+			"longitude_end",
+			"lower_seal_end_depth",
+			"lower_seal_start_depth",
+			"lower_seal_type",
+			"material",
+			"maturation_time",
+			"max_water_level",
+			"method",
+			"min_water_level",
+			"moisture",
+			"name",
+			"name_of_physiographic_feature",
+			"navigation_type",
+			"ncbi:taxonomy_name",
+			"nmdc:community",
+			"nmdc:description_long",
+			"nmdc:doi",
+			"nmdc:ecosystem",
+			"nmdc:ecosystem_category",
+			"nmdc:env_local_scale_term",
+			"nmdc:mod_date",
+			"nmdc:principal_investigator",
+			"nmdc:specific_ecosystem",
+			"nmdc:type",
+			"northing",
+			"open",
+			"open_casing_depth",
+			"open_casing_id",
+			"open_casing_od",
+			"open_casing_type",
+			"open_hole_depth",
+			"open_hole_diameter",
+			"open_interval_diameter",
+			"open_interval_end_depth",
+			"open_interval_start_depth",
+			"organic_carbon",
+			"origination_or_plug_abandon",
+			"other_name",
+			"other_names",
+			"packing_depth_end",
+			"packing_depth_start",
+			"packing_type",
+			"parent_id",
+			"parent_igsn",
+			"ph",
+			"pore_water_extraction",
+			"primary_physiographic_feature",
+			"purpose",
+			"recovery_factor",
+			"redox_potential_?",
+			"region",
+			"related_identifiers",
+			"related_url",
+			"related_url_description",
+			"related_url_type",
+			"relation_type",
+			"release_date",
+			"replicate",
+			"rock_formation",
+			"sample_id",
+			"sample_name",
+			"sampleid",
+			"screen_bottom_elevation",
+			"screen_end_depth",
+			"screen_start_depth",
+			"screen_top_elevation",
+			"screen_type",
+			"screened",
+			"screened_interval",
+			"SESAR:material",
+			"state_province",
+			"sub_object_type",
+			"sub-object_type",
+			"temperature",
+			"time",
+			"time_zone",
+			"timezone",
+			"top_of_casing_elevation",
+			"top_of_casing_stickup",
+			"top_of_fresh_bedrock",
+			"top_of_weathered_bedrock",
+			"total_carbon",
+			"total_nitrogen",
+			"treatment",
+			"type_of_well",
+			"upper_seal_end_depth",
+			"upper_seal_start_depth",
+			"upper_seal_type",
+			"vertical_datum",
+			"well",
+			"well_casing_depth",
+			"well_casing_id",
+			"well_casing_od",
+			"well_casing_type",
+			"well_name",
+			"well_status",
+			"zone"
+		],
+		"id": "kbase",
+		"layouts": {
+			"grouped": [
+				{
+					"description": "Fields which describe the overall sample event",
+					"fields": [
+						"id",
+						"parent_id",
+						"igsn",
+						"parent_igsn",
+						"name",
+						"purpose",
+						"material",
+						"ENIGMA:material",
+						"SESAR:material",
+						"field_name",
+						"field_name_informal_classification",
+						"classification",
+						"field_program_cruise",
+						"sample_name",
+						"related_identifiers",
+						"relation_type",
+						"release_date",
+						"comment",
+						"other_names",
+						"related_url",
+						"related_url_type",
+						"related_url_description",
+						"sub_object_type",
+						"sample_id",
+						"description",
+						"condition",
+						"experiment_name"
+					],
+					"label": "Description",
+					"name": "description"
+				},
+				{
+					"description": "Fields which describe the collection",
+					"fields": [
+						"collection_date",
+						"collection_date_end",
+						"collection_time",
+						"collection_time_end",
+						"collection_date_precision",
+						"collector_chief_scientist",
+						"collector_chief_scientist_address",
+						"collection_method",
+						"collection_method_description",
+						"collection_time",
+						"date",
+						"time_zone",
+						"timezone"
+					],
+					"label": "Collection",
+					"name": "collection"
+				},
+				{
+					"description": "Fields which describe the sample collection location",
+					"fields": [
+						"coordinate_precision?",
+						"latitude",
+						"latitude_end",
+						"longitude",
+						"longitude_end",
+						"vertical_datum",
+						"northing",
+						"easting",
+						"navigation_type",
+						"locality_description",
+						"location_description",
+						"name_of_physiographic_feature",
+						"primary_physiographic_feature",
+						"elevation_start",
+						"elevation_end",
+						"elevation_unit",
+						"city_township",
+						"county",
+						"locality",
+						"state_province",
+						"country",
+						"continent",
+						"region",
+						"zone",
+						"geological_zone",
+						"area_name"
+					],
+					"label": "Geolocation",
+					"name": "geolocation"
+				},
+				{
+					"description": "Sample measurements and observations",
+					"fields": [
+						"sample_description",
+						"depth_in_core_max",
+						"depth_in_core_min",
+						"depth",
+						"depth_scale",
+						"launch_id",
+						"launch_platform_name",
+						"launch_type",
+						"platform_type",
+						"platform_description",
+						"platform_name",
+						"size",
+						"size_unit",
+						"age_min",
+						"age_max",
+						"age_unit",
+						"geological_age",
+						"geological_unit"
+					],
+					"label": "Sample",
+					"name": "sample"
+				},
+				{
+					"description": "Environment Description and Measurements",
+					"fields": [
+						"temperature",
+						"environmental_package",
+						"env_package"
+					],
+					"label": "Environment",
+					"name": "environment"
+				},
+				{
+					"description": "Well Characteristics",
+					"fields": [
+						"well_name",
+						"type_of_well",
+						"upper_seal_end_depth",
+						"upper_seal_start_depth",
+						"upper_seal_type",
+						"well",
+						"well_casing_depth",
+						"well_casing_id",
+						"well_casing_od",
+						"well_casing_type",
+						"well_status"
+					],
+					"label": "Well",
+					"name": "well"
+				},
+				{
+					"description": "Fields which describe the curation of the sample",
+					"fields": [
+						"current_archive",
+						"current_archive_contact",
+						"original_archive",
+						"original_archive_contact"
+					],
+					"label": "Curation",
+					"name": "curation"
+				},
+				{
+					"description": "A catchall for fields which have not been assigned to a group; ideally no samples would be in this group!",
+					"fields": [
+						"aodc",
+						"aquifer",
+						"average_water_level",
+						"biomass_carbon",
+						"biome",
+						"boncat_activity",
+						"boring",
+						"boring_diameter",
+						"boring_refusal",
+						"conductivity",
+						"dapi_cell_count",
+						"dna_picogreen_total",
+						"drive_casing_end_depth",
+						"drive_casing_id",
+						"drive_casing_od",
+						"drive_casing_start_depth",
+						"drive_casing_type",
+						"elevation",
+						"feature",
+						"filter",
+						"fraction",
+						"fractures_cavities_waterbreaks",
+						"functional_area",
+						"gold:biosample_id",
+						"gold:ecosystem_subtype",
+						"gold:ecosystem_type",
+						"gold:habitat",
+						"gold:study_id",
+						"ground_elevation",
+						"installation_method",
+						"leucine_activity_ngc_day_cell",
+						"lower_seal_end_depth",
+						"lower_seal_start_depth",
+						"lower_seal_type",
+						"maturation_time",
+						"max_water_level",
+						"method",
+						"min_water_level",
+						"moisture",
+						"ncbi:taxonomy_name",
+						"nmdc:community",
+						"nmdc:description_long",
+						"nmdc:doi",
+						"nmdc:ecosystem",
+						"nmdc:ecosystem_category",
+						"nmdc:env_local_scale_term",
+						"nmdc:mod_date",
+						"nmdc:principal_investigator",
+						"nmdc:specific_ecosystem",
+						"nmdc:type",
+						"open",
+						"open_casing_depth",
+						"open_casing_id",
+						"open_casing_od",
+						"open_casing_type",
+						"open_hole_depth",
+						"open_hole_diameter",
+						"open_interval_diameter",
+						"open_interval_end_depth",
+						"open_interval_start_depth",
+						"organic_carbon",
+						"origination_or_plug_abandon",
+						"other_name",
+						"packing_depth_end",
+						"packing_depth_start",
+						"packing_type",
+						"ph",
+						"pore_water_extraction",
+						"recovery_factor",
+						"redox_potential_?",
+						"replicate",
+						"rock_formation",
+						"sampleid",
+						"screen_bottom_elevation",
+						"screen_end_depth",
+						"screen_start_depth",
+						"screen_top_elevation",
+						"screen_type",
+						"screened",
+						"screened_interval",
+						"sub-object_type",
+						"time",
+						"top_of_casing_elevation",
+						"top_of_casing_stickup",
+						"top_of_fresh_bedrock",
+						"top_of_weathered_bedrock",
+						"total_carbon",
+						"total_nitrogen",
+						"treatment"
+					],
+					"label": "Uncategorized Fields",
+					"name": "uncategorized"
+				}
+			]
+		},
+		"mappings": {
+			"record": {
+				"name": "name"
+			},
+			"sample": {
+				"id": "id",
+				"parent_id": "parent_id"
+			}
+		},
+		"name": "KBase",
+		"source": {
+			"name": "KBase",
+			"title": "KBase Sample Format",
+			"url": "https://www.kbase.us"
+		},
+		"title": "KBase Samples"
+	},
+	"template": {
+		"fields": [
+			{
+				"type": "metadata",
+				"key": "id"
+			},
+			{
+				"type": "metadata",
+				"key": "latitude"
+			},
+			{
+				"type": "metadata",
+				"key": "longitude"
+			},
+			{
+				"type": "metadata",
+				"key": "country"
+			},
+			{
+				"type": "user",
+				"key": "organism_part",
+				"label": "organism_part"
+			}
+		]
+	}
+}

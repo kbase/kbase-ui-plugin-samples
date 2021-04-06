@@ -2,7 +2,7 @@ import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { StoreState } from '../../redux/store';
 import Loader from './loader';
-import { get } from 'redux/actions/linkedData';
+import { fetch } from 'redux/actions/linkedData';
 import { LinkedDataStoreState } from 'redux/store/linkedData';
 
 export interface OwnProps {
@@ -11,8 +11,8 @@ export interface OwnProps {
 }
 
 interface StateProps {
-    baseURL: string;
-    linkedDataState: LinkedDataStoreState
+    linkedDataState: LinkedDataStoreState,
+    baseURL: string
 }
 
 interface DispatchProps {
@@ -23,7 +23,7 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     const {
         app: {
             config: {
-                baseUrl: baseURL,
+                baseUrl
             }
         },
         data: {
@@ -31,13 +31,13 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         }
     } = state;
 
-    return { baseURL, linkedDataState };
+    return { linkedDataState, baseURL: baseUrl };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {
     return {
         load() {
-            dispatch(get(ownProps.sampleId, ownProps.version) as any);
+            dispatch(fetch(ownProps.sampleId, ownProps.version) as any);
         }
     };
 }

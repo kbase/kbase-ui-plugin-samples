@@ -6,7 +6,7 @@ import './styles.css';
 import { Format } from 'lib/client/samples/Samples';
 import Section from '../Section';
 import SubSection from '../SubSection';
-import { Sample } from 'lib/ViewModel';
+import { Sample } from 'lib/ViewModel/ViewModel';
 import { NoData } from '@kbase/ui-components';
 
 export interface OverviewProps {

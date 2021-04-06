@@ -5,14 +5,9 @@
 // Action types
 
 // The classic async actions
-import { Action } from "redux";
-import ViewModel, { Sample } from "../../lib/ViewModel";
-import { ThunkDispatch } from "redux-thunk";
-import { StoreState } from "../store";
-import { UPSTREAM_TIMEOUT } from "appConstants";
+import { Sample } from "../../lib/ViewModel/ViewModel";
 import { CategoryAction } from "./base";
 import { UIError } from "redux/store/error";
-import { AsyncProcessStatus } from "redux/store/processing";
 
 export enum ActionType {
   FETCH = "@sample/fetch",
@@ -23,6 +18,11 @@ export enum ActionType {
 }
 
 export interface SampleActionBase<T> extends CategoryAction<"sample", T> {
+}
+
+export interface SampleFetchAction extends SampleActionBase<ActionType.FETCH> {
+  id: string;
+  version?: number;
 }
 
 export interface SampleFetchingAction
@@ -45,6 +45,15 @@ export type SampleAction =
   | SampleRefetchingAction
   | SampleFetchedAction
   | SampleFetchErrorAction;
+
+export function fetch(id: string, version?: number): SampleFetchAction {
+  return {
+    category: "sample",
+    type: ActionType.FETCH,
+    id,
+    version,
+  };
+}
 
 export function fetching(): SampleFetchingAction {
   return {
@@ -73,70 +82,5 @@ export function fetched(sample: Sample): SampleFetchedAction {
     category: "sample",
     type: ActionType.FETCHED,
     sample,
-  };
-}
-
-export function get(id: string, version?: number) {
-  return async (
-    dispatch: ThunkDispatch<StoreState, void, Action>,
-    getState: () => StoreState,
-  ) => {
-    const {
-      app: {
-        config: {
-          services: {
-            ServiceWizard: {
-              url: serviceWizardURL,
-            },
-            UserProfile: {
-              url: userProfileURL,
-            },
-            Workspace: {
-              url: workspaceURL,
-            },
-          },
-          //   baseUrl: baseURL,
-          dynamicServices: {
-            SampleService: sampleServiceConfig,
-          },
-        },
-      },
-      auth: {
-        userAuthorization,
-      },
-      data: {
-        sample: sampleState,
-      },
-    } = getState();
-
-    if (userAuthorization === null) {
-      return;
-    }
-
-    const {
-      token,
-    } = userAuthorization;
-
-    if (sampleState.status === AsyncProcessStatus.SUCCESS) {
-      dispatch(refetching());
-    } else {
-      dispatch(fetching());
-    }
-
-    try {
-      const viewModel = new ViewModel({
-        token,
-        userProfileURL,
-        serviceWizardURL,
-        workspaceURL,
-        sampleServiceConfig,
-        timeout: UPSTREAM_TIMEOUT,
-      });
-
-      const sample = await viewModel.fetchSample({ id, version });
-      dispatch(fetched(sample));
-    } catch (ex) {
-      dispatch(fetchError(ex.message));
-    }
   };
 }

@@ -29,9 +29,6 @@ import View from './view';
 export interface LoaderProps {
     linkedDataState: LinkedDataStoreState;
     baseURL: string;
-    sampleId: string;
-    version: number;
-    // sample: Sample;
     load: () => void;
 }
 
@@ -41,7 +38,9 @@ interface LoaderState {
 
 export default class LoaderView extends React.Component<LoaderProps, LoaderState> {
     componentDidMount() {
-        this.props.load();
+        if (this.props.linkedDataState.status === AsyncProcessStatus.NONE) {
+            this.props.load();
+        }
     }
     renderLoading() {
         return <div className="FullyCenteredFLex">
@@ -57,7 +56,6 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
         return <View linkedData={linkedData} baseURL={this.props.baseURL} />
     }
     render() {
-        // console.log('hmm', this.props.linkedData);
         switch (this.props.linkedDataState.status) {
             case AsyncProcessStatus.NONE:
             case AsyncProcessStatus.PROCESSING:
@@ -69,4 +67,3 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
         }
     }
 }
-

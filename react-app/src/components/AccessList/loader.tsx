@@ -20,7 +20,7 @@
 
 
 import { Loading } from '@kbase/ui-components';
-import { ACL, Sample } from 'lib/ViewModel';
+import { ACL, Sample } from 'lib/ViewModel/ViewModel';
 import React from 'react';
 import { UIError } from 'redux/store/error';
 import { AsyncProcessStatus } from 'redux/store/processing';

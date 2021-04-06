@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 
-import Versions, {VersionsProps} from './Versions'
-import { Sample } from './Main/types';
+import Versions, { VersionsProps } from './Versions'
 import testSample from './Versions.test-data.sample.json';
+import { Sample } from 'lib/ViewModel/ViewModel';
 
 
 const TIMEOUT = 10000;
@@ -14,7 +14,7 @@ test('renders a simple Section with no toolbar', async () => {
     const props: VersionsProps = {
         sample,
         onChangeVersion: (version: string) => {
-            
+
         }
     };
     const { getByText } = render(<Versions {...props}></Versions>);

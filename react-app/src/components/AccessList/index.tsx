@@ -1,22 +1,16 @@
-import { Dispatch, Action } from 'redux';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { StoreState } from '../../redux/store';
 import Loader from './loader';
-import { DynamicServiceConfig } from '@kbase/ui-components/lib/redux/integration/store';
 import { AccessStoreState } from 'redux/store/access';
-import { Sample } from 'lib/ViewModel';
-import { get } from 'redux/actions/access';
+import { Sample } from 'lib/ViewModel/ViewModel';
+import { ActionType, FetchAction } from 'redux/actions/access';
 
 export interface OwnProps {
     sample: Sample
 }
 
 interface StateProps {
-    token: string;
-    serviceWizardURL: string;
-    userProfileURL: string;
-    baseURL: string;
-    sampleServiceConfig: DynamicServiceConfig;
     accessState: AccessStoreState;
 }
 
@@ -26,37 +20,23 @@ interface DispatchProps {
 
 function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
     const {
-        auth: { userAuthorization },
-        app: {
-            config: {
-                services: {
-                    ServiceWizard: { url: serviceWizardURL },
-                    UserProfile: { url: userProfileURL }
-                },
-                baseUrl: baseURL,
-                dynamicServices: {
-                    SampleService: sampleServiceConfig
-                }
-            }
-        },
         data: {
             access: accessState
         }
     } = state;
 
-    let token;
-    if (!userAuthorization) {
-        throw new Error('Invalid state: token required');
-    } else {
-        token = userAuthorization.token;
-    }
-    return { token, serviceWizardURL, userProfileURL, baseURL, sampleServiceConfig, accessState };
+    return { accessState };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<FetchAction>, ownProps: OwnProps): DispatchProps {
     return {
         load() {
-            dispatch(get(ownProps.sample.id) as any);
+            // dispatch(fetch(ownProps.sample.id) as any);
+            dispatch({
+                category: 'access',
+                type: ActionType.FETCH,
+                id: ownProps.sample.id
+            });
         }
     };
 }

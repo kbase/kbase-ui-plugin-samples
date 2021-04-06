@@ -6,3 +6,7 @@ export interface SimpleMap<T> {
 export type Username = string;
 
 export type EpochTimeMS = number;
+
+export interface SimpleMapping {
+    [key: string]: string;
+}
