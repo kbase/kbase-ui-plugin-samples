@@ -8,11 +8,11 @@ import developFun from "./develop/develop";
 export function makeFan() {
   const asyncProxyFactory = new AsyncProxyFactory<StoreState>();
 
-  asyncProxyFactory.add(async ({ action, next }) => {
-    console.log("Action:", action);
-    next(action);
-    return false;
-  });
+  // asyncProxyFactory.add(async ({ action, next }) => {
+  //   console.log("Action:", action);
+  //   next(action);
+  //   return false;
+  // });
 
   asyncProxyFactory.add(sampleFun);
   asyncProxyFactory.add(linkedDataFun);
