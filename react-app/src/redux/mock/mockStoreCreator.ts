@@ -1,9 +1,9 @@
 import mockStore from "./mockStore";
 import { RootState } from "@kbase/ui-components";
 import { StoreState } from "redux/store";
-import { AuthState } from "@kbase/ui-components/lib/redux/auth/store";
+import { AuthenticationStatus } from "@kbase/ui-components/lib/redux/auth/store";
 import { AppState } from "@kbase/ui-components/lib/redux/integration/store";
-import { DevelopStatus } from "@kbase/ui-components/lib/redux/develop/store";
+import { DevelopStatus, DevelopAuthStatus } from "@kbase/ui-components/lib/redux/develop/store";
 import { SyncViewStatus } from "redux/store/view/SyncView";
 import { AsyncProcessStatus } from "redux/store/processing";
 
@@ -18,11 +18,16 @@ const state: StoreState = {
     title: "",
     params: {},
     status: DevelopStatus.NONE,
+    channels: {
+      hostChannelId: '',
+      pluginChannelId: ''
+    },
+    auth: {
+      status: DevelopAuthStatus.NONE
+    }
   },
-  auth: {
-    status: AuthState.NONE,
-    userAuthorization: null,
-    message: "",
+  authentication: {
+    status: AuthenticationStatus.NONE
   },
   app: {
     status: AppState.READY,

@@ -1,3 +1,4 @@
+import { AuthenticationStatus } from "@kbase/ui-components/lib/redux/auth/store";
 import { AsyncProxyFun } from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
 import { UPSTREAM_TIMEOUT } from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
@@ -45,18 +46,17 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
         },
       },
     },
-    auth: {
-      userAuthorization,
-    },
+    authentication
   } = state;
 
-  if (userAuthorization === null) {
+  if (authentication.status !== AuthenticationStatus.AUTHENTICATED) {
     return false;
   }
 
   const {
-    token,
-  } = userAuthorization;
+    userAuthentication: {token}
+  } = authentication;
+
 
   try {
     const viewModel = new ViewModel({

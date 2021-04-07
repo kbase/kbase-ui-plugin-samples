@@ -1,3 +1,4 @@
+import { AuthenticationStatus } from "@kbase/ui-components/lib/redux/auth/store";
 import { AsyncProxyFun } from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
 import { UPSTREAM_TIMEOUT } from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
@@ -47,21 +48,20 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
         },
       },
     },
-    auth: {
-      userAuthorization,
-    },
+    authentication,
     data: {
       sample: sampleState,
     },
   } = state;
 
-  if (userAuthorization === null) {
+  if (authentication.status !== AuthenticationStatus.AUTHENTICATED) {
     return false;
   }
 
   const {
-    token,
-  } = userAuthorization;
+    userAuthentication: {token}
+  } = authentication;
+
 
   // Here we initiate indicate either a fresh fetch (fetching) or a 
   // new fetch to replace an existing one (refetching).
