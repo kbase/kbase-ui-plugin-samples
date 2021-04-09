@@ -1,19 +1,14 @@
 // should be from @kbase/ui_lib
 export type SDKBoolean = 0 | 1;
+export type EpochTimeMS = number;
+export type Username = string;
+export type WSUPA = string;
 
 export type SampleNodeId = string;
-
 export type SampleId = string;
-
 export type SampleVersion = number;
-
-export type Username = string;
-
-export type EpochTimeMS = number;
-
 export type SampleNodeType = "BioReplicate" | "TechReplicate" | "SubSample";
 
-export type WSUPA = string;
 export type WorkspaceUniquePermanentAddress = WSUPA;
 
 // export interface UserMetadata {
@@ -72,7 +67,7 @@ export interface Sample {
     save_date: EpochTimeMS;
     version: SampleVersion;
     // TODO: these fields don't yet exist upstream.
-    format_id: string;
-    format_version: number;
-    sample_set_ref: string;
+    // format_id: string;
+    // format_version: number;
+    // sample_set_ref: string;
 }
