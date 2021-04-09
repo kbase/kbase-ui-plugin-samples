@@ -1,0 +1,193 @@
+{
+  "id": "6291b661-c3b0-4350-906c-8cbbadf45c91",
+  "user": "eapearson",
+  "name": "S19S_0006_JAR-U",
+  "node_tree": [
+    {
+      "id": "IEWDR000M",
+      "type": "BioReplicate",
+      "parent": null,
+      "meta_controlled": {
+        "id": {
+          "value": "IEWDR000M"
+        },
+        "name": {
+          "value": "S19S_0006_JAR-U"
+        },
+        "SESAR:material": {
+          "value": "Sediment"
+        },
+        "description": {
+          "value": "Sediment from upstream site"
+        },
+        "purpose": {
+          "value": "Sediment  for WHONDRS S19S  for biogeochemical, physical, and microbial analyses."
+        },
+        "release_date": {
+          "value": "2019-11-13"
+        },
+        "name_of_physiographic_feature": {
+          "value": "Dead Run"
+        },
+        "location_description": {
+          "value": "Depositional zone of stream"
+        },
+        "country": {
+          "value": "United States"
+        },
+        "field_program_cruise": {
+          "value": "WHONDRS S19S"
+        },
+        "collector_chief_scientist": {
+          "value": "Ben Glass-Siegel, Maura Roth-Gormley, Annie Blalock"
+        }
+      },
+      "meta_user": {
+        "longitude_start": {
+          "value": -76.717476
+        },
+        "nav_type_name": {
+          "value": "GPS"
+        },
+        "SESAR:material": {
+          "value": "Sediment"
+        },
+        "purpose": {
+          "value": "Sediment  for WHONDRS S19S  for biogeochemical, physical, and microbial analyses."
+        },
+        "cur_registrant_name": {
+          "value": "Amy Goldman"
+        },
+        "url": {
+          "value": "http://igsn.org/IEWDR000M"
+        },
+        "physiographic_feature": {
+          "value": "Stream"
+        },
+        "collection_method_descr": {
+          "value": "Scooped with baked metal spoon into glass jar"
+        },
+        "location_description": {
+          "value": "Depositional zone of stream"
+        },
+        "collection_start_date": {
+          "value": "2019-07-29T04:00:00Z"
+        },
+        "field_name": {
+          "value": "Riverbed sediment"
+        },
+        "field_program_cruise": {
+          "value": "WHONDRS S19S"
+        },
+        "org_registrant_name": {
+          "value": "Amy Goldman"
+        },
+        "name_of_physiographic_feature": {
+          "value": "Dead Run"
+        },
+        "collector_chief_scientist": {
+          "value": "Ben Glass-Siegel, Maura Roth-Gormley, Annie Blalock"
+        },
+        "country": {
+          "value": "United States"
+        },
+        "city": {
+          "value": "Baltimore"
+        },
+        "release_date": {
+          "value": "2019-11-13"
+        },
+        "description": {
+          "value": "Sediment from upstream site"
+        },
+        "sample_type": {
+          "value": "Individual Sample"
+        },
+        "latitude_start": {
+          "value": 39.311813
+        }
+      },
+      "source_meta": [
+        {
+          "key": "id",
+          "skey": "IGSN",
+          "svalue": {
+            "value": "IEWDR000M"
+          }
+        },
+        {
+          "key": "name",
+          "skey": "Sample Name",
+          "svalue": {
+            "value": "S19S_0006_JAR-U"
+          }
+        },
+        {
+          "key": "SESAR:material",
+          "skey": "Material",
+          "svalue": {
+            "value": "Sediment"
+          }
+        },
+        {
+          "key": "description",
+          "skey": "Description",
+          "svalue": {
+            "value": "Sediment from upstream site"
+          }
+        },
+        {
+          "key": "purpose",
+          "skey": "Purpose",
+          "svalue": {
+            "value": "Sediment  for WHONDRS S19S  for biogeochemical, physical, and microbial analyses."
+          }
+        },
+        {
+          "key": "release_date",
+          "skey": "Release Date",
+          "svalue": {
+            "value": "2019-11-13"
+          }
+        },
+        {
+          "key": "name_of_physiographic_feature",
+          "skey": "Name of Physiographic Feature",
+          "svalue": {
+            "value": "Dead Run"
+          }
+        },
+        {
+          "key": "location_description",
+          "skey": "Location Description",
+          "svalue": {
+            "value": "Depositional zone of stream"
+          }
+        },
+        {
+          "key": "country",
+          "skey": "Country",
+          "svalue": {
+            "value": "United States"
+          }
+        },
+        {
+          "key": "field_program_cruise",
+          "skey": "Field Program/Cruise",
+          "svalue": {
+            "value": "WHONDRS S19S"
+          }
+        },
+        {
+          "key": "collector_chief_scientist",
+          "skey": "Collector/Chief Scientist",
+          "svalue": {
+            "value": "Ben Glass-Siegel, Maura Roth-Gormley, Annie Blalock"
+          }
+        }
+      ]
+    }
+  ],
+  "save_date": 1617974215402,
+  "version": 1
+}

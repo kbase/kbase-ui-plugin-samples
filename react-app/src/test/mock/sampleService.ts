@@ -10,6 +10,7 @@ import {
     StatusResult
 } from '../../lib/client/SampleServiceClient'
 import {SchemaFieldNumber} from "../../lib/client/samples/Samples";
+import {Sample} from "../../lib/client/Sample";
 
 export const STATUS_RESULT: StatusResult = {
     state: 'OK',
@@ -48,6 +49,25 @@ export const GET_SAMPLE_RESULT: GetSampleResult = {
     user: 'username1',
     save_date: 0,
     node_tree: []
+}
+
+const sample1: Sample = {
+    id: 'sample1',
+    version: 1,
+    name: 'My Sample',
+    user: 'username1',
+    save_date: 0,
+    node_tree: [{
+        id: 'sample1_id',
+        type: 'BioReplicate',
+        meta_controlled: {
+            biome: {}
+        }
+    }]
+}
+
+export const GET_SAMPLE_SAMPLES: { [sampleId: string]: Sample } = {
+    sample1
 }
 
 export const GET_METADATA_KEY_STATIC_METADATA_EMPTY: GetMetadataKeyStaticMetadataResult = {
@@ -166,12 +186,14 @@ export async function mock_get_sample_acls(body: any, request: Request) {
 }
 
 export async function mock_get_sample(body: any, request: Request) {
+    const {id} = body.params[0];
+    const sample = GET_SAMPLE_SAMPLES[id];
     return {
         body: JSON.stringify({
             version: '1.1',
             id: 'abc',
             result: [
-                GET_SAMPLE_RESULT
+                sample
             ]
         }),
         headers: {
