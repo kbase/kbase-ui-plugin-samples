@@ -12,6 +12,20 @@ import {
 import {SchemaFieldNumber} from "../../lib/client/samples/Samples";
 import {Sample} from "../../lib/client/Sample";
 
+// Sample Data
+
+// Samples
+import sample1Data from './data/samples/sample1.json';
+import sample2Data from './data/samples/sample2.json';
+import sample3Data from './data/samples/sample3.json';
+
+
+// Type the sample data.
+export const sample1 = (sample1Data as unknown) as Sample;
+export const sample2 = (sample2Data as unknown) as Sample;
+export const sample3 = (sample3Data as unknown) as Sample;
+
+
 export const STATUS_RESULT: StatusResult = {
     state: 'OK',
     git_commit_hash: 'hash',
@@ -42,32 +56,32 @@ export const SAMPLE_ACLS: { [sampleId: string]: SampleACLs } = {
 //     read: ['yin', 'yang']
 // }
 
-export const GET_SAMPLE_RESULT: GetSampleResult = {
-    id: 'sample1',
-    version: 1,
-    name: 'My Sample',
-    user: 'username1',
-    save_date: 0,
-    node_tree: []
-}
+// export const GET_SAMPLE_RESULT: GetSampleResult = {
+//     id: 'sample1',
+//     version: 1,
+//     name: 'My Sample',
+//     user: 'username1',
+//     save_date: 0,
+//     node_tree: []
+// }
 
-const sample1: Sample = {
-    id: 'sample1',
-    version: 1,
-    name: 'My Sample',
-    user: 'username1',
-    save_date: 0,
-    node_tree: [{
-        id: 'sample1_id',
-        type: 'BioReplicate',
-        meta_controlled: {
-            biome: {}
-        }
-    }]
-}
+// const sample1: Sample = {
+//     id: 'sample1',
+//     version: 1,
+//     name: 'My Sample',
+//     user: 'username1',
+//     save_date: 0,
+//     node_tree: [{
+//         id: 'sample1_id',
+//         type: 'BioReplicate',
+//         meta_controlled: {
+//             biome: {}
+//         }
+//     }]
+// }
 
 export const GET_SAMPLE_SAMPLES: { [sampleId: string]: Sample } = {
-    sample1
+    sample1, sample2, sample3
 }
 
 export const GET_METADATA_KEY_STATIC_METADATA_EMPTY: GetMetadataKeyStaticMetadataResult = {

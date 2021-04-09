@@ -32,6 +32,8 @@ const allFormats: { [k: string]: Format } = {
 }
 export const ALL_CATEGORIES = categoriesData as Array<FieldCategory>;
 
+export const SCHEMA_BASE_URL = 'https://ghcdn.rawgit.org/eapearson/kbase-schema/main/schemas';
+
 export interface StatusResult extends JSONObject {
     state: string;
     message: string;
@@ -335,6 +337,7 @@ export default class SampleServiceClient extends DynamicServiceClient {
             if (params.id in allFormats) {
                 return allFormats[params.id];
             }
+
             throw new Error(`Sorry, ${params.id} not a recognized format`);
         })();
         return Promise.resolve({
@@ -347,12 +350,13 @@ export default class SampleServiceClient extends DynamicServiceClient {
     ): Promise<GetFieldDefinitionsResult> {
         const fields = await Promise.all(params.keys.map(async (key) => {
             const scrubbedKey = key.replace(/[?:#$%^&*()-+=]/, "_");
-            const result = await fetch(
-                `${process.env.PUBLIC_URL}/schemas/fields/${scrubbedKey}.1-0-0.json`,
-            );
+            const url = `${SCHEMA_BASE_URL}/samples/fields/${scrubbedKey}.1-0-0.json`;
+            console.log('FETCHING FIELD', url);
+            // `${process.env.PUBLIC_URL}/schemas/fields/${scrubbedKey}.1-0-0.json`,
+            const result = await fetch(url);
 
             if (result.status >= 300) {
-                throw new Error(`Error fetching scheme for ${key}`);
+                throw new Error(`Error fetching schema for ${key} (${result.status}) (${url})`);
             }
 
             return await (async () => {

@@ -71,13 +71,13 @@ describe('ViewModel', () => {
         expect(acl).toEqual(FETCH_ACL_RESULT)
     });
 
-    // test('Can fetch a sample', async () => {
-    //     const viewModel = makeViewModel();
-    //
-    //     const sample = await viewModel.fetchSample({
-    //         id: 'sample1'
-    //     });
-    //     expect(sample).toBeDefined();
-    //     // expect(sample).toEqual([FETCH_SAMPLE_RESULT])
-    // });
+    test('Can fetch a sample', async () => {
+        const viewModel = makeViewModel();
+
+        const sample = await viewModel.fetchSample({
+            id: 'sample2'
+        });
+        expect(sample).toBeDefined();
+        // expect(sample).toEqual([FETCH_SAMPLE_RESULT])
+    });
 });

@@ -179,6 +179,31 @@ export const TEST_USER_PROFILES: { [username: string]: UserProfile } = {
                 createdBy: ''
             }
         }
+    },
+    eapearson: {
+        user: {
+            username: 'eapearson',
+            realname: 'Erik Pearson'
+        },
+        profile: {
+            synced: {
+                gravatarHash: 'x'
+            },
+            userdata: {
+                gravatarDefault: 'x',
+                avatarOption: 'x',
+                city: 'x',
+                country: 'x',
+                jobTitle: 'x',
+                jobTitleOther: 'x',
+                organization: 'x',
+                state: 'x'
+            },
+            metadata: {
+                created: '',
+                createdBy: ''
+            }
+        }
     }
 };
 
