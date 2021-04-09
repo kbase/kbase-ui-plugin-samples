@@ -78,6 +78,6 @@ describe('ViewModel', () => {
     //         id: 'sample1'
     //     });
     //     expect(sample).toBeDefined();
-    //     expect(sample).toEqual([FETCH_SAMPLE_RESULT])
+    //     // expect(sample).toEqual([FETCH_SAMPLE_RESULT])
     // });
 });

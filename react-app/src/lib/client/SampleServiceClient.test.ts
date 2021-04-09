@@ -7,7 +7,7 @@ import {
     GET_METADATA_KEY_STATIC_METADATA_EMPTY,
     SAMPLE_ACLS,
     GET_SAMPLE_RESULT, SCHEMA_FIELD_FOO,
-    STATUS_RESULT
+    STATUS_RESULT, GET_SAMPLE_SAMPLES
 } from "../../test/mock/sampleService";
 import SampleServiceClient, {
     ALL_CATEGORIES,
@@ -63,7 +63,7 @@ describe('SampleServiceClient', () => {
         }
         const result = await client.get_sample(params);
         expect(result).toBeDefined();
-        expect(result).toEqual(GET_SAMPLE_RESULT)
+        expect(result).toEqual(GET_SAMPLE_SAMPLES['sample1'])
     });
 
     test('Can successfully call the "get_data_links_from_sample" method', async () => {

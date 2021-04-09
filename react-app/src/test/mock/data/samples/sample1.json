@@ -1,0 +1,193 @@
+{
+  "id": "17e37c43-c94c-4bbf-b686-722d1fa1a783",
+  "user": "eapearson",
+  "name": "S19S_0006_FMI",
+  "node_tree": [
+    {
+      "id": "IEWDR000L",
+      "type": "BioReplicate",
+      "parent": null,
+      "meta_controlled": {
+        "id": {
+          "value": "IEWDR000L"
+        },
+        "name": {
+          "value": "S19S_0006_FMI"
+        },
+        "SESAR:material": {
+          "value": "Other"
+        },
+        "description": {
+          "value": "Filter used for filtered surface water samples"
+        },
+        "purpose": {
+          "value": "Used filter  for WHONDRS S19S  for microbial analyses (qPCR, metagenomics, metatranscriptomics)"
+        },
+        "release_date": {
+          "value": "2019-11-13"
+        },
+        "name_of_physiographic_feature": {
+          "value": "Dead Run"
+        },
+        "location_description": {
+          "value": "Surface water above downstream depositional zone of stream"
+        },
+        "country": {
+          "value": "United States"
+        },
+        "field_program_cruise": {
+          "value": "WHONDRS S19S"
+        },
+        "collector_chief_scientist": {
+          "value": "Ben Glass-Siegel, Maura Roth-Gormley, Annie Blalock"
+        }
+      },
+      "meta_user": {
+        "longitude_start": {
+          "value": -76.717163
+        },
+        "nav_type_name": {
+          "value": "GPS"
+        },
+        "SESAR:material": {
+          "value": "Other"
+        },
+        "purpose": {
+          "value": "Used filter  for WHONDRS S19S  for microbial analyses (qPCR, metagenomics, metatranscriptomics)"
+        },
+        "cur_registrant_name": {
+          "value": "Amy Goldman"
+        },
+        "url": {
+          "value": "http://igsn.org/IEWDR000L"
+        },
+        "physiographic_feature": {
+          "value": "Stream"
+        },
+        "collection_method_descr": {
+          "value": "0.22 micron filter used for filtered water samples"
+        },
+        "location_description": {
+          "value": "Surface water above downstream depositional zone of stream"
+        },
+        "collection_start_date": {
+          "value": "2019-07-29T04:00:00Z"
+        },
+        "field_name": {
+          "value": "Filter"
+        },
+        "field_program_cruise": {
+          "value": "WHONDRS S19S"
+        },
+        "org_registrant_name": {
+          "value": "Amy Goldman"
+        },
+        "name_of_physiographic_feature": {
+          "value": "Dead Run"
+        },
+        "collector_chief_scientist": {
+          "value": "Ben Glass-Siegel, Maura Roth-Gormley, Annie Blalock"
+        },
+        "country": {
+          "value": "United States"
+        },
+        "city": {
+          "value": "Baltimore"
+        },
+        "release_date": {
+          "value": "2019-11-13"
+        },
+        "description": {
+          "value": "Filter used for filtered surface water samples"
+        },
+        "sample_type": {
+          "value": "Individual Sample"
+        },
+        "latitude_start": {
+          "value": 39.311369
+        }
+      },
+      "source_meta": [
+        {
+          "key": "id",
+          "skey": "IGSN",
+          "svalue": {
+            "value": "IEWDR000L"
+          }
+        },
+        {
+          "key": "name",
+          "skey": "Sample Name",
+          "svalue": {
+            "value": "S19S_0006_FMI"
+          }
+        },
+        {
+          "key": "SESAR:material",
+          "skey": "Material",
+          "svalue": {
+            "value": "Other"
+          }
+        },
+        {
+          "key": "description",
+          "skey": "Description",
+          "svalue": {
+            "value": "Filter used for filtered surface water samples"
+          }
+        },
+        {
+          "key": "purpose",
+          "skey": "Purpose",
+          "svalue": {
+            "value": "Used filter  for WHONDRS S19S  for microbial analyses (qPCR, metagenomics, metatranscriptomics)"
+          }
+        },
+        {
+          "key": "release_date",
+          "skey": "Release Date",
+          "svalue": {
+            "value": "2019-11-13"
+          }
+        },
+        {
+          "key": "name_of_physiographic_feature",
+          "skey": "Name of Physiographic Feature",
+          "svalue": {
+            "value": "Dead Run"
+          }
+        },
+        {
+          "key": "location_description",
+          "skey": "Location Description",
+          "svalue": {
+            "value": "Surface water above downstream depositional zone of stream"
+          }
+        },
+        {
+          "key": "country",
+          "skey": "Country",
+          "svalue": {
+            "value": "United States"
+          }
+        },
+        {
+          "key": "field_program_cruise",
+          "skey": "Field Program/Cruise",
+          "svalue": {
+            "value": "WHONDRS S19S"
+          }
+        },
+        {
+          "key": "collector_chief_scientist",
+          "skey": "Collector/Chief Scientist",
+          "svalue": {
+            "value": "Ben Glass-Siegel, Maura Roth-Gormley, Annie Blalock"
+          }
+        }
+      ]
+    }
+  ],
+  "save_date": 1617974214869,
+  "version": 1
+}
