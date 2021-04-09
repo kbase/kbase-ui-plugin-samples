@@ -35,4 +35,9 @@ actual data
 
 ### Samples
 
-We need 
+We need
+
+## TODO:
+
+scripts to:
+fetch N samples fetch acls for N samples fetch gather all users in samples and fetch profiles for them

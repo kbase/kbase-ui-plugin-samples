@@ -237,7 +237,13 @@ export default class ViewModel {
         const profiles = await userProfileClient.get_user_profile(usernames);
 
         if (profiles.length !== usernames.length) {
-            throw new Error("User could not be found");
+            const profileUsernames = profiles.map(({user: {username}}) => {
+                return username;
+            });
+            const missing = usernames.filter((username) => {
+                return !profileUsernames.includes(username);
+            })
+            throw new Error(`Users could not be found: ${missing.join(', ')}`);
         }
 
         return profiles.map((profile) => {

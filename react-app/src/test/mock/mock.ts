@@ -70,7 +70,22 @@ async function mockSchemaFields(request: Request): Promise<MockResponseInit> {
     }
 }
 
+export function teardownMocks() {
+    fetchMock.resetMocks();
+}
+
 export function setupMocks() {
+    process.env = Object.assign(process.env, {PUBLIC_URL: 'https://fake.kbase.us'})
+    fetchMock.mockIf(/^https:\/\/fake\.kbase\.us\//, (request) => {
+        if (request.url.match(/services/)) {
+            return mockServices(request);
+        } else {
+            throw new Error(`Unsupported url ${request.url}`);
+        }
+    });
+}
+
+export function setupMocks2() {
     process.env = Object.assign(process.env, {PUBLIC_URL: 'https://fake.kbase.us'})
     fetchMock.mockIf(/^https:\/\/fake\.kbase\.us\//, (request) => {
         if (request.url.match(/services/)) {
