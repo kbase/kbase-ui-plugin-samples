@@ -1,4 +1,4 @@
-import { JSONValue } from "../../lib/json";
+import { JSONValue } from "@kbase/ui-lib/lib/lib/json";
 
 export interface UIError {
     code: string;
