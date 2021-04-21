@@ -1,78 +1,79 @@
-import { AuthenticationStatus } from "@kbase/ui-components/lib/redux/auth/store";
-import { AsyncProxyFun } from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
-import { UPSTREAM_TIMEOUT } from "appConstants";
+import {AuthenticationStatus} from "@kbase/ui-components/lib/redux/auth/store";
+import {AsyncProxyFun} from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
+import {UPSTREAM_TIMEOUT} from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
 import {
-  ActionType,
-  fetched,
-  fetchError,
-  fetching,
+    ActionType
 } from "redux/actions/access";
-import { StoreState } from "../store";
+import {StoreState} from "../store";
 
 const accessFun: AsyncProxyFun<StoreState> = async (
-  { state, dispatch, action, next },
+    {state, dispatch, action, next},
 ) => {
-  if (!("category" in action)) {
-    return false;
-  }
+    if (!("category" in action)) {
+        return false;
+    }
 
-  if (action.category !== "access") {
-    return false;
-  }
+    if (action.category !== "access") {
+        return false;
+    }
 
-  if (action.type !== ActionType.FETCH) {
-    return false;
-  }
+    if (action.type !== ActionType.FETCH) {
+        return false;
+    }
 
-  dispatch(fetching());
-  const {
-    app: {
-      config: {
-        services: {
-          ServiceWizard: {
-            url: serviceWizardURL,
-          },
-          UserProfile: {
-            url: userProfileURL,
-          },
-          Workspace: {
-            url: workspaceURL,
-          },
+    const {
+        app: {
+            config: {
+                services: {
+                    SampleService: {
+                        url: sampleServiceURL,
+                    },
+                    UserProfile: {
+                        url: userProfileURL,
+                    },
+                    Workspace: {
+                        url: workspaceURL,
+                    },
+                },
+            },
         },
-        //   baseUrl: baseURL,
-        dynamicServices: {
-          SampleService: sampleServiceConfig,
-        },
-      },
-    },
-    authentication
-  } = state;
+        authentication
+    } = state;
 
-  if (authentication.status !== AuthenticationStatus.AUTHENTICATED) {
-    return false;
-  }
+    if (authentication.status !== AuthenticationStatus.AUTHENTICATED) {
+        return false;
+    }
 
-  const {
-    userAuthentication: {token}
-  } = authentication;
-
-  try {
-    const viewModel = new ViewModel({
-      token,
-      userProfileURL,
-      serviceWizardURL,
-      workspaceURL,
-      sampleServiceConfig,
-      timeout: UPSTREAM_TIMEOUT,
+    dispatch({
+        type: ActionType.FETCHING
     });
 
-    const accessList = await viewModel.fetchACL({ id: action.id });
-    dispatch(fetched(accessList));
-  } catch (ex) {
-    dispatch(fetchError(ex.message));
-  }
-  return true;
+    const {
+        userAuthentication: {token}
+    } = authentication;
+
+    try {
+        const viewModel = new ViewModel({
+            token,
+            userProfileURL,
+            sampleServiceURL,
+            workspaceURL,
+            timeout: UPSTREAM_TIMEOUT,
+        });
+
+        const accessList = await viewModel.fetchACL({id: action.id});
+        dispatch({
+            type: ActionType.FETCHED,
+            accessList
+        });
+    } catch (ex) {
+        dispatch({
+            type: ActionType.FETCH_ERROR,
+            message: ex.message
+        })
+    }
+    return true;
 };
 
 export default accessFun;

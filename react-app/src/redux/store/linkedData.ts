@@ -1,17 +1,17 @@
-import { DataLink } from "lib/client/SampleServiceClient";
-import { UIError } from "./error";
-import { AsyncProcess } from "./processing";
+import {DataLink} from "lib/client/SampleServiceClient";
+import {AsyncProcess} from "./processing";
+import {AppError} from "@kbase/ui-components";
 
 export interface DataLink2 extends DataLink {
-  key: string;
-  objectType: string;
-  objectName: string;
+    key: string;
+    objectType: string;
+    objectName: string;
 }
 
 export type LinkedData = Array<DataLink2>;
 
 export interface LinkedDataData {
-  linkedData: LinkedData;
+    linkedData: LinkedData;
 }
 
-export type LinkedDataStoreState = AsyncProcess<LinkedDataData, UIError>;
+export type LinkedDataStoreState = AsyncProcess<LinkedDataData, AppError>;

@@ -18,7 +18,7 @@ import {
     Username,
     WSUPA,
 } from "./Sample";
-import {DynamicServiceClient} from "@kbase/ui-lib";
+import {ServiceClient} from "@kbase/ui-lib";
 import {JSONObject, objectToJSONObject} from "@kbase/ui-lib/lib/lib/json";
 
 
@@ -32,7 +32,9 @@ const allFormats: { [k: string]: Format } = {
 }
 export const ALL_CATEGORIES = categoriesData as Array<FieldCategory>;
 
-export const SCHEMA_BASE_URL = 'https://ghcdn.rawgit.org/eapearson/kbase-schema/main/schemas';
+export const SCHEMA_BASE_URL = 'https://cdn.jsdelivr.net/gh/eapearson/kbase-sdk-module-jsonschema@main/schemas';
+// e.g. https://cdn.jsdelivr.net/gh/eapearson/kbase-sdk-module-jsonschema@main/schemas/sample/field/age_max.1-0-0.json
+// export const SCHEMA_BASE_URL = 'http://localhost:8080/schema';
 
 export interface StatusResult extends JSONObject {
     state: string;
@@ -270,7 +272,7 @@ export interface GetFieldCategoriesResult {
     categories: Array<FieldCategory>;
 }
 
-export default class SampleServiceClient extends DynamicServiceClient {
+export default class SampleServiceClient extends ServiceClient {
     module: string = "SampleService";
 
     async status(): Promise<StatusResult> {
@@ -350,9 +352,9 @@ export default class SampleServiceClient extends DynamicServiceClient {
     ): Promise<GetFieldDefinitionsResult> {
         const fields = await Promise.all(params.keys.map(async (key) => {
             const scrubbedKey = key.replace(/[?:#$%^&*()-+=]/, "_");
-            const url = `${SCHEMA_BASE_URL}/samples/fields/${scrubbedKey}.1-0-0.json`;
-            console.log('FETCHING FIELD', url);
-            // `${process.env.PUBLIC_URL}/schemas/fields/${scrubbedKey}.1-0-0.json`,
+            // TODO: remove the version when running against the service.
+            const url = `${SCHEMA_BASE_URL}/sample/field/${scrubbedKey}.1-0-0.json`;
+            // const url = `${SCHEMA_BASE_URL}/sample/field/${scrubbedKey}.1-0-0.json`;
             const result = await fetch(url);
 
             if (result.status >= 300) {
@@ -372,4 +374,6 @@ export default class SampleServiceClient extends DynamicServiceClient {
         }));
         return {fields};
     }
+
+
 }
