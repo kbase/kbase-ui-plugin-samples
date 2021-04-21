@@ -1,9 +1,9 @@
-import { Sample } from "lib/ViewModel/ViewModel";
-import { UIError } from "./error";
-import { AsyncProcess } from "./processing";
+import {Sample} from "lib/ViewModel/ViewModel";
+import {AsyncProcess} from "./processing";
+import {AppError} from "@kbase/ui-components";
 
 export interface SampleData {
     sample: Sample;
 }
 
-export type SampleStoreState = AsyncProcess<SampleData, UIError>;
+export type SampleStoreState = AsyncProcess<SampleData, AppError>;

@@ -15,7 +15,6 @@ import SampleServiceClient, {
 // Constants
 
 import {UPSTREAM_TIMEOUT} from "../../appConstants";
-import {DynamicServiceConfig} from "@kbase/ui-components/lib/redux/integration/store";
 import {Workspace} from "@kbase/ui-lib";
 import {ObjectInfo} from "@kbase/ui-lib/lib/lib/comm/coreServices/Workspace";
 import {LinkedData} from "redux/store/linkedData";
@@ -188,9 +187,8 @@ export interface GetSampleResult {
 
 export default class ViewModel {
     userProfileURL: string;
-    serviceWizardURL: string;
+    sampleServiceURL: string;
     workspaceURL: string;
-    sampleServiceConfig: DynamicServiceConfig;
     token: string;
     timeout: number;
     sampleService: SampleServiceClient;
@@ -198,28 +196,25 @@ export default class ViewModel {
     constructor(
         {
             userProfileURL,
-            serviceWizardURL,
+            sampleServiceURL,
             workspaceURL,
-            sampleServiceConfig,
             token,
             timeout,
         }: {
             userProfileURL: string;
-            serviceWizardURL: string;
+            sampleServiceURL: string;
             workspaceURL: string;
             token: string;
             timeout: number;
-            sampleServiceConfig: DynamicServiceConfig;
         },
     ) {
         this.userProfileURL = userProfileURL;
-        this.serviceWizardURL = serviceWizardURL;
+        this.sampleServiceURL = sampleServiceURL;
         this.workspaceURL = workspaceURL;
         this.token = token;
         this.timeout = timeout;
-        this.sampleServiceConfig = sampleServiceConfig;
         this.sampleService = new SampleServiceClient({
-            url: this.serviceWizardURL,
+            url: this.sampleServiceURL,
             token,
             timeout
         });
@@ -343,9 +338,8 @@ export default class ViewModel {
     async fetchACL({id}: { id: string }): Promise<ACL> {
         const client = new SampleServiceClient({
             token: this.token,
-            url: this.serviceWizardURL,
-            timeout: UPSTREAM_TIMEOUT,
-            version: this.sampleServiceConfig.version,
+            url: this.sampleServiceURL,
+            timeout: UPSTREAM_TIMEOUT
         });
 
         const aclResult = await client.get_sample_acls({
@@ -414,9 +408,8 @@ export default class ViewModel {
     }): Promise<LinkedData> {
         const client = new SampleServiceClient({
             token: this.token,
-            url: this.serviceWizardURL,
-            timeout: UPSTREAM_TIMEOUT,
-            version: this.sampleServiceConfig.version,
+            url: this.sampleServiceURL,
+            timeout: UPSTREAM_TIMEOUT
         });
 
         const dataLinks = await client.get_data_links_from_sample({

@@ -1,10 +1,10 @@
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { StoreState } from '../../redux/store';
+import {Dispatch} from 'redux';
+import {connect} from 'react-redux';
+import {StoreState} from '../../redux/store';
 import Loader from './loader';
-import { AccessStoreState } from 'redux/store/access';
-import { Sample } from 'lib/ViewModel/ViewModel';
-import { ActionType, FetchAction } from 'redux/actions/access';
+import {AccessStoreState} from 'redux/store/access';
+import {Sample} from 'lib/ViewModel/ViewModel';
+import {ActionType, FetchAction} from 'redux/actions/access';
 
 export interface OwnProps {
     sample: Sample
@@ -25,13 +25,12 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
         }
     } = state;
 
-    return { accessState };
+    return {accessState};
 }
 
 function mapDispatchToProps(dispatch: Dispatch<FetchAction>, ownProps: OwnProps): DispatchProps {
     return {
         load() {
-            // dispatch(fetch(ownProps.sample.id) as any);
             dispatch({
                 category: 'access',
                 type: ActionType.FETCH,

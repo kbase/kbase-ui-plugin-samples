@@ -1,9 +1,9 @@
-import { ACL } from "lib/ViewModel/ViewModel";
-import { UIError } from "./error";
-import { AsyncProcess } from "./processing";
+import {ACL} from "lib/ViewModel/ViewModel";
+import {AsyncProcess} from "./processing";
+import {AppError} from "@kbase/ui-components";
 
 export interface AccessData {
-  accessList: ACL;
+    accessList: ACL;
 }
 
-export type AccessStoreState = AsyncProcess<AccessData, UIError>;
+export type AccessStoreState = AsyncProcess<AccessData, AppError>;

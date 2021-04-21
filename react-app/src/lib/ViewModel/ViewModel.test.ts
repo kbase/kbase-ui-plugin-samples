@@ -6,10 +6,7 @@ function makeViewModel() {
     return new ViewModel({
         token: 'x',
         timeout: 1000,
-        sampleServiceConfig: {
-            version: 'dev'
-        },
-        serviceWizardURL: 'https://fake.kbase.us/services/ServiceWizard/rpc',
+        sampleServiceURL: 'https://fake.kbase.us/services/sampleservice',
         userProfileURL: 'https://fake.kbase.us/services/user_profile/rpc',
         workspaceURL: 'https://fake.kbase.us/services/ws'
     });
@@ -24,10 +21,7 @@ describe('ViewModel', () => {
         const viewModel = new ViewModel({
             token: 'x',
             timeout: 1000,
-            sampleServiceConfig: {
-                version: 'x'
-            },
-            serviceWizardURL: 'x',
+            sampleServiceURL: 'x',
             userProfileURL: 'x',
             workspaceURL: 'x'
         });

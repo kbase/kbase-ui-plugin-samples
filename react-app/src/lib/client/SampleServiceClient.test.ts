@@ -1,5 +1,5 @@
 import {
-    setupMocks, setupMocks2, teardownMocks
+    setupMocks, teardownMocks
 } from "../../test/mock/mock";
 import {
     GET_DATA_LINKS_FROM_SAMPLE_RESULT_EMPTY, GET_FIELD_CATEGORIES_RESULT,
@@ -22,7 +22,7 @@ import {TEST_FETCH_TIMEOUT} from "../../test/mock/common";
 function makeSampleServiceClient() {
     return new SampleServiceClient({
         timeout: TEST_FETCH_TIMEOUT,
-        url: 'https://fake.kbase.us/services/SampleService'
+        url: 'https://fake.kbase.us/services/sampleservice'
     });
 }
 
