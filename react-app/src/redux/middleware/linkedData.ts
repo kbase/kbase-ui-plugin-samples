@@ -6,6 +6,7 @@ import {
     ActionType
 } from "redux/actions/linkedData";
 import {StoreState} from "../store";
+import {FetchingAction} from "../actions/linkedData";
 
 const linkedDataFun: AsyncProxyFun<StoreState> = async (
     {state, dispatch, action, next},
@@ -23,6 +24,7 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
     }
 
     dispatch({
+        category: 'linkedData',
         type: ActionType.FETCHING
     });
     const {
@@ -38,10 +40,6 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
                     Workspace: {
                         url: workspaceURL,
                     },
-                },
-                //   baseUrl: baseURL,
-                dynamicServices: {
-                    SampleService: sampleServiceConfig,
                 },
             },
         },
@@ -71,11 +69,13 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
             version: action.version,
         });
         dispatch({
+            category: 'linkedData',
             type: ActionType.FETCHED,
             linkedData
         })
     } catch (ex) {
         dispatch({
+            category: 'linkedData',
             type: ActionType.FETCH_ERROR,
             message: ex.message
         });

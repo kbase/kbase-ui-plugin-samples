@@ -38,10 +38,6 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
                         url: workspaceURL,
                     },
                 },
-                //   baseUrl: baseURL,
-                dynamicServices: {
-                    SampleService: sampleServiceConfig,
-                },
             },
         },
         authentication,
@@ -63,12 +59,14 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
     switch (sampleState.status) {
         case AsyncProcessStatus.NONE:
             dispatch({
+                category: 'sample',
                 type: ActionType.FETCHING
             })
             break;
         case AsyncProcessStatus.ERROR:
         case AsyncProcessStatus.SUCCESS:
             dispatch({
+                category: 'sample',
                 type: ActionType.REFETCHING
             })
             break;
@@ -90,11 +88,13 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             version: action.version,
         });
         dispatch({
+            category: 'sample',
             type: ActionType.FETCHED,
             sample
         });
     } catch (ex) {
         dispatch({
+            category: 'sample',
             type: ActionType.FETCH_ERROR,
             message: ex.message
         });

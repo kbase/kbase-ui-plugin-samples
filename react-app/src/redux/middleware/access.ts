@@ -46,6 +46,7 @@ const accessFun: AsyncProxyFun<StoreState> = async (
     }
 
     dispatch({
+        category: 'access',
         type: ActionType.FETCHING
     });
 
@@ -64,11 +65,13 @@ const accessFun: AsyncProxyFun<StoreState> = async (
 
         const accessList = await viewModel.fetchACL({id: action.id});
         dispatch({
+            category: 'access',
             type: ActionType.FETCHED,
             accessList
         });
     } catch (ex) {
         dispatch({
+            category: 'access',
             type: ActionType.FETCH_ERROR,
             message: ex.message
         })

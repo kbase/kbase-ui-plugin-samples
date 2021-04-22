@@ -11,6 +11,8 @@ import {SampleStoreState} from "./sample";
 import {AccessStoreState} from "./access";
 import {LinkedDataStoreState} from "./linkedData";
 import {makeActionProxy} from "../middleware/fun";
+import thunk from 'redux-thunk';
+
 
 export interface SampleViewState {
     sampleId: string;
@@ -53,7 +55,7 @@ function createReduxStore() {
     return createStore(
         reducer,
         makeInitialStoreState(),
-        compose(applyMiddleware(makeActionProxy())),
+        compose(applyMiddleware(makeActionProxy(), thunk)),
     );
 }
 

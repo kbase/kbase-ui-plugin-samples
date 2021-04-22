@@ -1,11 +1,11 @@
-import { Dispatch, Action } from 'redux';
-import { connect } from 'react-redux';
-import { sendTitle } from '@kbase/ui-components';
+import {Dispatch, Action} from 'redux';
+import {connect} from 'react-redux';
+import {sendTitle} from '@kbase/ui-components';
 
-import { StoreState } from '../../redux/store';
+import {StoreState} from '../../redux/store';
 import Component from './loader';
-import { fetch } from 'redux/actions/sample';
-import { SampleStoreState } from 'redux/store/sample';
+import {fetch} from 'redux/actions/sample';
+import {SampleStoreState} from 'redux/store/sample';
 
 export interface OwnProps {
     id: string;
@@ -27,7 +27,7 @@ function mapStateToProps(state: StoreState, props: OwnProps): StateProps {
             sample: sampleState
         }
     } = state;
-    return { sampleState };
+    return {sampleState};
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action>, ownProps: OwnProps): DispatchProps {
