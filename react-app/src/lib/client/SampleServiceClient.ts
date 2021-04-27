@@ -20,19 +20,24 @@ import {
 } from "./Sample";
 import {ServiceClient} from "@kbase/ui-lib";
 import {JSONObject, objectToJSONObject} from "@kbase/ui-lib/lib/lib/json";
+import {ServiceWizardClient} from "@kbase/ui-lib/lib/comm/coreServices/ServiceWizard";
+import {ServiceClientParams} from "@kbase/ui-lib/lib/comm/JSONRPC11/ServiceClient";
+import {URLCacher} from "./URLCacher";
 
 
 const sesarFormatData = sesarData as Format;
 const enigmaFormatData = enigmaData as Format;
 const kbaseFormatData = kbaseData as Format;
-const allFormats: { [k: string]: Format } = {
+const allFormats: { [k: string]: Format; } = {
     sesar: sesarFormatData,
     enigma: enigmaFormatData,
     kbase: kbaseFormatData
-}
+};
 export const ALL_CATEGORIES = categoriesData as Array<FieldCategory>;
+export const REQUEST_TIMEOUT = 10000; // 10 seconds
+export const CACHE_TTL = 300000; // 5 minutes
 
-export const SCHEMA_BASE_URL = 'https://cdn.jsdelivr.net/gh/eapearson/kbase-sdk-module-jsonschema@main/schemas';
+// export const SCHEMA_BASE_URL = 'https://cdn.jsdelivr.net/gh/eapearson/kbase-sdk-module-jsonschema@main/schemas';
 // e.g. https://cdn.jsdelivr.net/gh/eapearson/kbase-sdk-module-jsonschema@main/schemas/sample/field/age_max.1-0-0.json
 // export const SCHEMA_BASE_URL = 'http://localhost:8080/schema';
 
@@ -265,15 +270,45 @@ export interface GetFieldGroupsResult {
 }
 
 export interface GetFieldCategoriesParams {
-    ids?: Array<string>
+    ids?: Array<string>;
 }
 
 export interface GetFieldCategoriesResult {
     categories: Array<FieldCategory>;
 }
 
+
+export interface SampleServiceClientParams extends ServiceClientParams {
+    serviceWizardURL: string;
+}
+
 export default class SampleServiceClient extends ServiceClient {
     module: string = "SampleService";
+    serviceWizardURL: string;
+    serviceWizard: ServiceWizardClient
+    schemaURLCacher: URLCacher;
+
+    constructor(params: SampleServiceClientParams) {
+        super(params);
+        this.serviceWizardURL = params.serviceWizardURL;
+        this.serviceWizard = new ServiceWizardClient({
+            timeout: 10000,
+            url: this.serviceWizardURL,
+            token: params.token
+        });
+        this.schemaURLCacher = new URLCacher(async () => {
+            const serviceWizard = new ServiceWizardClient({
+                timeout: REQUEST_TIMEOUT,
+                url: params.serviceWizardURL,
+                token: params.token
+            });
+            const {url} = await serviceWizard.get_service_status({
+                module_name: 'JSONSchema',
+                version: null,
+            });
+            return url;
+        }, REQUEST_TIMEOUT, CACHE_TTL);
+    }
 
     async status(): Promise<StatusResult> {
         const [result] = await this.callFunc<[], [StatusResult]>("status", []);
@@ -347,33 +382,40 @@ export default class SampleServiceClient extends ServiceClient {
         });
     }
 
+    async fetchSchema(schemaName: string) {
+        const baseURL = await this.schemaURLCacher.fetch();
+        const path = `sample/fields/${schemaName}.json`;
+        const url = `${baseURL}/schemas/${path}`;
+
+        // Get the schema!
+        const result = await fetch(url);
+
+        if (result.status >= 300) {
+            throw new Error(`Error fetching schema for ${schemaName} (${result.status}) (${url})`);
+        }
+
+        return await (async () => {
+            const payload = await result.text();
+            try {
+                return JSON.parse(payload) as SchemaField;
+            } catch (ex) {
+                throw new Error(
+                    `Invalid JSON schema for field "${schemaName}": ${ex.message}`,
+                );
+            }
+        })();
+    }
+
     async get_field_definitions(
         params: GetFieldDefinitionsParams,
     ): Promise<GetFieldDefinitionsResult> {
         const fields = await Promise.all(params.keys.map(async (key) => {
             const scrubbedKey = key.replace(/[?:#$%^&*()-+=]/, "_");
             // TODO: remove the version when running against the service.
-            const url = `${SCHEMA_BASE_URL}/sample/field/${scrubbedKey}.1-0-0.json`;
+
+            return await this.fetchSchema(scrubbedKey);
             // const url = `${SCHEMA_BASE_URL}/sample/field/${scrubbedKey}.1-0-0.json`;
-            const result = await fetch(url);
-
-            if (result.status >= 300) {
-                throw new Error(`Error fetching schema for ${key} (${result.status}) (${url})`);
-            }
-
-            return await (async () => {
-                const payload = await result.text();
-                try {
-                    return JSON.parse(payload) as SchemaField;
-                } catch (ex) {
-                    throw new Error(
-                        `Invalid JSON schema for field "${key}": ${ex.message}`,
-                    );
-                }
-            })();
         }));
         return {fields};
     }
-
-
 }

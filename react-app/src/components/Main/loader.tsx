@@ -119,6 +119,7 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
             case AsyncProcessStatus.PROCESSING:
                 return this.renderLoading();
             case AsyncProcessStatus.ERROR:
+                console.log('HMMM', this.props);
                 return this.renderError(this.props.sampleState.error);
             case AsyncProcessStatus.SUCCESS:
                 return this.renderSuccess(this.props.sampleState.state.sample);
