@@ -49,6 +49,15 @@ export type SampleAction =
     | SampleFetchedAction
     | SampleFetchErrorAction;
 
+
+export function fetchError(error: AppError): SampleFetchErrorAction {
+    return {
+        category: 'sample',
+        type: ActionType.FETCH_ERROR,
+        error
+    }
+}
+
 export function fetch(id: string, version?: number): SampleFetchAction {
     return {
         category: "sample",

@@ -3,7 +3,7 @@ import {AsyncProxyFun} from "@kbase/ui-components/lib/redux/middleware/AsyncProx
 import {UPSTREAM_TIMEOUT} from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
 import {
-    ActionType
+    ActionType, fetchError
 } from "redux/actions/sample";
 import {StoreState} from "../store";
 import {AsyncProcessStatus} from "../store/processing";
@@ -37,6 +37,9 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
                     Workspace: {
                         url: workspaceURL,
                     },
+                    ServiceWizard: {
+                        url: serviceWizardURL
+                    }
                 },
             },
         },
@@ -61,14 +64,14 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             dispatch({
                 category: 'sample',
                 type: ActionType.FETCHING
-            })
+            });
             break;
         case AsyncProcessStatus.ERROR:
         case AsyncProcessStatus.SUCCESS:
             dispatch({
                 category: 'sample',
                 type: ActionType.REFETCHING
-            })
+            });
             break;
         default:
             return false;
@@ -80,6 +83,7 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             userProfileURL,
             sampleServiceURL,
             workspaceURL,
+            serviceWizardURL,
             timeout: UPSTREAM_TIMEOUT,
         });
 
@@ -93,11 +97,16 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             sample
         });
     } catch (ex) {
-        dispatch({
-            category: 'sample',
-            type: ActionType.FETCH_ERROR,
+        console.log('ERROR!', ex.message);
+        // dispatch({
+        //     category: 'sample',
+        //     type: ActionType.FETCH_ERROR,
+        //     message: ex.message
+        // });
+        dispatch(fetchError({
+            code: 'fetchError',
             message: ex.message
-        });
+        }));
     }
 
     return true;

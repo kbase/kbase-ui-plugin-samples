@@ -1,6 +1,6 @@
 import ViewModel from './ViewModel';
-import {setupMocks} from "../../test/mock/mock";
-import {FETCH_ACL_RESULT, FETCH_ACL_RESULT_EMPTY, FETCH_USER_PROFILE_FOO_RESULT} from "../../test/mock/viewModel";
+import { setupMocks } from "../../test/mock/mock";
+import { FETCH_ACL_RESULT, FETCH_ACL_RESULT_EMPTY, FETCH_USER_PROFILE_FOO_RESULT } from "../../test/mock/viewModel";
 
 function makeViewModel() {
     return new ViewModel({
@@ -8,7 +8,8 @@ function makeViewModel() {
         timeout: 1000,
         sampleServiceURL: 'https://fake.kbase.us/services/sampleservice',
         userProfileURL: 'https://fake.kbase.us/services/user_profile/rpc',
-        workspaceURL: 'https://fake.kbase.us/services/ws'
+        workspaceURL: 'https://fake.kbase.us/services/ws',
+        serviceWizardURL: 'https://fake.kbase.us/services/ServiceWizard'
     });
 }
 
@@ -23,7 +24,8 @@ describe('ViewModel', () => {
             timeout: 1000,
             sampleServiceURL: 'x',
             userProfileURL: 'x',
-            workspaceURL: 'x'
+            workspaceURL: 'x',
+            serviceWizardURL: 'x'
         });
 
         expect(viewModel).toBeDefined();
@@ -32,16 +34,16 @@ describe('ViewModel', () => {
     test('Can fetch a user profile', async () => {
         const viewModel = makeViewModel();
 
-        const profile = await viewModel.fetchUsers({usernames: ['foo']});
+        const profile = await viewModel.fetchUsers({ usernames: ['foo'] });
         expect(profile).toBeDefined();
-        expect(profile).toEqual([FETCH_USER_PROFILE_FOO_RESULT])
+        expect(profile).toEqual([FETCH_USER_PROFILE_FOO_RESULT]);
     });
 
     test('Fetching a user profile for a nonexistent user throws an error', async () => {
         const viewModel = makeViewModel();
 
         expect(async () => {
-            return await viewModel.fetchUsers({usernames: ['no_foo']});
+            return await viewModel.fetchUsers({ usernames: ['no_foo'] });
         }).rejects.toThrow();
     });
 
@@ -52,7 +54,7 @@ describe('ViewModel', () => {
             id: 'sample1'
         });
         expect(acl).toBeDefined();
-        expect(acl).toEqual(FETCH_ACL_RESULT_EMPTY)
+        expect(acl).toEqual(FETCH_ACL_RESULT_EMPTY);
     });
 
     test('Can fetch a sample ACL', async () => {
@@ -62,7 +64,7 @@ describe('ViewModel', () => {
             id: 'sample2'
         });
         expect(acl).toBeDefined();
-        expect(acl).toEqual(FETCH_ACL_RESULT)
+        expect(acl).toEqual(FETCH_ACL_RESULT);
     });
 
     test('Can fetch a sample', async () => {
