@@ -41,26 +41,36 @@ async function mockJSONRPCServices(request: Request): Promise<MockResponseInit> 
     }
 }
 
-// async function mockRESTServices(request: Request): Promise<MockResponseInit> {
-//     if (request.url.match(/services/) {
-//
-//     } else {
-//         return {
-//             status: 404,
-//             body: 'Not Found'
-//         }
-//     }
-// }
+export async function dummy_rest(request: Request) {
+    return {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+}
+
+async function mockRESTServices(request: Request): Promise<MockResponseInit> {
+    if (request.url.match(/services/)) {
+        return dummy_rest(request)
+    } else {
+        return {
+            status: 404,
+            body: 'Not Found'
+        }
+    }
+}
 
 async function mockServices(request: Request): Promise<MockResponseInit> {
     switch (request.method) {
         case 'POST':
             return mockJSONRPCServices(request);
+        case 'GET':
+            return mockRESTServices(request);
         default:
             throw new Error(`"${request.method} not supported in mocks`)
     }
 }
-
+ 
 
 async function mockSchemaFields(request: Request): Promise<MockResponseInit> {
     await setTimeout(() => {
