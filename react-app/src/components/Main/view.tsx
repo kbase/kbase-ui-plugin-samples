@@ -11,8 +11,8 @@ import GeolocationViewer from '../Geolocation/view';
 import Header from '../Header/view';
 
 import './style.less';
-import { Sample } from "../../lib/ViewModel/ViewModel";
-import { Loading } from '@kbase/ui-components';
+import {Sample} from "../../lib/ViewModel/ViewModel";
+import {Loading} from '@kbase/ui-components';
 
 export interface MainProps {
     sample: Sample;
@@ -34,7 +34,7 @@ export default class Main extends React.Component<MainProps, MainState> {
             return;
         }
         return <div className="LoadingCover">
-            {<Loading message="Loading Sample..." />}
+            {<Loading message="Loading Sample..."/>}
         </div>
     }
 
@@ -44,30 +44,30 @@ export default class Main extends React.Component<MainProps, MainState> {
         //         </Tabs.TabPane>
         return <div className='Main'>
             {this.renderLoadingCover()}
-            <Header sample={this.props.sample} format={this.props.sample.format} />
-            <Tabs type="card" className="FullHeight-tabs" >
+            <Header sample={this.props.sample} format={this.props.sample.format}/>
+            <Tabs type="card" className="FullHeight-tabs">
 
                 <Tabs.TabPane tab="Sample" key="sample">
-                    <TemplateMetadata sample={this.props.sample} template={this.props.sample.template} />
+                    <TemplateMetadata sample={this.props.sample} template={this.props.sample.template}/>
                 </Tabs.TabPane>
                 {/* <Tabs.TabPane tab="Metadata" key="metadata">
                     <MetadataViewer sample={this.props.sample} fieldGroups={this.props.fieldGroups} />
                 </Tabs.TabPane> */}
                 <Tabs.TabPane tab="Geolocation" key="geolocation">
-                    <GeolocationViewer sample={this.props.sample} />
+                    <GeolocationViewer sample={this.props.sample}/>
                 </Tabs.TabPane>
                 {/* <Tabs.TabPane tab="User Metadata" key="usermetadata">
                     <UserMetadataViewer sample={this.props.sample} />
                 </Tabs.TabPane> */}
 
                 <Tabs.TabPane tab="Linked Data" key="linkeddata">
-                    <DataLinks sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version} />
+                    <DataLinks sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version}/>
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Overview" key="overview">
-                    <Overview sample={this.props.sample} format={this.props.sample.format} />
-                </Tabs.TabPane>
+                {/*<Tabs.TabPane tab="Overview" key="overview">*/}
+                {/*    <Overview sample={this.props.sample} format={this.props.sample.format} />*/}
+                {/*</Tabs.TabPane>*/}
                 <Tabs.TabPane tab="Access" key="accesslist">
-                    <AccessList sample={this.props.sample} />
+                    <AccessList sample={this.props.sample}/>
                 </Tabs.TabPane>
 
             </Tabs>
