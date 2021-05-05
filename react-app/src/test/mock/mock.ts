@@ -12,7 +12,7 @@ import {
 } from "./sampleService";
 
 
-async function mockServices(request: Request): Promise<MockResponseInit> {
+async function mockJSONRPCServices(request: Request): Promise<MockResponseInit> {
     const body = await request.json();
     const method = body['method'];
     switch (method) {
@@ -41,11 +41,42 @@ async function mockServices(request: Request): Promise<MockResponseInit> {
     }
 }
 
+export async function dummy_rest(request: Request) {
+    return {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+}
+
+async function mockRESTServices(request: Request): Promise<MockResponseInit> {
+    if (request.url.match(/services/)) {
+        return dummy_rest(request)
+    } else {
+        return {
+            status: 404,
+            body: 'Not Found'
+        }
+    }
+}
+
+async function mockServices(request: Request): Promise<MockResponseInit> {
+    switch (request.method) {
+        case 'POST':
+            return mockJSONRPCServices(request);
+        case 'GET':
+            return mockRESTServices(request);
+        default:
+            throw new Error(`"${request.method} not supported in mocks`)
+    }
+}
+ 
+
 async function mockSchemaFields(request: Request): Promise<MockResponseInit> {
     await setTimeout(() => {
     }, 0);
     switch (request.url) {
-        case 'https://fake.kbase.us/schemas/fields/foo.1-0-0.json':
+        case 'https://fake.kbase.us/dynsrv/jsonschema/schemas/fields/foo.1-0-0.json':
             const fooField: SchemaFieldNumber = SCHEMA_FIELD_FOO
             return {
                 body: JSON.stringify(
