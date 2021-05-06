@@ -10,8 +10,9 @@ import 'leaflet/dist/leaflet.css';
 import MetadataField from '../MetadataField/view';
 
 import './style.less';
-import Section from '../Section';
-import { Sample } from "../../lib/ViewModel/ViewModel";
+import {Sample} from "../../lib/ViewModel/ViewModel";
+import {InfoTable, Section} from "@kbase/ui-components";
+
 
 export interface GeolocationViewerProps {
     sample: Sample;
@@ -34,24 +35,26 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
     }
 
     renderMap() {
-        const { latitude, longitude } = this.props.sample.controlled;
+        const {latitude, longitude} = this.props.sample.controlled;
 
         // We don't know if they exist...
         if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
-            return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
+            return <Alert type="warning"
+                          message="Both latitude and longitude must be present to display a map location"/>;
         }
 
         // And we don't know if they are the proper type of field...
         if (latitude.field.type !== 'number') {
-            return <Alert type="warning" message="latitude must be numeric field" />;
+            return <Alert type="warning" message="latitude must be numeric field"/>;
         }
 
         if (longitude.field.type !== 'number') {
-            return <Alert type="warning" message="longitude must be numeric field" />;
+            return <Alert type="warning" message="longitude must be numeric field"/>;
         }
 
         if (latitude.field.numberValue === null || longitude.field.numberValue === null) {
-            return <Alert type="warning" message="Both latitude and longitude must be present to display a map location" />;
+            return <Alert type="warning"
+                          message="Both latitude and longitude must be present to display a map location"/>;
         }
 
         const lat = latitude.field.numberValue;
@@ -61,9 +64,9 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             <LeafletMap
                 center={[lat, lng]}
                 zoom={12}
-                style={{ flex: '1 1 0px' }}>
-                <ScaleControl position="topleft" />
-                <LayersControl position="topright" >
+                style={{flex: '1 1 0px'}}>
+                <ScaleControl position="topleft"/>
+                <LayersControl position="topright">
                     <LayersControl.BaseLayer name="OpenStreetMap">
                         <TileLayer
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -87,10 +90,11 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                     </LayersControl.BaseLayer>
                 </LayersControl>
                 <CircleMarker center={[lat, lng]} radius={10} color="red">
-                    <LeafletTooltip >
+                    <LeafletTooltip>
                         <div>Location</div>
                         <div>Latitude: {lat}</div>
-                        <div>Longitude: {lng}</div></LeafletTooltip>
+                        <div>Longitude: {lng}</div>
+                    </LeafletTooltip>
                 </CircleMarker>
             </LeafletMap>
         </div>;
@@ -142,17 +146,21 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                 return a.label.localeCompare(b.label);
             });
 
-        const content = fields
+        const table = fields
             .map((field) => {
-                return <div key={field.key}>
-                    <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
-                    <div><MetadataField field={field} sample={this.props.sample} /></div>
-                </div>;
+                return {
+                    label: field.label,
+                    labelTooltip: `key: ${field.key}`,
+                    render: () => {
+                        return <MetadataField field={field} sample={this.props.sample}/>;
+                    }
+                };
             });
 
-        return <div className="InfoTable -bordered ControlledMetadata Geolocation-fields">
-            {content}
-        </div>;
+        // return <div className="InfoTable -bordered ControlledMetadata Geolocation-fields">
+        //     {content}
+        // </div>;
+        return <InfoTable table={table}/>
     }
 
     renderToggleEmptyButton() {
@@ -167,7 +175,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             }
         })();
         return <Button onClick={this.onToggleHideEmpty.bind(this)}
-            size="small">
+                       size="small">
             {label}
         </Button>;
     }
@@ -182,8 +190,8 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         if (!this.state.hasEmpty) {
             return;
         }
-        return <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center' }}>
-            <span style={{ marginRight: '1ex' }}>{this.state.emptyFieldCount} empty fields</span>
+        return <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+            <span style={{marginRight: '1ex'}}>{this.state.emptyFieldCount} empty fields</span>
             <Switch
                 onChange={this.onChangeEmptySwitch.bind(this)}
                 checkedChildren={'showing'}
@@ -201,10 +209,10 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
 
     render() {
         // console.log('sample', JSON.stringify(this.props.sample));
-        return <div className="Geolocation" data-testid="geolocation-view" >
+        return <div className="Geolocation" data-testid="geolocation-view">
             <div className="Geolocation-body">
                 <Row gutter={10}>
-                    <Col span={12} flex="1 1 0px" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Col span={12} flex="1 1 0px" style={{display: 'flex', flexDirection: 'column'}}>
                         <Section title="Map">
                             {this.renderMap()}
                         </Section>

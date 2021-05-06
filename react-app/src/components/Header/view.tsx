@@ -1,11 +1,12 @@
 import React from 'react';
-import { Row, Col, Modal, Button, Tooltip } from 'antd';
-import { SelectValue } from 'antd/lib/select';
+import {Row, Col, Modal, Button, Tooltip} from 'antd';
+import {SelectValue} from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';
 import './styles.css';
-import { Format } from 'lib/client/samples/Samples';
-import { Sample } from "../../lib/ViewModel/ViewModel";
+import {Format} from 'lib/client/samples/Samples';
+import {Sample} from "../../lib/ViewModel/ViewModel";
+import {InfoTable} from "@kbase/ui-components";
 
 export interface HeaderProps {
     sample: Sample;
@@ -38,7 +39,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
             return;
         }
         return <>
-            <Button type="dashed" size="small" style={{ marginLeft: '4px' }} onClick={() => {
+            <Button type="dashed" size="small" style={{marginLeft: '4px'}} onClick={() => {
                 this.setState({
                     showVersions: !this.state.showVersions
                 });
@@ -46,16 +47,16 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                 Select a Version…
             </Button>
             <Modal title="All Versions"
-                visible={this.state.showVersions}
-                width={"45em"}
-                onCancel={() => {
-                    this.setState({
-                        showVersions: false
-                    });
-                }}
-                footer={null}
+                   visible={this.state.showVersions}
+                   width={"45em"}
+                   onCancel={() => {
+                       this.setState({
+                           showVersions: false
+                       });
+                   }}
+                   footer={null}
             >
-                <Versions sample={this.props.sample} onChangeVersion={this.onChangeVersion.bind(this)} />
+                <Versions sample={this.props.sample} onChangeVersion={this.onChangeVersion.bind(this)}/>
             </Modal>
         </>;
     }
@@ -86,83 +87,57 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
         } = this.props.sample;
 
         const sourceTooltip = <div>
-            <img src={this.props.format.source.logo_url!} height={30} alt={`Logo for ${this.props.format.source.title}`} />
-            <div><a href={this.props.format.source.url} target="_blank" rel="noopener noreferrer" className="Header-sourceUrl">{this.props.format.source.title}</a></div>
+            <img src={this.props.format.source.logo_url!} height={30}
+                 alt={`Logo for ${this.props.format.source.title}`}/>
+            <div><a href={this.props.format.source.url} target="_blank" rel="noopener noreferrer"
+                    className="Header-sourceUrl">{this.props.format.source.title}</a></div>
         </div>;
 
         return <div className="Grouper Header">
             <Row>
                 <Col span={8}>
-                    <div className="InfoTable">
-                        <div>
-                            <div>
-                                Name
-                            </div>
-                            <div data-testid="name">
-                                {name}
-                            </div>
-                        </div>
-
-                        <div>
-                            <div>
-                                ID
-                            </div>
-                            <div data-testid="version">
-                                {this.props.sample.sampleId}
-                            </div>
-                        </div>
-                    </div>
+                    <InfoTable table={[{
+                        label: 'Name',
+                        value: name
+                    }, {
+                        label: 'ID',
+                        value: this.props.sample.sampleId
+                    }]}></InfoTable>
                 </Col>
                 <Col span={8}>
-                    <div className="InfoTable">
-                        <div>
-                            <div>
-                                Format
-                        </div>
-                            <div data-testid="id">
-                                <Tooltip title={sourceTooltip}>
-                                    <span>{this.props.format.source.name}</span>
-                                </Tooltip>
-                            </div>
-                        </div>
-                    </div>
+                    <InfoTable table={[{
+                        label: 'Format',
+                        render: () => {
+                            return <Tooltip title={sourceTooltip}>
+                                <span>{this.props.format.source.name}</span>
+                            </Tooltip>
+                        }
+                    }]}></InfoTable>
                 </Col>
-                <Col span={8} >
-                    <div className="InfoTable">
-                        <div>
-                            <div>
-                                Owner
-                            </div>
-                            <div data-testid="save_date">
-                                <UserCard user={this.props.sample.currentVersion.by} />
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Last Saved
-                            </div>
-                            <div data-testid="save_date">
-                                {Intl.DateTimeFormat('en-US', {
-                                    year: 'numeric',
-                                    month: 'numeric',
-                                    day: 'numeric',
-                                    hour: 'numeric',
-                                    minute: 'numeric',
-                                    second: 'numeric',
-                                    timeZoneName: 'short'
-                                }).format(created.at)}
-                            </div>
-
-                        </div>
-                        <div>
-                            <div>
-                                Versions
-                            </div>
-                            <div>
-                                {this.renderVersions()}
-                            </div>
-                        </div>
-                    </div>
+                <Col span={8}>
+                    <InfoTable table={[{
+                        label: 'Owner',
+                        render: () => {
+                            return <UserCard user={this.props.sample.currentVersion.by}/>;
+                        }
+                    }, {
+                        label: 'Last Saved',
+                        value: Intl.DateTimeFormat('en-US', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            second: 'numeric',
+                            timeZoneName: 'short'
+                        }).format(created.at)
+                    }, {
+                        label: 'Versions',
+                        render: () => {
+                            return this.renderVersions();
+                        }
+                    }]}>
+                    </InfoTable>
                 </Col>
             </Row>
         </div>;
