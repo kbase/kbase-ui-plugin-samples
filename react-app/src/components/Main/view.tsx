@@ -4,7 +4,6 @@ import {
 } from 'antd';
 
 import DataLinks from '../DataLinks';
-import Overview from '../Overview/view';
 import TemplateMetadata from '../TemplateMetadata/view';
 import AccessList from '../AccessList';
 import GeolocationViewer from '../Geolocation/view';
@@ -39,9 +38,7 @@ export default class Main extends React.Component<MainProps, MainState> {
     }
 
     render() {
-        // <Tabs.TabPane tab="History" key="history">
-        //             <HistoryTool sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version} />
-        //         </Tabs.TabPane>
+
         return <div className='Main'>
             {this.renderLoadingCover()}
             <Header sample={this.props.sample} format={this.props.sample.format}/>
@@ -56,16 +53,11 @@ export default class Main extends React.Component<MainProps, MainState> {
                 <Tabs.TabPane tab="Geolocation" key="geolocation">
                     <GeolocationViewer sample={this.props.sample}/>
                 </Tabs.TabPane>
-                {/* <Tabs.TabPane tab="User Metadata" key="usermetadata">
-                    <UserMetadataViewer sample={this.props.sample} />
-                </Tabs.TabPane> */}
 
                 <Tabs.TabPane tab="Linked Data" key="linkeddata">
                     <DataLinks sampleId={this.props.sample.id} version={this.props.sample.currentVersion.version}/>
                 </Tabs.TabPane>
-                {/*<Tabs.TabPane tab="Overview" key="overview">*/}
-                {/*    <Overview sample={this.props.sample} format={this.props.sample.format} />*/}
-                {/*</Tabs.TabPane>*/}
+
                 <Tabs.TabPane tab="Access" key="accesslist">
                     <AccessList sample={this.props.sample}/>
                 </Tabs.TabPane>
