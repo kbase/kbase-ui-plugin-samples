@@ -1,23 +1,13 @@
 import React from 'react';
-import {RouteComponentProps} from "react-router-dom";
-
-
-// export default class Help extends React.Component<RouteComponentProps, {}> {
-//     render() {
-//         return <div>
-//             <p>Help!</p>
-//         </div>;
-//     }
-// }
+import { RouteComponentProps } from "react-router-dom";
 
 export type NotFoundProps = RouteComponentProps;
-
-
-const NotFound: React.FC<NotFoundProps> = (props: NotFoundProps) => {
-    return <div>
-        <p>NOT FOUND!</p>
-        <p>{props.location.pathname}</p>
-    </div>;
+export default class NotFound extends React.Component<NotFoundProps, {}> {
+    render() {
+        return <div>
+            <p>NOT FOUND!</p>
+            <p>{this.props.location.pathname}</p>
+        </div>;
+    }
 }
 
-export default NotFound;

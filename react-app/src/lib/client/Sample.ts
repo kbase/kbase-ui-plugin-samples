@@ -16,7 +16,7 @@ export type WorkspaceUniquePermanentAddress = WSUPA;
 // }
 
 export interface MetadataValue {
-    value: string | number | boolean;
+    value: string | number;
     units: string;
 }
 

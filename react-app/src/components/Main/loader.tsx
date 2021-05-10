@@ -19,13 +19,13 @@
  */
 
 // External imports
-import {AppError, Loading} from '@kbase/ui-components';
-import {Sample} from 'lib/ViewModel/ViewModel';
+import { AppError, Loading } from '@kbase/ui-components';
+import { Sample } from 'lib/ViewModel/ViewModel';
 import React from 'react';
 
 // Internal imports
-import {AsyncProcessStatus} from 'redux/store/processing';
-import {SampleStoreState} from 'redux/store/sample';
+import { AsyncProcessStatus } from 'redux/store/processing';
+import { SampleStoreState } from 'redux/store/sample';
 
 // Local imports
 import Main from './view';
@@ -52,7 +52,7 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
         super(props);
         this.state = {
             // dataVersion: 1
-        }
+        };
         this.current = null;
     }
 
@@ -67,8 +67,6 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
     }
 
     componentDidUpdate(prevProps: LoaderProps, prevState: LoaderState) {
-        // console.log('componentDidUpdate 1', this.props.sampleState);
-        // this.props.load();
         if (this.props.sampleState.status === AsyncProcessStatus.SUCCESS) {
             if (prevProps.sampleState.status === AsyncProcessStatus.SUCCESS) {
                 // console.log(
@@ -95,22 +93,22 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
 
     renderLoading() {
         return <div className="FullyCenteredFLex">
-            <Loading message="Loading Sample..."/>
+            <Loading message="Loading Sample..." />
         </div>;
     }
 
     renderError(error: AppError) {
         return <div>
             Error! {error.message}
-        </div>
+        </div>;
     }
 
     renderSuccess(sample: Sample) {
-        return <Main sample={sample} setTitle={this.props.setTitle}/>
+        return <Main sample={sample} setTitle={this.props.setTitle} />;
     }
 
     renderReprocessing(sample: Sample) {
-        return <Main sample={sample} setTitle={this.props.setTitle} loading={true}/>
+        return <Main sample={sample} setTitle={this.props.setTitle} loading={true} />;
     }
 
     render() {
@@ -119,7 +117,6 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
             case AsyncProcessStatus.PROCESSING:
                 return this.renderLoading();
             case AsyncProcessStatus.ERROR:
-                console.log('HMMM', this.props);
                 return this.renderError(this.props.sampleState.error);
             case AsyncProcessStatus.SUCCESS:
                 return this.renderSuccess(this.props.sampleState.state.sample);

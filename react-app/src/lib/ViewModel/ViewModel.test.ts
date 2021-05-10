@@ -70,10 +70,14 @@ describe('ViewModel', () => {
     test('Can fetch a sample', async () => {
         const viewModel = makeViewModel();
 
-        const sample = await viewModel.fetchSample({
-            id: 'sample2'
-        });
-        expect(sample).toBeDefined();
+        try {
+            const sample = await viewModel.fetchSample({
+                id: 'sample2'
+            });
+            expect(sample).toBeDefined();
+        } catch (ex) {
+            console.error('ERROR', ex);
+        }
         // expect(sample).toEqual([FETCH_SAMPLE_RESULT])
     });
 });

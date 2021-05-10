@@ -1,12 +1,12 @@
 import React from 'react';
-import {Row, Col, Modal, Button, Tooltip} from 'antd';
-import {SelectValue} from 'antd/lib/select';
+import { Row, Col, Modal, Button, Tooltip } from 'antd';
+import { SelectValue } from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';
 import './styles.css';
-import {Format} from 'lib/client/samples/Samples';
-import {Sample} from "../../lib/ViewModel/ViewModel";
-import {InfoTable} from "@kbase/ui-components";
+import { Format } from 'lib/client/samples/Samples';
+import { Sample } from "../../lib/ViewModel/ViewModel";
+import { InfoTable } from "@kbase/ui-components";
 
 export interface HeaderProps {
     sample: Sample;
@@ -39,7 +39,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
             return;
         }
         return <>
-            <Button type="dashed" size="small" style={{marginLeft: '4px'}} onClick={() => {
+            <Button type="dashed" size="small" style={{ marginLeft: '4px' }} onClick={() => {
                 this.setState({
                     showVersions: !this.state.showVersions
                 });
@@ -47,16 +47,16 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                 Select a Version…
             </Button>
             <Modal title="All Versions"
-                   visible={this.state.showVersions}
-                   width={"45em"}
-                   onCancel={() => {
-                       this.setState({
-                           showVersions: false
-                       });
-                   }}
-                   footer={null}
+                visible={this.state.showVersions}
+                width={"45em"}
+                onCancel={() => {
+                    this.setState({
+                        showVersions: false
+                    });
+                }}
+                footer={null}
             >
-                <Versions sample={this.props.sample} onChangeVersion={this.onChangeVersion.bind(this)}/>
+                <Versions sample={this.props.sample} onChangeVersion={this.onChangeVersion.bind(this)} />
             </Modal>
         </>;
     }
@@ -88,9 +88,9 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
 
         const sourceTooltip = <div>
             <img src={this.props.format.source.logo_url!} height={30}
-                 alt={`Logo for ${this.props.format.source.title}`}/>
+                alt={`Logo for ${this.props.format.source.title}`} />
             <div><a href={this.props.format.source.url} target="_blank" rel="noopener noreferrer"
-                    className="Header-sourceUrl">{this.props.format.source.title}</a></div>
+                className="Header-sourceUrl">{this.props.format.source.title}</a></div>
         </div>;
 
         return <div className="Grouper Header">
@@ -98,7 +98,9 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                 <Col span={8}>
                     <InfoTable table={[{
                         label: 'Name',
-                        value: name
+                        render: () => {
+                            return <span data-testid="name">{this.props.sample.name}</span>;
+                        }
                     }, {
                         label: 'ID',
                         value: this.props.sample.sampleId
@@ -110,7 +112,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                         render: () => {
                             return <Tooltip title={sourceTooltip}>
                                 <span>{this.props.format.source.name}</span>
-                            </Tooltip>
+                            </Tooltip>;
                         }
                     }]}></InfoTable>
                 </Col>
@@ -118,7 +120,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                     <InfoTable table={[{
                         label: 'Owner',
                         render: () => {
-                            return <UserCard user={this.props.sample.currentVersion.by}/>;
+                            return <UserCard user={this.props.sample.currentVersion.by} />;
                         }
                     }, {
                         label: 'Last Saved',

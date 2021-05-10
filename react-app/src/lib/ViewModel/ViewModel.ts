@@ -64,7 +64,7 @@ export interface Sample {
     metadata: Array<MetadataField>;
     controlled: SimpleMap<MetadataControlledField>;
     formatId: string;
-    template: Template;
+    // template: Template;
     format: Format;
 }
 
@@ -99,10 +99,10 @@ export interface TemplateUserField extends TemplateFieldBase {
 export type TemplateField = TemplateFormatField | TemplateUserField;
 
 // For now, a template is simply an ordered set of sample field keys.
-export type Template = {
-    header?: Array<string>;
-    fields: Array<TemplateField>;
-};
+// export type Template = {
+//     header?: Array<string>;
+//     fields: Array<TemplateField>;
+// };
 
 // Metadata
 
@@ -182,7 +182,6 @@ export interface GetSampleResult {
         controlled: SimpleMap<MetadataControlledField>;
     };
     formatId: string;
-    template: Template;
 }
 
 export default class ViewModel {
@@ -332,8 +331,8 @@ export default class ViewModel {
             metadata: sampleResult.sample.metadata,
             controlled: sampleResult.sample.controlled,
             formatId: sampleResult.formatId,
-            format,
-            template: sampleResult.template,
+            format
+            //template: sampleResult.template,
         };
         return sample;
     }
@@ -498,22 +497,24 @@ export default class ViewModel {
         // 3. Get the template.
         // FAKE: now pretend we are fetching the sample set associated with this sample,
         // which will include the template used to upload.
-        const template: Template = this.getTemplate(rawSample, format);
+        // const template: Template = this.getTemplate(rawSample, format);
 
         // 2. Get the field definitions for this sample.
-        const keys = template.fields
-            .filter((field) => {
-                return field.type === "metadata";
-            })
-            .map((field) => {
-                if (field.type === "metadata") {
-                    return field.key;
-                } else {
-                    throw new Error("Impossible!");
-                }
-            });
+        // const keys = template.fields
+        //     .filter((field) => {
+        //         return field.type === "metadata";
+        //     })
+        //     .map((field) => {
+        //         if (field.type === "metadata") {
+        //             return field.key;
+        //         } else {
+        //             throw new Error("Impossible!");
+        //         }
+        //     });
 
-        const { fields } = await this.sampleService.get_field_definitions({ keys });
+        const controlledKeys = Object.keys(rawSample.node_tree[0].meta_controlled);
+
+        const { fields } = await this.sampleService.get_field_definitions({ keys: controlledKeys });
 
         // Make a map for quick lookup.
         const fieldDefinitions: Map<string, SchemaField> = fields.reduce(
@@ -547,15 +548,87 @@ export default class ViewModel {
         // I refuse to replicate that in the format spec, but accommodate that (for now ONLY) using a "corrections" mapping.
         // This mapping, mappings.corrections, maps from the incorrect to the correct field.
         // e.g. redox_potential_?: redox_potential
+
+        // Simulate template fields.
+        const controlledFields: Array<MetadataControlledField> = Object.entries(rawRealSample.meta_controlled).map(([key, { value, units }]): MetadataControlledField => {
+            const def = fieldDefinitions.get(key);
+            if (!def) {
+                throw new Error(`Undefined  field "${key}"`);
+            }
+            const field = ((): FieldValue => {
+                switch (def?.type) {
+                    case "number":
+                        if (typeof value !== 'number') {
+                            throw new Error('Field should be number but is not');
+                        }
+                        const n: FieldNumberValue = {
+                            type: 'number',
+                            isEmpty: false,
+                            schema: def,
+                            numberValue: value,
+                            unit: units
+                        };
+                        return n;
+                    case "string":
+                        if (typeof value !== 'string') {
+                            throw new Error('Field should be string but is not');
+                        }
+                        const s: FieldStringValue = {
+                            type: 'string',
+                            isEmpty: false,
+                            schema: def,
+                            stringValue: value,
+                            unit: units
+                        };
+                        return s;
+                }
+            })();
+            if (def) {
+                return {
+                    type: 'controlled',
+                    key,
+                    label: def.kbase.display.label,
+                    isEmpty: false,
+                    field
+                };
+            } else {
+                return {
+                    type: 'controlled',
+                    key,
+                    label: key,
+                    isEmpty: false,
+                    field
+                };
+            }
+        });
+        const userFields: Array<MetadataUserField> = Object.entries(rawSample.node_tree[0].meta_user).map(([key, value]) => {
+
+            return {
+                key,
+                type: 'user',
+                isEmpty: false,
+                label: key,
+                field: value.value
+            };
+        });
+        const allFields = [...controlledFields, ...userFields];
+
         const controlled: SimpleMap<MetadataControlledField> = {};
-        const metadata = template.fields.map<MetadataField>((templateField) => {
+        const metadata = allFields.map<MetadataField>((templateField) => {
             // Skip user fields in the template.
             if (templateField.type === "user") {
                 const userFieldValue = rawRealSample.meta_user[templateField.key].value;
+                const [key, label] = (() => {
+                    if (templateField.key in rawRealSample.meta_controlled) {
+                        return [`user:${templateField.key}`, `user:${templateField.key}`];
+                    } else {
+                        return [templateField.key, templateField.key];
+                    }
+                })();
                 const a: MetadataUserField = {
                     type: "user",
-                    key: templateField.key,
-                    label: templateField.label,
+                    key,
+                    label,
                     isEmpty: userFieldValue ? true : false,
                     field: userFieldValue
                 };
@@ -692,130 +765,129 @@ export default class ViewModel {
                 metadata,
                 controlled,
             },
-            formatId: format_id,
-            template,
+            formatId: format_id
         };
     }
 
     // HACK ALERT: this is not how a template will live in real life
     // TODO: replace when/if templates are supported.
-    getTemplate(
-        rawSample: RawSample,
-        format: Format,
-        // fieldDefinitions: FieldDefinitions,
-    ): Template {
-        // This is the hardcoded "template"
-        const format_id = grokFormat(rawSample);
-        const templateData: { fields: Array<string>; } = (() => {
-            switch (format_id) {
-                case "sesar":
-                    return sesarTemplateData;
-                case "enigma":
-                    return enigmaTemplateData;
-                case "kbase":
-                    return {
-                        fields: [],
-                    };
-                default:
-                    throw new Error(
-                        `Sorry, no template for format ${format_id}`,
-                    );
-            }
-        })();
+    // getTemplate(
+    //     rawSample: RawSample,
+    //     format: Format,
+    //     // fieldDefinitions: FieldDefinitions,
+    // ): Template {
+    //     // This is the hardcoded "template"
+    //     const format_id = grokFormat(rawSample);
+    //     const templateData: { fields: Array<string>; } = (() => {
+    //         switch (format_id) {
+    //             case "sesar":
+    //                 return sesarTemplateData;
+    //             case "enigma":
+    //                 return enigmaTemplateData;
+    //             case "kbase":
+    //                 return {
+    //                     fields: [],
+    //                 };
+    //             default:
+    //                 throw new Error(
+    //                     `Sorry, no template for format ${format_id}`,
+    //                 );
+    //         }
+    //     })();
 
-        const sampleMapping = format.mappings.sample as SimpleMapping;
-        const recordMapping = format.mappings.record as SimpleMapping;
+    //     const sampleMapping = format.mappings.sample as SimpleMapping;
+    //     const recordMapping = format.mappings.record as SimpleMapping;
 
-        const getMappedKey = (key: string) => {
-            if (key in recordMapping) {
-                return recordMapping[key];
-            }
-            if (key in sampleMapping) {
-                return sampleMapping[key];
-            }
-        };
+    //     const getMappedKey = (key: string) => {
+    //         if (key in recordMapping) {
+    //             return recordMapping[key];
+    //         }
+    //         if (key in sampleMapping) {
+    //             return sampleMapping[key];
+    //         }
+    //     };
 
-        const templateFieldKeys = templateData.fields;
+    //     const templateFieldKeys = templateData.fields;
 
-        const metadataFields: Array<TemplateField> = templateFieldKeys.map(
-            (key) => {
-                return {
-                    type: "metadata",
-                    key,
-                };
-            },
-        );
+    //     const metadataFields: Array<TemplateField> = templateFieldKeys.map(
+    //         (key) => {
+    //             return {
+    //                 type: "metadata",
+    //                 key,
+    //             };
+    //         },
+    //     );
 
-        // now we fetch the user fields from the sample
-        const userFields: Array<TemplateField> = Object.keys(
-            rawSample.node_tree[0].meta_user,
-        )
-            .filter((key) => {
-                // Here we filter out user keys which are (in error)
-                // included in the controlled metadata. This is due
-                // to a bug in the importer, and this code should
-                // eventually be removed.
-                return !(key in rawSample.node_tree[0].meta_controlled);
-            })
-            .map((key) => {
-                // user fields are not in source_meta.
-                // but since there have been import bugs regarding
-                // incorrect user metadata, we have to detect if they
-                // are actually controlled fields.
-                const label = (() => {
-                    if (templateFieldKeys.includes(key)) {
-                        return `USER ${key}`;
-                    }
-                    return key;
-                })();
+    //     // now we fetch the user fields from the sample
+    //     const userFields: Array<TemplateField> = Object.keys(
+    //         rawSample.node_tree[0].meta_user,
+    //     )
+    //         .filter((key) => {
+    //             // Here we filter out user keys which are (in error)
+    //             // included in the controlled metadata. This is due
+    //             // to a bug in the importer, and this code should
+    //             // eventually be removed.
+    //             return !(key in rawSample.node_tree[0].meta_controlled);
+    //         })
+    //         .map((key) => {
+    //             // user fields are not in source_meta.
+    //             // but since there have been import bugs regarding
+    //             // incorrect user metadata, we have to detect if they
+    //             // are actually controlled fields.
+    //             const label = (() => {
+    //                 if (templateFieldKeys.includes(key)) {
+    //                     return `USER ${key}`;
+    //                 }
+    //                 return key;
+    //             })();
 
-                return {
-                    type: "user",
-                    key,
-                    label,
-                };
-            });
+    //             return {
+    //                 type: "user",
+    //                 key,
+    //                 label,
+    //             };
+    //         });
 
-        // const userFields: Array<TemplateField> = userFieldLabels.map((label) => {
-        //   return {
-        //     type: "user",
-        //     label,
-        //   };
-        // });
+    //     // const userFields: Array<TemplateField> = userFieldLabels.map((label) => {
+    //     //   return {
+    //     //     type: "user",
+    //     //     label,
+    //     //   };
+    //     // });
 
-        const templateFields = templateFieldKeys.reduce<Set<string>>(
-            (fields, field) => {
-                fields.add(field);
-                return fields;
-            },
-            new Set(),
-        );
+    //     const templateFields = templateFieldKeys.reduce<Set<string>>(
+    //         (fields, field) => {
+    //             fields.add(field);
+    //             return fields;
+    //         },
+    //         new Set(),
+    //     );
 
-        // Here we handle controlled fields which we know are absent because they
-        // are in the template, but not in the sample itself.
-        const missingMetadataFields: Array<TemplateField> = Object.entries(
-            rawSample.node_tree[0].meta_controlled,
-        ).reduce<Array<TemplateField>>((fields, [key, value]) => {
-            // In our model, we map the special keys name, id, parent_id back to their
-            // original fields. The original field names may be in the canned template above.
-            const mappedKey = getMappedKey(key) || key;
-            if (mappedKey && templateFields.has(mappedKey)) {
-                return fields;
-            }
-            fields.push({
-                type: "metadata",
-                key: mappedKey,
-            });
-            return fields;
-        }, []);
+    //     // Here we handle controlled fields which we know are absent because they
+    //     // are in the template, but not in the sample itself.
+    //     const missingMetadataFields: Array<TemplateField> = Object.entries(
+    //         rawSample.node_tree[0].meta_controlled,
+    //     ).reduce<Array<TemplateField>>((fields, [key, value]) => {
+    //         // In our model, we map the special keys name, id, parent_id back to their
+    //         // original fields. The original field names may be in the canned template above.
+    //         const mappedKey = getMappedKey(key) || key;
+    //         if (mappedKey && templateFields.has(mappedKey)) {
+    //             return fields;
+    //         }
+    //         fields.push({
+    //             type: "metadata",
+    //             key: mappedKey,
+    //         });
+    //         return fields;
+    //     }, []);
 
-        const fields = metadataFields.concat(missingMetadataFields).concat(
-            userFields,
-        );
+    //     const fields = metadataFields.concat(missingMetadataFields).concat(
+    //         userFields,
+    //     );
 
-        // now we merge them together into the format
-        return {
-            fields,
-        };
-    }
+    //     // now we merge them together into the format
+    //     return {
+    //         fields,
+    //     };
+    // }
 }
