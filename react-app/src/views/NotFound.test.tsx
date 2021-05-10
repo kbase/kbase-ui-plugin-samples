@@ -8,7 +8,7 @@ const TIMEOUT = 10000;
 test('renders About view', async () => {
     const { getByText } = render(
         <MemoryRouter initialEntries={['/samples/foo']} initialIndex={0}>
-            <Route children={NotFound} exact={true} />
+            <Route component={NotFound} exact={true} />
         </MemoryRouter>
     );
     await waitFor(() => {

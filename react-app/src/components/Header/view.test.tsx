@@ -15,7 +15,7 @@ const format: Format = (formatData as unknown) as Format;
 const TIMEOUT = 10000;
 
 describe('Header', () => {
-    test('should render with a single versions', async () => {
+    test('should render with a single version', async () => {
         const { getByTestId } = render(<Header sample={sample} format={format} />);
         await waitFor(() => {
             const nameElement = getByTestId('name');

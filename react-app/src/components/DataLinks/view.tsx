@@ -4,6 +4,7 @@ import { countedTerm } from '../../lib/utils';
 import { NoData } from '@kbase/ui-components';
 import './style.css';
 import { DataLink2, LinkedData } from 'redux/store/linkedData';
+import { Span } from 'lib/instrumentation/core';
 
 export interface DataLinksProps {
     linkedData: LinkedData;
@@ -14,6 +15,14 @@ interface DataLinksState {
 }
 
 export default class DataLinks extends React.Component<DataLinksProps, DataLinksState> {
+    span: Span;
+    constructor(props: DataLinksProps) {
+        super(props);
+        this.span = new Span({ name: 'Component.DataLinks' }).begin();
+    }
+    componentWillUnmount() {
+        this.span.end();
+    }
     renderDataLinks() {
         if (this.props.linkedData.length === 0) {
             return;
