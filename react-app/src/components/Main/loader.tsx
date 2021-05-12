@@ -20,6 +20,7 @@
 
 // External imports
 import { AppError, Loading } from '@kbase/ui-components';
+import ErrorView from 'components/ErrorView';
 import { Sample } from 'lib/ViewModel/ViewModel';
 import React from 'react';
 
@@ -98,9 +99,7 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
     }
 
     renderError(error: AppError) {
-        return <div>
-            Error! {error.message}
-        </div>;
+        return <ErrorView error={error} />;
     }
 
     renderSuccess(sample: Sample) {
