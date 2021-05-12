@@ -1,15 +1,15 @@
-import {AuthenticationStatus} from "@kbase/ui-components/lib/redux/auth/store";
-import {AsyncProxyFun} from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
-import {UPSTREAM_TIMEOUT} from "appConstants";
+import { AuthenticationStatus } from "@kbase/ui-components/lib/redux/auth/store";
+import { AsyncProxyFun } from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
+import { UPSTREAM_TIMEOUT } from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
 import {
     ActionType, fetchError
 } from "redux/actions/sample";
-import {StoreState} from "../store";
-import {AsyncProcessStatus} from "../store/processing";
+import { StoreState } from "../store";
+import { AsyncProcessStatus } from "../store/processing";
 
 const sampleFun: AsyncProxyFun<StoreState> = async (
-    {state, dispatch, action, next},
+    { state, dispatch, action, next },
 ) => {
     if (!("category" in action)) {
         return false;
@@ -54,7 +54,7 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
     }
 
     const {
-        userAuthentication: {token}
+        userAuthentication: { token }
     } = authentication;
 
     // Here we initiate indicate either a fresh fetch (fetching) or a
@@ -98,13 +98,8 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
         });
     } catch (ex) {
         console.log('ERROR!', ex.message);
-        // dispatch({
-        //     category: 'sample',
-        //     type: ActionType.FETCH_ERROR,
-        //     message: ex.message
-        // });
         dispatch(fetchError({
-            code: 'fetchError',
+            code: 'fetchSampleError',
             message: ex.message
         }));
     }
