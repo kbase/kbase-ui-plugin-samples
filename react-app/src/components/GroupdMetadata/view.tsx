@@ -82,39 +82,41 @@ export default class GroupedMetadata extends React.Component<GroupedMetadataProp
     renderGrouped() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
-        return this.props.fieldGroups.map((group) => {
-            const fields = group.fields
-                .map((fieldName) => {
-                    return this.metadataMap.get(fieldName);
-                })
-                .map((field) => {
-                    if (typeof field === 'undefined') {
-                        return false;
-                    }
-                    return <div key={field.key}>
-                        <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
-                        <div><MetadataFieldView field={field} sample={sample}/></div>
-                    </div>;
-                })
-                .filter(field => !!field);
+        return this.props.fieldGroups
+            .map((group) => {
+                const fields = group.fields
+                    .map((fieldName) => {
+                        return this.metadataMap.get(fieldName);
+                    })
+                    .map((field) => {
+                        if (typeof field === 'undefined') {
+                            return false;
+                        }
+                        return <div key={field.key}>
+                            <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
+                            <div><MetadataFieldView field={field} sample={sample}/></div>
+                        </div>;
+                    })
+                    .filter(field => !!field);
 
-            let content;
-            if (fields.length) {
-                content = <div className="InfoTable -bordered ControlledMetadata">
-                    {fields}
+                let content;
+                if (fields.length) {
+                    content = <div className="InfoTable -bordered ControlledMetadata">
+                        {fields}
+                    </div>;
+                } else {
+                    return;
+                    // content = <div style={{fontStyle: 'italic'}}>No data</div>;
+                }
+                return <div className="DataGroup" key={group.name}>
+                    <div className="-title">
+                        {group.title}
+                    </div>
+                    <div className="-body">
+                        {content}
+                    </div>
                 </div>;
-            } else {
-                content = <div style={{fontStyle: 'italic'}}>No data</div>;
-            }
-            return <div className="DataGroup" key={group.name}>
-                <div className="-title">
-                    {group.title}
-                </div>
-                <div className="-body">
-                    {content}
-                </div>
-            </div>;
-        });
+            });
     }
 
     // onChangeHideEmpty(ev: CheckboxChangeEvent) {

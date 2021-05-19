@@ -4,9 +4,6 @@
         "sample": {
             "key": "sesar:depth_in_core_min"
         },
-        "aliases": [
-            "depth min"
-        ],
         "units": {
             "canonical": "meters"
         }

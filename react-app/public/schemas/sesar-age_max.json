@@ -4,9 +4,6 @@
         "sample": {
             "key": "sesar:age_max"
         },
-        "aliases": [
-            "Age Max"
-        ],
         "units": {
             "canonical": "years"
         }

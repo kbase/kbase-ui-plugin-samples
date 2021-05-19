@@ -3,11 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:collection_time_end"
-        },
-        "aliases": [
-            "collection time end",
-            "collection end time"
-        ]
+        }
     },
     "title": "Collection time (end)",
     "description": "End time when the sample was collected.",

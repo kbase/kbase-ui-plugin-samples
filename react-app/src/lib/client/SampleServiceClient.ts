@@ -2,7 +2,7 @@ import sesarData from "./formats/sesar/sesar.json";
 import enigmaData from "./formats/enigma/enigma.json";
 import kbaseData from "./formats/kbase/kbase.json";
 import categoriesData from "./samples/categories.json";
-import groupsData from './formats/grouping.json';
+import groupsData from './formats/groups.json';
 import {
     FieldCategory,
     FieldGroups,
@@ -369,12 +369,13 @@ export default class SampleServiceClient extends ServiceClient {
     }
 
     async get_format(params: GetFormatParams): Promise<GetFormatResult> {
+        const formatId = params.id.toLowerCase();
         const format = (() => {
-            if (params.id in allFormats) {
-                return allFormats[params.id];
+            if (formatId in allFormats) {
+                return allFormats[formatId];
             }
 
-            throw new Error(`Sorry, ${params.id} not a recognized format`);
+            throw new Error(`Sorry, ${formatId} not a recognized format`);
         })();
         return Promise.resolve({
             format,

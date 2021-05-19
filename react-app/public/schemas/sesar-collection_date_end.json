@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:collection_date_end"
-        },
-        "aliases": [
-            "collection end date"
-        ]
+        }
     },
     "title": "Collection date (end)",
     "description": "Date when the sample collection was finished (if a date range is provided).",

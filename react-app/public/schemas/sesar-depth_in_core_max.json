@@ -4,9 +4,6 @@
         "sample": {
             "key": "sesar:depth_in_core_max"
         },
-        "aliases": [
-            "depth max"
-        ],
         "units": {
             "canonical": "meters"
         }

@@ -4,9 +4,6 @@
         "sample": {
             "key": "sesar:age_min"
         },
-        "aliases": [
-            "Age Min"
-        ],
         "units": {
             "canonical": "years"
         }

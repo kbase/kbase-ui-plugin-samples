@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:collector_chief_scientist_address"
-        },
-        "aliases": [
-            "collector/chief scientist detail"
-        ]
+        }
     },
     "title": "Collector/Chief Scientist address",
     "description": "Institution, address, & email of the collector or chief scientist.",

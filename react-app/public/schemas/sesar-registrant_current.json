@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:registrant_current"
-        },
-        "aliases": [
-            "cur registrant name"
-        ]
+        }
     },
     "title": "Current Registrant Name",
     "description": "Registrant of the sample in SESAR",

@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:collector_chief_scientist"
-        },
-        "aliases": [
-            "Collector/Chief Scientist"
-        ]
+        }
     },
     "title": "Collector/Chief Scientist name",
     "description": "Name of the person who collected the sample. In case of larger field programs, name of chief scientist responsible for sample collection.",

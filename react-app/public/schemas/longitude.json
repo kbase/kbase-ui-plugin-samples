@@ -4,9 +4,6 @@
         "sample": {
             "key": "longitude"
         },
-        "aliases": [
-            "longitude start"
-        ],
         "units": {
             "canonical": "degrees"
         }
