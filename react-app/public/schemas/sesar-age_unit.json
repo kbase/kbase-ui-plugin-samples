@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:age_unit"
+        }
+    },
+    "title": "Age Unit",
+    "description": "Unit for the age provided",
+    "examples": [
+        "Ma"
+    ],
+    "type": "string"
+}

@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:well_type"
+        }
+    },
+    "title": "Type of Well",
+    "description": "Type of Welll (SP; MP)",
+    "examples": [
+        "SP",
+        "MP"
+    ],
+    "type": "string"
+}

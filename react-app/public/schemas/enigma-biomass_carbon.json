@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:biomass_carbon"
+        },
+        "units": {
+            "canonical": "mg/g"
+        }
+    },
+    "title": "Biomass Carbon",
+    "description": "units in milligrams per gram",
+    "examples": [
+        0.98
+    ],
+    "type": "number",
+    "minimum": 0.0
+}

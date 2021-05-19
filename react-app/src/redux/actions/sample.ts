@@ -8,6 +8,7 @@
 import {Sample} from "../../lib/ViewModel/ViewModel";
 import {CategoryAction} from "./base";
 import {AppError} from "@kbase/ui-components";
+import {FieldGroups} from "../../lib/client/samples/Samples";
 
 export enum ActionType {
     FETCH = "@sample/fetch",
@@ -36,6 +37,7 @@ export interface SampleRefetchingAction
 export interface SampleFetchedAction
     extends SampleActionBase<ActionType.FETCHED> {
     sample: Sample;
+    fieldGroups: FieldGroups;
 }
 
 export interface SampleFetchErrorAction

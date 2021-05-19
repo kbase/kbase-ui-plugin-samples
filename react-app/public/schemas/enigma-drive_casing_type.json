@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:drive_casing_type"
+        }
+    },
+    "title": "Drive Casing Type",
+    "description": "Drive Casing Type",
+    "examples": [
+        "GP DT-32"
+    ],
+    "type": "string"
+}

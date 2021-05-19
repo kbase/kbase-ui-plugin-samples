@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:ground_elevation"
+        },
+        "units": {
+            "canonical": "ft"
+        }
+    },
+    "title": "Ground Elevation",
+    "description": "ground elevation in ft above mean sea level (ft AMSL)",
+    "examples": [
+        1004.62
+    ],
+    "type": "number"
+}

@@ -1,6 +1,7 @@
 import {AccessAction} from "./access";
 import {LinkedDataAction} from "./linkedData";
 import {SampleAction} from "./sample";
+import {GeolocationAction} from "./geolocation";
 
 export interface Params {
     [key: string]: string;
@@ -11,4 +12,5 @@ export interface Params {
 export type AppAction =
     | SampleAction
     | AccessAction
-    | LinkedDataAction;
+    | LinkedDataAction
+    | GeolocationAction;

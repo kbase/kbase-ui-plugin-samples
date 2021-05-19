@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:field_name"
+        },
+        "aliases": [
+            "Field Name"
+        ]
+    },
+    "title": "Field name (informal classification)",
+    "description": "Taxonomy (field name) Informal classification of sample.",
+    "examples": [
+        "basalt",
+        "amphibole",
+        "sea water"
+    ],
+    "type": "string"
+}

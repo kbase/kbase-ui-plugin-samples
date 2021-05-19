@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:vertical_datum"
+        }
+    },
+    "title": "Vertical Datum",
+    "description": "Vertical datum used to calculate the elevation",
+    "examples": [
+        "NAVD88",
+        "MSL"
+    ],
+    "type": "string"
+}

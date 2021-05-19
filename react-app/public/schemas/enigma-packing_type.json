@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:packing_type"
+        }
+    },
+    "title": "Packing Type",
+    "description": "Packing Type (e.g. SAND; SAND-2)",
+    "examples": [
+        "SAND",
+        "SAND-2"
+    ],
+    "type": "string"
+}

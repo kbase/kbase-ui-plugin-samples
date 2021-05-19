@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:well_status"
+        }
+    },
+    "title": "Well Status",
+    "description": "Status of Well",
+    "examples": [
+        "Active",
+        "Inactive"
+    ],
+    "type": "string"
+}

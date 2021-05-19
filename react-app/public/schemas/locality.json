@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "locality"
+        }
+    },
+    "title": "Locality",
+    "description": "Name of the specific place where your sample was collected. This could be the name of a mine, a volcanic field, a vent field, or similar",
+    "examples": [
+        "Franklin Mine",
+        "Craters of the Moon National Park"
+    ],
+    "type": "string"
+}

@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:lower_seal_type"
+        }
+    },
+    "title": "Lower Seal Type",
+    "description": "Lower Seal Type (BENT; BENT-PEL)",
+    "examples": [
+        "BENT-PEL",
+        "BENT"
+    ],
+    "type": "string"
+}

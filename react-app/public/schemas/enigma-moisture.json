@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:moisture"
+        },
+        "units": {
+            "canonical": "percent"
+        }
+    },
+    "title": "Moisture",
+    "description": "percent moisture",
+    "examples": [
+        11.26
+    ],
+    "type": "number",
+    "minimum": 0.0,
+    "maximum": 100.0
+}

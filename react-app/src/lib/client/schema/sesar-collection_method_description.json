@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "kbase": {
+        "sample": {
+            "key": "sesar:collection_method_description"
+        }
+    },
+    "title": "Collection method description",
+    "description": "Additional information about the collection method",
+    "examples": [
+        "Hand sample collected from the top part of a large boulder"
+    ],
+    "type": "string"
+}

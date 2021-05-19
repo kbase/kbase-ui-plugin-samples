@@ -144,25 +144,19 @@ export const SCHEMA_FIELD_FOO: SchemaFieldNumber = {
     description: 'The Foo Field',
     minimum: 0,
     maximum: 1,
+    examples: [
+        '1', '2', '3'
+    ],
     kbase: {
-        display: {
-            label: 'Foo Field',
-            tooltip: 'Foo Tip'
-        },
-        categories: ['bar'],
-        examples: [
-            '1', '2', '3'
-        ],
+
         units: {
-            available: ['baz', 'buzz'],
             canonical: 'baz'
         },
         format: {
             useGrouping: true
         },
         sample: {
-            key: 'foo',
-            columnTitle: 'Foo'
+            key: 'foo'
         }
     }
 }

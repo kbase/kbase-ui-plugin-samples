@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "nmdc:omics_type"
+        }
+    },
+    "title": "NMDC OMICS type",
+    "description": "NMDC OMICS Type",
+    "examples": [
+        "Metagenome",
+        "Metatranscriptome"
+    ],
+    "type": "string"
+}

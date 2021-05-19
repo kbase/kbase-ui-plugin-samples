@@ -12,6 +12,7 @@ import {AccessStoreState} from "./access";
 import {LinkedDataStoreState} from "./linkedData";
 import {makeActionProxy} from "../middleware/fun";
 import thunk from 'redux-thunk';
+import {GeolocationStoreState} from "./geolocation";
 
 
 export interface SampleViewState {
@@ -27,6 +28,7 @@ export interface StoreState extends BaseStoreState {
         sample: SampleStoreState;
         access: AccessStoreState;
         linkedData: LinkedDataStoreState;
+        geolocation: GeolocationStoreState;
     };
 }
 
@@ -47,6 +49,9 @@ function makeInitialStoreState(): StoreState {
             linkedData: {
                 status: AsyncProcessStatus.NONE,
             },
+            geolocation: {
+                status: AsyncProcessStatus.NONE
+            }
         },
     };
 }

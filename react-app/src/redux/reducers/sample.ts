@@ -19,6 +19,7 @@ function fetched(
         status: AsyncProcessStatus.SUCCESS,
         state: {
             sample: action.sample,
+            fieldGroups: action.fieldGroups
         },
     };
 }

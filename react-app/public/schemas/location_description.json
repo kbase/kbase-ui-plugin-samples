@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "location_description"
+        }
+    },
+    "title": "Location description",
+    "description": "Free text description of the location",
+    "examples": [
+        "flank of volcanic cone"
+    ],
+    "type": "string"
+}

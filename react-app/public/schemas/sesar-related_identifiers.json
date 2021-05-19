@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:related_identifiers"
+        }
+    },
+    "title": "Related Identifiers",
+    "description": "IGSN of Related Samples",
+    "examples": [
+        "IEMEG0003"
+    ],
+    "type": "string"
+}

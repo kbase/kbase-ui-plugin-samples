@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:release_date"
+        }
+    },
+    "title": "Release date",
+    "description": "Date when sample metadata is publicly accessible and searchable. If null, defaults to date of registration (recommended).",
+    "examples": [
+        "2018-03-15"
+    ],
+    "type": "string"
+}

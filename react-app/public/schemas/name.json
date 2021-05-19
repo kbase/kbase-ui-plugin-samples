@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "name"
+        }
+    },
+    "title": "Sample Name",
+    "description": "name validator",
+    "examples": [
+        "SAM1234",
+        "IEMEG0001"
+    ],
+    "type": "string",
+    "maxLength": 240
+}

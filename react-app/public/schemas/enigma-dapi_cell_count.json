@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:dapi_cell_count"
+        }
+    },
+    "title": "DAPI Cell Count",
+    "description": "DAPI cell count in cells per gram",
+    "examples": [
+        9690000.0
+    ],
+    "type": "number"
+}

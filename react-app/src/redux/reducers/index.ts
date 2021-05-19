@@ -4,6 +4,8 @@ import {Reducer} from "redux";
 import sampleReducer from "./sample";
 import accessReducer from "./access";
 import linkedDataReducer from "./linkedData";
+import geolocationReducer from "./geolocation";
+
 import {AppAction} from "redux/actions";
 
 const reducer: Reducer<StoreState | undefined, AppAction> = (
@@ -23,6 +25,8 @@ const reducer: Reducer<StoreState | undefined, AppAction> = (
     if (baseState) {
         return baseState as StoreState;
     }
+
+    console.log('hmm', action);
 
     const nextState: StoreState | null = (() => {
         switch (action.category) {
@@ -50,6 +54,18 @@ const reducer: Reducer<StoreState | undefined, AppAction> = (
                         access,
                     },
                 };
+            case "geolocation":
+                const geolocation = geolocationReducer(state, action);
+                if (!geolocation) {
+                    return null;
+                }
+                return {
+                    ...state,
+                    data: {
+                        ...state.data,
+                        geolocation
+                    }
+                }
             case "linkedData":
                 const linkedData = linkedDataReducer(state, action);
                 if (!linkedData) {

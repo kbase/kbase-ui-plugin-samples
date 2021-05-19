@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:fraction"
+        }
+    },
+    "title": "Fraction",
+    "description": "Fraction",
+    "examples": [
+        "Spin Down",
+        "Total Cells",
+        ".2um"
+    ],
+    "type": "string"
+}

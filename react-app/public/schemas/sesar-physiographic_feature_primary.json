@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:physiographic_feature_primary"
+        }
+    },
+    "title": "Primary physiographic feature",
+    "description": "Type of physical feature that your sample was collected from (see suggested list)",
+    "examples": [
+        "volcano",
+        "mid-ocean ridge"
+    ],
+    "type": "string"
+}

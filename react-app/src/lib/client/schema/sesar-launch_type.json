@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "kbase": {
+        "sample": {
+            "key": "sesar:launch_type"
+        }
+    },
+    "title": "Launch type",
+    "description": "The type of launch used to collect the sample.",
+    "examples": [
+        "HOV"
+    ],
+    "type": "string"
+}

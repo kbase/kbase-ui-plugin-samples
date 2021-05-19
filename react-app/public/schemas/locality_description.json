@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "locality_description"
+        }
+    },
+    "title": "Locality description",
+    "description": "Additional information about the specific place where your sample was collected",
+    "examples": [
+        "on private land"
+    ],
+    "type": "string"
+}

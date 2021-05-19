@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "gold:biosample_id"
+        }
+    },
+    "title": "Ecosystem Type",
+    "description": "GOLD biosample identifier",
+    "examples": [
+        "Gb0291112"
+    ],
+    "type": "string"
+}

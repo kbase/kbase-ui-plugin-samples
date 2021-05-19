@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "feature"
+        }
+    },
+    "title": "Feature",
+    "description": "Feature from ENVO (child of ENVO:01000813)",
+    "examples": [
+        "ENVO:00000314"
+    ],
+    "type": "string"
+}

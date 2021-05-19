@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:origination_or_plug_abandon"
+        }
+    },
+    "title": "Origination or Plug/Abandon",
+    "description": "Origination or Plug/Abandon (Date)",
+    "examples": [
+        "02/06/92"
+    ],
+    "type": "string"
+}

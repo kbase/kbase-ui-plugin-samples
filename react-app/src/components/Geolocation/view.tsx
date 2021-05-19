@@ -7,16 +7,18 @@ import {
     CircleMarker, ScaleControl
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import MetadataField from '../MetadataField/view';
+import MetadataFieldView from '../MetadataField/view';
 
 import './style.less';
-import { Sample } from "../../lib/ViewModel/ViewModel";
-import { InfoTable, Section } from "@kbase/ui-components";
-import { Span } from 'lib/instrumentation/core';
+import {MetadataField, Sample} from "../../lib/ViewModel/ViewModel";
+import {InfoTable, Section} from "@kbase/ui-components";
+import {Span} from 'lib/instrumentation/core';
+import {FieldGroup} from "../../lib/client/samples/Samples";
 
 
 export interface GeolocationViewerProps {
     sample: Sample;
+    group: FieldGroup;
 }
 
 interface GeolocationViewerState {
@@ -27,6 +29,7 @@ interface GeolocationViewerState {
 
 export default class GeolocationViewer extends React.Component<GeolocationViewerProps, GeolocationViewerState> {
     span: Span;
+
     constructor(props: GeolocationViewerProps) {
         super(props);
         this.state = {
@@ -34,7 +37,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             hasEmpty: this.hasEmptyFields(),
             emptyFieldCount: this.emptyFieldCount()
         };
-        this.span = new Span({ name: 'Components.GeoLocation' }).begin();
+        this.span = new Span({name: 'Components.GeoLocation'}).begin();
     }
 
     componentWillUnmount() {
@@ -42,26 +45,26 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
     }
 
     renderMap() {
-        const { latitude, longitude } = this.props.sample.controlled;
+        const {latitude, longitude} = this.props.sample.controlled;
 
         // We don't know if they exist...
         if (typeof latitude === 'undefined' || typeof longitude === 'undefined') {
             return <Alert type="warning"
-                message="Both latitude and longitude must be present to display a map location" />;
+                          message="Both latitude and longitude must be present to display a map location"/>;
         }
 
         // And we don't know if they are the proper type of field...
         if (latitude.field.type !== 'number') {
-            return <Alert type="warning" message="latitude must be numeric field" />;
+            return <Alert type="warning" message="latitude must be numeric field"/>;
         }
 
         if (longitude.field.type !== 'number') {
-            return <Alert type="warning" message="longitude must be numeric field" />;
+            return <Alert type="warning" message="longitude must be numeric field"/>;
         }
 
         if (latitude.field.numberValue === null || longitude.field.numberValue === null) {
             return <Alert type="warning"
-                message="Both latitude and longitude must be present to display a map location" />;
+                          message="Both latitude and longitude must be present to display a map location"/>;
         }
 
         const lat = latitude.field.numberValue;
@@ -71,8 +74,8 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             <LeafletMap
                 center={[lat, lng]}
                 zoom={12}
-                style={{ flex: '1 1 0px' }}>
-                <ScaleControl position="topleft" />
+                style={{flex: '1 1 0px'}}>
+                <ScaleControl position="topleft"/>
                 <LayersControl position="topright">
                     <LayersControl.BaseLayer name="OpenStreetMap">
                         <TileLayer
@@ -114,45 +117,57 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
     }
 
     hasEmptyFields() {
-        return Object.values(this.props.sample.metadata)
-            .some((field) => {
-                return field.isEmpty &&
-                    field.type === 'controlled' &&
-                    field.field.schema.kbase.categories &&
-                    field.field.schema.kbase.categories.includes('geolocation');
-            });
+        return false;
+
+        // return Object.values(this.props.sample.metadata)
+        //     .some((field) => {
+        //         return field.isEmpty &&
+        //             field.type === 'controlled' &&
+        //             field.field.schema.kbase.categories &&
+        //             field.field.schema.kbase.categories.includes('geolocation');
+        //     });
     }
 
     emptyFieldCount() {
-        return Object.values(this.props.sample.metadata)
-            .filter((field) => {
-                return field.isEmpty &&
-                    field.type === 'controlled' &&
-                    field.field.schema.kbase.categories &&
-                    field.field.schema.kbase.categories.includes('geolocation');
-            }).length;
+        return 0;
+        // return Object.values(this.props.sample.metadata)
+        //     .filter((field) => {
+        //         return field.isEmpty &&
+        //             field.type === 'controlled' &&
+        //             field.field.schema.kbase.categories &&
+        //             field.field.schema.kbase.categories.includes('geolocation');
+        //     }).length;
     }
 
     renderFields() {
         const sample = this.props.sample;
-        const metadata = sample.metadata;
 
-        const fields = Object.values(metadata)
+        const metadata = sample.metadata.reduce((metadata, field) => {
+            metadata[field.key] = field;
+            return metadata;
+        }, {} as { [key: string]: MetadataField })
+
+        const fields = this.props.group.fields.map((fieldName) => {
+            return metadata[fieldName];
+        })
             .filter((field) => {
-                return field.type === 'controlled' &&
-                    field.field.schema.kbase.categories &&
-                    field.field.schema.kbase.categories.includes('geolocation');
+                return !!field;
             })
-            .filter((field) => {
-                if (field.isEmpty && this.state.omitEmpty) {
-                    return false;
-                } else {
-                    return true;
-                }
-            })
-            .sort((a, b) => {
-                return a.label.localeCompare(b.label);
-            });
+
+        // const fields = Object.values(metadata)
+        //     .filter((field) => {
+        //         return this.props.group.fields.includes(field.key);
+        //     })
+        //     .filter((field) => {
+        //         if (field.isEmpty && this.state.omitEmpty) {
+        //             return false;
+        //         } else {
+        //             return true;
+        //         }
+        //     })
+        //     .sort((a, b) => {
+        //         return a.label.localeCompare(b.label);
+        //     });
 
         const table = fields
             .map((field) => {
@@ -160,12 +175,12 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                     label: field.label,
                     labelTooltip: `key: ${field.key}`,
                     render: () => {
-                        return <MetadataField field={field} sample={this.props.sample} />;
+                        return <MetadataFieldView field={field} sample={this.props.sample}/>;
                     }
                 };
             });
 
-        return <InfoTable table={table} />;
+        return <InfoTable table={table}/>;
     }
 
     renderToggleEmptyButton() {
@@ -180,7 +195,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             }
         })();
         return <Button onClick={this.onToggleHideEmpty.bind(this)}
-            size="small">
+                       size="small">
             {label}
         </Button>;
     }
@@ -195,8 +210,8 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         if (!this.state.hasEmpty) {
             return;
         }
-        return <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center' }}>
-            <span style={{ marginRight: '1ex' }}>{this.state.emptyFieldCount} empty fields</span>
+        return <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
+            <span style={{marginRight: '1ex'}}>{this.state.emptyFieldCount} empty fields</span>
             <Switch
                 onChange={this.onChangeEmptySwitch.bind(this)}
                 checkedChildren={'showing'}
@@ -216,12 +231,12 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         return <div className="Geolocation" data-testid="geolocation-view">
             <div className="Geolocation-body">
                 <Row gutter={10}>
-                    <Col span={12} flex="1 1 0px" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Col span={12} flex="1 1 0px" style={{display: 'flex', flexDirection: 'column'}}>
                         <Section title="Map">
                             {this.renderMap()}
                         </Section>
                     </Col>
-                    <Col span={12} style={{ display: 'flex' }}>
+                    <Col span={12} style={{display: 'flex'}}>
                         <Section title="Fields" renderToolbar={this.renderToolbar.bind(this)}>
                             {/* {this.renderToolbar()} */}
                             {this.renderFields()}

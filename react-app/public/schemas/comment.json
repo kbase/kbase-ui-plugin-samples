@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "comment"
+        }
+    },
+    "title": "Comment",
+    "description": "Free form Comment",
+    "examples": [
+        "TODO"
+    ],
+    "type": "string"
+}

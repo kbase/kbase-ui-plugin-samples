@@ -1,0 +1,42 @@
+{
+    "sample1": {
+        "id": "8cc90218-51ae-4814-9c51-80ae990661e5",
+        "name": "Sample_Name_or_ID",
+        "source": "source 1",
+        "sourceId": "1234",
+        "sourceParentId": null,
+        "template": {
+            "id": "template1",
+            "label": "Template One"
+        },
+        "type": "BioReplicate",
+        "metadata": [],
+        "userMetadata": [],
+        "created": {
+            "at": 0,
+            "by": {
+                "username": "foo",
+                "realname": "foo bar",
+                "gravatarHash": "abc"
+            }
+        },
+        "currentVersion": {
+            "at": 0,
+            "by": {
+                "username": "foo",
+                "realname": "foo bar",
+                "gravatarHash": "abc"
+            },
+            "version": 1
+        },
+        "latestVersion": {
+            "at": 0,
+            "by": {
+                "username": "foo",
+                "realname": "foo bar",
+                "gravatarHash": "abc"
+            },
+            "version": 1
+        }
+    }
+}

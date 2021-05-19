@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:fractures_cavities_waterbreaks"
+        }
+    },
+    "title": "Fractures/Cavities/WaterBreaks",
+    "description": "Fractures/Cavities/WaterBreaks",
+    "examples": [
+        "WB @ 14, 41"
+    ],
+    "type": "string"
+}

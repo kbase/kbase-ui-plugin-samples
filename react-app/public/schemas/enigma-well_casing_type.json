@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:well_casing_type"
+        }
+    },
+    "title": "Well Casing Type",
+    "description": "Well Casing Type",
+    "examples": [
+        "SP",
+        "MP"
+    ],
+    "type": "string"
+}

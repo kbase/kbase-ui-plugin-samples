@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:depth_scale"
+        }
+    },
+    "title": "Depth scale",
+    "description": "Unit in which the depth is provided",
+    "examples": [
+        "MBSF",
+        "cm"
+    ],
+    "type": "string"
+}

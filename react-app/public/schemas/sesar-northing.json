@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:northing"
+        },
+        "units": {
+            "canonical": "m"
+        }
+    },
+    "title": "Northing",
+    "description": "Northing in meters",
+    "examples": [
+        4111279
+    ],
+    "type": "number"
+}

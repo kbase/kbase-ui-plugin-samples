@@ -163,6 +163,8 @@
 //     takeFromField?: string;
 // }
 
+import {JSONValue} from "@kbase/ui-lib/lib/json";
+
 export interface FieldCategory {
     id: string;
     description: string;
@@ -186,12 +188,11 @@ export interface FieldCategory {
 
 export interface FieldGroup {
     name: string;
-    label: string;
-    description: string;
+    title: string;
     fields: Array<string>;
 }
 
-export type FieldGroups = Map<string, FieldGroup>;
+export type FieldGroups = Array<FieldGroup>;
 
 export interface LayoutGroup {
     name: string;
@@ -245,29 +246,48 @@ export type SchemaFieldType =
     'number' |
     'boolean';
 
+// export interface SchemaFieldBase {
+//     $schema: string;
+//     $id: string;
+//     type: SchemaFieldType
+//     format?: string
+//     title: string
+//     description?: string
+//     kbase: {
+//         display: {
+//             label: string
+//             tooltip?: string
+//         };
+//         format: {};
+//         examples: Array<string>
+//         units: {
+//             available: Array<string>
+//             canonical: string
+//         }
+//         sample: {
+//             key: string
+//             columnTitle: string
+//         }
+//         categories: Array<string>
+//     }
+// }
+
 export interface SchemaFieldBase {
     $schema: string;
-    $id: string;
+    $id?: string;
     type: SchemaFieldType
     format?: string
     title: string
     description?: string
+    examples: Array<JSONValue>
     kbase: {
-        display: {
-            label: string
-            tooltip?: string
-        };
         format: {};
-        examples: Array<string>
         units: {
-            available: Array<string>
             canonical: string
         }
         sample: {
             key: string
-            columnTitle: string
         }
-        categories: Array<string>
     }
 }
 
@@ -298,7 +318,7 @@ export interface SchemaFieldNumber extends SchemaFieldBase {
     type: 'number'
     minimum?: number
     maximum?: number
-    kbase: SchemaFieldBase['kbase'] &  {
+    kbase: SchemaFieldBase['kbase'] & {
         format: {
             useGrouping?: boolean;
             minimumFractionDigits?: number;
@@ -317,7 +337,6 @@ export type SchemaField =
     SchemaFieldNumber;
 
 
-
 export interface FieldValueBase {
     type: string;
     format?: string;
@@ -333,7 +352,7 @@ type Input<T> = T & (T extends Disallowed ? never : T);
 export interface FieldStringValue extends FieldValueBase {
     type: 'string',
     format?: Input<string>;
-    stringValue: string  | null;
+    stringValue: string | null;
     schema: SchemaFieldString;
 }
 
@@ -347,7 +366,7 @@ export interface FieldStringValue extends FieldValueBase {
 export interface FieldOntologyTermValue extends FieldValueBase {
     type: 'string',
     format: 'ontologyTerm',
-    stringValue: string  | null;
+    stringValue: string | null;
     schema: SchemaFieldOntologyTerm;
 }
 

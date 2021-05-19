@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "description"
+        }
+    },
+    "title": "Description",
+    "description": "Free text to describe features of a sample such as its components, texture, color, shape, etc.",
+    "examples": [
+        "dredge with 50 pieces of basalt and mud"
+    ],
+    "type": "string"
+}

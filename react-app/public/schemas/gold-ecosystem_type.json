@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "gold:ecosystem_type"
+        }
+    },
+    "title": "Ecosystem Type",
+    "description": "Ecosystem Type (GOLD)",
+    "examples": [
+        "Freshwater"
+    ],
+    "type": "string"
+}

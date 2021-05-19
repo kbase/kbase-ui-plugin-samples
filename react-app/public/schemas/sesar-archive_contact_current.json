@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:archive_contact_current"
+        }
+    },
+    "title": "Current archive contact",
+    "description": "Address and/or email of the person who should be contacted for information about or access to the sample.",
+    "examples": [
+        "curator@ldeo.columbia.edu"
+    ],
+    "type": "string"
+}

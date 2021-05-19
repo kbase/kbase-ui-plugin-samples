@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:elevation_unit"
+        }
+    },
+    "title": "Elevation Unit",
+    "description": "Unit in which elevation start and/or end are provided in.",
+    "examples": [
+        "meters",
+        "feet",
+        "miles",
+        "kilometers"
+    ],
+    "type": "string"
+}
