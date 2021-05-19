@@ -3,11 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:collection_time"
-        },
-        "aliases": [
-            "collection time start",
-            "collection start time"
-        ]
+        }
     },
     "title": "Collection time",
     "description": "Time when the sample was collected.",

@@ -3,11 +3,7 @@
     "kbase": {
         "sample": {
             "key": "city_township"
-        },
-        "aliases": [
-            "City",
-            "Township"
-        ]
+        }
     },
     "title": "City/Township",
     "description": "City or Township where the sample was collected",

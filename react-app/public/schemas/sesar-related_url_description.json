@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:related_url_description"
+        }
+    },
+    "title": "Related URL Description",
+    "description": "Free text description of the related URL",
+    "examples": [
+        "DOI for related published data"
+    ],
+    "type": "string"
+}

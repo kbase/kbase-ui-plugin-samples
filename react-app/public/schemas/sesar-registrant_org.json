@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:registrant_org"
-        },
-        "aliases": [
-            "org registrant name"
-        ]
+        }
     },
     "title": "Organization Registrant Name",
     "description": "Registrant organization of the sample in SESAR",

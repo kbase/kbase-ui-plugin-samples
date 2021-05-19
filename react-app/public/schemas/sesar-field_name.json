@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:field_name"
-        },
-        "aliases": [
-            "Field Name"
-        ]
+        }
     },
     "title": "Field name (informal classification)",
     "description": "Taxonomy (field name) Informal classification of sample.",

@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "collection_time"
-        },
-        "aliases": [
-            "collection time start"
-        ]
+        }
     },
     "title": "Collection time",
     "description": "Date amd time when the sample was collected in ISO 8601 format",

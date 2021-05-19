@@ -4,9 +4,6 @@
         "sample": {
             "key": "latitude"
         },
-        "aliases": [
-            "latitude start"
-        ],
         "units": {
             "canonical": "degrees"
         }

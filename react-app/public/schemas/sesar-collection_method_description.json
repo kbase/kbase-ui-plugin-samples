@@ -3,10 +3,7 @@
     "kbase": {
         "sample": {
             "key": "sesar:collection_method_description"
-        },
-        "aliases": [
-            "Collection method descr"
-        ]
+        }
     },
     "title": "Collection method description",
     "description": "Additional information about the collection method",

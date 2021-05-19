@@ -110,10 +110,9 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                     <InfoTable table={[{
                         label: 'Format',
                         render: () => {
-                            return <span>???</span>
-                            // return <Tooltip title={sourceTooltip}>
-                            //     <span>{this.props.format.source.name}</span>
-                            // </Tooltip>;
+                            return <Tooltip title={sourceTooltip}>
+                                <span>{this.props.format.source.name}</span>
+                            </Tooltip>;
                         }
                     }]}></InfoTable>
                 </Col>

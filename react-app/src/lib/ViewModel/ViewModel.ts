@@ -467,10 +467,10 @@ export default class ViewModel {
         const rawSample = await this.sampleService.get_sample(params);
         const rawRealSample = rawSample.node_tree[0];
 
-        // 1.5: get additional sample properties
-        const format_id = grokFormat(rawSample);
-
         // 2. Get the format
+        // const format_id = grokFormat(rawSample);
+        const format_id = rawRealSample.meta_controlled['sample_template']['value'] as string;
+
         const {format} = await this.sampleService.get_format({id: format_id});
         const sampleMapping = format.mappings.sample;
         const reverseSampleMapping: SimpleMapping = Object.entries(sampleMapping)
@@ -549,60 +549,65 @@ export default class ViewModel {
         // e.g. redox_potential_?: redox_potential
 
         // Simulate template fields.
-        const controlledFields: Array<MetadataControlledField> = Object.entries(rawRealSample.meta_controlled).map(([key, {
-            value,
-            units
-        }]): MetadataControlledField => {
-            const def = fieldDefinitions.get(key);
-            if (!def) {
-                throw new Error(`Undefined  field "${key}"`);
-            }
-            const field = ((): FieldValue => {
-                switch (def?.type) {
-                    case "number":
-                        if (typeof value !== 'number') {
-                            throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
-                        }
-                        const n: FieldNumberValue = {
-                            type: 'number',
-                            isEmpty: false,
-                            schema: def,
-                            numberValue: value,
-                            unit: units
-                        };
-                        return n;
-                    case "string":
-                        if (typeof value !== 'string') {
-                            throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
-                        }
-                        const s: FieldStringValue = {
-                            type: 'string',
-                            isEmpty: false,
-                            schema: def,
-                            stringValue: value,
-                            unit: units
-                        };
-                        return s;
+        const controlledFields: Array<MetadataControlledField> = Object.entries(rawRealSample.meta_controlled)
+            .filter(([key, value]) => {
+                return key !== 'sample_template';
+            })
+            .map(([key, {
+                value,
+                units
+            }]): MetadataControlledField => {
+                const def = fieldDefinitions.get(key);
+                if (!def) {
+                    throw new Error(`Undefined  field "${key}"`);
                 }
-            })();
-            if (def) {
-                return {
-                    type: 'controlled',
-                    key,
-                    label: def.title,
-                    isEmpty: false,
-                    field
-                };
-            } else {
-                return {
-                    type: 'controlled',
-                    key,
-                    label: key,
-                    isEmpty: false,
-                    field
-                };
-            }
-        });
+                const field = ((): FieldValue => {
+                    switch (def?.type) {
+                        case "number":
+                            if (typeof value !== 'number') {
+                                throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
+                            }
+                            const n: FieldNumberValue = {
+                                type: 'number',
+                                isEmpty: false,
+                                schema: def,
+                                numberValue: value,
+                                unit: units
+                            };
+                            return n;
+                        case "string":
+                            if (typeof value !== 'string') {
+                                throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
+                            }
+                            const s: FieldStringValue = {
+                                type: 'string',
+                                isEmpty: false,
+                                schema: def,
+                                stringValue: value,
+                                unit: units
+                            };
+                            return s;
+                    }
+                })();
+                if (def) {
+                    return {
+                        type: 'controlled',
+                        key,
+                        label: def.title,
+                        isEmpty: false,
+                        field
+                    };
+                } else {
+                    return {
+                        type: 'controlled',
+                        key,
+                        label: key,
+                        isEmpty: false,
+                        field
+                    };
+                }
+            });
+
         const userFields: Array<MetadataUserField> = Object.entries(rawSample.node_tree[0].meta_user).map(([key, value]) => {
 
             return {
