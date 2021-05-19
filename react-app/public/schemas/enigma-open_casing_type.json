@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:open_casing_type"
+        }
+    },
+    "title": "Open Casing Type",
+    "description": "Open Casing Type (SF25; STL)",
+    "examples": [
+        "SF25",
+        "STL"
+    ],
+    "type": "string"
+}

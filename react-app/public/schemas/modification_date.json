@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "modification_date"
+        }
+    },
+    "title": "Modification Date",
+    "description": "Modification date",
+    "examples": [
+        "01-OCT-19 11.32.17.481000000 AM"
+    ],
+    "type": "string"
+}

@@ -6,23 +6,23 @@ import {
     SchemaField,
     UserFieldValue,
 } from "lib/client/samples/Samples";
-import { MetadataValue, SampleId, SampleNodeType, SampleVersion, Sample as RawSample, } from "lib/client/Sample";
-import { EpochTimeMS, SimpleMap, SimpleMapping, Username } from "../types";
+import {MetadataValue, SampleId, SampleNodeType, SampleVersion, Sample as RawSample,} from "lib/client/Sample";
+import {EpochTimeMS, SimpleMap, SimpleMapping, Username} from "../types";
 import SampleServiceClient, {
     DataLink, GetFormatParams, GetFormatResult, GetSampleACLsParams, GetSampleACLsResult, GetSampleParams
 } from "../client/SampleServiceClient";
 
 // Constants
 
-import { UPSTREAM_TIMEOUT } from "../../appConstants";
-import { Workspace } from "@kbase/ui-lib";
-import { ObjectInfo } from "@kbase/ui-lib/lib/lib/comm/coreServices/Workspace";
-import { LinkedData } from "redux/store/linkedData";
-import UserProfileClient, { UserProfile } from "@kbase/ui-lib/lib/lib/comm/coreServices/UserProfile";
+import {UPSTREAM_TIMEOUT} from "../../appConstants";
+import {Workspace} from "@kbase/ui-lib";
+import {ObjectInfo} from "@kbase/ui-lib/lib/lib/comm/coreServices/Workspace";
+import {LinkedData} from "redux/store/linkedData";
+import UserProfileClient, {UserProfile} from "@kbase/ui-lib/lib/lib/comm/coreServices/UserProfile";
 
 import sesarTemplateData from "./data/templates/sesar/sesar1.json";
 import enigmaTemplateData from "./data/templates/enigma/enigma1.json";
-import { grokFormat } from "./patch/utils";
+import {grokFormat} from "./patch/utils";
 
 // Types
 
@@ -216,14 +216,13 @@ export default class ViewModel {
         this.timeout = timeout;
         this.sampleService = new SampleServiceClient({
             url: this.sampleServiceURL,
-            serviceWizardURL,
             token,
             timeout
         });
     }
 
     async fetchUsers(
-        { usernames }: { usernames: Array<Username>; },
+        {usernames}: { usernames: Array<Username>; },
     ): Promise<Array<User>> {
         const userProfileClient = new UserProfileClient({
             token: this.token,
@@ -234,7 +233,7 @@ export default class ViewModel {
         const profiles = await userProfileClient.get_user_profile(usernames);
 
         if (profiles.length !== usernames.length) {
-            const profileUsernames = profiles.map(({ user: { username } }) => {
+            const profileUsernames = profiles.map(({user: {username}}) => {
                 return username;
             });
             const missing = usernames.filter((username) => {
@@ -270,7 +269,7 @@ export default class ViewModel {
     }
 
     async fetchSample(
-        { id: sampleId, version: sampleVersion }: { id: string; version?: number; },
+        {id: sampleId, version: sampleVersion}: { id: string; version?: number; },
     ): Promise<Sample> {
         const sampleResult = await this.getSample({
             id: sampleId,
@@ -305,7 +304,7 @@ export default class ViewModel {
         }, new Map<Username, User>());
 
         // const fieldKeys: Array<string> = Object.keys(sampleResult.sample.controlled);
-        const { format } = await this.getFormat({ id: sampleResult.formatId });
+        const {format} = await this.getFormat({id: sampleResult.formatId});
         // const {fields} = await client.getFieldDefinitions({keys: fieldKeys});
 
         const sample: Sample = {
@@ -337,7 +336,7 @@ export default class ViewModel {
         return sample;
     }
 
-    async fetchACL({ id }: { id: string; }): Promise<ACL> {
+    async fetchACL({id}: { id: string; }): Promise<ACL> {
         const aclResult = await this.sampleService.get_sample_acls({
             id,
             as_admin: 0,
@@ -398,7 +397,7 @@ export default class ViewModel {
         return acl;
     }
 
-    async fetchLinkedData({ id, version }: {
+    async fetchLinkedData({id, version}: {
         id: string;
         version: number;
     }): Promise<LinkedData> {
@@ -424,7 +423,7 @@ export default class ViewModel {
         const objectInfos = await workspaceClient.get_object_info3({
             includeMetadata: 1,
             objects: objectRefs.map((ref) => {
-                return { ref };
+                return {ref};
             }),
         });
 
@@ -454,8 +453,8 @@ export default class ViewModel {
     }
 
     async getFormat(params: GetFormatParams): Promise<GetFormatResult> {
-        const { format } = await this.sampleService.get_format({ id: params.id });
-        return { format };
+        const {format} = await this.sampleService.get_format({id: params.id});
+        return {format};
     }
 
 
@@ -472,7 +471,7 @@ export default class ViewModel {
         const format_id = grokFormat(rawSample);
 
         // 2. Get the format
-        const { format } = await this.sampleService.get_format({ id: format_id });
+        const {format} = await this.sampleService.get_format({id: format_id});
         const sampleMapping = format.mappings.sample;
         const reverseSampleMapping: SimpleMapping = Object.entries(sampleMapping)
             .reduce<SimpleMapping>((mapping, [key, value]) => {
@@ -514,7 +513,7 @@ export default class ViewModel {
 
         const controlledKeys = Object.keys(rawSample.node_tree[0].meta_controlled);
 
-        const { fields } = await this.sampleService.get_field_definitions({ keys: controlledKeys });
+        const {fields} = await this.sampleService.get_field_definitions({keys: controlledKeys});
 
         // Make a map for quick lookup.
         const fieldDefinitions: Map<string, SchemaField> = fields.reduce(
@@ -550,7 +549,10 @@ export default class ViewModel {
         // e.g. redox_potential_?: redox_potential
 
         // Simulate template fields.
-        const controlledFields: Array<MetadataControlledField> = Object.entries(rawRealSample.meta_controlled).map(([key, { value, units }]): MetadataControlledField => {
+        const controlledFields: Array<MetadataControlledField> = Object.entries(rawRealSample.meta_controlled).map(([key, {
+            value,
+            units
+        }]): MetadataControlledField => {
             const def = fieldDefinitions.get(key);
             if (!def) {
                 throw new Error(`Undefined  field "${key}"`);
@@ -559,7 +561,7 @@ export default class ViewModel {
                 switch (def?.type) {
                     case "number":
                         if (typeof value !== 'number') {
-                            throw new Error('Field should be number but is not');
+                            throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
                         }
                         const n: FieldNumberValue = {
                             type: 'number',
@@ -571,7 +573,7 @@ export default class ViewModel {
                         return n;
                     case "string":
                         if (typeof value !== 'string') {
-                            throw new Error('Field should be string but is not');
+                            throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
                         }
                         const s: FieldStringValue = {
                             type: 'string',
@@ -587,7 +589,7 @@ export default class ViewModel {
                 return {
                     type: 'controlled',
                     key,
-                    label: def.kbase.display.label,
+                    label: def.title,
                     isEmpty: false,
                     field
                 };
@@ -744,7 +746,7 @@ export default class ViewModel {
             const controlledField: MetadataControlledField = {
                 type: "controlled",
                 key: mappedKey,
-                label: fieldDefinition.kbase.display.label,
+                label: fieldDefinition.title,
                 isEmpty: field.isEmpty,
                 field,
             };

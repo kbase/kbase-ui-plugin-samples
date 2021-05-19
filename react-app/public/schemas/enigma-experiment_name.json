@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:experiment_name"
+        }
+    },
+    "title": "Experiment Name",
+    "description": "Experiment Name",
+    "examples": [
+        "100 Well"
+    ],
+    "type": "string"
+}

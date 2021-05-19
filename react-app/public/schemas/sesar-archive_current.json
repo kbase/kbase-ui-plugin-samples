@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:archive_current"
+        }
+    },
+    "title": "Current archive",
+    "description": "Name of institution, museum, or repository where the sample is currently stored.",
+    "examples": [
+        "Lamont Deep Sea Core Repository",
+        "Palisades, NY"
+    ],
+    "type": "string"
+}

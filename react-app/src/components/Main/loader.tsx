@@ -19,17 +19,18 @@
  */
 
 // External imports
-import { AppError, Loading } from '@kbase/ui-components';
+import {AppError, Loading} from '@kbase/ui-components';
 import ErrorView from 'components/ErrorView';
-import { Sample } from 'lib/ViewModel/ViewModel';
+import {Sample} from 'lib/ViewModel/ViewModel';
 import React from 'react';
 
 // Internal imports
-import { AsyncProcessStatus } from 'redux/store/processing';
-import { SampleStoreState } from 'redux/store/sample';
+import {AsyncProcessStatus} from 'redux/store/processing';
+import {SampleStoreState} from 'redux/store/sample';
 
 // Local imports
 import Main from './view';
+import {FieldGroups} from "../../lib/client/samples/Samples";
 
 export interface LoaderProps {
     id: string;
@@ -94,20 +95,20 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
 
     renderLoading() {
         return <div className="FullyCenteredFLex">
-            <Loading message="Loading Sample..." />
+            <Loading message="Loading Sample..."/>
         </div>;
     }
 
     renderError(error: AppError) {
-        return <ErrorView error={error} />;
+        return <ErrorView error={error}/>;
     }
 
-    renderSuccess(sample: Sample) {
-        return <Main sample={sample} setTitle={this.props.setTitle} />;
+    renderSuccess(sample: Sample, fieldGroups: FieldGroups) {
+        return <Main sample={sample} fieldGroups={fieldGroups} setTitle={this.props.setTitle}/>;
     }
 
-    renderReprocessing(sample: Sample) {
-        return <Main sample={sample} setTitle={this.props.setTitle} loading={true} />;
+    renderReprocessing(sample: Sample, fieldGroups: FieldGroups) {
+        return <Main sample={sample} fieldGroups={fieldGroups} setTitle={this.props.setTitle} loading={true}/>;
     }
 
     render() {
@@ -118,9 +119,9 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
             case AsyncProcessStatus.ERROR:
                 return this.renderError(this.props.sampleState.error);
             case AsyncProcessStatus.SUCCESS:
-                return this.renderSuccess(this.props.sampleState.state.sample);
+                return this.renderSuccess(this.props.sampleState.state.sample, this.props.sampleState.state.fieldGroups);
             case AsyncProcessStatus.REPROCESSING:
-                return this.renderReprocessing(this.props.sampleState.state.sample);
+                return this.renderReprocessing(this.props.sampleState.state.sample, this.props.sampleState.state.fieldGroups);
         }
     }
 }

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:classification_comment"
+        }
+    },
+    "title": "Classification Comment",
+    "description": "Classification Comment",
+    "examples": [
+        "TODO"
+    ],
+    "type": "string"
+}

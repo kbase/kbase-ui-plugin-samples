@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:elevation_end"
+        },
+        "units": {
+            "canonical": "m"
+        }
+    },
+    "title": "Elevation end",
+    "description": "Elevation end in meters",
+    "examples": [
+        "673.5",
+        "-4520"
+    ],
+    "type": "number"
+}

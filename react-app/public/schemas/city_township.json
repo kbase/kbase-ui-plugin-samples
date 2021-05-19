@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "city_township"
+        },
+        "aliases": [
+            "City",
+            "Township"
+        ]
+    },
+    "title": "City/Township",
+    "description": "City or Township where the sample was collected",
+    "examples": [
+        "Palisades"
+    ],
+    "type": "string"
+}

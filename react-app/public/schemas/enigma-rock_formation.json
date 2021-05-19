@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:rock_formation"
+        }
+    },
+    "title": "Rock Formation",
+    "description": "Rock Formation",
+    "examples": [
+        "Conasauga/Maynardville Limestone",
+        "Conasauga/Nolichucky Shale"
+    ],
+    "type": "string"
+}

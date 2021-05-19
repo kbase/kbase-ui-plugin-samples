@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "kbase": {
+        "sample": {
+            "key": "sesar:navigation_type"
+        }
+    },
+    "title": "Navigation type",
+    "description": "Navigation type",
+    "examples": [
+        "GPS"
+    ],
+    "type": "string",
+    "enum": [
+        "ACOUSTIC_RANGING/GPS",
+        "DGPS",
+        "DVL",
+        "DVL:Renav",
+        "DVL:Renav:Confirmed",
+        "DVL/LBL",
+        "DVL/LBL:Renav",
+        "DVL/LBL:Renav:Confirmed",
+        "DVL/LBL/INS",
+        "DVL/USBL",
+        "DVL/USBL:Renav",
+        "GLONASS",
+        "GPS",
+        "GPS:Assumed",
+        "GPS/WireOut",
+        "LAYBACK",
+        "LAYBACK/LBL",
+        "LBL",
+        "Locale",
+        "LORAN",
+        "NotApplicable",
+        "NotProvided",
+        "RTK GPS",
+        "USBL"
+    ]
+}

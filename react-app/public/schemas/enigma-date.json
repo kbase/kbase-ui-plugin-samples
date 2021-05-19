@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:date"
+        }
+    },
+    "title": "Date",
+    "description": "Date (YYYY-MM-DD)",
+    "examples": [
+        "2019-06-18"
+    ],
+    "type": "string"
+}

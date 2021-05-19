@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:upper_seal_type"
+        }
+    },
+    "title": "Upper Seal Type",
+    "description": "Upper Seal Type",
+    "examples": [
+        "BENT",
+        "BENT-PEL"
+    ],
+    "type": "string"
+}

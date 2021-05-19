@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:maturation_time"
+        }
+    },
+    "title": "Maturation Time",
+    "description": "Maturation Time",
+    "examples": [
+        "24hr",
+        "72hr"
+    ],
+    "type": "string"
+}

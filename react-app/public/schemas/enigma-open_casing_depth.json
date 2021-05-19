@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:open_casing_depth"
+        },
+        "units": {
+            "canonical": "ft"
+        }
+    },
+    "title": "Open Casing Depth",
+    "description": "Open casing depth in ft below ground surface (ft BGS)",
+    "examples": [
+        92
+    ],
+    "type": "number"
+}

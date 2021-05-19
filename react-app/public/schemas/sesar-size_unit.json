@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:size_unit"
+        }
+    },
+    "title": "Size unit",
+    "description": "Unit for the numerical value provided for 'size'.",
+    "examples": [
+        "cm",
+        "kg"
+    ],
+    "type": "string"
+}

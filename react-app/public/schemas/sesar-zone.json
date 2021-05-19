@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:zone"
+        }
+    },
+    "title": "Zone",
+    "description": "Zone for the geographic Cartesian coordinate \"11R\"",
+    "examples": [
+        "11R"
+    ],
+    "type": "string"
+}

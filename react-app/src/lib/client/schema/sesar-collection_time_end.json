@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "kbase": {
+        "sample": {
+            "key": "sesar:collection_time_end"
+        }
+    },
+    "title": "Collection time (end)",
+    "description": "End time when the sample was collected.",
+    "examples": [
+        "13:05:01Z"
+    ],
+    "type": "string"
+}

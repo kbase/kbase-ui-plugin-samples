@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "gold:study_id"
+        }
+    },
+    "title": "GOLD study identifier",
+    "description": "GOLD study identifier",
+    "examples": [
+        "Gs0131983"
+    ],
+    "type": "string"
+}

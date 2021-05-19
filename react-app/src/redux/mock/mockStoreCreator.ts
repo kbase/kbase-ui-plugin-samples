@@ -3,7 +3,7 @@ import {RootState} from "@kbase/ui-components";
 import {StoreState} from "redux/store";
 import {AuthenticationStatus} from "@kbase/ui-components/lib/redux/auth/store";
 import {AppState} from "@kbase/ui-components/lib/redux/integration/store";
-import {DevelopStatus, DevelopAuthStatus} from "@kbase/ui-components/lib/redux/develop/store";
+import {DevelopStatus} from "@kbase/ui-components/lib/redux/develop/store";
 import {SyncViewStatus} from "redux/store/view/SyncView";
 import {AsyncProcessStatus} from "redux/store/processing";
 
@@ -99,6 +99,9 @@ const state: StoreState = {
         sample: {
             status: AsyncProcessStatus.NONE,
         },
+        geolocation: {
+            status: AsyncProcessStatus.NONE
+        }
     },
 };
 

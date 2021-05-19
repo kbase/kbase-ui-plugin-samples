@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:easting"
+        },
+        "units": {
+            "canonical": "m"
+        }
+    },
+    "title": "Easting",
+    "description": "Easting in meters",
+    "examples": [
+        305294
+    ],
+    "type": "number"
+}

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:leucine_activity"
+        }
+    },
+    "title": "Leucine Activity (ngC/day cell)",
+    "description": "units in ngC/day cell",
+    "examples": [
+        0.000576856
+    ],
+    "type": "number"
+}

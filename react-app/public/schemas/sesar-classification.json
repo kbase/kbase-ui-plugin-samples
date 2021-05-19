@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:classification"
+        }
+    },
+    "title": "Classification",
+    "description": "Taxonomy (formal classification) Formal categorization of sample.",
+    "examples": [
+        "Igneous>Plutonic>Felsic",
+        "Plagioclase"
+    ],
+    "type": "string"
+}

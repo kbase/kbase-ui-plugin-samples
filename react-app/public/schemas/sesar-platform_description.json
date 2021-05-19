@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:platform_description"
+        }
+    },
+    "title": "Platform description",
+    "description": "Description of platform for the cruise.",
+    "examples": [
+        "TODO"
+    ],
+    "type": "string"
+}

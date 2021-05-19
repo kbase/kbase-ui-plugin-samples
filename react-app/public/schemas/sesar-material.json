@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:material"
+        }
+    },
+    "title": "Material (SESAR)",
+    "description": "Material that the sample consists of using SESAR vocabulary.",
+    "examples": [
+        "Rock",
+        "Liquid>Aqueous"
+    ],
+    "type": "string"
+}

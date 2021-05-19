@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:area_name"
+        }
+    },
+    "title": "Area Name",
+    "description": "Area Name",
+    "examples": [
+        "Area 2",
+        "Background A",
+        "Area 4"
+    ],
+    "type": "string"
+}

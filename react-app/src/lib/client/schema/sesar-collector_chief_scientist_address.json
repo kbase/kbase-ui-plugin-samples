@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "kbase": {
+        "sample": {
+            "key": "sesar:collector_chief_scientist_address"
+        }
+    },
+    "title": "Collector/Chief Scientist address",
+    "description": "Institution, address, & email of the collector or chief scientist.",
+    "examples": [
+        "Woods Hole Oceanographic Institution, Woods Hole, MA"
+    ],
+    "type": "string"
+}

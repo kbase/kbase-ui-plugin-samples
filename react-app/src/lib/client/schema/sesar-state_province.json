@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "kbase": {
+        "sample": {
+            "key": "sesar:state_province"
+        }
+    },
+    "title": "State/Province",
+    "description": "State or Province where the sample was collected",
+    "examples": [
+        "Alaska"
+    ],
+    "type": "string"
+}

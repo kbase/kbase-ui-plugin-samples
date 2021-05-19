@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:pore_water_extraction"
+        },
+        "units": {
+            "canonical": "microliters"
+        }
+    },
+    "title": "Pore Water Extraction",
+    "description": "Pore water extraction in microliters",
+    "examples": [
+        200
+    ],
+    "type": "number"
+}

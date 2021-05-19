@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:installation_method"
+        }
+    },
+    "title": "Installation Method",
+    "description": "Method of installation",
+    "examples": [
+        "CORE",
+        "AUGER",
+        "MANUAL"
+    ],
+    "type": "string"
+}

@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:sub-object_type"
+        }
+    },
+    "title": "Sub-object type",
+    "description": "More descriptive Object Type. This applies only to samples with Object Type set to Individual Sample.",
+    "examples": [
+        "Thin section",
+        "Powder"
+    ],
+    "type": "string"
+}

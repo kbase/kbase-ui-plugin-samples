@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:field_program_cruise"
+        }
+    },
+    "title": "Field program/cruise",
+    "description": "Name or identifier of the field program (cruise or expedition), during which the sample was collected.",
+    "examples": [
+        "TN182"
+    ],
+    "type": "string"
+}

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:redox_potential"
+        }
+    },
+    "title": "Redox Potential",
+    "description": "Redox Potential",
+    "examples": [
+        421.5
+    ],
+    "type": "number"
+}

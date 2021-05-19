@@ -1,15 +1,16 @@
-import { AuthenticationStatus } from "@kbase/ui-components/lib/redux/auth/store";
-import { AsyncProxyFun } from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
-import { UPSTREAM_TIMEOUT } from "appConstants";
+import {AuthenticationStatus} from "@kbase/ui-components/lib/redux/auth/store";
+import {AsyncProxyFun} from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
+import {UPSTREAM_TIMEOUT} from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
 import {
     ActionType, fetchError
 } from "redux/actions/sample";
-import { StoreState } from "../store";
-import { AsyncProcessStatus } from "../store/processing";
+import {StoreState} from "../store";
+import {AsyncProcessStatus} from "../store/processing";
+import SampleServiceClient from "../../lib/client/SampleServiceClient";
 
 const sampleFun: AsyncProxyFun<StoreState> = async (
-    { state, dispatch, action, next },
+    {state, dispatch, action, next},
 ) => {
     if (!("category" in action)) {
         return false;
@@ -54,7 +55,7 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
     }
 
     const {
-        userAuthentication: { token }
+        userAuthentication: {token}
     } = authentication;
 
     // Here we initiate indicate either a fresh fetch (fetching) or a
@@ -91,10 +92,21 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             id: action.id,
             version: action.version,
         });
+
+        console.log('hmm', action.id, sample);
+
+        const sampleService = new SampleServiceClient({
+            token,
+            url: sampleServiceURL,
+            timeout: UPSTREAM_TIMEOUT,
+        });
+
+        const {groups} = await sampleService.get_field_groups();
         dispatch({
             category: 'sample',
             type: ActionType.FETCHED,
-            sample
+            sample,
+            fieldGroups: groups
         });
     } catch (ex) {
         console.log('ERROR!', ex.message);

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "gold:community"
+        }
+    },
+    "title": "Community",
+    "description": "Community Sampled",
+    "examples": [
+        "microbial communities"
+    ],
+    "type": "string"
+}

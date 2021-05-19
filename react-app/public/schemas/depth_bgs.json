@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "depth_bgs"
+        },
+        "units": {
+            "canonical": "m"
+        }
+    },
+    "title": "Depth",
+    "description": "depth in meters below ground surface (m BGS)",
+    "examples": [
+        5
+    ],
+    "type": "number"
+}

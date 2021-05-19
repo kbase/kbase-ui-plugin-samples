@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:condition"
+        }
+    },
+    "title": "Condition",
+    "description": "Condition",
+    "examples": [
+        "Open"
+    ],
+    "type": "string"
+}

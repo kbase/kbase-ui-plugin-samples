@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:screen_bottom_elevation"
+        },
+        "units": {
+            "canonical": "ft"
+        }
+    },
+    "title": "Screen Bottom Elevation",
+    "description": "Screen bottom elevation in ft above mean sea level (ft AMSL)",
+    "examples": [
+        985.27
+    ],
+    "type": "number"
+}

@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:well_casing_depth"
+        },
+        "units": {
+            "canonical": "ft"
+        }
+    },
+    "title": "Well Casing Depth",
+    "description": "Well casing depth in ft below ground surface (ft BGS)",
+    "examples": [
+        45.25
+    ],
+    "type": "number"
+}

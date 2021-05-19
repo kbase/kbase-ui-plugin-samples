@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "gold:ecosystem_path_id"
+        }
+    },
+    "title": "Ecosystem Path ID",
+    "description": "Ecosystem Path ID (GOLD)",
+    "examples": [
+        3948
+    ],
+    "type": "string"
+}

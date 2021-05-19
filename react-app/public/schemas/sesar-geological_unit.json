@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:geological_unit"
+        }
+    },
+    "title": "Geological Unit",
+    "description": "A body of rock established as a distinct entity in the classification of the Earth's rocks, e.g. Supergroup, Group, Formation, or Flow",
+    "examples": [
+        "Coconino Sandstone",
+        "Fig Tree Formation"
+    ],
+    "type": "string"
+}

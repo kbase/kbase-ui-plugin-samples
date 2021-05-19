@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:well_name"
+        }
+    },
+    "title": "Well Name",
+    "description": "Well Name (ID)",
+    "examples": [
+        "GW085",
+        "GW098"
+    ],
+    "type": "string"
+}

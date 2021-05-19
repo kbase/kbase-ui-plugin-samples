@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:launch_id"
+        }
+    },
+    "title": "Launch ID",
+    "description": "Further identifying information about the launch",
+    "examples": [
+        "3969",
+        "J2-434"
+    ],
+    "type": "string"
+}

@@ -2,9 +2,10 @@ import sesarData from "./formats/sesar/sesar.json";
 import enigmaData from "./formats/enigma/enigma.json";
 import kbaseData from "./formats/kbase/kbase.json";
 import categoriesData from "./samples/categories.json";
+import groupsData from './formats/grouping.json';
 import {
     FieldCategory,
-    FieldGroup,
+    FieldGroups,
     Format,
     SchemaField,
 } from "./samples/Samples";
@@ -18,11 +19,9 @@ import {
     Username,
     WSUPA,
 } from "./Sample";
-import {ServiceClient} from "@kbase/ui-lib";
+import {GenericClient, ServiceClient} from "@kbase/ui-lib";
 import {JSONObject, objectToJSONObject} from "@kbase/ui-lib/lib/lib/json";
-import {ServiceWizardClient} from "@kbase/ui-lib/lib/comm/coreServices/ServiceWizard";
 import {ServiceClientParams} from "@kbase/ui-lib/lib/comm/JSONRPC11/ServiceClient";
-import {URLCacher} from "./URLCacher";
 
 
 const sesarFormatData = sesarData as Format;
@@ -266,7 +265,7 @@ export interface GetFieldGroupsParams {
 }
 
 export interface GetFieldGroupsResult {
-    groups: Array<FieldGroup>;
+    groups: FieldGroups;
 }
 
 export interface GetFieldCategoriesParams {
@@ -279,35 +278,35 @@ export interface GetFieldCategoriesResult {
 
 
 export interface SampleServiceClientParams extends ServiceClientParams {
-    serviceWizardURL: string;
+    url: string;
 }
 
 export default class SampleServiceClient extends ServiceClient {
     module: string = "SampleService";
-    serviceWizardURL: string;
-    serviceWizard: ServiceWizardClient
-    schemaURLCacher: URLCacher;
+    // url: string;
+    // schemaURLCacher: URLCacher;
 
     constructor(params: SampleServiceClientParams) {
         super(params);
-        this.serviceWizardURL = params.serviceWizardURL;
-        this.serviceWizard = new ServiceWizardClient({
-            timeout: 10000,
-            url: this.serviceWizardURL,
-            token: params.token
-        });
-        this.schemaURLCacher = new URLCacher(async () => {
-            const serviceWizard = new ServiceWizardClient({
-                timeout: REQUEST_TIMEOUT,
-                url: params.serviceWizardURL,
-                token: params.token
-            });
-            const {url} = await serviceWizard.get_service_status({
-                module_name: 'JSONSchema',
-                version: null,
-            });
-            return url;
-        }, REQUEST_TIMEOUT, CACHE_TTL);
+        // this.url = params.url;
+        // this.client = new GenericClient({
+        //     module,
+        //     timeout: 10000,
+        //     url: this.url,
+        //     token: params.token
+        // });
+        // this.schemaURLCacher = new URLCacher(async () => {
+        //     const serviceWizard = new ServiceWizardClient({
+        //         timeout: REQUEST_TIMEOUT,
+        //         url: params.url,
+        //         token: params.token
+        //     });
+        //     const {url} = await serviceWizard.get_service_status({
+        //         module_name: 'JSONSchema',
+        //         version: null,
+        //     });
+        //     return url;
+        // }, REQUEST_TIMEOUT, CACHE_TTL);
     }
 
     async status(): Promise<StatusResult> {
@@ -383,15 +382,18 @@ export default class SampleServiceClient extends ServiceClient {
     }
 
     async fetchSchema(schemaName: string) {
-        const baseURL = await this.schemaURLCacher.fetch();
-        const path = `sample/fields/${schemaName}.json`;
-        const url = `${baseURL}/schemas/${path}`;
+        // const baseURL = await this.schemaURLCacher.fetch();
+        // const path = `sample/fields/${schemaName}.json`;
+        // const url = `${baseURL}/schemas/${path}`;
 
         // Get the schema!
-        const result = await fetch(url);
+        // const result = await fetch(url);
+        const result = await fetch(
+            `${process.env.PUBLIC_URL}/schemas/${schemaName}.json`,
+        );
 
         if (result.status >= 300) {
-            throw new Error(`Error fetching schema for ${schemaName} (${result.status}) (${url})`);
+            throw new Error(`Error fetching schema for ${schemaName} (${result.status})`);
         }
 
         return await (async () => {
@@ -410,12 +412,20 @@ export default class SampleServiceClient extends ServiceClient {
         params: GetFieldDefinitionsParams,
     ): Promise<GetFieldDefinitionsResult> {
         const fields = await Promise.all(params.keys.map(async (key) => {
-            const scrubbedKey = key.replace(/[?:#$%^&*()-+=]/, "_");
+            // const scrubbedKey = key.replace(/[?:#$%^&*()-+=]/, "_");
             // TODO: remove the version when running against the service.
+            const scrubbedKey = key.replace(/[:]/, "-");
 
             return await this.fetchSchema(scrubbedKey);
             // const url = `${SCHEMA_BASE_URL}/sample/field/${scrubbedKey}.1-0-0.json`;
         }));
         return {fields};
+    }
+
+    async get_field_groups(): Promise<GetFieldGroupsResult> {
+        const groups = await Promise.resolve((groupsData as unknown) as FieldGroups);
+        return {
+            groups
+        }
     }
 }
