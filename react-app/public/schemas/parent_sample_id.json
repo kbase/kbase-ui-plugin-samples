@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "parent_sample_id"
+        }
+    },
+    "title": "Parent Sample ID",
+    "description": "A user-supplied identifier for a parent sample",
+    "examples": [
+        "SAMPLE 1234"
+    ],
+    "type": "string",
+    "maxLength": 254
+}

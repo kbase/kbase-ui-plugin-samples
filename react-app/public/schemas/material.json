@@ -10,5 +10,8 @@
     "examples": [
         "ENVO:01001614"
     ],
-    "type": "string"
+    "type": "string",
+    "format": "ontology-term",
+    "ancestorTerm": "ENVO:00010483",
+    "namespace": "envo_ontology"
 }

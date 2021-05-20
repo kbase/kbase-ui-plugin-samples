@@ -1,9 +1,9 @@
 import React from 'react';
-import { Tooltip } from 'antd';
-import { NoData } from '@kbase/ui-components';
-import { MetadataControlledField as _MetadataControlledField } from '../../lib/ViewModel/ViewModel';
-import { FieldNumberValue, FieldOntologyTermValue, FieldStringValue } from 'lib/client/samples/Samples';
-import { Sample } from 'lib/ViewModel/ViewModel';
+import {Tooltip} from 'antd';
+import {NoData} from '@kbase/ui-components';
+import {MetadataControlledField as _MetadataControlledField} from '../../lib/ViewModel/ViewModel';
+import {FieldNumberValue, FieldOntologyTermValue, FieldStringValue} from 'lib/client/samples/Samples';
+import {Sample} from 'lib/ViewModel/ViewModel';
 
 
 export interface MetadataControlledFieldProps {
@@ -17,14 +17,14 @@ interface MetadataControlledFieldState {
 export default class MetadataControlledField extends React.Component<MetadataControlledFieldProps, MetadataControlledFieldState> {
     renderStringField(field: FieldStringValue) {
         if (field.stringValue === null) {
-            return <NoData />;
+            return <NoData/>;
         }
         return <span>{field.stringValue}</span>;
     }
 
     renderNumberField(field: FieldNumberValue) {
         if (field.numberValue === null) {
-            return <NoData />;
+            return <NoData/>;
         }
         const content = new Intl.NumberFormat('en-US', {
             useGrouping: field.schema.kbase.format?.useGrouping,
@@ -58,19 +58,20 @@ export default class MetadataControlledField extends React.Component<MetadataCon
     // }
     renderOntologyTermField(field: FieldOntologyTermValue) {
         if (field.stringValue === null) {
-            return <NoData />;
+            return <NoData/>;
         }
         // TODO: add timestamp to url
-        const url = `/#ontology/term/${field.schema.ontologyNamespace}/${field.stringValue}/${this.props.sample.created.at}`;
+        const url = `/#ontology/term/${field.schema.namespace}/${field.stringValue}/${this.props.sample.created.at}`;
         return <a href={url} target="_blank" rel="noreferrer">{field.stringValue}</a>;
     }
+
     renderField(metadataField: _MetadataControlledField) {
         const field = metadataField.field;
         switch (field.type) {
             case 'string':
 
                 // if ('ancestorTerm' in  field.schema && 'ontologyNamespace' in field.schema) {
-                if (field.format === 'ontologyTerm') {
+                if (field.format === 'ontology-term') {
                     // TODO: why doesn't this serve as a type test?
                     return this.renderOntologyTermField(field as FieldOntologyTermValue);
                 } else {
@@ -107,7 +108,7 @@ export default class MetadataControlledField extends React.Component<MetadataCon
     }
 
     render() {
-        const { field } = this.props;
+        const {field} = this.props;
         return <span>
             {this.renderField(field)}{this.renderUnit(field)}
         </span>;

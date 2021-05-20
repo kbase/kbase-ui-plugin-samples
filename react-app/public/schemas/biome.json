@@ -10,5 +10,8 @@
     "examples": [
         "FENVO:01001831"
     ],
-    "type": "string"
+    "type": "string",
+    "format": "ontology-term",
+    "ancestorTerm": "ENVO:00000428",
+    "namespace": "envo_ontology"
 }
