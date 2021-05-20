@@ -2,29 +2,20 @@ import React from 'react';
 import {
     Alert, Button, Tooltip
 } from 'antd';
-
-
-// import { Format } from 'lib/client/SampleServiceClient';
-
-import './style.less';
 import {FieldGroup, FieldGroups} from 'lib/client/samples/Samples';
 import {MetadataField, Sample} from "../../lib/ViewModel/ViewModel";
 import MetadataFieldView from '../MetadataField/view';
+import './style.less';
 
 export interface GroupedMetadataProps {
     sample: Sample;
     fieldGroups: FieldGroups;
-    // format: Format;
-    // template: Template;
-    // layout: GroupingLayout;
-    // fields: FieldDefinitionsMap;
 }
 
 interface GroupedMetadataState {
-    // omitEmpty: boolean;
 }
 
-export default class GroupedMetadata extends React.Component<GroupedMetadataProps, GroupedMetadataProps> {
+export default class GroupedMetadata extends React.Component<GroupedMetadataProps, GroupedMetadataState> {
     metadataMap: Map<string, MetadataField>
 
     constructor(props: GroupedMetadataProps) {
@@ -79,6 +70,38 @@ export default class GroupedMetadata extends React.Component<GroupedMetadataProp
         </div>;
     }
 
+    renderUserFields() {
+        const sample = this.props.sample;
+        const metadata = sample.metadata;
+        const fields = metadata
+            .filter((field) => {
+                return field.type === 'user';
+            })
+            .map((field) => {
+                return <div key={field.key}>
+                    <div><Tooltip title={`key: ${field.key}`}><span>{field.label}</span></Tooltip></div>
+                    <div><MetadataFieldView field={field} sample={sample}/></div>
+                </div>;
+            });
+
+        if (fields.length === 0) {
+            return;
+        }
+
+        const content = <div className="InfoTable -bordered ControlledMetadata">
+            {fields}
+        </div>;
+
+        return <div className="DataGroup" key="user_fields">
+            <div className="-title">
+                User Fields
+            </div>
+            <div className="-body">
+                {content}
+            </div>
+        </div>;
+    }
+
     renderGrouped() {
         const sample = this.props.sample;
         const metadata = sample.metadata;
@@ -99,15 +122,14 @@ export default class GroupedMetadata extends React.Component<GroupedMetadataProp
                     })
                     .filter(field => !!field);
 
-                let content;
-                if (fields.length) {
-                    content = <div className="InfoTable -bordered ControlledMetadata">
-                        {fields}
-                    </div>;
-                } else {
+                if (fields.length === 0) {
                     return;
-                    // content = <div style={{fontStyle: 'italic'}}>No data</div>;
                 }
+
+                const content = <div className="InfoTable -bordered ControlledMetadata">
+                    {fields}
+                </div>;
+
                 return <div className="DataGroup" key={group.name}>
                     <div className="-title">
                         {group.title}
@@ -119,45 +141,12 @@ export default class GroupedMetadata extends React.Component<GroupedMetadataProp
             });
     }
 
-    // onChangeHideEmpty(ev: CheckboxChangeEvent) {
-    //     const omitEmpty = ev.target.checked;
-    //     this.setState({
-    //         omitEmpty
-    //     });
-    // }
-    // renderToolbar2() {
-    //     return <div className="Metadata-toolbar">
-    //         <Checkbox onChange={this.onChangeHideEmpty.bind(this)} checked={this.state.omitEmpty}>Hide Empty Fields</Checkbox>
-    //     </div>;
-    // }
-
-    // onToggleHideEmpty() {
-    //     this.setState({
-    //         omitEmpty: !this.state.omitEmpty
-    //     });
-    // }
-
-    renderToolbar() {
-        // const label = (() => {
-        //     if (this.state.omitEmpty) {
-        //         return 'Show Empty Fields';
-        //     } else {
-        //         return 'Hide Empty Fields';
-        //     }
-        // })();
-        // return <div className="Metadata-toolbar">
-        //     <Button onClick={this.onToggleHideEmpty.bind(this)}>{label}</Button>
-        // </div>;
-        return;
-    }
-
-
     render() {
         return <div className="Metadata" data-testid="metadataviewer">
-            {this.renderToolbar()}
             <div className="Metadata-body">
                 <div className="Metadata-content-wrapper">
                     {this.renderGrouped()}
+                    {this.renderUserFields()}
                 </div>
             </div>
         </div>;

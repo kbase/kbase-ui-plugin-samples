@@ -46,11 +46,11 @@ export default class Main extends React.Component<MainProps, MainState> {
             {this.renderLoadingCover()}
             <Header sample={this.props.sample} format={this.props.sample.format}/>
             <Tabs type="card" className="FullHeight-tabs" destroyInactiveTabPane={true}>
-                <Tabs.TabPane tab="Sample" key="sample">
-                    <TemplateMetadata sample={this.props.sample}/>
-                </Tabs.TabPane>
+                {/*<Tabs.TabPane tab="Sample" key="sample">*/}
+                {/*    <TemplateMetadata sample={this.props.sample}/>*/}
+                {/*</Tabs.TabPane>*/}
 
-                <Tabs.TabPane tab="Grouped" key="metadata">
+                <Tabs.TabPane tab="Sample" key="metadata">
                     <GroupedMetadata sample={this.props.sample} fieldGroups={this.props.fieldGroups}/>
                 </Tabs.TabPane>
 
