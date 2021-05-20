@@ -302,7 +302,7 @@ export interface SchemaFieldString extends SchemaFieldBase {
 export interface SchemaFieldOntologyTerm extends SchemaFieldBase {
     type: 'string'
     ancestorTerm: string
-    ontologyNamespace: string
+    namespace: string
 }
 
 // export interface SchemaFieldOntologyTerm extends SchemaFieldBase {

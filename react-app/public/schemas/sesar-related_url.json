@@ -10,5 +10,6 @@
     "examples": [
         "https://doi.org/10.1594/IEDA/999999"
     ],
-    "type": "string"
+    "type": "string",
+    "format": "url"
 }
