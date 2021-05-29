@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "size"
+        },
+        "unit": "m^3"
+    },
+    "title": "Size",
+    "description": "Size in meters cubed",
+    "examples": [
+        0.025
+    ],
+    "type": "number"
+}

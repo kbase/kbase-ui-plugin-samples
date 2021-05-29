@@ -13,8 +13,11 @@ import './style.less';
 import {MetadataField, Sample} from "../../lib/ViewModel/ViewModel";
 import {InfoTable, Section} from "@kbase/ui-components";
 import {Span} from 'lib/instrumentation/core';
-import {FieldGroup} from "../../lib/client/samples/Samples";
+import {FieldGroup} from "../../lib/client/SampleServiceClient";
 
+// Advised as the max zoom supported by most tiles:
+// https://leafletjs.com/examples/zoom-levels/
+export const DEFAULT_ZOOM = 18;
 
 export interface GeolocationViewerProps {
     sample: Sample;
@@ -42,6 +45,39 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
 
     componentWillUnmount() {
         this.span.end();
+    }
+
+    formatNumber(num: number) {
+        return Intl
+            .NumberFormat('en-US', {
+                minimumFractionDigits: 3,
+                maximumFractionDigits: 3
+            })
+            .format(num);
+    }
+
+    renderTooltip(sample: Sample) {
+        const {latitude, longitude} = this.props.sample.controlled;
+        return <div className="MapPopUp">
+            <div style={{whiteSpace: 'nowrap'}}>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Lat</th>
+                        <td>
+                            <MetadataFieldView field={latitude} sample={sample}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Long</th>
+                        <td>
+                            <MetadataFieldView field={longitude} sample={sample}/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     }
 
     renderMap() {
@@ -73,7 +109,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         return <div className="Geolocation-map">
             <LeafletMap
                 center={[lat, lng]}
-                zoom={12}
+                zoom={DEFAULT_ZOOM}
                 style={{flex: '1 1 0px'}}>
                 <ScaleControl position="topleft"/>
                 <LayersControl position="topright">
@@ -101,9 +137,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                 </LayersControl>
                 <CircleMarker center={[lat, lng]} radius={10} color="red">
                     <LeafletTooltip>
-                        <div>Location</div>
-                        <div>Latitude: {lat}</div>
-                        <div>Longitude: {lng}</div>
+                        {this.renderTooltip(this.props.sample)}
                     </LeafletTooltip>
                 </CircleMarker>
             </LeafletMap>
@@ -118,25 +152,10 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
 
     hasEmptyFields() {
         return false;
-
-        // return Object.values(this.props.sample.metadata)
-        //     .some((field) => {
-        //         return field.isEmpty &&
-        //             field.type === 'controlled' &&
-        //             field.field.schema.kbase.categories &&
-        //             field.field.schema.kbase.categories.includes('geolocation');
-        //     });
     }
 
     emptyFieldCount() {
         return 0;
-        // return Object.values(this.props.sample.metadata)
-        //     .filter((field) => {
-        //         return field.isEmpty &&
-        //             field.type === 'controlled' &&
-        //             field.field.schema.kbase.categories &&
-        //             field.field.schema.kbase.categories.includes('geolocation');
-        //     }).length;
     }
 
     renderFields() {
@@ -153,21 +172,6 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             .filter((field) => {
                 return !!field;
             })
-
-        // const fields = Object.values(metadata)
-        //     .filter((field) => {
-        //         return this.props.group.fields.includes(field.key);
-        //     })
-        //     .filter((field) => {
-        //         if (field.isEmpty && this.state.omitEmpty) {
-        //             return false;
-        //         } else {
-        //             return true;
-        //         }
-        //     })
-        //     .sort((a, b) => {
-        //         return a.label.localeCompare(b.label);
-        //     });
 
         const table = fields
             .map((field) => {

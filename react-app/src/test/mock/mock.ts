@@ -1,15 +1,15 @@
 /* istanbul ignore file */
 
-import {SchemaFieldNumber} from "../../lib/client/samples/Samples";
 import {MockResponseInit} from "jest-fetch-mock";
 import {mock_get_user_profile} from "./userProfile";
 import {mock_get_service_status} from "./serviceWizard";
 import {
     mock_get_data_links_from_sample,
-    mock_get_field_categories, mock_get_metadata_key_static_metadata, mock_get_sample,
+    mock_get_metadata_key_static_metadata, mock_get_sample,
     mock_get_sample_acls,
     mock_status, SCHEMA_FIELD_FOO
 } from "./sampleService";
+import {ControlledFieldNumber} from "../../lib/client/ControlledField";
 
 
 async function mockJSONRPCServices(request: Request): Promise<MockResponseInit> {
@@ -28,8 +28,6 @@ async function mockJSONRPCServices(request: Request): Promise<MockResponseInit> 
             return mock_get_data_links_from_sample(body, request);
         case 'SampleService.get_metadata_key_static_metadata':
             return mock_get_metadata_key_static_metadata(body, request);
-        case 'SampleService.get_field_categories':
-            return mock_get_field_categories(body, request);
         case 'UserProfile.get_user_profile':
             return mock_get_user_profile(body, request);
         default:
@@ -70,14 +68,14 @@ async function mockServices(request: Request): Promise<MockResponseInit> {
             throw new Error(`"${request.method} not supported in mocks`)
     }
 }
- 
+
 
 async function mockSchemaFields(request: Request): Promise<MockResponseInit> {
     await setTimeout(() => {
     }, 0);
     switch (request.url) {
         case 'https://fake.kbase.us/dynsrv/jsonschema/schemas/fields/foo.1-0-0.json':
-            const fooField: SchemaFieldNumber = SCHEMA_FIELD_FOO
+            const fooField: ControlledFieldNumber = SCHEMA_FIELD_FOO
             return {
                 body: JSON.stringify(
                     fooField

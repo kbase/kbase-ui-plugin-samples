@@ -26,8 +26,6 @@ const reducer: Reducer<StoreState | undefined, AppAction> = (
         return baseState as StoreState;
     }
 
-    console.log('hmm', action);
-
     const nextState: StoreState | null = (() => {
         switch (action.category) {
             case "sample":

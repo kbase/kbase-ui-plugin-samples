@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:packing_depth_end"
+        },
+        "unit": "ft"
+    },
+    "title": "Packing Depth End",
+    "description": "Packind depth end in ft below ground surface (ft BGS)",
+    "examples": [
+        17.5
+    ],
+    "type": "number"
+}

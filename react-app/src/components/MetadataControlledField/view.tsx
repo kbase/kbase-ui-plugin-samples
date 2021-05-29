@@ -2,8 +2,8 @@ import React from 'react';
 import {Tooltip} from 'antd';
 import {NoData} from '@kbase/ui-components';
 import {MetadataControlledField as _MetadataControlledField} from '../../lib/ViewModel/ViewModel';
-import {FieldNumberValue, FieldOntologyTermValue, FieldStringValue} from 'lib/client/samples/Samples';
 import {Sample} from 'lib/ViewModel/ViewModel';
+import {FieldNumberValue, FieldOntologyTermValue, FieldStringValue} from "../../lib/ViewModel/Field";
 
 
 export interface MetadataControlledFieldProps {
@@ -38,24 +38,6 @@ export default class MetadataControlledField extends React.Component<MetadataCon
         </Tooltip>;
     }
 
-    // renderBooleanField(field: FieldValueBoolean) {
-    //     if (field.value === null) {
-    //         return <NoData />;
-    //     }
-    //     return <span>{field.value}</span>;
-    // }
-    // renderDateField(field: FieldValueDate) {
-    //     if (field.value === null) {
-    //         return <NoData />;
-    //     }
-    //     return <span>{field.value}</span>;
-    // }
-    // renderStringEnumField(field: FieldValueStringEnum) {
-    //     if (field.value === null) {
-    //         return <NoData />;
-    //     }
-    //     return <span>{field.value}</span>;
-    // }
     renderOntologyTermField(field: FieldOntologyTermValue) {
         if (field.stringValue === null) {
             return <NoData/>;
@@ -69,35 +51,15 @@ export default class MetadataControlledField extends React.Component<MetadataCon
         const field = metadataField.field;
         switch (field.type) {
             case 'string':
-
-                // if ('ancestorTerm' in  field.schema && 'ontologyNamespace' in field.schema) {
                 if (field.format === 'ontology-term') {
                     // TODO: why doesn't this serve as a type test?
                     return this.renderOntologyTermField(field as FieldOntologyTermValue);
                 } else {
                     return this.renderStringField(field);
                 }
-            // switch (field.format) {
-            //     case 'ontologyTerm':
-            //         return this.renderOntologyTermField(field);
-            //     default:
-            //         return this.renderStringField(field);
-            // }
-
             case 'number':
                 return this.renderNumberField(field);
-            // case 'boolean':
-            //     return this.renderBooleanField(field);
-            // case 'date':
-            //     return this.renderDateField(field);
-            // case 'Enum<string>':
-            //     return this.renderStringEnumField(field);
-            // case 'OntologyTerm':
-            //     return this.renderOntologyTermField(field);
         }
-        // return <span>
-        //     {field.value}
-        // </span>;
     }
 
     renderUnit(field: _MetadataControlledField) {

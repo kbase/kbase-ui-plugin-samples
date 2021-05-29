@@ -4,9 +4,9 @@ import {SelectValue} from 'antd/lib/select';
 import Versions from '../Versions';
 import UserCard from '../UserCard/view';
 import './styles.css';
-import {Format} from 'lib/client/samples/Samples';
 import {Sample} from "../../lib/ViewModel/ViewModel";
 import {InfoTable} from "@kbase/ui-components";
+import {Format} from "../../lib/client/Format";
 
 export interface HeaderProps {
     sample: Sample;
@@ -86,13 +86,6 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
             name, created
         } = this.props.sample;
 
-        const sourceTooltip = <div>
-            <img src={this.props.format.source.logo_url!} height={30}
-                 alt={`Logo for ${this.props.format.source.title}`}/>
-            <div><a href={this.props.format.source.url} target="_blank" rel="noopener noreferrer"
-                    className="Header-sourceUrl">{this.props.format.source.title}</a></div>
-        </div>;
-
         return <div className="Grouper Header">
             <Row>
                 <Col span={8}>
@@ -110,9 +103,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                     <InfoTable table={[{
                         label: 'Format',
                         render: () => {
-                            return <Tooltip title={sourceTooltip}>
-                                <span>{this.props.format.source.name}</span>
-                            </Tooltip>;
+                            return <span>{this.props.format.name}</span>
                         }
                     }]}></InfoTable>
                 </Col>

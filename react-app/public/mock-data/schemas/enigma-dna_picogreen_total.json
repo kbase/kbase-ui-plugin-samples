@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:dna_picogreen_total"
+        },
+        "unit": "ng"
+    },
+    "title": "DNA Picogreen Total",
+    "description": "units in nanograms",
+    "examples": [
+        228.6658163
+    ],
+    "type": "number"
+}

@@ -8,7 +8,7 @@
 import {Sample} from "../../lib/ViewModel/ViewModel";
 import {CategoryAction} from "./base";
 import {AppError} from "@kbase/ui-components";
-import {FieldGroups} from "../../lib/client/samples/Samples";
+import {FieldGroups} from "../../lib/client/SampleServiceClient";
 
 export enum ActionType {
     FETCH = "@sample/fetch",

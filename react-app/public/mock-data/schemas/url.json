@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "url"
+        }
+    },
+    "title": "URL",
+    "description": "URL for Sample",
+    "examples": [
+        "http://igsn.org/IEBWE0001"
+    ],
+    "type": "string",
+    "format": "url"
+}

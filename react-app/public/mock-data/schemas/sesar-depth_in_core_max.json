@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:depth_in_core_max"
+        },
+        "unit": "meters"
+    },
+    "title": "Depth in Core (max)",
+    "description": "maximum depth in core in meters",
+    "examples": [
+        0.003
+    ],
+    "type": "number"
+}

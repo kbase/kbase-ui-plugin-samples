@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:open_casing_id"
+        },
+        "unit": "in"
+    },
+    "title": "Open Casing ID",
+    "description": "open casing inner diameter in inches (in)",
+    "examples": [
+        6.12
+    ],
+    "type": "number",
+    "minimum": 0.0
+}

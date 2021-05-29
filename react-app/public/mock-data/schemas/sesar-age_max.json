@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:age_max"
+        },
+        "unit": "years"
+    },
+    "title": "Age (max)",
+    "description": "Maximum geological age in years",
+    "examples": [
+        4.6
+    ],
+    "type": "number",
+    "minimum": 0.0
+}
