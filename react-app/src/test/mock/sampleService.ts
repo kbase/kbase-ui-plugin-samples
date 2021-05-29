@@ -2,14 +2,12 @@
 
 import {
     GetDataLinksFromSampleResult,
-    GetFieldCategoriesResult,
     GetFieldDefinitionsResult,
     GetMetadataKeyStaticMetadataResult,
     GetSampleACLsResult,
     GetSampleResult, SampleACLs,
     StatusResult
 } from '../../lib/client/SampleServiceClient'
-import {SchemaFieldNumber} from "../../lib/client/samples/Samples";
 import {Sample} from "../../lib/client/Sample";
 
 // Sample Data
@@ -18,6 +16,7 @@ import {Sample} from "../../lib/client/Sample";
 import sample1Data from './data/samples/sample1.json';
 import sample2Data from './data/samples/sample2.json';
 import sample3Data from './data/samples/sample3.json';
+import {ControlledFieldNumber} from "../../lib/client/ControlledField";
 
 
 // Type the sample data.
@@ -92,19 +91,6 @@ export const GET_DATA_LINKS_FROM_SAMPLE_RESULT_EMPTY: GetDataLinksFromSampleResu
     links: []
 }
 
-export const GET_FIELD_CATEGORIES_RESULT: GetFieldCategoriesResult = {
-    categories: [
-        {
-            id: "geolocation",
-            description: "Geographic location, address, etc; basically the location in space"
-        },
-        {
-            id: "curation",
-            description: "Storage and maintenance of the sample and sample metadata"
-        }
-    ]
-}
-
 export const GET_FORMAT_RESULT_SUBSET = {
     id: "sesar",
     name: "SESAR",
@@ -135,7 +121,7 @@ export const GET_FIELD_DEFINITIONS_RESULT_EMPTY: GetFieldDefinitionsResult = {
     fields: []
 }
 
-export const SCHEMA_FIELD_FOO: SchemaFieldNumber = {
+export const SCHEMA_FIELD_FOO: ControlledFieldNumber = {
     type: 'number',
     $id: 'id',
     $schema: 'schema',
@@ -148,10 +134,7 @@ export const SCHEMA_FIELD_FOO: SchemaFieldNumber = {
         '1', '2', '3'
     ],
     kbase: {
-
-        units: {
-            canonical: 'baz'
-        },
+        unit: 'baz',
         format: {
             useGrouping: true
         },
@@ -239,20 +222,3 @@ export async function mock_get_metadata_key_static_metadata(body: any, request: 
         }
     };
 }
-
-export async function mock_get_field_categories(body: any, request: Request) {
-    return {
-        body: JSON.stringify({
-            version: '1.1',
-            id: 'abc',
-            result: [
-                GET_FIELD_CATEGORIES_RESULT
-            ]
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-}
-
-

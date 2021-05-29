@@ -9,17 +9,11 @@ export type SampleId = string;
 export type SampleVersion = number;
 export type SampleNodeType = "BioReplicate" | "TechReplicate" | "SubSample";
 
-export type WorkspaceUniquePermanentAddress = WSUPA;
-
-// export interface UserMetadata {
-//     [k: string]: MetadataValue;
-// }
 
 export interface MetadataValue {
     value: string | number;
     units: string;
 }
-
 
 export interface Metadata {
     [key: string]: MetadataValue;
@@ -27,18 +21,12 @@ export interface Metadata {
 
 export interface UserMetadataValue {
     value: string;
-    units: string;
+    unit: string;
 }
 
 export interface UserMetadata {
     [key: string]: UserMetadataValue;
 }
-
-// TODO: interfaces for specific controlled metadata.
-// may not be practical, but consider it.
-// export interface ControlledMetadata {
-//     [k: string]: MetadataValue;
-// }
 
 export type MetadataSource = Array<MetadataSourceField>;
 
@@ -66,8 +54,4 @@ export interface Sample {
     name: string;
     save_date: EpochTimeMS;
     version: SampleVersion;
-    // TODO: these fields don't yet exist upstream.
-    // format_id: string;
-    // format_version: number;
-    // sample_set_ref: string;
 }

@@ -6,9 +6,8 @@
 
 // The classic async actions
 import {CategoryAction} from "./base";
-import {GeolocationData} from "redux/store/geolocation";
 import {AppError} from "@kbase/ui-components";
-import {FieldGroups} from "../../lib/client/samples/Samples";
+import {FieldGroups} from "../../lib/client/SampleServiceClient";
 
 export enum ActionType {
     FETCH = "@geolocation/fetch",

@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:top_of_casing_stickup"
+        },
+        "unit": "ft"
+    },
+    "title": "Top of Casing Stickup",
+    "description": "Top of casing stickup in ft",
+    "examples": [
+        1.84
+    ],
+    "type": "number"
+}

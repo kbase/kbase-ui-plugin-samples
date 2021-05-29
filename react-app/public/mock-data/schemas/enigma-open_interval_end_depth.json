@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:open_interval_end_depth"
+        },
+        "unit": "ft"
+    },
+    "title": "Open Interval End Depth",
+    "description": "Open interval end depth in ft below ground surface (ft BGS)",
+    "examples": [
+        125
+    ],
+    "type": "number"
+}

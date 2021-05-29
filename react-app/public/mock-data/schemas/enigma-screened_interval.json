@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:screened_interval"
+        },
+        "unit": "ft"
+    },
+    "title": "Screened Interval",
+    "description": "Screened interval in ft",
+    "examples": [
+        0.25
+    ],
+    "type": "number"
+}

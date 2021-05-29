@@ -93,15 +93,15 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             version: action.version,
         });
 
-        console.log('hmm', action.id, sample);
-
         const sampleService = new SampleServiceClient({
             token,
             url: sampleServiceURL,
             timeout: UPSTREAM_TIMEOUT,
         });
 
+        console.log('there?');
         const {groups} = await sampleService.get_field_groups();
+        console.log('here?');
         dispatch({
             category: 'sample',
             type: ActionType.FETCHED,
@@ -109,7 +109,7 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             fieldGroups: groups
         });
     } catch (ex) {
-        console.log('ERROR!', ex.message);
+        console.error('ERROR!', ex);
         dispatch(fetchError({
             code: 'fetchSampleError',
             message: ex.message

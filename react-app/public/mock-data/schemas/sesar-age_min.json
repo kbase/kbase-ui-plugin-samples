@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:age_min"
+        },
+        "unit": "years"
+    },
+    "title": "Age (min)",
+    "description": "minimum geological age in years",
+    "examples": [
+        4.2
+    ],
+    "type": "number",
+    "minimum": 0.0
+}

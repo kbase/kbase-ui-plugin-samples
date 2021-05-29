@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:boring_diameter"
+        },
+        "unit": "in"
+    },
+    "title": "Boring Diameter",
+    "description": "boring diameter in inches",
+    "examples": [
+        8
+    ],
+    "type": "number",
+    "minimum": 0.0
+}

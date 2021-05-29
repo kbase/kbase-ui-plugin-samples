@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "longitude"
+        },
+        "unit": "degrees",
+        "formatting": {
+            "minimumFractionDigits": 3,
+            "maximumFractionDigits": 3
+        }
+    },
+    "title": "Longitude",
+    "description": "Longitude of the location where the sample was collected in WGS 84 cooridinate system. ('Start longitude' for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for 'West' longitudes.",
+    "examples": [
+        -103.785
+    ],
+    "type": "number",
+    "minimum": -180.0,
+    "maximum": 180.0
+}

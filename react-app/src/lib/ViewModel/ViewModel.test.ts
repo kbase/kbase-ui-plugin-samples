@@ -1,6 +1,8 @@
 import ViewModel from './ViewModel';
-import { setupMocks } from "../../test/mock/mock";
-import { FETCH_ACL_RESULT, FETCH_ACL_RESULT_EMPTY, FETCH_USER_PROFILE_FOO_RESULT } from "../../test/mock/viewModel";
+import {setupMocks} from "../../test/mock/mock";
+import {
+    FETCH_ACL_RESULT, FETCH_ACL_RESULT_EMPTY, FETCH_USER_PROFILE_FOO_RESULT
+} from "../../test/mock/viewModel";
 
 function makeViewModel() {
     return new ViewModel({
@@ -34,7 +36,7 @@ describe('ViewModel', () => {
     test('Can fetch a user profile', async () => {
         const viewModel = makeViewModel();
 
-        const profile = await viewModel.fetchUsers({ usernames: ['foo'] });
+        const profile = await viewModel.fetchUsers({usernames: ['foo']});
         expect(profile).toBeDefined();
         expect(profile).toEqual([FETCH_USER_PROFILE_FOO_RESULT]);
     });
@@ -43,7 +45,7 @@ describe('ViewModel', () => {
         const viewModel = makeViewModel();
 
         expect(async () => {
-            return await viewModel.fetchUsers({ usernames: ['no_foo'] });
+            return await viewModel.fetchUsers({usernames: ['no_foo']});
         }).rejects.toThrow();
     });
 

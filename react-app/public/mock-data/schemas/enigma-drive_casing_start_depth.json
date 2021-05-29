@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:drive_casing_start_depth"
+        },
+        "unit": "ft"
+    },
+    "title": "Drive Casing Start Depth",
+    "description": "units in ft below ground surface (ft BGS)",
+    "examples": [
+        10
+    ],
+    "type": "number"
+}

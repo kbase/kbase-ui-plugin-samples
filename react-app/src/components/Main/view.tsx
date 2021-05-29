@@ -13,7 +13,7 @@ import './style.less';
 import {Sample} from "../../lib/ViewModel/ViewModel";
 import {Loading} from '@kbase/ui-components';
 import GroupedMetadata from "../GroupdMetadata/view";
-import {FieldGroups} from "../../lib/client/samples/Samples";
+import {FieldGroups} from "../../lib/client/SampleServiceClient";
 
 export interface MainProps {
     sample: Sample;

@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:drive_casing_od"
+        },
+        "unit": "in"
+    },
+    "title": "Drive Casing OD",
+    "description": "drive casing outer diameter in inches",
+    "examples": [
+        3.25
+    ],
+    "type": "number",
+    "minimum": 0.0
+}

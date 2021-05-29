@@ -2,10 +2,10 @@ import React from 'react';
 import {
     Alert, Button, Tooltip
 } from 'antd';
-import {FieldGroup, FieldGroups} from 'lib/client/samples/Samples';
 import {MetadataField, Sample} from "../../lib/ViewModel/ViewModel";
 import MetadataFieldView from '../MetadataField/view';
 import './style.less';
+import {FieldGroups} from "../../lib/client/SampleServiceClient";
 
 export interface GroupedMetadataProps {
     sample: Sample;

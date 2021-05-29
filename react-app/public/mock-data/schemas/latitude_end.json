@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "latitude_end"
+        },
+        "unit": "degrees",
+        "formatting": {
+            "minimumFractionDigits": 3,
+            "maximumFractionDigits": 3
+        }
+    },
+    "title": "Latitude End",
+    "description": "End latitude of the location where the sample was collected in WGS 84 coordinate system. ('End latitude' for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for South latitudes.",
+    "examples": [
+        5.89634
+    ],
+    "type": "number",
+    "minimum": -90.0,
+    "maximum": 90.0
+}

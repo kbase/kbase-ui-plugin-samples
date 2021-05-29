@@ -2,16 +2,14 @@ import {
     setupMocks, teardownMocks
 } from "../../test/mock/mock";
 import {
-    GET_DATA_LINKS_FROM_SAMPLE_RESULT_EMPTY, GET_FIELD_CATEGORIES_RESULT,
+    GET_DATA_LINKS_FROM_SAMPLE_RESULT_EMPTY,
     GET_FORMAT_RESULT_SUBSET,
     GET_METADATA_KEY_STATIC_METADATA_EMPTY,
     SAMPLE_ACLS,
     STATUS_RESULT, GET_SAMPLE_SAMPLES
 } from "../../test/mock/sampleService";
 import SampleServiceClient, {
-    ALL_CATEGORIES,
     GetDataLinksFromSampleParams,
-    GetFieldCategoriesParams,
     GetFormatParams,
     GetMetadataKeyStaticMetadataParams,
     GetSampleACLsParams,
@@ -92,24 +90,6 @@ describe('SampleServiceClient', () => {
 
     // Our "faked" sample service methods; these do not call fetch, so we can use the
     // built-in fake data.
-
-    test('Can successfully call the "get_field_categories" method', async () => {
-        const client = makeSampleServiceClient();
-        const params: GetFieldCategoriesParams = {
-            ids: ['geolocation', 'curation']
-        }
-        const result = await client.get_field_categories(params);
-        expect(result).toBeDefined();
-        expect(result).toEqual(GET_FIELD_CATEGORIES_RESULT)
-    });
-
-    test('Can successfully call the "get_field_categories" method without id filter', async () => {
-        const client = makeSampleServiceClient();
-        const params: GetFieldCategoriesParams = {}
-        const result = await client.get_field_categories(params);
-        expect(result).toBeDefined();
-        expect(result).toEqual({categories: ALL_CATEGORIES})
-    });
 
     test('Can successfully call the "get_format" method', async () => {
         const client = makeSampleServiceClient();

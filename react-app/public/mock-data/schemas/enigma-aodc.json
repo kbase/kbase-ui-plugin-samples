@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:aodc"
+        },
+        "unit": "cells/g"
+    },
+    "title": "AODC",
+    "description": "units in cells per gram",
+    "examples": [
+        200456.8368
+    ],
+    "type": "number",
+    "minimum": 0.0
+}

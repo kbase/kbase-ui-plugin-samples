@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "longitude_end"
+        },
+        "unit": "degrees",
+        "formatting": {
+            "minimumFractionDigits": 3,
+            "maximumFractionDigits": 3
+        }
+    },
+    "title": "Longitude End",
+    "description": "End longitude of the location where the sample was collected in WGS 84 cooridinate system. Needs to be entered in decimal degrees. Negative values for 'West' longitudes.",
+    "examples": [
+        -103.285
+    ],
+    "type": "number",
+    "minimum": -180.0,
+    "maximum": 180.0
+}

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Collapse, Result } from 'antd';
-import { BugTwoTone, CaretRightOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { isJSONArray, isJSONObject, JSONValue } from '@kbase/ui-lib/lib/json';
-import { AppError, InfoTable } from '@kbase/ui-components';
-
+import {Collapse, Result} from 'antd';
+import {BugTwoTone, CaretRightOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
+import {isJSONArray, isJSONObject, JSONValue} from '@kbase/ui-lib/lib/json';
+import {AppError, InfoTable} from '@kbase/ui-components';
 
 
 export interface ErrorViewProps {
@@ -26,7 +25,7 @@ export default class ErrorView extends React.Component<ErrorViewProps, ErrorView
                 case 'undefined':
                     // TODO: not possible if actually a JSONValue, but
                     // this handles optional properties...
-                    return <span style={{ fontStyle: 'italic' }}>undefined</span>;
+                    return <span style={{fontStyle: 'italic'}}>undefined</span>;
                 case 'string':
                     return <span>{d}</span>;
                 case 'boolean':
@@ -53,9 +52,8 @@ export default class ErrorView extends React.Component<ErrorViewProps, ErrorView
                                 render: () => r(value)
                             };
                         });
-                        return <InfoTable table={table} bordered={true} />;
+                        return <InfoTable table={table} bordered={true}/>;
                     } else {
-                        console.log('hmm', d);
                         return <span>** Not a JSONValue ** {typeof d}</span>;
                     }
             }
@@ -70,13 +68,13 @@ export default class ErrorView extends React.Component<ErrorViewProps, ErrorView
         }
 
         return <Collapse defaultActiveKey={['message', 'code', 'source']}
-            bordered={false}
-            collapsible="disabled"
-            expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-            ghost={true}>
+                         bordered={false}
+                         collapsible="disabled"
+                         expandIcon={({isActive}) => <CaretRightOutlined rotate={isActive ? 90 : 0}/>}
+                         ghost={true}>
             <Collapse.Panel key="detail"
-                header="Detail"
-                collapsible="header">
+                            header="Detail"
+                            collapsible="header">
                 {this.renderJSON()}
             </Collapse.Panel>
         </Collapse>;
@@ -84,7 +82,7 @@ export default class ErrorView extends React.Component<ErrorViewProps, ErrorView
 
     renderTitle() {
         return <span>
-            <ExclamationCircleOutlined style={{ color: 'red' }} />
+            <ExclamationCircleOutlined style={{color: 'red'}}/>
             {' '}
             {this.props.title || 'Error'}
         </span>;
@@ -98,7 +96,7 @@ export default class ErrorView extends React.Component<ErrorViewProps, ErrorView
             }];
 
         return <div>
-            <InfoTable table={table} />
+            <InfoTable table={table}/>
 
             {this.renderDetail()}
         </div>;
@@ -108,10 +106,10 @@ export default class ErrorView extends React.Component<ErrorViewProps, ErrorView
         return <Result
             status="error"
             title={this.props.title || 'Error'}
-            icon={<BugTwoTone twoToneColor="red" />}
+            icon={<BugTwoTone twoToneColor="red"/>}
             subTitle={this.props.error.message}
         >
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
                 {this.renderBody()}
             </div>
         </Result>;

@@ -30,7 +30,9 @@ import {GeolocationStoreState} from "../../redux/store/geolocation";
 
 // Local imports
 import View from './view';
-import {FieldGroups} from "../../lib/client/samples/Samples";
+import {FieldGroups} from "../../lib/client/SampleServiceClient";
+
+// import {FieldGroups} from "../../lib/client/samples/Samples";
 
 export interface LoaderProps {
     geolocationState: GeolocationStoreState;
@@ -63,7 +65,6 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
     }
 
     renderSuccess(fieldGroups: FieldGroups) {
-        console.log('groups?', fieldGroups);
         const group = fieldGroups.filter((fieldGroup) => {
             return fieldGroup.name === 'geolocation'
         });

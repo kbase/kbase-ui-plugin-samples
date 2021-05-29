@@ -30,7 +30,7 @@ import {SampleStoreState} from 'redux/store/sample';
 
 // Local imports
 import Main from './view';
-import {FieldGroups} from "../../lib/client/samples/Samples";
+import {FieldGroups} from "../../lib/client/SampleServiceClient";
 
 export interface LoaderProps {
     id: string;

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "elevation_end"
+        },
+        "formatting": {
+            "useGrouping": true
+        }
+    },
+    "title": "Elevation End",
+    "description": "End elevation at which a sample was collected. Use negative values for depth below sea level. Minimum elevation if a range is provided for the elevation/depth below sea level.",
+    "examples": [
+        673.5,
+        -4520
+    ],
+    "type": "number"
+}

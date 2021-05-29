@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "enigma:lower_seal_start_depth"
+        },
+        "unit": "ft"
+    },
+    "title": "Lower Seal Start Depth",
+    "description": "Lower seal start depth in ft below ground surface (ft BGS)",
+    "examples": [
+        20.25
+    ],
+    "type": "number"
+}

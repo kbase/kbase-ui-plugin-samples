@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "kbase": {
+        "sample": {
+            "key": "sesar:depth_in_core_min"
+        },
+        "unit": "meters"
+    },
+    "title": "Depth in Core (min)",
+    "description": "Minimum depth in core in meters",
+    "examples": [
+        0.001
+    ],
+    "type": "number"
+}
