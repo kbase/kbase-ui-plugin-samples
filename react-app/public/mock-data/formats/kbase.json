@@ -1,5 +1,10 @@
 {
     "name": "kbase",
+    "info": {
+        "title": "KBase custom sample template",
+        "shortTitle": "KBase",
+        "homePage": "https://kbase.us"
+    },
     "mappings": {
         "id": "id",
         "parent": "parent_id",

@@ -82,10 +82,6 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
     }
 
     render() {
-        const {
-            name, created
-        } = this.props.sample;
-
         return <div className="Grouper Header">
             <Row>
                 <Col span={8}>
@@ -97,15 +93,19 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                     }, {
                         label: 'ID',
                         value: this.props.sample.sampleId
-                    }]}></InfoTable>
+                    }]}/>
                 </Col>
                 <Col span={8}>
                     <InfoTable table={[{
                         label: 'Format',
                         render: () => {
-                            return <span>{this.props.format.name}</span>
+                            return <Tooltip
+                                title={this.props.format.info.title}>
+                                <a href={this.props.format.info.homePage}
+                                   target="_blank" rel="noreferrer">{this.props.format.info.shortTitle}</a>
+                            </Tooltip>
                         }
-                    }]}></InfoTable>
+                    }]}/>
                 </Col>
                 <Col span={8}>
                     <InfoTable table={[{
@@ -123,14 +123,13 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                             minute: 'numeric',
                             second: 'numeric',
                             timeZoneName: 'short'
-                        }).format(created.at)
+                        }).format(this.props.sample.created.at)
                     }, {
                         label: 'Versions',
                         render: () => {
                             return this.renderVersions();
                         }
-                    }]}>
-                    </InfoTable>
+                    }]}/>
                 </Col>
             </Row>
         </div>;
