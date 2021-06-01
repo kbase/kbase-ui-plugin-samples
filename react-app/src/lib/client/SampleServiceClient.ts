@@ -184,7 +184,7 @@ export default class SampleServiceClient extends ServiceClient {
     async get_formats(params: GetFormatParams): Promise<GetFormatResult> {
         const formats = await Promise.all(params.ids.map(async (formatId) => {
             const result = await fetch(
-                `${process.env.PUBLIC_URL}/mock-data/formats/${formatId}.json`,
+                `${process.env.PUBLIC_URL}/mock-data/formats/${formatId.toLowerCase()}.json`,
             );
             if (result.status >= 300) {
                 throw new Error(`Error fetching format ${formatId} (${result.status})`);
