@@ -1,5 +1,10 @@
 {
     "name": "enigma",
+    "info": {
+        "title": "Ecosystems and Networks Integrated with Genes and Molecular Assemblies",
+        "shortTitle": "ENIGMA",
+        "homePage": "https://enigma.lbl.gov"
+    },
     "mappings": {
         "id": "name",
         "parent": "enigma:well_name",

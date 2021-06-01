@@ -188,14 +188,12 @@ export default class ViewModel {
             userProfileURL,
             sampleServiceURL,
             workspaceURL,
-            serviceWizardURL,
             token,
             timeout,
         }: {
             userProfileURL: string;
             sampleServiceURL: string;
             workspaceURL: string;
-            serviceWizardURL: string;
             token: string;
             timeout: number;
         },
@@ -294,9 +292,9 @@ export default class ViewModel {
             return usersMap;
         }, new Map<Username, User>());
 
-        const {format} = await this.getFormat({id: sampleResult.formatId});
+        const {formats: [format]} = await this.getFormats({ids: [sampleResult.formatId]});
 
-        const sample: Sample = {
+        return {
             id: sampleResult.id,
             sampleId: sampleResult.sample.id,
             parentSampleId: sampleResult.sample.parentId,
@@ -321,7 +319,6 @@ export default class ViewModel {
             formatId: sampleResult.formatId,
             format
         };
-        return sample;
     }
 
     async fetchACL({id}: { id: string; }): Promise<ACL> {
@@ -349,7 +346,7 @@ export default class ViewModel {
             {},
         );
 
-        const acl: ACL = {
+        return {
             admin: aclResult.admin.map((username) => {
                 const profile = profileMap[username];
                 return {
@@ -381,8 +378,6 @@ export default class ViewModel {
                 };
             }),
         };
-
-        return acl;
     }
 
     async fetchLinkedData({id, version}: {
@@ -422,7 +417,7 @@ export default class ViewModel {
             return objectMap;
         }, new Map<string, ObjectInfo>());
 
-        const dataLinksWithKey: Array<DataLink2> = dataLinks.links.map(
+        return dataLinks.links.map(
             (dataLink) => {
                 const objectInfo = objectMap.get(dataLink.upa);
                 if (!objectInfo) {
@@ -436,13 +431,11 @@ export default class ViewModel {
                 };
             },
         );
-
-        return dataLinksWithKey;
     }
 
-    async getFormat(params: GetFormatParams): Promise<GetFormatResult> {
-        const {format} = await this.sampleService.get_format({id: params.id});
-        return {format};
+    async getFormats(params: GetFormatParams): Promise<GetFormatResult> {
+        const {formats} = await this.sampleService.get_formats({ids: params.ids});
+        return {formats: formats};
     }
 
 
@@ -459,7 +452,7 @@ export default class ViewModel {
         const format_id = rawRealSample.meta_controlled['sample_template']['value'] as string;
 
         //
-        const {format} = await this.sampleService.get_format({id: format_id});
+        const {formats: [format]} = await this.sampleService.get_formats({ids: [format_id]});
         const reverseSampleMapping: SimpleMapping = Object.entries(format.mappings)
             .reduce<SimpleMapping>((mapping, [key, value]) => {
                 mapping[value] = key;
@@ -505,7 +498,7 @@ export default class ViewModel {
 
         // Simulate template fields.
         const controlledFields: Array<MetadataControlledField> = Object.entries(rawRealSample.meta_controlled)
-            .filter(([key, value]) => {
+            .filter(([key, _value]) => {
                 return key !== 'sample_template';
             })
             .map(([key, {
@@ -522,26 +515,24 @@ export default class ViewModel {
                             if (typeof value !== 'number') {
                                 throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
                             }
-                            const n: FieldNumberValue = {
+                            return {
                                 type: 'number',
                                 isEmpty: false,
                                 schema: def,
                                 numberValue: value,
                                 unit: units
-                            };
-                            return n;
+                            } as FieldNumberValue;
                         case "string":
                             if (typeof value !== 'string') {
                                 throw new Error(`Field "${def.kbase.sample.key}" should be string but is a "${typeof value}"`);
                             }
-                            const s: FieldStringValue = {
+                            return {
                                 type: 'string',
                                 isEmpty: false,
                                 schema: def,
                                 stringValue: value,
                                 unit: units
-                            };
-                            return s;
+                            } as FieldStringValue;
                     }
                 })();
                 if (def) {
@@ -591,7 +582,7 @@ export default class ViewModel {
                     type: "user",
                     key,
                     label,
-                    isEmpty: userFieldValue ? true : false,
+                    isEmpty: !!userFieldValue,
                     field: userFieldValue
                 };
                 return a;
@@ -620,16 +611,6 @@ export default class ViewModel {
                     return null;
                 }
                 return value;
-            })();
-
-            const unit = (() => {
-                if (fieldValue && fieldValue.units) {
-                    return fieldValue.units;
-                }
-                if (!fieldDefinition.kbase.unit) {
-                    return "unit";
-                }
-                return fieldDefinition.kbase.unit;
             })();
 
             const field: FieldValue = (() => {

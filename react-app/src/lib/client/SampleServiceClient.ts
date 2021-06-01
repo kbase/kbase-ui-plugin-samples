@@ -14,10 +14,12 @@ import {ServiceClientParams} from "@kbase/ui-lib/lib/comm/JSONRPC11/ServiceClien
 import {ControlledField} from "./ControlledField";
 import {Format} from "./Format";
 
+export type ControlledFieldKey = string;
+
 export interface FieldGroup {
     name: string;
     title: string;
-    fields: Array<string>;
+    fields: Array<ControlledFieldKey>;
 }
 
 export type FieldGroups = Array<FieldGroup>;
@@ -103,7 +105,7 @@ export interface SampleACLs extends JSONObject {
 export type GetSampleACLsResult = SampleACLs;
 
 export interface GetFormatParams {
-    id: string;
+    ids: Array<string>;
     version?: number;
 }
 
@@ -114,7 +116,7 @@ export interface FormatSource {
 }
 
 export interface GetFormatResult {
-    format: Format;
+    formats: Array<Format>;
 }
 
 export interface GetFieldDefinitionsParams {
@@ -138,10 +140,6 @@ export interface SampleServiceClientParams extends ServiceClientParams {
 
 export default class SampleServiceClient extends ServiceClient {
     module: string = "SampleService";
-
-    constructor(params: SampleServiceClientParams) {
-        super(params);
-    }
 
     async status(): Promise<StatusResult> {
         const [result] = await this.callFunc<[], [StatusResult]>("status", []);
@@ -183,28 +181,29 @@ export default class SampleServiceClient extends ServiceClient {
 
     // These are not part of the sample service api, but should be:
 
-    async get_format(params: GetFormatParams): Promise<GetFormatResult> {
-        const formatId = params.id.toLowerCase();
-        const result = await fetch(
-            `${process.env.PUBLIC_URL}/mock-data/formats/${formatId}.json`,
-        );
-        if (result.status >= 300) {
-            throw new Error(`Error fetching format ${formatId} (${result.status})`);
-        }
-        return await (async () => {
+    async get_formats(params: GetFormatParams): Promise<GetFormatResult> {
+        const formats = await Promise.all(params.ids.map(async (formatId) => {
+            const result = await fetch(
+                `${process.env.PUBLIC_URL}/mock-data/formats/${formatId}.json`,
+            );
+            if (result.status >= 300) {
+                throw new Error(`Error fetching format ${formatId} (${result.status})`);
+            }
             const payload = await result.text();
             try {
-                const format = await JSON.parse(payload) as Format;
-                return {format};
+                return JSON.parse(payload) as Format;
             } catch (ex) {
                 throw new Error(
                     `Invalid JSON schema for format "${formatId}": ${ex.message}`,
                 );
             }
-        })();
+        }));
+        return {
+            formats
+        };
     }
 
-    async fetchSchema(schemaName: string) {
+    async fetchSchema(schemaName: string): Promise<ControlledField> {
         const result = await fetch(
             `${process.env.PUBLIC_URL}/mock-data/schemas/${schemaName}.json`,
         );
