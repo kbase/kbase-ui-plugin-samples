@@ -98,9 +98,7 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             timeout: UPSTREAM_TIMEOUT,
         });
 
-        console.log('there?');
         const {groups} = await sampleService.get_field_groups();
-        console.log('here?');
         dispatch({
             category: 'sample',
             type: ActionType.FETCHED,
