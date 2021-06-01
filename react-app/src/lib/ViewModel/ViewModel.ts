@@ -292,7 +292,7 @@ export default class ViewModel {
             return usersMap;
         }, new Map<Username, User>());
 
-        const {formats: [format]} = await this.getFormats({ids: [sampleResult.formatId]});
+        const {formats: [format]} = await this.getFormats({ids: [sampleResult.formatId.toLowerCase()]});
 
         return {
             id: sampleResult.id,

@@ -1,15 +1,15 @@
-import { AuthenticationStatus } from "@kbase/ui-components/lib/redux/auth/store";
-import { AsyncProxyFun } from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
-import { UPSTREAM_TIMEOUT } from "appConstants";
+import {AuthenticationStatus} from "@kbase/ui-components/lib/redux/auth/store";
+import {AsyncProxyFun} from "@kbase/ui-components/lib/redux/middleware/AsyncProxy";
+import {UPSTREAM_TIMEOUT} from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
 import {
     ActionType
 } from "redux/actions/linkedData";
-import { StoreState } from "../store";
-import { FetchingAction } from "../actions/linkedData";
+import {StoreState} from "../store";
+import {FetchingAction} from "../actions/linkedData";
 
 const linkedDataFun: AsyncProxyFun<StoreState> = async (
-    { state, dispatch, action, next },
+    {state, dispatch, action, next},
 ) => {
     if (!("category" in action)) {
         return false;
@@ -54,7 +54,7 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
     }
 
     const {
-        userAuthentication: { token }
+        userAuthentication: {token}
     } = authentication;
 
 
@@ -64,7 +64,6 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
             userProfileURL,
             sampleServiceURL,
             workspaceURL,
-            serviceWizardURL,
             timeout: UPSTREAM_TIMEOUT,
         });
 

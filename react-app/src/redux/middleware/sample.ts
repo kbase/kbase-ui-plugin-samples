@@ -84,7 +84,6 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             userProfileURL,
             sampleServiceURL,
             workspaceURL,
-            serviceWizardURL,
             timeout: UPSTREAM_TIMEOUT,
         });
 
