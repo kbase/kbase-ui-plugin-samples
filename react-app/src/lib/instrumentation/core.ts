@@ -1,21 +1,22 @@
 /**
  * A relatively simple instrumentation class, wrapping OpenTelemetry, which
  * is too complex to expect to be used in code.
- * 
+ *
  * Usage:
  * - create instrumentation object at the top level
  *   This will create a module-global session
  *   ...
  * - for a the handler for each path
  * - start a session with the path and params as attributes
- * - for any 
+ * - for any
  */
-import { JSONValue } from '@kbase/ui-lib/lib/json';
-import { v4 as uuidv4 } from 'uuid';
+import {JSONValue} from '@kbase/ui-lib/lib/json';
+import {v4 as uuidv4} from 'uuid';
 
 export class Event {
     name: string;
     at: number;
+
     constructor(name: string) {
         this.name = name;
         this.at = Date.now();
@@ -31,7 +32,7 @@ export class Event {
 
 export interface Attributes {
     [name: string]: string | number | boolean;
-};
+}
 
 // export class Span {
 //     name: string;
@@ -83,10 +84,12 @@ export abstract class SpanBase {
     static phase: 'begin' | 'end';
     at: number;
     attributes?: Attributes;
-    constructor({ parent, attributes }: SpanBaseParams) {
+
+    constructor({parent, attributes}: SpanBaseParams) {
         this.at = Date.now();
         this.attributes = attributes;
     }
+
     abstract toJSON(): JSONValue;
 }
 
@@ -100,12 +103,14 @@ export class SpanBegin extends SpanBase {
     id: string;
     name: string;
     parent?: string;
+
     constructor(params: SpanBeginParams) {
         super(params);
         this.id = uuidv4();
         this.name = params.name;
         this.parent = params.parent;
     }
+
     toJSON() {
         return {
             id: this.id,
@@ -125,10 +130,12 @@ export interface SpanEndParams extends SpanBaseParams {
 export class SpanEnd extends SpanBase {
     static phase: 'end' = 'end';
     id: string;
+
     constructor(params: SpanEndParams) {
         super(params);
         this.id = params.id;
     }
+
     toJSON() {
         return {
             id: this.id,
@@ -147,13 +154,16 @@ export interface SpanParams {
 
 export class Session {
     id: string;
+
     constructor() {
         this.id = uuidv4();
     }
+
     newSession() {
         this.id = uuidv4();
     }
 }
+
 let currentSession: Session = new Session();
 
 export class Span {
@@ -162,15 +172,18 @@ export class Span {
     at: number;
     parent?: string;
     attributes?: Attributes;
+
     constructor(params: SpanParams) {
         this.id = uuidv4();
         this.name = params.name;
         this.parent = params.parent;
         this.at = Date.now();
     }
+
     send(measurement: JSONValue) {
-        console.log(measurement);
+        // console.log(measurement);
     }
+
     begin() {
         this.send({
             status: 'begin',
@@ -183,6 +196,7 @@ export class Span {
         });
         return this;
     }
+
     end() {
         this.send({
             status: 'end',
@@ -190,6 +204,7 @@ export class Span {
             at: Date.now()
         });
     }
+
     error(message: string) {
         this.send({
             status: 'error',
@@ -198,6 +213,7 @@ export class Span {
             message
         });
     }
+
     attribute(name: string, value: JSONValue) {
         this.send({
             status: 'attribute',
@@ -207,6 +223,7 @@ export class Span {
         });
         return this;
     }
+
     event(name: string) {
         this.send({
             status: 'event',
@@ -217,8 +234,6 @@ export class Span {
         return this;
     }
 }
-
-
 
 
 // export interface SpanDefinition {
@@ -239,7 +254,7 @@ export default class Instrumentation {
     // }
 
     send(measurement: JSONValue) {
-        console.log(measurement);
+        // console.log(measurement);
     }
 
     // endComponent();

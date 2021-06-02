@@ -1,9 +1,9 @@
 import React from 'react';
-import { ArrowRightOutlined } from '@ant-design/icons/lib/icons';
+import {ArrowRightOutlined} from '@ant-design/icons/lib/icons';
 import Select from 'antd/lib/select';
-import { Button } from 'antd';
+import {Button} from 'antd';
 import UserCard from './UserCard/view';
-import { Sample } from 'lib/ViewModel/ViewModel';
+import {Sample} from 'lib/ViewModel/ViewModel';
 
 export interface VersionsProps {
     sample: Sample;
@@ -22,7 +22,7 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
         const options = range.map((version) => {
             return <Select.Option
                 value={String(version)}
-                style={{ textAlign: 'center' }}
+                style={{textAlign: 'center'}}
                 key={version}>
                 {version}
             </Select.Option>;
@@ -35,9 +35,9 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
             placeholder = `${range[0]} - ${range[range.length - 1]}`;
         }
 
-        return <div style={{ textAlign: 'center' }}>
+        return <div style={{textAlign: 'center'}}>
             <Select<string>
-                style={{ display: 'block' }}
+                style={{display: 'block'}}
                 onChange={this.props.onChangeVersion}
                 placeholder={placeholder}
             >
@@ -60,10 +60,10 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
         }
 
         return <tr>
-            <td></td>
+            <td/>
             <th>Previous</th>
-            <td colSpan={2}></td>
-            <td >{this.renderVersionButtonRange(2, currentVersion.version)}</td>
+            <td colSpan={2}/>
+            <td>{this.renderVersionButtonRange(2, currentVersion.version)}</td>
         </tr>;
     }
 
@@ -83,10 +83,10 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
         }
 
         return <tr>
-            <td></td>
+            <td/>
             <th>Next</th>
-            <td colSpan={2}></td>
-            <td >{this.renderVersionButtonRange(currentVersion.version + 1, latestVersion.version)}</td>
+            <td colSpan={2}/>
+            <td>{this.renderVersionButtonRange(currentVersion.version + 1, latestVersion.version)}</td>
         </tr>;
     }
 
@@ -101,15 +101,15 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
 
         if (currentVersion.version === latestVersion.version) {
             return <tr>
-                <td></td>
+                <td/>
                 <th>Other Versions</th>
-                <td colSpan={2}></td>
-                <td >{this.renderVersionButtonRange(2, latestVersion.version)}</td>
+                <td colSpan={2}/>
+                <td>{this.renderVersionButtonRange(2, latestVersion.version)}</td>
             </tr>;
         }
 
         return <tr>
-            <td><ArrowRightOutlined /></td>
+            <td><ArrowRightOutlined/></td>
             <th>This Sample</th>
             <td>
                 <div data-testid="save_date">
@@ -125,13 +125,13 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
                 </div>
             </td>
             <td>
-                <UserCard user={currentVersion.by} />
+                <UserCard user={currentVersion.by}/>
             </td>
             <td>
                 <Button
                     href={`/#samples/view/${id}/${currentVersion.version}`}
                     role="button"
-                    style={{ display: 'block' }}
+                    style={{display: 'block'}}
                     target="_parent">{currentVersion.version}</Button>
             </td>
         </tr>;
@@ -145,10 +145,10 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
             return;
         }
         return <tr>
-            <td>{currentVersion.version === latestVersion.version ? <ArrowRightOutlined /> : ''}</td>
+            <td>{currentVersion.version === latestVersion.version ? <ArrowRightOutlined/> : ''}</td>
             <th>Latest</th>
             <td>
-                <div data-testid="latest_date" style={{ whiteSpace: 'nowrap' }}>
+                <div data-testid="latest_date" style={{whiteSpace: 'nowrap'}}>
                     {Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
                         month: 'numeric',
@@ -161,14 +161,14 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
                 </div>
             </td>
             <td>
-                <UserCard user={latestVersion.by} />
+                <UserCard user={latestVersion.by}/>
             </td>
             <td>
                 <Button
                     href={`/#samples/view/${id}/${latestVersion.version}`}
                     role="button"
                     aria-label={`Click to select the latest version (${latestVersion.version})`}
-                    style={{ display: 'block' }}
+                    style={{display: 'block'}}
                     target="_parent">{latestVersion.version}</Button>
             </td>
         </tr>
@@ -180,48 +180,48 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
         } = this.props.sample;
         return <table className="NiceTable -versions">
             <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>At</th>
-                    <th>By</th>
-                    <th>Version</th>
-                </tr>
+            <tr>
+                <th/>
+                <th/>
+                <th>At</th>
+                <th>By</th>
+                <th>Version</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{currentVersion.version === 1 ? <ArrowRightOutlined /> : ''}</td>
-                    <th>Created</th>
-                    <td>
-                        <div data-testid="crated_date" style={{ whiteSpace: 'nowrap' }}>
-                            {Intl.DateTimeFormat('en-US', {
-                                year: 'numeric',
-                                month: 'numeric',
-                                day: 'numeric',
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                // second: 'numeric',
-                                timeZoneName: 'short'
-                            }).format(created.at)}
-                        </div>
-                    </td>
-                    <td>
-                        <UserCard user={created.by} />
-                    </td>
-                    <td>
-                        <Button
-                            href={`/#samples/view/${id}/1`}
-                            role="button"
-                            aria-label={`Click to select the first version`}
-                            style={{ display: 'block' }}
-                            target="_parent">1</Button>
-                    </td>
+            <tr>
+                <td>{currentVersion.version === 1 ? <ArrowRightOutlined/> : ''}</td>
+                <th>Created</th>
+                <td>
+                    <div data-testid="crated_date" style={{whiteSpace: 'nowrap'}}>
+                        {Intl.DateTimeFormat('en-US', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            // second: 'numeric',
+                            timeZoneName: 'short'
+                        }).format(created.at)}
+                    </div>
+                </td>
+                <td>
+                    <UserCard user={created.by}/>
+                </td>
+                <td>
+                    <Button
+                        href={`/#samples/view/${id}/1`}
+                        role="button"
+                        aria-label={`Click to select the first version`}
+                        style={{display: 'block'}}
+                        target="_parent">1</Button>
+                </td>
 
-                </tr>
-                {this.renderPreviousVersionsRow()}
-                {this.renderCurrentVersionRow()}
-                {this.renderNextVersionsRow()}
-                {this.renderLatestVersionRow()}
+            </tr>
+            {this.renderPreviousVersionsRow()}
+            {this.renderCurrentVersionRow()}
+            {this.renderNextVersionsRow()}
+            {this.renderLatestVersionRow()}
             </tbody>
         </table>;
     }

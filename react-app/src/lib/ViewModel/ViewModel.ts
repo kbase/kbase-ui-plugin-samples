@@ -294,7 +294,7 @@ export default class ViewModel {
 
         const {formats: [format]} = await this.getFormats({ids: [sampleResult.formatId.toLowerCase()]});
 
-        return {
+        const fetchedSample = {
             id: sampleResult.id,
             sampleId: sampleResult.sample.id,
             parentSampleId: sampleResult.sample.parentId,
@@ -319,6 +319,8 @@ export default class ViewModel {
             formatId: sampleResult.formatId,
             format
         };
+        // console.log('FETCHED SAMPLE', JSON.stringify(fetchedSample));
+        return fetchedSample;
     }
 
     async fetchACL({id}: { id: string; }): Promise<ACL> {
@@ -652,7 +654,7 @@ export default class ViewModel {
             return controlledField;
         });
 
-        return {
+        const sample = {
             id: rawSample.id,
             name: rawSample.name,
             savedAt: rawSample.save_date,
@@ -667,5 +669,7 @@ export default class ViewModel {
             },
             formatId: format_id
         };
+        // console.log('VIEW MODEL SAMPLE', JSON.stringify(sample))
+        return sample
     }
 }

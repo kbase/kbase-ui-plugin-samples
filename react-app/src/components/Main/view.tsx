@@ -4,7 +4,6 @@ import {
 } from 'antd';
 
 import DataLinks from '../DataLinks';
-import TemplateMetadata from '../TemplateMetadata/view';
 import AccessList from '../AccessList';
 import GeolocationViewer from '../Geolocation';
 import Header from '../Header/view';

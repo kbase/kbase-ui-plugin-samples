@@ -1,788 +1,2043 @@
 {
-	"id": "3dd4d171-dcb0-48a5-a405-a418392cd9ce",
-	"sampleId": "BLCG-28-3",
-	"parentSampleId": null,
-	"type": "BioReplicate",
-	"name": "BLCG-28-3",
-	"created": {
-		"at": 1594239611410,
-		"by": {
-			"username": "pranjan77",
-			"realname": "Priya Ranjan",
-			"gravatarHash": "e36e4342a6030eaba97d33a720c20132"
-		}
-	},
-	"currentVersion": {
-		"at": 1594239611410,
-		"by": {
-			"username": "pranjan77",
-			"realname": "Priya Ranjan",
-			"gravatarHash": "e36e4342a6030eaba97d33a720c20132"
-		},
-		"version": 1
-	},
-	"latestVersion": {
-		"at": 1594239611410,
-		"by": {
-			"username": "pranjan77",
-			"realname": "Priya Ranjan",
-			"gravatarHash": "e36e4342a6030eaba97d33a720c20132"
-		},
-		"version": 1
-	},
-	"metadata": [
-		{
-			"type": "controlled",
-			"key": "id",
-			"label": "Id",
-			"isEmpty": false,
-			"field": {
-				"type": "string",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/id.json",
-					"title": "Id",
-					"type": "string",
-					"maxLength": 120,
-					"kbase": {
-						"display": {
-							"label": "Id"
-						},
-						"sample": {
-							"key": "id",
-							"columnTitle": "Id"
-						}
-					}
-				},
-				"isEmpty": false,
-				"stringValue": "BLCG-28-3"
-			}
-		},
-		{
-			"type": "controlled",
-			"key": "latitude",
-			"label": "Latitude",
-			"isEmpty": false,
-			"field": {
-				"type": "string",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
-					"title": "Latitude",
-					"type": "string",
-					"kbase": {
-						"units": {
-							"available": [
-								"degrees"
-							],
-							"canonical": "degrees"
-						},
-						"display": {
-							"label": "Latitude"
-						},
-						"categories": [
-							"geolocation"
-						],
-						"format": {
-							"minimumFractionDigits": 3,
-							"maximumFractionDigits": 3
-						},
-						"sample": {
-							"key": "latitude",
-							"columnTitle": "Latitude"
-						}
-					}
-				},
-				"isEmpty": false,
-				"unit": "degrees",
-				"stringValue": "49.83333333"
-			}
-		},
-		{
-			"type": "controlled",
-			"key": "longitude",
-			"label": "Longitude",
-			"isEmpty": false,
-			"field": {
-				"type": "number",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
-					"title": "Longitude",
-					"type": "number",
-					"minimum": -180,
-					"maximum": 180,
-					"kbase": {
-						"units": {
-							"available": [
-								"degrees"
-							],
-							"canonical": "degrees"
-						},
-						"display": {
-							"label": "Longitude"
-						},
-						"categories": [
-							"geolocation"
-						],
-						"format": {
-							"minimumFractionDigits": 3,
-							"maximumFractionDigits": 3
-						},
-						"sample": {
-							"key": "longitude",
-							"columnTitle": "Longitude"
-						}
-					}
-				},
-				"isEmpty": false,
-				"unit": "degrees",
-				"numberValue": -125.18333329999999
-			}
-		},
-		{
-			"type": "controlled",
-			"key": "country",
-			"label": "Country",
-			"isEmpty": false,
-			"field": {
-				"type": "string",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
-					"title": "Country",
-					"type": "string",
-					"kbase": {
-						"display": {
-							"label": "Country"
-						},
-						"categories": [
-							"geolocation"
-						],
-						"sample": {
-							"key": "country",
-							"columnTitle": "Country"
-						}
-					}
-				},
-				"isEmpty": false,
-				"stringValue": "Canada"
-			}
-		},
-		{
-			"type": "user",
-			"key": "organism_part",
-			"label": "organism_part",
-			"isEmpty": true,
-			"field": "leaf"
-		}
-	],
-	"controlled": {
-		"id": {
-			"type": "controlled",
-			"key": "id",
-			"label": "Id",
-			"isEmpty": false,
-			"field": {
-				"type": "string",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/id.json",
-					"title": "Id",
-					"type": "string",
-					"maxLength": 120,
-					"kbase": {
-						"display": {
-							"label": "Id"
-						},
-						"sample": {
-							"key": "id",
-							"columnTitle": "Id"
-						}
-					}
-				},
-				"isEmpty": false,
-				"stringValue": "BLCG-28-3"
-			}
-		},
-		"latitude": {
-			"type": "controlled",
-			"key": "latitude",
-			"label": "Latitude",
-			"isEmpty": false,
-			"field": {
-				"type": "string",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/latitude.json",
-					"title": "Latitude",
-					"type": "string",
-					"kbase": {
-						"units": {
-							"available": [
-								"degrees"
-							],
-							"canonical": "degrees"
-						},
-						"display": {
-							"label": "Latitude"
-						},
-						"categories": [
-							"geolocation"
-						],
-						"format": {
-							"minimumFractionDigits": 3,
-							"maximumFractionDigits": 3
-						},
-						"sample": {
-							"key": "latitude",
-							"columnTitle": "Latitude"
-						}
-					}
-				},
-				"isEmpty": false,
-				"unit": "degrees",
-				"stringValue": "49.83333333"
-			}
-		},
-		"longitude": {
-			"type": "controlled",
-			"key": "longitude",
-			"label": "Longitude",
-			"isEmpty": false,
-			"field": {
-				"type": "number",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/longitude.json",
-					"title": "Longitude",
-					"type": "number",
-					"minimum": -180,
-					"maximum": 180,
-					"kbase": {
-						"units": {
-							"available": [
-								"degrees"
-							],
-							"canonical": "degrees"
-						},
-						"display": {
-							"label": "Longitude"
-						},
-						"categories": [
-							"geolocation"
-						],
-						"format": {
-							"minimumFractionDigits": 3,
-							"maximumFractionDigits": 3
-						},
-						"sample": {
-							"key": "longitude",
-							"columnTitle": "Longitude"
-						}
-					}
-				},
-				"isEmpty": false,
-				"unit": "degrees",
-				"numberValue": -125.18333329999999
-			}
-		},
-		"country": {
-			"type": "controlled",
-			"key": "country",
-			"label": "Country",
-			"isEmpty": false,
-			"field": {
-				"type": "string",
-				"schema": {
-					"$schema": "http://json-schema.org/draft-07/schema",
-					"$id": "http://kbase.us/schemas/samples/fields/sesar/country.json",
-					"title": "Country",
-					"type": "string",
-					"kbase": {
-						"display": {
-							"label": "Country"
-						},
-						"categories": [
-							"geolocation"
-						],
-						"sample": {
-							"key": "country",
-							"columnTitle": "Country"
-						}
-					}
-				},
-				"isEmpty": false,
-				"stringValue": "Canada"
-			}
-		}
-	},
-	"formatId": "kbase",
-	"format": {
-		"description": "A global format for KBase custom samples",
-		"fields": [
-			"aodc",
-			"aquifer",
-			"area_name",
-			"average_water_level",
-			"biomass_carbon",
-			"biome",
-			"boncat_activity",
-			"boring",
-			"boring_diameter",
-			"boring_refusal",
-			"city_township",
-			"classification",
-			"collection_date",
-			"collection_date_end",
-			"collection_date_precision",
-			"collection_method",
-			"collection_method_description",
-			"collection_time",
-			"collection_time",
-			"collection_time_end",
-			"collector_chief_scientist",
-			"collector_chief_scientist_address",
-			"comment",
-			"condition",
-			"conductivity",
-			"continent",
-			"coordinate_precision?",
-			"country",
-			"county",
-			"dapi_cell_count",
-			"date",
-			"description",
-			"dna_picogreen_total",
-			"drive_casing_end_depth",
-			"drive_casing_id",
-			"drive_casing_od",
-			"drive_casing_start_depth",
-			"drive_casing_type",
-			"easting",
-			"elevation",
-			"elevation_end",
-			"elevation_start",
-			"elevation_unit",
-			"ENIGMA:material",
-			"env_package",
-			"environmental_package",
-			"experiment_name",
-			"feature",
-			"field_name",
-			"field_name_informal_classification",
-			"field_program_cruise",
-			"filter",
-			"fraction",
-			"fractures_cavities_waterbreaks",
-			"functional_area",
-			"geological_zone",
-			"gold:biosample_id",
-			"gold:ecosystem_subtype",
-			"gold:ecosystem_type",
-			"gold:habitat",
-			"gold:study_id",
-			"ground_elevation",
-			"id",
-			"igsn",
-			"installation_method",
-			"latitude",
-			"latitude_end",
-			"leucine_activity_ngc_day_cell",
-			"locality",
-			"locality_description",
-			"location_description",
-			"longitude",
-			"longitude_end",
-			"lower_seal_end_depth",
-			"lower_seal_start_depth",
-			"lower_seal_type",
-			"material",
-			"maturation_time",
-			"max_water_level",
-			"method",
-			"min_water_level",
-			"moisture",
-			"name",
-			"name_of_physiographic_feature",
-			"navigation_type",
-			"ncbi:taxonomy_name",
-			"nmdc:community",
-			"nmdc:description_long",
-			"nmdc:doi",
-			"nmdc:ecosystem",
-			"nmdc:ecosystem_category",
-			"nmdc:env_local_scale_term",
-			"nmdc:mod_date",
-			"nmdc:principal_investigator",
-			"nmdc:specific_ecosystem",
-			"nmdc:type",
-			"northing",
-			"open",
-			"open_casing_depth",
-			"open_casing_id",
-			"open_casing_od",
-			"open_casing_type",
-			"open_hole_depth",
-			"open_hole_diameter",
-			"open_interval_diameter",
-			"open_interval_end_depth",
-			"open_interval_start_depth",
-			"organic_carbon",
-			"origination_or_plug_abandon",
-			"other_name",
-			"other_names",
-			"packing_depth_end",
-			"packing_depth_start",
-			"packing_type",
-			"parent_id",
-			"parent_igsn",
-			"ph",
-			"pore_water_extraction",
-			"primary_physiographic_feature",
-			"purpose",
-			"recovery_factor",
-			"redox_potential_?",
-			"region",
-			"related_identifiers",
-			"related_url",
-			"related_url_description",
-			"related_url_type",
-			"relation_type",
-			"release_date",
-			"replicate",
-			"rock_formation",
-			"sample_id",
-			"sample_name",
-			"sampleid",
-			"screen_bottom_elevation",
-			"screen_end_depth",
-			"screen_start_depth",
-			"screen_top_elevation",
-			"screen_type",
-			"screened",
-			"screened_interval",
-			"SESAR:material",
-			"state_province",
-			"sub_object_type",
-			"sub-object_type",
-			"temperature",
-			"time",
-			"time_zone",
-			"timezone",
-			"top_of_casing_elevation",
-			"top_of_casing_stickup",
-			"top_of_fresh_bedrock",
-			"top_of_weathered_bedrock",
-			"total_carbon",
-			"total_nitrogen",
-			"treatment",
-			"type_of_well",
-			"upper_seal_end_depth",
-			"upper_seal_start_depth",
-			"upper_seal_type",
-			"vertical_datum",
-			"well",
-			"well_casing_depth",
-			"well_casing_id",
-			"well_casing_od",
-			"well_casing_type",
-			"well_name",
-			"well_status",
-			"zone"
-		],
-		"id": "kbase",
-		"layouts": {
-			"grouped": [
-				{
-					"description": "Fields which describe the overall sample event",
-					"fields": [
-						"id",
-						"parent_id",
-						"igsn",
-						"parent_igsn",
-						"name",
-						"purpose",
-						"material",
-						"ENIGMA:material",
-						"SESAR:material",
-						"field_name",
-						"field_name_informal_classification",
-						"classification",
-						"field_program_cruise",
-						"sample_name",
-						"related_identifiers",
-						"relation_type",
-						"release_date",
-						"comment",
-						"other_names",
-						"related_url",
-						"related_url_type",
-						"related_url_description",
-						"sub_object_type",
-						"sample_id",
-						"description",
-						"condition",
-						"experiment_name"
-					],
-					"label": "Description",
-					"name": "description"
-				},
-				{
-					"description": "Fields which describe the collection",
-					"fields": [
-						"collection_date",
-						"collection_date_end",
-						"collection_time",
-						"collection_time_end",
-						"collection_date_precision",
-						"collector_chief_scientist",
-						"collector_chief_scientist_address",
-						"collection_method",
-						"collection_method_description",
-						"collection_time",
-						"date",
-						"time_zone",
-						"timezone"
-					],
-					"label": "Collection",
-					"name": "collection"
-				},
-				{
-					"description": "Fields which describe the sample collection location",
-					"fields": [
-						"coordinate_precision?",
-						"latitude",
-						"latitude_end",
-						"longitude",
-						"longitude_end",
-						"vertical_datum",
-						"northing",
-						"easting",
-						"navigation_type",
-						"locality_description",
-						"location_description",
-						"name_of_physiographic_feature",
-						"primary_physiographic_feature",
-						"elevation_start",
-						"elevation_end",
-						"elevation_unit",
-						"city_township",
-						"county",
-						"locality",
-						"state_province",
-						"country",
-						"continent",
-						"region",
-						"zone",
-						"geological_zone",
-						"area_name"
-					],
-					"label": "Geolocation",
-					"name": "geolocation"
-				},
-				{
-					"description": "Sample measurements and observations",
-					"fields": [
-						"sample_description",
-						"depth_in_core_max",
-						"depth_in_core_min",
-						"depth",
-						"depth_scale",
-						"launch_id",
-						"launch_platform_name",
-						"launch_type",
-						"platform_type",
-						"platform_description",
-						"platform_name",
-						"size",
-						"size_unit",
-						"age_min",
-						"age_max",
-						"age_unit",
-						"geological_age",
-						"geological_unit"
-					],
-					"label": "Sample",
-					"name": "sample"
-				},
-				{
-					"description": "Environment Description and Measurements",
-					"fields": [
-						"temperature",
-						"environmental_package",
-						"env_package"
-					],
-					"label": "Environment",
-					"name": "environment"
-				},
-				{
-					"description": "Well Characteristics",
-					"fields": [
-						"well_name",
-						"type_of_well",
-						"upper_seal_end_depth",
-						"upper_seal_start_depth",
-						"upper_seal_type",
-						"well",
-						"well_casing_depth",
-						"well_casing_id",
-						"well_casing_od",
-						"well_casing_type",
-						"well_status"
-					],
-					"label": "Well",
-					"name": "well"
-				},
-				{
-					"description": "Fields which describe the curation of the sample",
-					"fields": [
-						"current_archive",
-						"current_archive_contact",
-						"original_archive",
-						"original_archive_contact"
-					],
-					"label": "Curation",
-					"name": "curation"
-				},
-				{
-					"description": "A catchall for fields which have not been assigned to a group; ideally no samples would be in this group!",
-					"fields": [
-						"aodc",
-						"aquifer",
-						"average_water_level",
-						"biomass_carbon",
-						"biome",
-						"boncat_activity",
-						"boring",
-						"boring_diameter",
-						"boring_refusal",
-						"conductivity",
-						"dapi_cell_count",
-						"dna_picogreen_total",
-						"drive_casing_end_depth",
-						"drive_casing_id",
-						"drive_casing_od",
-						"drive_casing_start_depth",
-						"drive_casing_type",
-						"elevation",
-						"feature",
-						"filter",
-						"fraction",
-						"fractures_cavities_waterbreaks",
-						"functional_area",
-						"gold:biosample_id",
-						"gold:ecosystem_subtype",
-						"gold:ecosystem_type",
-						"gold:habitat",
-						"gold:study_id",
-						"ground_elevation",
-						"installation_method",
-						"leucine_activity_ngc_day_cell",
-						"lower_seal_end_depth",
-						"lower_seal_start_depth",
-						"lower_seal_type",
-						"maturation_time",
-						"max_water_level",
-						"method",
-						"min_water_level",
-						"moisture",
-						"ncbi:taxonomy_name",
-						"nmdc:community",
-						"nmdc:description_long",
-						"nmdc:doi",
-						"nmdc:ecosystem",
-						"nmdc:ecosystem_category",
-						"nmdc:env_local_scale_term",
-						"nmdc:mod_date",
-						"nmdc:principal_investigator",
-						"nmdc:specific_ecosystem",
-						"nmdc:type",
-						"open",
-						"open_casing_depth",
-						"open_casing_id",
-						"open_casing_od",
-						"open_casing_type",
-						"open_hole_depth",
-						"open_hole_diameter",
-						"open_interval_diameter",
-						"open_interval_end_depth",
-						"open_interval_start_depth",
-						"organic_carbon",
-						"origination_or_plug_abandon",
-						"other_name",
-						"packing_depth_end",
-						"packing_depth_start",
-						"packing_type",
-						"ph",
-						"pore_water_extraction",
-						"recovery_factor",
-						"redox_potential_?",
-						"replicate",
-						"rock_formation",
-						"sampleid",
-						"screen_bottom_elevation",
-						"screen_end_depth",
-						"screen_start_depth",
-						"screen_top_elevation",
-						"screen_type",
-						"screened",
-						"screened_interval",
-						"sub-object_type",
-						"time",
-						"top_of_casing_elevation",
-						"top_of_casing_stickup",
-						"top_of_fresh_bedrock",
-						"top_of_weathered_bedrock",
-						"total_carbon",
-						"total_nitrogen",
-						"treatment"
-					],
-					"label": "Uncategorized Fields",
-					"name": "uncategorized"
-				}
-			]
-		},
-		"mappings": {
-			"record": {
-				"name": "name"
-			},
-			"sample": {
-				"id": "id",
-				"parent_id": "parent_id"
-			}
-		},
-		"name": "KBase",
-		"source": {
-			"name": "KBase",
-			"title": "KBase Sample Format",
-			"url": "https://www.kbase.us"
-		},
-		"title": "KBase Samples"
-	},
-	"template": {
-		"fields": [
-			{
-				"type": "metadata",
-				"key": "id"
-			},
-			{
-				"type": "metadata",
-				"key": "latitude"
-			},
-			{
-				"type": "metadata",
-				"key": "longitude"
-			},
-			{
-				"type": "metadata",
-				"key": "country"
-			},
-			{
-				"type": "user",
-				"key": "organism_part",
-				"label": "organism_part"
-			}
-		]
-	}
+  "id": "768c9512-69c0-4057-ba0c-f9fd280996e6",
+  "sampleId": "IEBWE0001",
+  "parentSampleId": null,
+  "type": "BioReplicate",
+  "name": "BWE201406031C",
+  "created": {
+    "at": 1622566960715,
+    "by": {
+      "username": "kbaseuitest",
+      "realname": "KBase UI Test User",
+      "gravatarHash": "b4d95f8595104614355e6ee9c4c03e3f",
+      "gravatarDefault": "monsterid",
+      "avatarOption": "gravatar"
+    }
+  },
+  "currentVersion": {
+    "at": 1622566960715,
+    "by": {
+      "username": "kbaseuitest",
+      "realname": "KBase UI Test User",
+      "gravatarHash": "b4d95f8595104614355e6ee9c4c03e3f",
+      "gravatarDefault": "monsterid",
+      "avatarOption": "gravatar"
+    },
+    "version": 1
+  },
+  "latestVersion": {
+    "at": 1622566960715,
+    "by": {
+      "username": "kbaseuitest",
+      "realname": "KBase UI Test User",
+      "gravatarHash": "b4d95f8595104614355e6ee9c4c03e3f",
+      "gravatarDefault": "monsterid",
+      "avatarOption": "gravatar"
+    },
+    "version": 1
+  },
+  "metadata": [
+    {
+      "type": "controlled",
+      "key": "sesar:igsn",
+      "label": "IGSN",
+      "isEmpty": true,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:igsn"
+            }
+          },
+          "title": "IGSN",
+          "description": "IGSN assigned by SESAR",
+          "examples": [
+            "IEMEG0001"
+          ],
+          "type": "string"
+        },
+        "isEmpty": true,
+        "stringValue": null
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "name",
+      "label": "Sample Name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "name"
+            }
+          },
+          "title": "Sample Name",
+          "description": "name validator",
+          "examples": [
+            "SAM1234",
+            "IEMEG0001"
+          ],
+          "type": "string",
+          "maxLength": 240
+        },
+        "isEmpty": false,
+        "stringValue": "BWE201406031C"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:sample_type",
+      "label": "Sample Type",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:sample_type"
+            }
+          },
+          "title": "Sample Type",
+          "description": "Sample Type",
+          "examples": [
+            "Core, Core Section"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Core"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:material",
+      "label": "Material (SESAR)",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:material"
+            }
+          },
+          "title": "Material (SESAR)",
+          "description": "Material that the sample consists of using SESAR vocabulary.",
+          "examples": [
+            "Rock",
+            "Liquid>Aqueous"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Soil"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "description",
+      "label": "Description",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "description"
+            }
+          },
+          "title": "Description",
+          "description": "Free text to describe features of a sample such as its components, texture, color, shape, etc.",
+          "examples": [
+            "dredge with 50 pieces of basalt and mud"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Day 223 core sample from unheated control plot 1C of a deep soil warming experiment"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:collection_method",
+      "label": "Collection method",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collection_method"
+            }
+          },
+          "title": "Collection method",
+          "description": "Method by which a sample was collected",
+          "examples": [
+            "Dredging",
+            "Manual"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Coring>HandHeldCorer"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:collection_method_description",
+      "label": "Collection method description",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collection_method_description"
+            }
+          },
+          "title": "Collection method description",
+          "description": "Additional information about the collection method",
+          "examples": [
+            "Hand sample collected from the top part of a large boulder"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Collected with a multi-stage corer 5 cm in diameter using a 10 kg hand-held slide-hammer"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:size",
+      "label": "Size",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:size"
+            }
+          },
+          "title": "Size",
+          "description": "Size of the registered object, such as the dimension of a specimen, the length of a core, or the weight of a dredge",
+          "examples": [
+            "2x4",
+            "45"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "1"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "purpose",
+      "label": "Purpose",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "purpose"
+            }
+          },
+          "title": "Purpose",
+          "description": "Purpose of the Sample",
+          "examples": [
+            "Biogeochemistry, geochemistry and microbiology"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Biogeochemistry, geochemistry and microbiology"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:release_date",
+      "label": "Release date",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:release_date"
+            }
+          },
+          "title": "Release date",
+          "description": "Date when sample metadata is publicly accessible and searchable. If null, defaults to date of registration (recommended).",
+          "examples": [
+            "2018-03-15"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "2019-10-23"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "latitude",
+      "label": "Latitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "latitude"
+            },
+            "unit": "degrees",
+            "formatting": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            }
+          },
+          "title": "Latitude",
+          "description": "Latitude of the location where the sample was collected in WGS 84 coordinate system. ('Start latitude' for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for South latitudes.",
+          "examples": [
+            5.89634
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": "38.91207"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "longitude",
+      "label": "Longitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "longitude"
+            },
+            "unit": "degrees",
+            "formatting": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            }
+          },
+          "title": "Longitude",
+          "description": "Longitude of the location where the sample was collected in WGS 84 cooridinate system. ('Start longitude' for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for 'West' longitudes.",
+          "examples": [
+            -103.785
+          ],
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": -120.6615
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "elevation",
+      "label": "Elevation",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "elevation"
+            },
+            "formatting": {
+              "useGrouping": true
+            }
+          },
+          "title": "Elevation",
+          "description": "Elevation at which a sample was collected. Use negative values for depth below sea level. Minimum elevation if a range is provided for the elevation/depth below sea level.",
+          "examples": [
+            678.5,
+            -4536
+          ],
+          "type": "number"
+        },
+        "isEmpty": false,
+        "numberValue": 1370
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:navigation_type",
+      "label": "Navigation type",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:navigation_type"
+            }
+          },
+          "title": "Navigation type",
+          "description": "Navigation type",
+          "examples": [
+            "GPS"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "GPS"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:physiographic_feature_primary",
+      "label": "Primary physiographic feature",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:physiographic_feature_primary"
+            }
+          },
+          "title": "Primary physiographic feature",
+          "description": "Type of physical feature that your sample was collected from (see suggested list)",
+          "examples": [
+            "volcano",
+            "mid-ocean ridge"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Mountain"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:physiographic_feature_name",
+      "label": "Name of physiographic feature",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:physiographic_feature_name"
+            }
+          },
+          "title": "Name of physiographic feature",
+          "description": "Name of the physiographic feature that you entered",
+          "examples": [
+            "East Pacific Rise",
+            "Dead Sea"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Sierra Nevada foothills"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "location_description",
+      "label": "Location description",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "location_description"
+            }
+          },
+          "title": "Location description",
+          "description": "Free text description of the location",
+          "examples": [
+            "flank of volcanic cone"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Mixed conifer forest"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "locality",
+      "label": "Locality",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "locality"
+            }
+          },
+          "title": "Locality",
+          "description": "Name of the specific place where your sample was collected. This could be the name of a mine, a volcanic field, a vent field, or similar",
+          "examples": [
+            "Franklin Mine",
+            "Craters of the Moon National Park"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Blodgett Forest Research Station, University of California"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "country",
+      "label": "Country",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "country"
+            }
+          },
+          "title": "Country",
+          "description": "Country",
+          "examples": [
+            "United States"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "United States"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:field_program_cruise",
+      "label": "Field program/cruise",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:field_program_cruise"
+            }
+          },
+          "title": "Field program/cruise",
+          "description": "Name or identifier of the field program (cruise or expedition), during which the sample was collected.",
+          "examples": [
+            "TN182"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "LBNL Belowground Biogeochemistry SFA"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:collector_chief_scientist",
+      "label": "Collector/Chief Scientist name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collector_chief_scientist"
+            }
+          },
+          "title": "Collector/Chief Scientist name",
+          "description": "Name of the person who collected the sample. In case of larger field programs, name of chief scientist responsible for sample collection.",
+          "examples": [
+            "Jane Smith"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Margaret S. Torn"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:collector_chief_scientist_address",
+      "label": "Collector/Chief Scientist address",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collector_chief_scientist_address"
+            }
+          },
+          "title": "Collector/Chief Scientist address",
+          "description": "Institution, address, & email of the collector or chief scientist.",
+          "examples": [
+            "Woods Hole Oceanographic Institution, Woods Hole, MA"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "mstorn@lbl.gov, Lawrence Berkeley National Laboratory, CA, USA"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:collection_date",
+      "label": "Collection date",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collection_date"
+            }
+          },
+          "title": "Collection date",
+          "description": "Date when the sample was collected.",
+          "examples": [
+            "2015-03-31"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "2014-06-03"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:archive_current",
+      "label": "Current archive",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:archive_current"
+            }
+          },
+          "title": "Current archive",
+          "description": "Name of institution, museum, or repository where the sample is currently stored.",
+          "examples": [
+            "Lamont Deep Sea Core Repository",
+            "Palisades, NY"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Lawrence Berkeley National Laboratory, CA, USA"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:registrant_current",
+      "label": "Current Registrant Name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:registrant_current"
+            }
+          },
+          "title": "Current Registrant Name",
+          "description": "Registrant of the sample in SESAR",
+          "examples": [
+            "Jane Smith"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Ricardo Jorge Eloy Alves"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "sesar:registrant_org",
+      "label": "Organization Registrant Name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:registrant_org"
+            }
+          },
+          "title": "Organization Registrant Name",
+          "description": "Registrant organization of the sample in SESAR",
+          "examples": [
+            "Jane Smith"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Ricardo Jorge Eloy Alves"
+      }
+    },
+    {
+      "type": "controlled",
+      "key": "url",
+      "label": "URL",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "format": "url",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "url"
+            }
+          },
+          "title": "URL",
+          "description": "URL for Sample",
+          "examples": [
+            "http://igsn.org/IEBWE0001"
+          ],
+          "type": "string",
+          "format": "url"
+        },
+        "isEmpty": false,
+        "stringValue": "http://igsn.org/IEBWE0001"
+      }
+    },
+    {
+      "type": "user",
+      "key": "Size Unit",
+      "label": "Size Unit",
+      "isEmpty": true,
+      "field": "m"
+    },
+    {
+      "type": "user",
+      "key": "Elevation Unit",
+      "label": "Elevation Unit",
+      "isEmpty": true,
+      "field": "meters"
+    }
+  ],
+  "controlled": {
+    "sesar:igsn": {
+      "type": "controlled",
+      "key": "sesar:igsn",
+      "label": "IGSN",
+      "isEmpty": true,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:igsn"
+            }
+          },
+          "title": "IGSN",
+          "description": "IGSN assigned by SESAR",
+          "examples": [
+            "IEMEG0001"
+          ],
+          "type": "string"
+        },
+        "isEmpty": true,
+        "stringValue": null
+      }
+    },
+    "name": {
+      "type": "controlled",
+      "key": "name",
+      "label": "Sample Name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "name"
+            }
+          },
+          "title": "Sample Name",
+          "description": "name validator",
+          "examples": [
+            "SAM1234",
+            "IEMEG0001"
+          ],
+          "type": "string",
+          "maxLength": 240
+        },
+        "isEmpty": false,
+        "stringValue": "BWE201406031C"
+      }
+    },
+    "sesar:sample_type": {
+      "type": "controlled",
+      "key": "sesar:sample_type",
+      "label": "Sample Type",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:sample_type"
+            }
+          },
+          "title": "Sample Type",
+          "description": "Sample Type",
+          "examples": [
+            "Core, Core Section"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Core"
+      }
+    },
+    "sesar:material": {
+      "type": "controlled",
+      "key": "sesar:material",
+      "label": "Material (SESAR)",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:material"
+            }
+          },
+          "title": "Material (SESAR)",
+          "description": "Material that the sample consists of using SESAR vocabulary.",
+          "examples": [
+            "Rock",
+            "Liquid>Aqueous"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Soil"
+      }
+    },
+    "description": {
+      "type": "controlled",
+      "key": "description",
+      "label": "Description",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "description"
+            }
+          },
+          "title": "Description",
+          "description": "Free text to describe features of a sample such as its components, texture, color, shape, etc.",
+          "examples": [
+            "dredge with 50 pieces of basalt and mud"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Day 223 core sample from unheated control plot 1C of a deep soil warming experiment"
+      }
+    },
+    "sesar:collection_method": {
+      "type": "controlled",
+      "key": "sesar:collection_method",
+      "label": "Collection method",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collection_method"
+            }
+          },
+          "title": "Collection method",
+          "description": "Method by which a sample was collected",
+          "examples": [
+            "Dredging",
+            "Manual"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Coring>HandHeldCorer"
+      }
+    },
+    "sesar:collection_method_description": {
+      "type": "controlled",
+      "key": "sesar:collection_method_description",
+      "label": "Collection method description",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collection_method_description"
+            }
+          },
+          "title": "Collection method description",
+          "description": "Additional information about the collection method",
+          "examples": [
+            "Hand sample collected from the top part of a large boulder"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Collected with a multi-stage corer 5 cm in diameter using a 10 kg hand-held slide-hammer"
+      }
+    },
+    "sesar:size": {
+      "type": "controlled",
+      "key": "sesar:size",
+      "label": "Size",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:size"
+            }
+          },
+          "title": "Size",
+          "description": "Size of the registered object, such as the dimension of a specimen, the length of a core, or the weight of a dredge",
+          "examples": [
+            "2x4",
+            "45"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "1"
+      }
+    },
+    "purpose": {
+      "type": "controlled",
+      "key": "purpose",
+      "label": "Purpose",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "purpose"
+            }
+          },
+          "title": "Purpose",
+          "description": "Purpose of the Sample",
+          "examples": [
+            "Biogeochemistry, geochemistry and microbiology"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Biogeochemistry, geochemistry and microbiology"
+      }
+    },
+    "sesar:release_date": {
+      "type": "controlled",
+      "key": "sesar:release_date",
+      "label": "Release date",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:release_date"
+            }
+          },
+          "title": "Release date",
+          "description": "Date when sample metadata is publicly accessible and searchable. If null, defaults to date of registration (recommended).",
+          "examples": [
+            "2018-03-15"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "2019-10-23"
+      }
+    },
+    "latitude": {
+      "type": "controlled",
+      "key": "latitude",
+      "label": "Latitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "latitude"
+            },
+            "unit": "degrees",
+            "formatting": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            }
+          },
+          "title": "Latitude",
+          "description": "Latitude of the location where the sample was collected in WGS 84 coordinate system. ('Start latitude' for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for South latitudes.",
+          "examples": [
+            5.89634
+          ],
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": 38.91207
+      }
+    },
+    "longitude": {
+      "type": "controlled",
+      "key": "longitude",
+      "label": "Longitude",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "longitude"
+            },
+            "unit": "degrees",
+            "formatting": {
+              "minimumFractionDigits": 3,
+              "maximumFractionDigits": 3
+            }
+          },
+          "title": "Longitude",
+          "description": "Longitude of the location where the sample was collected in WGS 84 cooridinate system. ('Start longitude' for linear sampling features such as dredges.) Needs to be entered in decimal degrees. Negative values for 'West' longitudes.",
+          "examples": [
+            -103.785
+          ],
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "isEmpty": false,
+        "unit": "degrees",
+        "numberValue": -120.6615
+      }
+    },
+    "elevation": {
+      "type": "controlled",
+      "key": "elevation",
+      "label": "Elevation",
+      "isEmpty": false,
+      "field": {
+        "type": "number",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "elevation"
+            },
+            "formatting": {
+              "useGrouping": true
+            }
+          },
+          "title": "Elevation",
+          "description": "Elevation at which a sample was collected. Use negative values for depth below sea level. Minimum elevation if a range is provided for the elevation/depth below sea level.",
+          "examples": [
+            678.5,
+            -4536
+          ],
+          "type": "number"
+        },
+        "isEmpty": false,
+        "numberValue": 1370
+      }
+    },
+    "sesar:navigation_type": {
+      "type": "controlled",
+      "key": "sesar:navigation_type",
+      "label": "Navigation type",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:navigation_type"
+            }
+          },
+          "title": "Navigation type",
+          "description": "Navigation type",
+          "examples": [
+            "GPS"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "GPS"
+      }
+    },
+    "sesar:physiographic_feature_primary": {
+      "type": "controlled",
+      "key": "sesar:physiographic_feature_primary",
+      "label": "Primary physiographic feature",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:physiographic_feature_primary"
+            }
+          },
+          "title": "Primary physiographic feature",
+          "description": "Type of physical feature that your sample was collected from (see suggested list)",
+          "examples": [
+            "volcano",
+            "mid-ocean ridge"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Mountain"
+      }
+    },
+    "sesar:physiographic_feature_name": {
+      "type": "controlled",
+      "key": "sesar:physiographic_feature_name",
+      "label": "Name of physiographic feature",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:physiographic_feature_name"
+            }
+          },
+          "title": "Name of physiographic feature",
+          "description": "Name of the physiographic feature that you entered",
+          "examples": [
+            "East Pacific Rise",
+            "Dead Sea"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Sierra Nevada foothills"
+      }
+    },
+    "location_description": {
+      "type": "controlled",
+      "key": "location_description",
+      "label": "Location description",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "location_description"
+            }
+          },
+          "title": "Location description",
+          "description": "Free text description of the location",
+          "examples": [
+            "flank of volcanic cone"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Mixed conifer forest"
+      }
+    },
+    "locality": {
+      "type": "controlled",
+      "key": "locality",
+      "label": "Locality",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "locality"
+            }
+          },
+          "title": "Locality",
+          "description": "Name of the specific place where your sample was collected. This could be the name of a mine, a volcanic field, a vent field, or similar",
+          "examples": [
+            "Franklin Mine",
+            "Craters of the Moon National Park"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Blodgett Forest Research Station, University of California"
+      }
+    },
+    "country": {
+      "type": "controlled",
+      "key": "country",
+      "label": "Country",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "country"
+            }
+          },
+          "title": "Country",
+          "description": "Country",
+          "examples": [
+            "United States"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "United States"
+      }
+    },
+    "sesar:field_program_cruise": {
+      "type": "controlled",
+      "key": "sesar:field_program_cruise",
+      "label": "Field program/cruise",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:field_program_cruise"
+            }
+          },
+          "title": "Field program/cruise",
+          "description": "Name or identifier of the field program (cruise or expedition), during which the sample was collected.",
+          "examples": [
+            "TN182"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "LBNL Belowground Biogeochemistry SFA"
+      }
+    },
+    "sesar:collector_chief_scientist": {
+      "type": "controlled",
+      "key": "sesar:collector_chief_scientist",
+      "label": "Collector/Chief Scientist name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collector_chief_scientist"
+            }
+          },
+          "title": "Collector/Chief Scientist name",
+          "description": "Name of the person who collected the sample. In case of larger field programs, name of chief scientist responsible for sample collection.",
+          "examples": [
+            "Jane Smith"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Margaret S. Torn"
+      }
+    },
+    "sesar:collector_chief_scientist_address": {
+      "type": "controlled",
+      "key": "sesar:collector_chief_scientist_address",
+      "label": "Collector/Chief Scientist address",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collector_chief_scientist_address"
+            }
+          },
+          "title": "Collector/Chief Scientist address",
+          "description": "Institution, address, & email of the collector or chief scientist.",
+          "examples": [
+            "Woods Hole Oceanographic Institution, Woods Hole, MA"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "mstorn@lbl.gov, Lawrence Berkeley National Laboratory, CA, USA"
+      }
+    },
+    "sesar:collection_date": {
+      "type": "controlled",
+      "key": "sesar:collection_date",
+      "label": "Collection date",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:collection_date"
+            }
+          },
+          "title": "Collection date",
+          "description": "Date when the sample was collected.",
+          "examples": [
+            "2015-03-31"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "2014-06-03"
+      }
+    },
+    "sesar:archive_current": {
+      "type": "controlled",
+      "key": "sesar:archive_current",
+      "label": "Current archive",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:archive_current"
+            }
+          },
+          "title": "Current archive",
+          "description": "Name of institution, museum, or repository where the sample is currently stored.",
+          "examples": [
+            "Lamont Deep Sea Core Repository",
+            "Palisades, NY"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Lawrence Berkeley National Laboratory, CA, USA"
+      }
+    },
+    "sesar:registrant_current": {
+      "type": "controlled",
+      "key": "sesar:registrant_current",
+      "label": "Current Registrant Name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:registrant_current"
+            }
+          },
+          "title": "Current Registrant Name",
+          "description": "Registrant of the sample in SESAR",
+          "examples": [
+            "Jane Smith"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Ricardo Jorge Eloy Alves"
+      }
+    },
+    "sesar:registrant_org": {
+      "type": "controlled",
+      "key": "sesar:registrant_org",
+      "label": "Organization Registrant Name",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "sesar:registrant_org"
+            }
+          },
+          "title": "Organization Registrant Name",
+          "description": "Registrant organization of the sample in SESAR",
+          "examples": [
+            "Jane Smith"
+          ],
+          "type": "string"
+        },
+        "isEmpty": false,
+        "stringValue": "Ricardo Jorge Eloy Alves"
+      }
+    },
+    "url": {
+      "type": "controlled",
+      "key": "url",
+      "label": "URL",
+      "isEmpty": false,
+      "field": {
+        "type": "string",
+        "format": "url",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "kbase": {
+            "sample": {
+              "key": "url"
+            }
+          },
+          "title": "URL",
+          "description": "URL for Sample",
+          "examples": [
+            "http://igsn.org/IEBWE0001"
+          ],
+          "type": "string",
+          "format": "url"
+        },
+        "isEmpty": false,
+        "stringValue": "http://igsn.org/IEBWE0001"
+      }
+    }
+  },
+  "formatId": "SESAR",
+  "format": {
+    "name": "sesar",
+    "info": {
+      "title": "System for Earth Sample Registration",
+      "shortTitle": "SESAR",
+      "homePage": "https://www.geosamples.org/"
+    },
+    "mappings": {
+      "id": "sesar:igsn",
+      "parent": "sesar:parent_igsn",
+      "name": "name",
+      "skipLines": "^Object Type:"
+    },
+    "columns": [
+      {
+        "title": "Age (max)",
+        "aliases": [
+          "age (max)",
+          "Age Max",
+          "age max"
+        ],
+        "sampleKey": "sesar:age_max"
+      },
+      {
+        "title": "Age (min)",
+        "aliases": [
+          "age (min)",
+          "Age Min",
+          "age min"
+        ],
+        "sampleKey": "sesar:age_min"
+      },
+      {
+        "title": "Age unit (e.g. million years (Ma))",
+        "aliases": [
+          "age unit (e.g. million years (ma))",
+          "Age Unit",
+          "age unit"
+        ],
+        "sampleKey": "sesar:age_unit"
+      },
+      {
+        "title": "City/Township",
+        "aliases": [
+          "city/township",
+          "City",
+          "city"
+        ],
+        "sampleKey": "city_township"
+      },
+      {
+        "title": "Classification",
+        "aliases": [
+          "classification"
+        ],
+        "sampleKey": "sesar:classification"
+      },
+      {
+        "title": "Classification Comment",
+        "aliases": [
+          "classification comment"
+        ],
+        "sampleKey": "sesar:classification_comment"
+      },
+      {
+        "title": "Collection date",
+        "aliases": [
+          "collection date",
+          "Collection Start Date",
+          "collection start date"
+        ],
+        "sampleKey": "sesar:collection_date"
+      },
+      {
+        "title": "Collection date (end)",
+        "aliases": [
+          "collection date (end)",
+          "Collection End Date",
+          "collection end date"
+        ],
+        "sampleKey": "sesar:collection_date_end"
+      },
+      {
+        "title": "Collection date precision",
+        "aliases": [
+          "collection date precision"
+        ],
+        "sampleKey": "sesar:collection_date_precision"
+      },
+      {
+        "title": "Collection method",
+        "aliases": [
+          "collection method"
+        ],
+        "sampleKey": "sesar:collection_method"
+      },
+      {
+        "title": "Collection method description",
+        "aliases": [
+          "collection method description",
+          "Collection Method Descr",
+          "collection method descr"
+        ],
+        "sampleKey": "sesar:collection_method_description"
+      },
+      {
+        "title": "Collection time",
+        "aliases": [
+          "collection time",
+          "Collection Start Time",
+          "collection start time"
+        ],
+        "sampleKey": "sesar:collection_time"
+      },
+      {
+        "title": "Collection time (end)",
+        "aliases": [
+          "collection time (end)",
+          "Collection End Time",
+          "collection end time"
+        ],
+        "sampleKey": "sesar:collection_time_end"
+      },
+      {
+        "title": "Collector/Chief Scientist",
+        "aliases": [
+          "collector/chief scientist"
+        ],
+        "sampleKey": "sesar:collector_chief_scientist"
+      },
+      {
+        "title": "Collector/Chief Scientist Address",
+        "aliases": [
+          "collector/chief scientist address",
+          "Collector/Chief Scientist Detail",
+          "collector/chief scientist detail"
+        ],
+        "sampleKey": "sesar:collector_chief_scientist_address"
+      },
+      {
+        "title": "Comment",
+        "aliases": [
+          "comment"
+        ],
+        "sampleKey": "comment"
+      },
+      {
+        "title": "Country",
+        "aliases": [
+          "country"
+        ],
+        "sampleKey": "country"
+      },
+      {
+        "title": "County",
+        "aliases": [
+          "county"
+        ],
+        "sampleKey": "county"
+      },
+      {
+        "title": "Cur Registrant Name",
+        "aliases": [
+          "cur registrant name"
+        ],
+        "sampleKey": "sesar:registrant_current"
+      },
+      {
+        "title": "Current Archive",
+        "aliases": [
+          "current archive"
+        ],
+        "sampleKey": "sesar:archive_current"
+      },
+      {
+        "title": "Current Archive Contact",
+        "aliases": [
+          "current archive contact"
+        ],
+        "sampleKey": "sesar:archive_contact_current"
+      },
+      {
+        "title": "Depth in Core (max)",
+        "aliases": [
+          "depth in core (max)",
+          "Depth Max",
+          "depth max"
+        ],
+        "sampleKey": "sesar:depth_in_core_max"
+      },
+      {
+        "title": "Depth in Core (min)",
+        "aliases": [
+          "depth in core (min)",
+          "Depth Min",
+          "depth min"
+        ],
+        "sampleKey": "sesar:depth_in_core_min"
+      },
+      {
+        "title": "Depth scale",
+        "aliases": [
+          "depth scale"
+        ],
+        "sampleKey": "sesar:depth_scale"
+      },
+      {
+        "title": "Easting (m) (Coordinate system: UTM NAD83)",
+        "aliases": [
+          "easting (m) (coordinate system: utm nad83)"
+        ],
+        "sampleKey": "sesar:easting"
+      },
+      {
+        "title": "Elevation end",
+        "aliases": [
+          "elevation end"
+        ],
+        "sampleKey": "elevation_end"
+      },
+      {
+        "title": "Elevation start",
+        "aliases": [
+          "elevation start",
+          "Elevation",
+          "elevation"
+        ],
+        "sampleKey": "elevation"
+      },
+      {
+        "title": "Elevation unit",
+        "aliases": [
+          "elevation unit"
+        ],
+        "sampleKey": "sesar:elevation_unit"
+      },
+      {
+        "title": "Field name (informal classification)",
+        "aliases": [
+          "field name (informal classification)",
+          "Field Name",
+          "field name"
+        ],
+        "sampleKey": "sesar:field_name"
+      },
+      {
+        "title": "Field program/Cruise",
+        "aliases": [
+          "field program/cruise"
+        ],
+        "sampleKey": "sesar:field_program_cruise"
+      },
+      {
+        "title": "Geological age",
+        "aliases": [
+          "geological age"
+        ],
+        "sampleKey": "sesar:geological_age"
+      },
+      {
+        "title": "Geological unit",
+        "aliases": [
+          "geological unit"
+        ],
+        "sampleKey": "sesar:geological_unit"
+      },
+      {
+        "title": "IGSN",
+        "aliases": [
+          "igsn"
+        ],
+        "sampleKey": "sesar:igsn"
+      },
+      {
+        "title": "Is Archived",
+        "aliases": [
+          "is archived"
+        ],
+        "sampleKey": "sesar:is_archived"
+      },
+      {
+        "title": "Latitude (Coordinate system: WGS 84)",
+        "aliases": [
+          "latitude (coordinate system: wgs 84)",
+          "Latitude Start",
+          "latitude start",
+          "Latitude",
+          "latitude"
+        ],
+        "sampleKey": "latitude"
+      },
+      {
+        "title": "Latitude (end) (Coordinate system: WGS 84)",
+        "aliases": [
+          "latitude (end) (coordinate system: wgs 84)",
+          "Latitude End",
+          "latitude end"
+        ],
+        "sampleKey": "latitude_end"
+      },
+      {
+        "title": "Launch ID",
+        "aliases": [
+          "launch id"
+        ],
+        "sampleKey": "sesar:launch_id"
+      },
+      {
+        "title": "Launch platform name",
+        "aliases": [
+          "launch platform name"
+        ],
+        "sampleKey": "sesar:launch_platform_name"
+      },
+      {
+        "title": "Launch type",
+        "aliases": [
+          "launch type",
+          "Launch Type Name",
+          "launch type name"
+        ],
+        "sampleKey": "sesar:launch_type"
+      },
+      {
+        "title": "Locality",
+        "aliases": [
+          "locality"
+        ],
+        "sampleKey": "locality"
+      },
+      {
+        "title": "Locality description",
+        "aliases": [
+          "locality description"
+        ],
+        "sampleKey": "locality_description"
+      },
+      {
+        "title": "Location description",
+        "aliases": [
+          "location description"
+        ],
+        "sampleKey": "location_description"
+      },
+      {
+        "title": "Longitude (Coordinate system: WGS 84)",
+        "aliases": [
+          "longitude (coordinate system: wgs 84)",
+          "Longitude",
+          "longitude",
+          "Longitude Start",
+          "longitude start"
+        ],
+        "sampleKey": "longitude"
+      },
+      {
+        "title": "Longitude (end) (Coordinate system: WGS 84)",
+        "aliases": [
+          "longitude (end) (coordinate system: wgs 84)",
+          "Longitude End",
+          "longitude end"
+        ],
+        "sampleKey": "longitude_end"
+      },
+      {
+        "title": "Material",
+        "aliases": [
+          "material"
+        ],
+        "sampleKey": "sesar:material"
+      },
+      {
+        "title": "Name of physiographic feature",
+        "aliases": [
+          "name of physiographic feature"
+        ],
+        "sampleKey": "sesar:physiographic_feature_name"
+      },
+      {
+        "title": "Navigation Type",
+        "aliases": [
+          "navigation type",
+          "Nav Type Name",
+          "nav type name"
+        ],
+        "sampleKey": "sesar:navigation_type"
+      },
+      {
+        "title": "Northing (m) (Coordinate system: UTM NAD83)",
+        "aliases": [
+          "northing (m) (coordinate system: utm nad83)"
+        ],
+        "sampleKey": "sesar:northing"
+      },
+      {
+        "title": "Org Registrant Name",
+        "aliases": [
+          "org registrant name"
+        ],
+        "sampleKey": "sesar:registrant_org"
+      },
+      {
+        "title": "Original Archive",
+        "aliases": [
+          "original archive"
+        ],
+        "sampleKey": "sesar:archive_original"
+      },
+      {
+        "title": "Original Archive Contact",
+        "aliases": [
+          "original archive contact"
+        ],
+        "sampleKey": "sesar:archive_contact_original"
+      },
+      {
+        "title": "Other name(s)",
+        "aliases": [
+          "other name(s)"
+        ],
+        "sampleKey": "other_names"
+      },
+      {
+        "title": "Parent IGSN",
+        "aliases": [
+          "parent igsn"
+        ],
+        "sampleKey": "sesar:parent_igsn"
+      },
+      {
+        "title": "Platform Description",
+        "aliases": [
+          "platform description"
+        ],
+        "sampleKey": "sesar:platform_description"
+      },
+      {
+        "title": "Platform name",
+        "aliases": [
+          "platform name"
+        ],
+        "sampleKey": "sesar:platform_name"
+      },
+      {
+        "title": "Platform type",
+        "aliases": [
+          "platform type"
+        ],
+        "sampleKey": "sesar:platform_type"
+      },
+      {
+        "title": "Primary Physiographic feature",
+        "aliases": [
+          "primary physiographic feature",
+          "Physiographic Feature",
+          "physiographic feature"
+        ],
+        "sampleKey": "sesar:physiographic_feature_primary"
+      },
+      {
+        "title": "Purpose",
+        "aliases": [
+          "purpose"
+        ],
+        "sampleKey": "purpose"
+      },
+      {
+        "title": "Related URL",
+        "aliases": [],
+        "sampleKey": "sesar:related_url"
+      },
+      {
+        "title": "Related URL Type",
+        "aliases": [],
+        "sampleKey": "sesar:related_url_type"
+      },
+      {
+        "title": "Related URL Desription",
+        "aliases": [],
+        "sampleKey": "sesar:related_url_description"
+      },
+      {
+        "title": "Related Identifiers",
+        "aliases": [],
+        "sampleKey": "sesar:related_identifiers"
+      },
+      {
+        "title": "Relation Type",
+        "aliases": [],
+        "sampleKey": "sesar:relation_type"
+      },
+      {
+        "title": "Release Date",
+        "aliases": [
+          "release date"
+        ],
+        "sampleKey": "sesar:release_date"
+      },
+      {
+        "title": "Sample Description",
+        "aliases": [
+          "sample description",
+          "Description",
+          "description"
+        ],
+        "sampleKey": "description"
+      },
+      {
+        "title": "Sample Name",
+        "aliases": [
+          "sample name"
+        ],
+        "sampleKey": "name"
+      },
+      {
+        "title": "Sample Type",
+        "aliases": [
+          "sample type"
+        ],
+        "sampleKey": "sesar:sample_type"
+      },
+      {
+        "title": "Size",
+        "aliases": [
+          "size"
+        ],
+        "sampleKey": "sesar:size"
+      },
+      {
+        "title": "Size unit",
+        "aliases": [
+          "size unit"
+        ],
+        "sampleKey": "sesar:size_unit"
+      },
+      {
+        "title": "State/Province",
+        "aliases": [
+          "state/province",
+          "State",
+          "state"
+        ],
+        "sampleKey": "state_province"
+      },
+      {
+        "title": "Sub-object type",
+        "aliases": [
+          "sub-object type"
+        ],
+        "sampleKey": "sesar:sub-object_type"
+      },
+      {
+        "title": "URL",
+        "aliases": [
+          "url"
+        ],
+        "sampleKey": "url"
+      },
+      {
+        "title": "Vertical Datum",
+        "aliases": [
+          "vertical datum"
+        ],
+        "sampleKey": "sesar:vertical_datum"
+      },
+      {
+        "title": "Zone (e.g., 11R)",
+        "aliases": [
+          "zone (e.g., 11r)"
+        ],
+        "sampleKey": "sesar:zone"
+      }
+    ],
+    "columnsFromSchema": false
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Alert, Button, Col, Row, Switch, Tooltip
+    Alert, Button, Col, Row, Switch
 } from 'antd';
 import {
     MapContainer as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
@@ -110,6 +110,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
             <LeafletMap
                 center={[lat, lng]}
                 zoom={DEFAULT_ZOOM}
+                preferCanvas={true}
                 style={{flex: '1 1 0px'}}>
                 <ScaleControl position="topleft"/>
                 <LayersControl position="topright">
