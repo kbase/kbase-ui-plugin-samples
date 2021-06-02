@@ -10,8 +10,7 @@ function makeViewModel() {
         timeout: 1000,
         sampleServiceURL: 'https://fake.kbase.us/services/sampleservice',
         userProfileURL: 'https://fake.kbase.us/services/user_profile/rpc',
-        workspaceURL: 'https://fake.kbase.us/services/ws',
-        serviceWizardURL: 'https://fake.kbase.us/services/ServiceWizard'
+        workspaceURL: 'https://fake.kbase.us/services/ws'
     });
 }
 
@@ -26,8 +25,7 @@ describe('ViewModel', () => {
             timeout: 1000,
             sampleServiceURL: 'x',
             userProfileURL: 'x',
-            workspaceURL: 'x',
-            serviceWizardURL: 'x'
+            workspaceURL: 'x'
         });
 
         expect(viewModel).toBeDefined();

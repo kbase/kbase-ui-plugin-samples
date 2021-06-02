@@ -4,13 +4,13 @@ import {MockResponseInit} from "jest-fetch-mock";
 import {mock_get_user_profile} from "./userProfile";
 import {mock_get_service_status} from "./serviceWizard";
 import {
-    mock_get_data_links_from_sample,
+    mock_get_data_links_from_sample, mock_get_field_definitions, mock_get_field_groups, mock_get_formats,
     mock_get_metadata_key_static_metadata, mock_get_sample,
     mock_get_sample_acls,
     mock_status, SCHEMA_FIELD_FOO
 } from "./sampleService";
 import {ControlledFieldNumber} from "../../lib/client/ControlledField";
-
+import * as fs from 'fs';
 
 async function mockJSONRPCServices(request: Request): Promise<MockResponseInit> {
     const body = await request.json();
@@ -28,6 +28,12 @@ async function mockJSONRPCServices(request: Request): Promise<MockResponseInit> 
             return mock_get_data_links_from_sample(body, request);
         case 'SampleService.get_metadata_key_static_metadata':
             return mock_get_metadata_key_static_metadata(body, request);
+        case 'SampleService.get_formats':
+            return mock_get_formats(body, request);
+        case 'SampleService.get_field_groups':
+            return mock_get_field_groups(body, request);
+        case 'SampleService.get_field_definitions':
+            return mock_get_field_definitions(body, request);
         case 'UserProfile.get_user_profile':
             return mock_get_user_profile(body, request);
         default:
@@ -64,6 +70,35 @@ async function mockServices(request: Request): Promise<MockResponseInit> {
             return mockJSONRPCServices(request);
         case 'GET':
             return mockRESTServices(request);
+        default:
+            throw new Error(`"${request.method} not supported in mocks`)
+    }
+}
+
+async function getMockData(request: Request): Promise<MockResponseInit> {
+    // get the path to the data:
+    const match = request.url.match(/mock-data\/(.*)$/);
+    if (match === null) {
+        throw new Error(`Invalid mock-data request: ${request.url}`)
+    }
+    const [, path] = match;
+    try {
+        const response = fs.readFileSync(`${__dirname}/../../../public/mock-data/${path}`, 'utf8');
+        // console.log('FORMAT!', JSON.parse(response));
+        // return JSON.parse(response);
+        return Promise.resolve({
+            status: 200,
+            body: response
+        });
+    } catch (ex) {
+        throw new Error(`Error reading file: ${ex.message} (${__dirname}`)
+    }
+}
+
+async function mockData(request: Request): Promise<MockResponseInit> {
+    switch (request.method) {
+        case 'GET':
+            return getMockData(request);
         default:
             throw new Error(`"${request.method} not supported in mocks`)
     }
@@ -108,6 +143,8 @@ export function setupMocks() {
     fetchMock.mockIf(/^https:\/\/fake\.kbase\.us\//, (request) => {
         if (request.url.match(/services/)) {
             return mockServices(request);
+        } else if (request.url.match(/mock-data/)) {
+            return mockData(request);
         } else {
             throw new Error(`Unsupported url ${request.url}`);
         }

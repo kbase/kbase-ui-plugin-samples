@@ -3,7 +3,7 @@ import {
 } from "../../test/mock/mock";
 import {
     GET_DATA_LINKS_FROM_SAMPLE_RESULT_EMPTY,
-    GET_FORMAT_RESULT_SUBSET,
+    GET_FORMATS_RESULT_SUBSET,
     GET_METADATA_KEY_STATIC_METADATA_EMPTY,
     SAMPLE_ACLS,
     STATUS_RESULT, GET_SAMPLE_SAMPLES
@@ -91,27 +91,25 @@ describe('SampleServiceClient', () => {
     // Our "faked" sample service methods; these do not call fetch, so we can use the
     // built-in fake data.
 
-    test('Can successfully call the "get_format" method', async () => {
+    test('Can successfully call the "get_formats" method', async () => {
         const client = makeSampleServiceClient();
         const params: GetFormatParams = {
-            id: 'sesar',
-            version: 1
+            ids: ['sesar']
         }
-        const result = await client.get_format(params);
+        const result = await client.get_formats(params);
         expect(result).toBeDefined();
         expect(result).toMatchObject({
-            format: GET_FORMAT_RESULT_SUBSET
+            formats: GET_FORMATS_RESULT_SUBSET
         });
     });
 
     test('Can the "get_format" method with an invalid id', async () => {
         const client = makeSampleServiceClient();
         const params: GetFormatParams = {
-            id: 'foo',
-            version: 1
+            ids: ['foo']
         }
         expect(async () => {
-            return (await client.get_format(params));
+            return (await client.get_formats(params));
         }).rejects.toThrow();
     });
 });

@@ -1,0 +1,537 @@
+{
+  "id": "73b0293c-22a3-4819-9b01-97461f408f18",
+  "user": "kbaseuitest",
+  "name": "0411-FW109.1.7.25.12.3",
+  "node_tree": [
+    {
+      "id": "0411-FW109.1.7.25.12.3",
+      "type": "BioReplicate",
+      "parent": null,
+      "meta_controlled": {
+        "sample_template": {
+          "value": "ENIGMA"
+        },
+        "name": {
+          "value": "0411-FW109.1.7.25.12.3"
+        },
+        "enigma:experiment_name": {
+          "value": "100 Well"
+        },
+        "enigma:area_name": {
+          "value": "Area 3"
+        },
+        "enigma:well_name": {
+          "value": "FW109"
+        },
+        "env_package": {
+          "value": "water"
+        },
+        "material": {
+          "value": "ENVO:01001004"
+        },
+        "description": {
+          "value": "filtered groundwater"
+        },
+        "enigma:filter": {
+          "value": 0,
+          "units": "microns"
+        },
+        "enigma:date": {
+          "value": "7/25/2012"
+        },
+        "latitude": {
+          "value": 35.97737361,
+          "units": "degrees"
+        },
+        "longitude": {
+          "value": -84.27357695,
+          "units": "degrees"
+        },
+        "depth_bgs": {
+          "value": 1020.9276,
+          "units": "m"
+        },
+        "enigma:geological_zone": {
+          "value": "ND"
+        },
+        "enigma:recovery_factor": {
+          "value": 0
+        },
+        "enigma:method": {
+          "value": "NA"
+        },
+        "enigma:fraction": {
+          "value": "NA"
+        },
+        "enigma:replicate": {
+          "value": "NA"
+        },
+        "enigma:maturation_time": {
+          "value": "NA"
+        },
+        "enigma:treatment": {
+          "value": "NA"
+        },
+        "enigma:moisture": {
+          "value": 0,
+          "units": "percent"
+        },
+        "enigma:pore_water_extraction": {
+          "value": 0,
+          "units": "microliters"
+        },
+        "enigma:conductivity": {
+          "value": 0,
+          "units": "mS/cm"
+        },
+        "enigma:redox_potential": {
+          "value": 0
+        },
+        "ph": {
+          "value": 0,
+          "units": "pH"
+        },
+        "enigma:aodc": {
+          "value": 0,
+          "units": "cells/g"
+        },
+        "enigma:dapi_cell_count": {
+          "value": 0
+        },
+        "enigma:dna_picogreen_total": {
+          "value": 0,
+          "units": "ng"
+        },
+        "enigma:total_carbon": {
+          "value": 0,
+          "units": "mg/g"
+        },
+        "enigma:organic_carbon": {
+          "value": 0,
+          "units": "mg/g"
+        },
+        "enigma:biomass_carbon": {
+          "value": 0,
+          "units": "mg/g"
+        },
+        "enigma:total_nitrogen": {
+          "value": 0,
+          "units": "mg/g"
+        },
+        "enigma:boncat_activity": {
+          "value": 0,
+          "units": "cells/g"
+        },
+        "enigma:leucine_activity": {
+          "value": 0
+        },
+        "enigma:well_type": {
+          "value": "MP"
+        },
+        "enigma:ground_elevation": {
+          "value": 1008.74841,
+          "units": "ft"
+        },
+        "enigma:installation_method": {
+          "value": "AUGER"
+        },
+        "enigma:boring": {
+          "value": 51.54,
+          "units": "ft"
+        },
+        "enigma:boring_refusal": {
+          "value": "N"
+        },
+        "enigma:boring_diameter": {
+          "value": 4,
+          "units": "in"
+        },
+        "enigma:screen_type": {
+          "value": "PVC"
+        },
+        "enigma:screen_top_elevation": {
+          "value": 1008.74841,
+          "units": "ft"
+        },
+        "enigma:screen_bottom_elevation": {
+          "value": 1008.74841,
+          "units": "ft"
+        },
+        "enigma:well_casing_type": {
+          "value": "MP"
+        },
+        "enigma:packing_type": {
+          "value": "NONE"
+        },
+        "enigma:upper_seal_type": {
+          "value": "NONE"
+        }
+      },
+      "meta_user": {},
+      "source_meta": [
+        {
+          "key": "name",
+          "skey": "SampleID",
+          "svalue": {
+            "value": "0411-FW109.1.7.25.12.3",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:experiment_name",
+          "skey": "Experiment Name",
+          "svalue": {
+            "value": "100 Well",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:area_name",
+          "skey": "Area Name",
+          "svalue": {
+            "value": "Area 3",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:well_name",
+          "skey": "Well Name",
+          "svalue": {
+            "value": "FW109",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "env_package",
+          "skey": "Environmental Package",
+          "svalue": {
+            "value": "water",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "material",
+          "skey": "Material",
+          "svalue": {
+            "value": "ENVO:01001004",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "description",
+          "skey": "Description",
+          "svalue": {
+            "value": "filtered groundwater",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:filter",
+          "skey": "Filter (micron)",
+          "svalue": {
+            "value": "None",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:date",
+          "skey": "Date",
+          "svalue": {
+            "value": "7/25/2012",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "latitude",
+          "skey": "Latitude",
+          "svalue": {
+            "value": "35.97737361",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "longitude",
+          "skey": "Longitude",
+          "svalue": {
+            "value": "-84.27357695",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "depth_bgs",
+          "skey": "Depth (cm bgs)",
+          "svalue": {
+            "value": "1020.9276",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:geological_zone",
+          "skey": "Geological Zone",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:recovery_factor",
+          "skey": "Recovery Factor",
+          "svalue": {
+            "value": "NA",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:method",
+          "skey": "Method",
+          "svalue": {
+            "value": "NA",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:fraction",
+          "skey": "Fraction",
+          "svalue": {
+            "value": "NA",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:replicate",
+          "skey": "Replicate",
+          "svalue": {
+            "value": "NA",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:maturation_time",
+          "skey": "Maturation Time",
+          "svalue": {
+            "value": "NA",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:treatment",
+          "skey": "Treatment",
+          "svalue": {
+            "value": "NA",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:moisture",
+          "skey": "Moisture (%)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:pore_water_extraction",
+          "skey": "Pore Water Extraction (microliters)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:conductivity",
+          "skey": "Conductivity (mS/cm)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:redox_potential",
+          "skey": "Redox Potential",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "ph",
+          "skey": "pH",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:aodc",
+          "skey": "AODC (cells/g)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:dapi_cell_count",
+          "skey": "DAPI Cell Count (cells/g)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:dna_picogreen_total",
+          "skey": "DNA Picogreen Total (ng)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:total_carbon",
+          "skey": "Total Carbon (mg/g dry weight)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:organic_carbon",
+          "skey": "Organic Carbon (mg/g dry weight)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:biomass_carbon",
+          "skey": "Biomass Carbon (mg/g)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:total_nitrogen",
+          "skey": "Total Nitrogen (mg/g dry weight)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:boncat_activity",
+          "skey": "BONCAT Activity (cell/g)",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:leucine_activity",
+          "skey": "Leucine Activity (ngC/day cell}",
+          "svalue": {
+            "value": "ND",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:well_type",
+          "skey": "Type of Well",
+          "svalue": {
+            "value": "MP",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:ground_elevation",
+          "skey": "Ground Elevation (ft AMSL)",
+          "svalue": {
+            "value": "1008.74841",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:installation_method",
+          "skey": "Installation Method",
+          "svalue": {
+            "value": "AUGER",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:boring",
+          "skey": "Boring (ft BGS)",
+          "svalue": {
+            "value": "51.54",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:boring_refusal",
+          "skey": "Boring Refusal",
+          "svalue": {
+            "value": "N",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:boring_diameter",
+          "skey": "Boring Diameter (in)",
+          "svalue": {
+            "value": "4",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:screen_type",
+          "skey": "Screen Type",
+          "svalue": {
+            "value": "PVC",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:screen_top_elevation",
+          "skey": "Screen Top Elevation (ft AMSL)",
+          "svalue": {
+            "value": "1008.74841",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:screen_bottom_elevation",
+          "skey": "Screen Bottom Elevation (ft AMSL)",
+          "svalue": {
+            "value": "1008.74841",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:well_casing_type",
+          "skey": "Well Casing Type",
+          "svalue": {
+            "value": "MP",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:packing_type",
+          "skey": "Packing Type",
+          "svalue": {
+            "value": "NONE",
+            "field_type": "controlled"
+          }
+        },
+        {
+          "key": "enigma:upper_seal_type",
+          "skey": "Upper Seal Type",
+          "svalue": {
+            "value": "NONE",
+            "field_type": "controlled"
+          }
+        }
+      ]
+    }
+  ],
+  "save_date": 1622564811445,
+  "version": 1
+}
