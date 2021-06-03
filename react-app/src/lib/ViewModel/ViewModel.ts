@@ -440,7 +440,6 @@ export default class ViewModel {
         return {formats: formats};
     }
 
-
     getACL(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {
         return this.sampleService.get_sample_acls(params);
     }
@@ -453,13 +452,7 @@ export default class ViewModel {
         // 2. Get the format
         const format_id = rawRealSample.meta_controlled['sample_template']['value'] as string;
 
-        //
         const {formats: [format]} = await this.sampleService.get_formats({ids: [format_id]});
-        const reverseSampleMapping: SimpleMapping = Object.entries(format.mappings)
-            .reduce<SimpleMapping>((mapping, [key, value]) => {
-                mapping[value] = key;
-                return mapping;
-            }, {});
 
         const controlledKeys = Object.keys(rawSample.node_tree[0].meta_controlled);
 
@@ -600,12 +593,14 @@ export default class ViewModel {
             }
 
             // map the template key back to the original key via the mapping.
-            const reverseMappedKey = ((key) => {
-                if (key in reverseSampleMapping) {
-                    return reverseSampleMapping[key];
-                }
-                return key;
-            })(templateField.key);
+            // const reverseMappedKey = ((key) => {
+            //     if (key in reverseSampleMapping) {
+            //         return reverseSampleMapping[key];
+            //     }
+            //     return key;
+            // })(templateField.key);
+
+            const reverseMappedKey = templateField.key;
 
             const fieldValue: MetadataValue | null = (() => {
                 const value = rawRealSample.meta_controlled[reverseMappedKey];
@@ -651,6 +646,9 @@ export default class ViewModel {
                 field,
             };
             controlled[templateField.key] = controlledField;
+            if (templateField.key === 'sesar:igsn') {
+                console.log('controlled field', reverseMappedKey, fieldValue, templateField, controlledField)
+            }
             return controlledField;
         });
 
