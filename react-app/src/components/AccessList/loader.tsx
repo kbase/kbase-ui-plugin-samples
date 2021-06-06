@@ -55,7 +55,7 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
     }
 
     renderSuccess(accessList: ACL) {
-        return <View acl={accessList} owner={this.props.sample.created.by}/>
+        return <View acl={accessList} owner={this.props.sample.firstVersion.by}/>
     }
 
     render() {

@@ -3,7 +3,7 @@ import {Provider} from "react-redux";
 import {ErrorBoundary} from "@kbase/ui-components";
 import store from "./redux/store";
 import {AppBase, AuthGate} from "@kbase/ui-components";
-import "./App.css";
+import "./App.less";
 import {
     HashRouter,
     Switch,
@@ -13,7 +13,7 @@ import About from "views/About";
 import Help from "views/Help";
 import View from "views/View";
 import NotFound from "views/NotFound";
-import Instrumentation, {Span} from "lib/instrumentation/core";
+import {Span} from "lib/instrumentation/core";
 import {Instrument} from "lib/instrumentation/wrapper";
 
 interface AppProps {

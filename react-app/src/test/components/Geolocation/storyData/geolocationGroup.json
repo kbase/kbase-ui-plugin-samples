@@ -1,0 +1,31 @@
+{
+  "name": "geolocation",
+  "title": "Geolocation",
+  "fields": [
+    "latitude",
+    "latitude_end",
+    "longitude",
+    "longitude_end",
+    "sesar:northing",
+    "sesar:easting",
+    "sesar:zone",
+    "sesar:vertical_datum",
+    "elevation",
+    "elevation_end",
+    "sesar:elevation_unit",
+    "sesar:navigation_type",
+    "feature",
+    "sesar:physiographic_feature_primary",
+    "sesar:physiographic_feature_name",
+    "location_description",
+    "locality",
+    "locality_description",
+    "continent",
+    "country",
+    "state_province",
+    "county",
+    "city_township",
+    "depth_bgs",
+    "enigma:geological_zone"
+  ]
+}

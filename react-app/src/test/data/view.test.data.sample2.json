@@ -4,13 +4,14 @@
   "parentSampleId": null,
   "type": "BioReplicate",
   "name": "BLCG-28-3",
-  "created": {
+  "firstVersion": {
     "at": 1594239611410,
     "by": {
       "username": "pranjan77",
       "realname": "Priya Ranjan",
       "gravatarHash": "e36e4342a6030eaba97d33a720c20132"
-    }
+    },
+    "version": 1
   },
   "currentVersion": {
     "at": 1594239611410,

@@ -1,0 +1,73 @@
+.InfoTable {
+    display: flex;
+    flex-direction: column;
+}
+
+.InfoTable > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.InfoTable > div.InfoTable-header {
+}
+
+.InfoTable > div.InfoTable-header > div {
+    font-weight: bold !important;
+    color: rgba(100, 100, 100, 1) !important;
+}
+
+.InfoTable > div:nth-child(odd) {
+    /* background-color: rgba(200, 200, 200, 0.5); */
+}
+
+.InfoTable > div + div {
+    margin-top: -1px;
+}
+
+.InfoTable > div > div {
+    padding: 4px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.InfoTable > div > div:first-child {
+    padding-left: 0;
+}
+
+.InfoTable > div > div:last-child {
+    padding-right: 0;
+}
+
+.InfoTable.-bordered > div {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.InfoTable.-bordered > div:first-child {
+    /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
+}
+
+.InfoTable.-bordered > div:last-child {
+    border-bottom: none;
+}
+
+/* .InfoTable.-bordered>div>div {
+    border-bottom: 1px solid silver;
+} */
+
+.InfoTable.-bordered > div > div + div {
+    margin-left: -1px;
+}
+
+.InfoTable > div > div:nth-child(1) {
+    flex: 0 0 5em;
+    font-weight: bold;
+    color: rgba(150, 150, 150, 1);
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.InfoTable > div > div:nth-child(2) {
+    flex: 1 1 0;
+    text-align: left;
+}

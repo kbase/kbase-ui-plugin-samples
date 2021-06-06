@@ -4,7 +4,7 @@
   "parentSampleId": null,
   "type": "BioReplicate",
   "name": "BWE201406031C",
-  "created": {
+  "firstVersion": {
     "at": 1622566960715,
     "by": {
       "username": "kbaseuitest",
@@ -12,7 +12,8 @@
       "gravatarHash": "b4d95f8595104614355e6ee9c4c03e3f",
       "gravatarDefault": "monsterid",
       "avatarOption": "gravatar"
-    }
+    },
+    "version": 1
   },
   "currentVersion": {
     "at": 1622566960715,

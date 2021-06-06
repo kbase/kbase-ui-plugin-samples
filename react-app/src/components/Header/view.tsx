@@ -34,6 +34,24 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
         }
     }
 
+    renderDate(date: Date) {
+        const displayDate = Intl.DateTimeFormat('en-US', {
+            month: 'short',
+            day: 'numeric',
+        }).format(date)
+        const fullResolutionDate = Intl.DateTimeFormat('en-US', {
+            month: 'numeric',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZoneName: 'short'
+        }).format(date);
+        return <Tooltip title={fullResolutionDate}>
+            <span>{displayDate}</span>
+        </Tooltip>
+    }
+
     renderShowVersions() {
         if (this.props.sample.latestVersion.version === 1) {
             return;
@@ -115,15 +133,9 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                         }
                     }, {
                         label: 'Last Saved',
-                        value: Intl.DateTimeFormat('en-US', {
-                            year: 'numeric',
-                            month: 'numeric',
-                            day: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            second: 'numeric',
-                            timeZoneName: 'short'
-                        }).format(this.props.sample.created.at)
+                        render: () => {
+                            return this.renderDate(new Date(this.props.sample.firstVersion.at))
+                        }
                     }, {
                         label: 'Versions',
                         render: () => {

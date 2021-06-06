@@ -43,7 +43,7 @@ export default class MetadataControlledField extends React.Component<MetadataCon
             return <NoData/>;
         }
         // TODO: add timestamp to url
-        const url = `/#ontology/term/${field.schema.namespace}/${field.stringValue}/${this.props.sample.created.at}`;
+        const url = `/#ontology/term/${field.schema.namespace}/${field.stringValue}/${this.props.sample.firstVersion.at}`;
         return <a href={url} target="_blank" rel="noreferrer">{field.stringValue}</a>;
     }
 
