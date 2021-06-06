@@ -44,10 +44,6 @@ interface LoaderState {
 }
 
 export default class LoaderView extends React.Component<LoaderProps, LoaderState> {
-    constructor(props: LoaderProps) {
-        super(props);
-    }
-
     componentDidMount() {
         if (this.props.geolocationState.status === AsyncProcessStatus.NONE) {
             this.props.load();
@@ -71,13 +67,6 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
         return <View {...this.props} group={group[0]}/>;
     }
 
-    renderReprocessing(fieldGroups: FieldGroups) {
-        const group = fieldGroups.filter((fieldGroup) => {
-            return fieldGroup.name === 'geolocation'
-        });
-        return <View sample={this.props.sample} group={group[0]}/>;
-    }
-
     render() {
         switch (this.props.geolocationState.status) {
             case AsyncProcessStatus.NONE:
@@ -86,9 +75,7 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
             case AsyncProcessStatus.ERROR:
                 return this.renderError(this.props.geolocationState.error);
             case AsyncProcessStatus.SUCCESS:
-                return this.renderSuccess(this.props.geolocationState.state.fieldGroups)
-            case AsyncProcessStatus.REPROCESSING:
-                return this.renderReprocessing(this.props.geolocationState.state.fieldGroups);
+                return this.renderSuccess(this.props.geolocationState.state.fieldGroups);
         }
     }
 }

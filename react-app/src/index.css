@@ -1,174 +1,102 @@
 @import url("antd.css");
+/*@import url("InfoTable.css");*/
 
 body {
-  margin: 0;
+    margin: 0;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.InfoTable {
-  display: flex;
-  flex-direction: column;
-}
-
-.InfoTable > div {
-  display: flex;
-  flex-direction: row;
-}
-
-.InfoTable > div.InfoTable-header {
-}
-
-.InfoTable > div.InfoTable-header > div {
-  font-weight: bold !important;
-  color: rgba(100, 100, 100, 1) !important;
-}
-
-.InfoTable > div:nth-child(odd) {
-  /* background-color: rgba(200, 200, 200, 0.5); */
-}
-
-.InfoTable > div + div {
-  margin-top: -1px;
-}
-
-.InfoTable > div > div {
-  padding: 4px;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.InfoTable > div > div:first-child {
-  padding-left: 0;
-}
-
-.InfoTable > div > div:last-child {
-  padding-right: 0;
-}
-
-.InfoTable.-bordered > div {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.InfoTable.-bordered > div:first-child {
-  /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
-}
-
-.InfoTable.-bordered > div:last-child {
-  border-bottom: none;
-}
-
-/* .InfoTable.-bordered>div>div {
-    border-bottom: 1px solid silver;
-} */
-
-.InfoTable.-bordered > div > div + div {
-  margin-left: -1px;
-}
-
-.InfoTable > div > div:nth-child(1) {
-  flex: 0 0 5em;
-  font-weight: bold;
-  color: rgba(150, 150, 150, 1);
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-}
-
-.InfoTable > div > div:nth-child(2) {
-  flex: 1 1 0px;
-  text-align: left;
-}
 
 .SectionLabel {
-  font-weight: bold;
-  color: gray;
-  margin: 20px 0 0 0;
+    font-weight: bold;
+    color: gray;
+    margin: 20px 0 0 0;
 }
 
 .Grouper {
-  /* border: 1px silver solid; */
-  padding: 4px;
+    /* border: 1px silver solid; */
+    padding: 4px;
 }
 
 .col.-full-height {
-  flex: 1 1 0px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .col.-scrollable {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 .root {
-  flex: 1 1 0px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .Col {
-  flex: 1 1 0px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .Col.-span1 {
-  flex: 1 1 0px;
+    flex: 1 1 0;
 }
 
 .Col.-span2 {
-  flex: 2 1 0px;
+    flex: 2 1 0;
 }
 
 .Col.-span3 {
-  flex: 3 1 0px;
+    flex: 3 1 0;
 }
 
 .Col.-span4 {
-  flex: 4 1 0px;
+    flex: 4 1 0;
 }
 
 .Col.-stretch {
-  flex: 1 1 0px;
+    flex: 1 1 0;
 }
 
 .Col.-auto {
-  flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
 .Row.-stretch {
-  flex: 1 1 0px;
+    flex: 1 1 0;
 }
 
 .Col.-autoscroll {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 .Col > .-title {
-  text-align: center;
-  font-weight: bold;
+    text-align: center;
+    font-weight: bold;
 }
 
 .Row {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
-  min-height: 0;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    min-height: 0;
 }
 
 .Row.-stretch {
-  flex: 1 1 0px;
+    flex: 1 1 0;
 }
 
 .NiceTable {
-  width: 100%;
+    width: 100%;
 }
 
 .NiceTable thead {
@@ -178,33 +106,33 @@ code {
 }
 
 .NiceTable th {
-  text-align: left;
-  padding: 4px;
-  font-weight: bold;
-  color: rgba(150, 150, 150, 1);
+    text-align: left;
+    padding: 4px;
+    font-weight: bold;
+    color: rgba(150, 150, 150, 1);
 }
 
 .NiceTable td {
-  padding: 4px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 4px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .NiceTable td:last-child {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .NiceTable.-versions td {
-  text-align: left;
+    text-align: left;
 }
 
 .NiceTable tr td:nth-child(1) {
-  border: none;
+    border: none;
 }
 
 .FullyCenteredFLex {
-  flex: 1 1 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

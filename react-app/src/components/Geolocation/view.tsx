@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Alert, Button, Col, Row, Switch
+    Alert, Col, Row
 } from 'antd';
 import {
     MapContainer as LeafletMap, Tooltip as LeafletTooltip, TileLayer, LayersControl,
@@ -9,11 +9,12 @@ import {
 import 'leaflet/dist/leaflet.css';
 import MetadataFieldView from '../MetadataField/view';
 
-import './style.less';
 import {MetadataField, Sample} from "../../lib/ViewModel/ViewModel";
 import {InfoTable, Section} from "@kbase/ui-components";
 import {Span} from 'lib/instrumentation/core';
 import {FieldGroup} from "../../lib/client/SampleServiceClient";
+
+import './style.less';
 
 // Advised as the max zoom supported by most tiles:
 // https://leafletjs.com/examples/zoom-levels/
@@ -25,9 +26,6 @@ export interface GeolocationViewerProps {
 }
 
 interface GeolocationViewerState {
-    omitEmpty: boolean;
-    hasEmpty: boolean;
-    emptyFieldCount: number;
 }
 
 export default class GeolocationViewer extends React.Component<GeolocationViewerProps, GeolocationViewerState> {
@@ -35,25 +33,11 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
 
     constructor(props: GeolocationViewerProps) {
         super(props);
-        this.state = {
-            omitEmpty: true,
-            hasEmpty: this.hasEmptyFields(),
-            emptyFieldCount: this.emptyFieldCount()
-        };
         this.span = new Span({name: 'Components.GeoLocation'}).begin();
     }
 
     componentWillUnmount() {
         this.span.end();
-    }
-
-    formatNumber(num: number) {
-        return Intl
-            .NumberFormat('en-US', {
-                minimumFractionDigits: 3,
-                maximumFractionDigits: 3
-            })
-            .format(num);
     }
 
     renderTooltip(sample: Sample) {
@@ -89,13 +73,17 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                           message="Both latitude and longitude must be present to display a map location"/>;
         }
 
+        // Trap "impossible" conditions, which should never appear in real usage if samples adhere
+        // to the schema... but we need to do this runtime introspection due to the generic nature
+        // of sample metadata.
+
         // And we don't know if they are the proper type of field...
         if (latitude.field.type !== 'number') {
-            return <Alert type="warning" message="latitude must be numeric field"/>;
+            return <Alert type="error" message="latitude must be numeric field"/>;
         }
 
         if (longitude.field.type !== 'number') {
-            return <Alert type="warning" message="longitude must be numeric field"/>;
+            return <Alert type="error" message="longitude must be numeric field"/>;
         }
 
         if (latitude.field.numberValue === null || longitude.field.numberValue === null) {
@@ -116,7 +104,7 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                 <LayersControl position="topright">
                     <LayersControl.BaseLayer name="OpenStreetMap">
                         <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
                             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                             noWrap={true}
                         />
@@ -143,20 +131,6 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
                 </CircleMarker>
             </LeafletMap>
         </div>;
-    }
-
-    onToggleHideEmpty() {
-        this.setState({
-            omitEmpty: !this.state.omitEmpty
-        });
-    }
-
-    hasEmptyFields() {
-        return false;
-    }
-
-    emptyFieldCount() {
-        return 0;
     }
 
     renderFields() {
@@ -188,62 +162,17 @@ export default class GeolocationViewer extends React.Component<GeolocationViewer
         return <InfoTable table={table}/>;
     }
 
-    renderToggleEmptyButton() {
-        if (!this.state.hasEmpty) {
-            return;
-        }
-        const label = (() => {
-            if (this.state.omitEmpty) {
-                return 'Show Empty Fields';
-            } else {
-                return 'Hide Empty Fields';
-            }
-        })();
-        return <Button onClick={this.onToggleHideEmpty.bind(this)}
-                       size="small">
-            {label}
-        </Button>;
-    }
-
-    onChangeEmptySwitch(checked: boolean | undefined) {
-        this.setState({
-            omitEmpty: !checked
-        });
-    }
-
-    renderToggleEmptySwitch() {
-        if (!this.state.hasEmpty) {
-            return;
-        }
-        return <div style={{display: 'flex', flexDirection: 'row', alignContent: 'center'}}>
-            <span style={{marginRight: '1ex'}}>{this.state.emptyFieldCount} empty fields</span>
-            <Switch
-                onChange={this.onChangeEmptySwitch.bind(this)}
-                checkedChildren={'showing'}
-                unCheckedChildren={'hidden'}
-                defaultChecked={false}
-            />
-        </div>;
-    }
-
-    renderToolbar() {
-        return <div>
-            {this.renderToggleEmptySwitch()}
-        </div>;
-    }
-
     render() {
         return <div className="Geolocation" data-testid="geolocation-view">
             <div className="Geolocation-body">
-                <Row gutter={10}>
+                <Row gutter={10} style={{flex: '1 1 0'}}>
                     <Col span={12} flex="1 1 0px" style={{display: 'flex', flexDirection: 'column'}}>
                         <Section title="Map">
                             {this.renderMap()}
                         </Section>
                     </Col>
                     <Col span={12} style={{display: 'flex'}}>
-                        <Section title="Fields" renderToolbar={this.renderToolbar.bind(this)}>
-                            {/* {this.renderToolbar()} */}
+                        <Section title="Fields">
                             {this.renderFields()}
                         </Section>
                     </Col>

@@ -25,8 +25,8 @@ function fetched(
 }
 
 function fetching(
-    state: StoreState,
-    action: SampleFetchingAction,
+    _state: StoreState,
+    _action: SampleFetchingAction,
 ): SampleStoreState {
     return {
         status: AsyncProcessStatus.PROCESSING,
@@ -35,7 +35,7 @@ function fetching(
 
 function refetching(
     state: StoreState,
-    action: SampleRefetchingAction,
+    _action: SampleRefetchingAction,
 ): SampleStoreState {
     if (state.data.sample.status !== AsyncProcessStatus.SUCCESS) {
         return state.data.sample;
@@ -50,7 +50,6 @@ function fetchError(
     state: StoreState,
     action: SampleFetchErrorAction,
 ): SampleStoreState {
-    console.log('FETCH ERROR', action);
     return {
         status: AsyncProcessStatus.ERROR,
         error: action.error,
