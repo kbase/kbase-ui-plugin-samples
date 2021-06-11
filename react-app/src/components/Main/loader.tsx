@@ -20,11 +20,11 @@
 
 // External imports
 import {AppError, Loading} from '@kbase/ui-components';
-import ErrorView from 'components/ErrorView';
-import {Sample} from 'lib/ViewModel/ViewModel';
 import React from 'react';
 
 // Internal imports
+import ErrorView from 'components/ErrorView';
+import {Sample} from 'lib/ViewModel/ViewModel';
 import {AsyncProcessStatus} from 'redux/store/processing';
 import {SampleStoreState} from 'redux/store/sample';
 

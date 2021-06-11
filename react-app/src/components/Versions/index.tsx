@@ -29,11 +29,7 @@ export default class Versions extends React.Component<VersionsProps, VersionsSta
         });
 
         let placeholder: string;
-        if (range.length === 1) {
-            placeholder = `${range[0]}`;
-        } else {
-            placeholder = `${range[0]} - ${range[range.length - 1]}`;
-        }
+        placeholder = `${range[0]} - ${range[range.length - 1]}`;
 
         return <div style={{textAlign: 'center'}}>
             <Select<string>
