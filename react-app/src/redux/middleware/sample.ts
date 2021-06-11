@@ -10,12 +10,8 @@ import {AsyncProcessStatus} from "../store/processing";
 import SampleServiceClient from "../../lib/client/SampleServiceClient";
 
 const sampleFun: AsyncProxyFun<StoreState> = async (
-    {state, dispatch, action, next},
+    {state, dispatch, action},
 ) => {
-    if (!("category" in action)) {
-        return false;
-    }
-
     if (action.category !== "sample") {
         return false;
     }
@@ -37,9 +33,6 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
                     },
                     Workspace: {
                         url: workspaceURL,
-                    },
-                    ServiceWizard: {
-                        url: serviceWizardURL
                     }
                 },
             },
@@ -60,6 +53,7 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
 
     // Here we initiate indicate either a fresh fetch (fetching) or a
     // new fetch to replace an existing one (refetching).
+    console.log('sampleState:', sampleState);
     switch (sampleState.status) {
         case AsyncProcessStatus.NONE:
             dispatch({
