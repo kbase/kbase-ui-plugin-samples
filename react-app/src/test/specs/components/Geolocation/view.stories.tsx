@@ -15,7 +15,7 @@ const sample = (sampleData as unknown) as Sample;
 
 
 export default {
-    title: 'Geolocation View',
+    title: 'Components / Geolocation / View',
     component: GeolocationViewer
 }
 
@@ -23,22 +23,22 @@ const Template: Story<ComponentProps<typeof GeolocationViewer>> = (args) => {
     return <GeolocationViewer {...args} />
 };
 
-export const GeolocationViewerStory = Template.bind({});
-GeolocationViewerStory.args = {
+export const GeolocationViewer_Normal = Template.bind({});
+GeolocationViewer_Normal.args = {
     sample, group
 }
 
-export const GeolocationViewerNoLatitudeStory = Template.bind({})
+export const GeolocationViewer_NoLatitude = Template.bind({})
 const sampleWithoutLatitude = (JSON.parse(JSON.stringify(sample)) as unknown) as Sample;
 sampleWithoutLatitude.metadata = sampleWithoutLatitude.metadata.filter((field) => {
     return field.key !== 'latitude';
 })
 delete sampleWithoutLatitude.controlled['latitude'];
-GeolocationViewerNoLatitudeStory.args = {
+GeolocationViewer_NoLatitude.args = {
     sample: sampleWithoutLatitude, group
 }
 
-export const GeolocationViewerStringLatitudeStory = Template.bind({})
+export const GeolocationViewer_StringLatitude = Template.bind({})
 const sampleWithStringLatitude = (JSON.parse(JSON.stringify(sample)) as unknown) as Sample;
 // sampleWithStringLatitude.metadata = sampleWithoutLatitude.metadata.map((field) => {
 //     if (field.key !== 'latitude') {
@@ -47,11 +47,11 @@ const sampleWithStringLatitude = (JSON.parse(JSON.stringify(sample)) as unknown)
 //     return field;
 // })
 sampleWithStringLatitude.controlled['latitude'].field.type = 'string';
-GeolocationViewerStringLatitudeStory.args = {
+GeolocationViewer_StringLatitude.args = {
     sample: sampleWithStringLatitude, group
 }
 
-export const GeolocationViewerStringLongitudeStory = Template.bind({})
+export const GeolocationViewer_StringLongitude = Template.bind({})
 const sampleWithStringLongitude = (JSON.parse(JSON.stringify(sample)) as unknown) as Sample;
 // sampleWithStringLatitude.metadata = sampleWithoutLatitude.metadata.map((field) => {
 //     if (field.key !== 'latitude') {
@@ -60,11 +60,11 @@ const sampleWithStringLongitude = (JSON.parse(JSON.stringify(sample)) as unknown
 //     return field;
 // })
 sampleWithStringLongitude.controlled['longitude'].field.type = 'string';
-GeolocationViewerStringLongitudeStory.args = {
+GeolocationViewer_StringLongitude.args = {
     sample: sampleWithStringLongitude, group
 }
 
-export const GeolocationViewerNullLongitudeStory = Template.bind({})
+export const GeolocationViewer_NullLongitude = Template.bind({})
 const sampleWithNullLongitude = (JSON.parse(JSON.stringify(sample)) as unknown) as Sample;
 // sampleWithStringLatitude.metadata = sampleWithoutLatitude.metadata.map((field) => {
 //     if (field.key !== 'latitude') {
@@ -76,7 +76,7 @@ const sampleWithNullLongitude = (JSON.parse(JSON.stringify(sample)) as unknown) 
 const field = sampleWithNullLongitude.controlled['longitude'].field as FieldNumberValue;
 field.numberValue = null;
 
-GeolocationViewerNullLongitudeStory.args = {
+GeolocationViewer_NullLongitude.args = {
     sample: sampleWithNullLongitude, group
 }
 

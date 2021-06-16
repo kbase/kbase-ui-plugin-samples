@@ -3,7 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
-import {enableFetchMocks} from 'jest-fetch-mock';
+// import {enableFetchMocks} from 'jest-fetch-mock';
 
 window.matchMedia = (query: string) => {
     const result: MediaQueryList = {
@@ -36,4 +36,4 @@ window.matchMedia = (query: string) => {
 //   return createElementNSOrig.apply(this,arguments)
 // }
 
-enableFetchMocks();
+// enableFetchMocks();

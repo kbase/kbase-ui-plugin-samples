@@ -1,10 +1,11 @@
 import {render, waitFor} from '@testing-library/react';
-import GroupedMetadata, {GroupedMetadataProps} from 'components/GroupdMetadata/view';
 
+import GroupedMetadata, {GroupedMetadataProps} from 'components/GroupdMetadata/view';
 import {Sample} from 'lib/ViewModel/ViewModel';
 import {FieldGroups} from "lib/client/SampleServiceClient";
-import sampleData from '../../../data/sample-geolocation.json';
-import groupsData from '../../../data/groups/groups.json';
+
+import sampleData from 'test/data/vm-samples/sample_768c9512-69c0-4057-ba0c-f9fd280996e6_1.json';
+import groupsData from 'test/data/groups/groups.json';
 
 const fieldGroups = (groupsData as unknown) as FieldGroups;
 const sample = (sampleData as unknown) as Sample;
@@ -12,7 +13,6 @@ const sample = (sampleData as unknown) as Sample;
 const TIMEOUT = 10000;
 
 describe('The Grouped Metadata Viewer', () => {
-
     test('renders with a sample with grouped metadata fields', async () => {
         const props: GroupedMetadataProps = {
             sample,

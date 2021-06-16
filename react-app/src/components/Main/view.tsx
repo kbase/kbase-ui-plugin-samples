@@ -43,7 +43,7 @@ export default class Main extends React.Component<MainProps, MainState> {
 
         return <div className='Main'>
             {this.renderLoadingCover()}
-            <Header sample={this.props.sample} format={this.props.sample.format}/>
+            <Header sample={this.props.sample}/>
             <Tabs type="card" className="FullHeight-tabs" destroyInactiveTabPane={true}>
                 <Tabs.TabPane tab="Sample" key="metadata">
                     <GroupedMetadata sample={this.props.sample} fieldGroups={this.props.fieldGroups}/>

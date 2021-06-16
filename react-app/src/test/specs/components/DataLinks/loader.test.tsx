@@ -1,17 +1,17 @@
 import {render, waitFor} from '@testing-library/react';
 import {LinkedData, LinkedDataStoreState} from 'redux/store/linkedData';
 import {AsyncProcessStatus} from 'redux/store/processing';
+
 import Loader, {LoaderProps} from 'components/DataLinks/loader';
 
 import linkedDataRaw from '../../../data/sample3-linked-data.json';
 
 const linkedData = (linkedDataRaw as unknown) as LinkedData;
-
 const TIMEOUT = 10000;
 
 describe('LinkedData loader component', () => {
 
-    test('The access list loader should invoke the load function when in initial state', async () => {
+    test('should invoke the load function when in initial state', async () => {
         const linkedDataState: LinkedDataStoreState = {
             status: AsyncProcessStatus.NONE
         }
@@ -34,7 +34,7 @@ describe('LinkedData loader component', () => {
         });
     });
 
-    test('The access list loader in PROCESSING state should show the loading indicator but not invoke the loader', async () => {
+    test('in PROCESSING state should show the loading indicator but not invoke the loader', async () => {
         const linkedDataState: LinkedDataStoreState = {
             status: AsyncProcessStatus.PROCESSING
         }
@@ -58,7 +58,7 @@ describe('LinkedData loader component', () => {
         expect(loadWasCalled).toEqual(false);
     });
 
-    test('The access list loader in ERROR state should show the error', async () => {
+    test('in ERROR state should show the error', async () => {
         const linkedDataState: LinkedDataStoreState = {
             status: AsyncProcessStatus.ERROR,
             error: {
@@ -87,7 +87,7 @@ describe('LinkedData loader component', () => {
     });
 
 
-    test('The linked data loader in SUCCESS state should show the linked data list', async () => {
+    test('in SUCCESS state should show the linked data list', async () => {
         const linkedDataState: LinkedDataStoreState = {
             status: AsyncProcessStatus.SUCCESS,
             state: {linkedData}

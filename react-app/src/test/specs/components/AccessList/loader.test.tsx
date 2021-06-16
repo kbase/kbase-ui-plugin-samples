@@ -2,8 +2,10 @@ import {render, waitFor} from '@testing-library/react';
 import {AccessStoreState} from 'redux/store/access';
 import {AsyncProcessStatus} from 'redux/store/processing';
 import Loader, {LoaderProps} from 'components/AccessList/loader';
-import sampleData from '../../../data/view.test.data.sample.json';
 import {Sample} from 'lib/ViewModel/ViewModel';
+
+// TODO: draw from mock data pool
+import sampleData from '../../../data/view.test.data.sample.json';
 
 const sample = (sampleData as unknown) as Sample;
 const TIMEOUT = 10000;

@@ -1,12 +1,13 @@
 import {render, waitFor} from '@testing-library/react';
 import {GeolocationStoreState} from 'redux/store/geolocation';
 import {AsyncProcessStatus} from 'redux/store/processing';
-import Loader, {LoaderProps} from 'components/Geolocation/loader';
 
+import Loader, {LoaderProps} from 'components/Geolocation/loader';
 import {Sample} from "lib/ViewModel/ViewModel";
-import sampleData from '../../../data/sample-geolocation.json';
-import groupsData from '../../../data/groups/groups.json';
 import {FieldGroups} from "lib/client/SampleServiceClient";
+
+import sampleData from 'test/data/vm-samples/sample_768c9512-69c0-4057-ba0c-f9fd280996e6_1.json';
+import groupsData from 'test/data/groups/groups.json';
 
 const sample = (sampleData as unknown) as Sample;
 const fieldGroups = (groupsData as unknown) as FieldGroups;
@@ -15,7 +16,7 @@ const TIMEOUT = 10000;
 
 describe('Geolocation loader component', () => {
 
-    test('The loader should invoke the load function when in initial state', async () => {
+    test('should invoke the load function when in initial state', async () => {
         const geolocationState: GeolocationStoreState = {
             status: AsyncProcessStatus.NONE
         }
@@ -38,7 +39,7 @@ describe('Geolocation loader component', () => {
         });
     });
 
-    test('The loader in PROCESSING state should show the loading indicator but not invoke the loader', async () => {
+    test('in PROCESSING state should show the loading indicator but not invoke the loader', async () => {
         const geolocationState: GeolocationStoreState = {
             status: AsyncProcessStatus.PROCESSING
         }
@@ -62,7 +63,7 @@ describe('Geolocation loader component', () => {
         expect(loadWasCalled).toEqual(false);
     });
 
-    test('The access list loader in ERROR state should show the error', async () => {
+    test('in ERROR state should show the error', async () => {
         const geolocationState: GeolocationStoreState = {
             status: AsyncProcessStatus.ERROR,
             error: {
@@ -99,7 +100,7 @@ describe('Geolocation loader component', () => {
         expect(fieldData).toHaveTextContent(content);
     }
 
-    test('The linked data loader in SUCCESS state should show the linked data list', async () => {
+    test('in SUCCESS state should render the expected data', async () => {
         const geolocationState: GeolocationStoreState = {
             status: AsyncProcessStatus.SUCCESS,
             state: {fieldGroups}
@@ -115,18 +116,15 @@ describe('Geolocation loader component', () => {
 
         const {getByText} = render(<Loader {...props} />);
         await waitFor(() => {
-            // We really just need to assert that the data list did render.
-            // const linkElement = getByTestId('linkeddata');
-            // expect(linkElement).toBeInTheDocument();
-            // checkField(getByText('Latitude'), '38.912');
-            // checkField('Longitude', '-120.662');
-            // checkField('Elevation', '1,370');
+            checkField(getByText('Latitude'), '38.912');
+            checkField(getByText('Longitude'), '-120.662');
+            checkField(getByText('Elevation'), '1,370');
             checkField(getByText('Navigation type'), 'GPS');
-            // checkField('Primary physiographic feature', 'Mountain');
-            // checkField('Name of physiographic feature', 'Sierra Nevada foothills');
-            // checkField('Location description', 'Mixed conifer forest');
-            // checkField('Locality', 'Blodgett Forest Research Station, University of California');
-            // checkField('Country', 'United States');
+            checkField(getByText('Primary physiographic feature'), 'Mountain');
+            checkField(getByText('Name of physiographic feature'), 'Sierra Nevada foothills');
+            checkField(getByText('Location description'), 'Mixed conifer forest');
+            checkField(getByText('Locality'), 'Blodgett Forest Research Station, University of California');
+            checkField(getByText('Country'), 'United States');
 
             // We leave the details of access list rendering to the access list tests
         }, {

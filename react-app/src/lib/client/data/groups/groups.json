@@ -4,6 +4,7 @@
         "title": "Description",
         "fields": [
             "name",
+            "sample_template",
             "sesar:sample_type",
             "sesar:igsn",
             "sesar:parent_igsn",
@@ -60,7 +61,9 @@
             "sesar:zone",
             "sesar:vertical_datum",
             "elevation",
+            "sesar:elevation_start",
             "elevation_end",
+            "sesar:elevation_end",
             "sesar:elevation_unit",
             "sesar:navigation_type",
             "feature",

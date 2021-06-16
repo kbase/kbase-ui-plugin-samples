@@ -1,10 +1,11 @@
 import {render, waitFor} from '@testing-library/react';
 import GeolocationViewer, {GeolocationViewerProps} from 'components/Geolocation/view';
-import sampleData from './storyData/sample-geolocation.json';
 import {Sample} from 'lib/ViewModel/ViewModel';
-import groupsData from '../../../data/groups/groups.json';
 import {FieldGroups} from "lib/client/SampleServiceClient";
 import {FieldNumberValue} from "lib/ViewModel/Field";
+
+import sampleData from 'test/data/vm-samples/sample_768c9512-69c0-4057-ba0c-f9fd280996e6_1.json';
+import groupsData from 'test/data/groups/groups.json';
 
 const groups = (groupsData as unknown) as FieldGroups;
 const group = groups.filter((group) => {

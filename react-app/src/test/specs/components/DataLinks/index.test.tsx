@@ -1,15 +1,14 @@
 import React from 'react';
+import {Provider} from 'react-redux';
 import {render, waitFor} from '@testing-library/react';
-import sampleData from '../../../data/view.test.data.sample.json';
+import ComponentToTest from 'components/DataLinks';
+import mockStoreCreator from 'redux/mock/mockStoreCreator';
 import {Sample} from 'lib/ViewModel/ViewModel';
 
-import ComponentToTest from 'components/DataLinks';
-import {Provider} from 'react-redux';
-import mockStoreCreator from 'redux/mock/mockStoreCreator';
-
+// TODO: draw from mock data pool
+import sampleData from '../../../data/view.test.data.sample.json';
 
 const store = mockStoreCreator();
-
 const sample = (sampleData as unknown) as Sample;
 
 describe('The LinkedData connect HOF', () => {

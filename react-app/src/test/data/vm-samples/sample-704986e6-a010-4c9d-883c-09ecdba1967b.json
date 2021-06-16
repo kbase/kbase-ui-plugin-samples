@@ -1,21 +1,22 @@
 {
-  "id": "768c9512-69c0-4057-ba0c-f9fd280996e6",
-  "sampleId": "IEBWE0001",
+  "id": "704986e6-a010-4c9d-883c-09ecdba1967b",
+  "sampleId": "IEBWE0004",
   "parentSampleId": null,
   "type": "BioReplicate",
-  "name": "BWE201406031C",
-  "created": {
-    "at": 1622566960715,
+  "name": "BWE201406032H",
+  "firstVersion": {
+    "at": 1622566961032,
     "by": {
       "username": "kbaseuitest",
       "realname": "KBase UI Test User",
       "gravatarHash": "b4d95f8595104614355e6ee9c4c03e3f",
       "gravatarDefault": "monsterid",
       "avatarOption": "gravatar"
-    }
+    },
+    "version": 1
   },
   "currentVersion": {
-    "at": 1622566960715,
+    "at": 1622566961032,
     "by": {
       "username": "kbaseuitest",
       "realname": "KBase UI Test User",
@@ -26,7 +27,7 @@
     "version": 1
   },
   "latestVersion": {
-    "at": 1622566960715,
+    "at": 1622566961032,
     "by": {
       "username": "kbaseuitest",
       "realname": "KBase UI Test User",
@@ -41,7 +42,7 @@
       "type": "controlled",
       "key": "sesar:igsn",
       "label": "IGSN",
-      "isEmpty": true,
+      "isEmpty": false,
       "field": {
         "type": "string",
         "schema": {
@@ -58,8 +59,8 @@
           ],
           "type": "string"
         },
-        "isEmpty": true,
-        "stringValue": null
+        "isEmpty": false,
+        "stringValue": "IEBWE0004"
       }
     },
     {
@@ -86,7 +87,7 @@
           "maxLength": 240
         },
         "isEmpty": false,
-        "stringValue": "BWE201406031C"
+        "stringValue": "BWE201406032H"
       }
     },
     {
@@ -162,7 +163,7 @@
           "type": "string"
         },
         "isEmpty": false,
-        "stringValue": "Day 223 core sample from unheated control plot 1C of a deep soil warming experiment"
+        "stringValue": "Day 223 core sample from experimental plot 2H continuously heated by plus 4 degrees celsius above ambient temperature down to 1 meter depth"
       }
     },
     {
@@ -322,7 +323,7 @@
         },
         "isEmpty": false,
         "unit": "degrees",
-        "numberValue": 38.91207
+        "numberValue": 38.91222
       }
     },
     {
@@ -355,7 +356,7 @@
         },
         "isEmpty": false,
         "unit": "degrees",
-        "numberValue": -120.6615
+        "numberValue": -120.66122
       }
     },
     {
@@ -740,7 +741,7 @@
           "format": "url"
         },
         "isEmpty": false,
-        "stringValue": "http://igsn.org/IEBWE0001"
+        "stringValue": "http://igsn.org/IEBWE0004"
       }
     },
     {
@@ -763,7 +764,7 @@
       "type": "controlled",
       "key": "sesar:igsn",
       "label": "IGSN",
-      "isEmpty": true,
+      "isEmpty": false,
       "field": {
         "type": "string",
         "schema": {
@@ -780,8 +781,8 @@
           ],
           "type": "string"
         },
-        "isEmpty": true,
-        "stringValue": null
+        "isEmpty": false,
+        "stringValue": "IEBWE0004"
       }
     },
     "name": {
@@ -808,7 +809,7 @@
           "maxLength": 240
         },
         "isEmpty": false,
-        "stringValue": "BWE201406031C"
+        "stringValue": "BWE201406032H"
       }
     },
     "sesar:sample_type": {
@@ -884,7 +885,7 @@
           "type": "string"
         },
         "isEmpty": false,
-        "stringValue": "Day 223 core sample from unheated control plot 1C of a deep soil warming experiment"
+        "stringValue": "Day 223 core sample from experimental plot 2H continuously heated by plus 4 degrees celsius above ambient temperature down to 1 meter depth"
       }
     },
     "sesar:collection_method": {
@@ -1044,7 +1045,7 @@
         },
         "isEmpty": false,
         "unit": "degrees",
-        "numberValue": 38.91207
+        "numberValue": 38.91222
       }
     },
     "longitude": {
@@ -1077,7 +1078,7 @@
         },
         "isEmpty": false,
         "unit": "degrees",
-        "numberValue": -120.6615
+        "numberValue": -120.66122
       }
     },
     "elevation": {
@@ -1462,7 +1463,7 @@
           "format": "url"
         },
         "isEmpty": false,
-        "stringValue": "http://igsn.org/IEBWE0001"
+        "stringValue": "http://igsn.org/IEBWE0004"
       }
     }
   },

@@ -11,8 +11,6 @@ interface TestData {
 
 const testData = (viewTestData as unknown) as TestData;
 
-const TIMEOUT = 10000;
-
 test('renders a user card', async () => {
     const props: UserCardProps = {
         user: testData.users[0]

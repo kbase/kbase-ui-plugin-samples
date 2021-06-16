@@ -48,3 +48,11 @@ export function fetch(id: string, version: number): FetchAction {
         version,
     };
 }
+
+export function fetchError(error: AppError): FetchErrorAction {
+    return {
+        category: "linkedData",
+        type: ActionType.FETCH_ERROR,
+        error
+    };
+}

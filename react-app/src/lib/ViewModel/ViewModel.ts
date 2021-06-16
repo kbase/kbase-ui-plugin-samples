@@ -1,14 +1,13 @@
 import {MetadataValue, SampleId, SampleNodeType, SampleVersion,} from "lib/client/Sample";
 import {EpochTimeMS, SimpleMap, Username} from "../types";
 import SampleServiceClient, {
-    DataLink, GetFormatParams, GetFormatResult, GetSampleACLsParams, GetSampleACLsResult, GetSampleParams
+    DataLink, GetSampleACLsParams, GetSampleACLsResult, GetSampleParams
 } from "../client/SampleServiceClient";
 import {Workspace} from "@kbase/ui-lib";
 import {ObjectInfo} from "@kbase/ui-lib/lib/lib/comm/coreServices/Workspace";
 import {LinkedData} from "redux/store/linkedData";
 import UserProfileClient, {UserProfile} from "@kbase/ui-lib/lib/lib/comm/coreServices/UserProfile";
 import {ControlledField} from "../client/ControlledField";
-import {Format} from "../client/Format";
 import {FieldNumberValue, FieldStringValue, FieldValue, UserFieldValue} from "./Field";
 
 // Constants
@@ -52,8 +51,6 @@ export interface Sample {
 
     metadata: Array<MetadataField>;
     controlled: SimpleMap<MetadataControlledField>;
-    formatId: string;
-    format: Format;
 }
 
 export interface User {
@@ -85,12 +82,6 @@ export interface TemplateUserField extends TemplateFieldBase {
 }
 
 export type TemplateField = TemplateFormatField | TemplateUserField;
-
-// For now, a template is simply an ordered set of sample field keys.
-// export type Template = {
-//     header?: Array<string>;
-//     fields: Array<TemplateField>;
-// };
 
 // Metadata
 
@@ -128,8 +119,6 @@ export interface MetadataSourceField {
     label: string;
     value: string;
 }
-
-export type FormatName = string;
 
 export interface FetchSampleProps {
     serviceWizardURL: string;
@@ -169,7 +158,6 @@ export interface GetSampleResult {
         metadata: Array<MetadataField>;
         controlled: SimpleMap<MetadataControlledField>;
     };
-    formatId: string;
 }
 
 export default class ViewModel {
@@ -257,10 +245,16 @@ export default class ViewModel {
     async fetchSample(
         {id: sampleId, version: sampleVersion}: { id: string; version?: number; },
     ): Promise<Sample> {
-        const sampleResult = await this.getSample({
-            id: sampleId,
-            version: sampleVersion,
-        });
+        const getSampleParams: GetSampleParams = {
+            id: sampleId
+        };
+        if (typeof sampleVersion !== 'undefined') {
+            getSampleParams.version = sampleVersion;
+        }
+        const sampleResult = await this.getSample(getSampleParams);
+        if (typeof sampleVersion !== 'undefined') {
+            sampleResult.version = sampleVersion
+        }
 
         const latestSample = await this.getSample({
             id: sampleId,
@@ -276,20 +270,21 @@ export default class ViewModel {
             });
         })();
 
+        const usersToGet = new Set([
+            firstSample.savedBy,
+            sampleResult.savedBy,
+            latestSample.savedBy,
+        ]);
+
         const users = await this.fetchUsers({
-            usernames: Array.from(new Set([
-                firstSample.savedBy,
-                sampleResult.savedBy,
-                latestSample.savedBy,
-            ]).values()),
+            usernames: Array.from(usersToGet.values()),
         });
+
 
         const usersMap = users.reduce((usersMap, user) => {
             usersMap.set(user.username, user);
             return usersMap;
         }, new Map<Username, User>());
-
-        const {formats: [format]} = await this.getFormats({ids: [sampleResult.formatId.toLowerCase()]});
 
         const fetchedSample = {
             id: sampleResult.id,
@@ -314,10 +309,9 @@ export default class ViewModel {
             },
             metadata: sampleResult.sample.metadata,
             controlled: sampleResult.sample.controlled,
-            formatId: sampleResult.formatId,
-            format
         };
         // console.log('FETCHED SAMPLE', JSON.stringify(fetchedSample));
+        // console.log('FETCHED SAMPLE', fetchedSample.currentVersion);
         return fetchedSample;
     }
 
@@ -385,8 +379,8 @@ export default class ViewModel {
         version: number;
     }): Promise<LinkedData> {
         const dataLinks = await this.sampleService.get_data_links_from_sample({
-            id: id,
-            version: version,
+            id,
+            version
         });
 
         const objectRefs = dataLinks.links.map((dataLink) => {
@@ -403,11 +397,13 @@ export default class ViewModel {
             timeout: UPSTREAM_TIMEOUT,
         });
 
+        const objects = objectRefs.map((ref) => {
+            return {ref};
+        });
+
         const objectInfos = await workspaceClient.get_object_info3({
             includeMetadata: 1,
-            objects: objectRefs.map((ref) => {
-                return {ref};
-            }),
+            objects
         });
 
         const objectMap = objectInfos.infos.reduce((objectMap, info) => {
@@ -433,11 +429,6 @@ export default class ViewModel {
         );
     }
 
-    async getFormats(params: GetFormatParams): Promise<GetFormatResult> {
-        const {formats} = await this.sampleService.get_formats({ids: params.ids});
-        return {formats: formats};
-    }
-
     getACL(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {
         return this.sampleService.get_sample_acls(params);
     }
@@ -446,11 +437,6 @@ export default class ViewModel {
         // 1. Get the sample.
         const rawSample = await this.sampleService.get_sample(params);
         const rawRealSample = rawSample.node_tree[0];
-
-        // 2. Get the format
-        const format_id = rawRealSample.meta_controlled['sample_template']['value'] as string;
-
-        // const {formats: [format]} = await this.sampleService.get_formats({ids: [format_id]});
 
         const controlledKeys = Object.keys(rawSample.node_tree[0].meta_controlled);
 
@@ -464,11 +450,6 @@ export default class ViewModel {
             },
             new Map(),
         );
-
-        // We expand the metadata into the full template.
-        // const sampleMappings = format.mappings.sample as { [key: string]: string };
-        // const correctionMappings = format.mappings.corrections || {};
-        // const recordMappings = format.mappings.record || {};
 
         // We reconstruct the full metadata here, using the definition of the metadata for this format.
         // A few gotchas here.
@@ -491,9 +472,6 @@ export default class ViewModel {
 
         // Simulate template fields.
         const controlledFields: Array<MetadataControlledField> = Object.entries(rawRealSample.meta_controlled)
-            .filter(([key, _value]) => {
-                return key !== 'sample_template';
-            })
             .map(([key, {
                 value,
                 units
@@ -604,25 +582,33 @@ export default class ViewModel {
                     case "string":
                         const y: FieldStringValue = {
                             type: "string",
-                            format: fieldDefinition.format,
                             schema: fieldDefinition,
                             isEmpty: fieldValue === null,
-                            unit: fieldValue !== null ? fieldValue.units : undefined,
+                            // unit: fieldValue !== null ? fieldValue.units : undefined,
                             stringValue: fieldValue === null
                                 ? fieldValue
                                 : fieldValue.value as string,
                         };
+                        if ('format' in fieldDefinition) {
+                            y.format = fieldDefinition.format;
+                        }
+                        if (fieldValue !== null && 'units' in fieldValue) {
+                            y.unit = fieldValue.units;
+                        }
                         return y;
                     case "number":
                         const x: FieldNumberValue = {
                             type: "number",
                             schema: fieldDefinition,
                             isEmpty: fieldValue === null,
-                            unit: fieldValue !== null ? fieldValue.units : undefined,
+                            // unit: fieldValue !== null ? fieldValue.units : undefined,
                             numberValue: fieldValue === null
                                 ? fieldValue
                                 : fieldValue.value as number,
                         };
+                        if (fieldValue !== null && 'units' in fieldValue) {
+                            x.unit = fieldValue.units;
+                        }
                         return x;
                 }
             })();
@@ -651,7 +637,6 @@ export default class ViewModel {
                 metadata,
                 controlled,
             },
-            formatId: format_id
         };
         // console.log('VIEW MODEL SAMPLE', JSON.stringify(sample))
         return sample

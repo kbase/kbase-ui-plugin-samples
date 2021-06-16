@@ -28,7 +28,6 @@ describe('The Versions Component', () => {
         const {getByText} = render(<Versions {...props} />);
         await waitFor(() => {
             const usernameElement = getByText('First');
-            // console.log(usernameElement);
             expect(usernameElement).toBeInTheDocument();
         }, {
             timeout: TIMEOUT

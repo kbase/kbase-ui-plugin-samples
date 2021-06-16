@@ -7,7 +7,7 @@ import {Story} from '@storybook/react';
 import NotFound from 'components/NotFound';
 
 export default {
-    title: 'Not Found',
+    title: 'Components / NotFound',
     component: NotFound
 }
 

@@ -2,7 +2,7 @@
 // TODO: perhaps a widely used TS jsoncschema already has a type definition
 // we can piggyback on??
 
-import {JSONValue} from "@kbase/ui-lib/lib/json";
+import {JSONObject, JSONValue} from "@kbase/ui-lib/lib/json";
 
 export type JSONSchemaFieldType =
     'string' |
@@ -11,7 +11,7 @@ export type JSONSchemaFieldType =
     'object' |
     'array';
 
-export interface JSONSchema {
+export interface JSONSchema extends JSONObject {
     $schema: string;
     $id?: string;
     type: JSONSchemaFieldType

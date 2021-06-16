@@ -12,7 +12,7 @@ import {AsyncProcessStatus} from "redux/store/processing";
 const sample = (sampleData as unknown) as Sample;
 
 export default {
-    title: 'Geolocation Loader View',
+    title: 'Components / Geolocation / Loader',
     component: LoaderView
 }
 

@@ -6,11 +6,12 @@ import UserCard from '../UserCard/view';
 import './styles.css';
 import {Sample} from "../../lib/ViewModel/ViewModel";
 import {InfoTable} from "@kbase/ui-components";
-import {Format} from "../../lib/client/Format";
+
+// import {Format} from "../../lib/client/Format";
 
 export interface HeaderProps {
     sample: Sample;
-    format: Format;
+    // format: Format;
 }
 
 interface HeaderState {
@@ -102,7 +103,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
     render() {
         return <div className="Grouper Header">
             <Row>
-                <Col span={8}>
+                <Col span={12}>
                     <InfoTable table={[{
                         label: 'Name',
                         render: () => {
@@ -113,19 +114,19 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
                         value: this.props.sample.sampleId
                     }]}/>
                 </Col>
-                <Col span={8}>
-                    <InfoTable table={[{
-                        label: 'Format',
-                        render: () => {
-                            return <Tooltip
-                                title={this.props.format.info.title}>
-                                <a href={this.props.format.info.homePage}
-                                   target="_blank" rel="noreferrer">{this.props.format.info.shortTitle}</a>
-                            </Tooltip>
-                        }
-                    }]}/>
-                </Col>
-                <Col span={8}>
+                {/*<Col span={8}>*/}
+                {/*    <InfoTable table={[{*/}
+                {/*        label: 'Format',*/}
+                {/*        render: () => {*/}
+                {/*            return <Tooltip*/}
+                {/*                title={this.props.format.info.title}>*/}
+                {/*                <a href={this.props.format.info.homePage}*/}
+                {/*                   target="_blank" rel="noreferrer">{this.props.format.info.shortTitle}</a>*/}
+                {/*            </Tooltip>*/}
+                {/*        }*/}
+                {/*    }]}/>*/}
+                {/*</Col>*/}
+                <Col span={12}>
                     <InfoTable table={[{
                         label: 'Owner',
                         render: () => {
