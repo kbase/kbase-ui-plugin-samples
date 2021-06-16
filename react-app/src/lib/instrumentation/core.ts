@@ -75,7 +75,7 @@ export interface Attributes {
 // }
 
 export interface SpanBaseParams {
-    parent?: string,
+    parent?: string | null,
     attributes?: Attributes;
 }
 
@@ -85,9 +85,11 @@ export abstract class SpanBase {
     at: number;
     attributes?: Attributes;
 
-    constructor({parent, attributes}: SpanBaseParams) {
+    protected constructor({attributes}: SpanBaseParams) {
         this.at = Date.now();
-        this.attributes = attributes;
+        if (typeof attributes !== 'undefined') {
+            this.attributes = attributes;
+        }
     }
 
     abstract toJSON(): JSONValue;
@@ -102,13 +104,15 @@ export class SpanBegin extends SpanBase {
     static phase: 'begin' = 'begin';
     id: string;
     name: string;
-    parent?: string;
+    parent: string | null = null;
 
     constructor(params: SpanBeginParams) {
         super(params);
         this.id = uuidv4();
         this.name = params.name;
-        this.parent = params.parent;
+        if (typeof params.parent !== 'undefined') {
+            this.parent = params.parent;
+        }
     }
 
     toJSON() {
@@ -148,7 +152,7 @@ export class SpanEnd extends SpanBase {
 
 export interface SpanParams {
     name: string;
-    parent?: string,
+    parent?: string | null,
     attributes?: Attributes;
 }
 
@@ -170,13 +174,15 @@ export class Span {
     id: string;
     name: string;
     at: number;
-    parent?: string;
-    attributes?: Attributes;
+    parent: string | null = null;
+    attributes: Attributes = {};
 
     constructor(params: SpanParams) {
         this.id = uuidv4();
         this.name = params.name;
-        this.parent = params.parent;
+        if (typeof params.parent !== 'undefined') {
+            this.parent = params.parent;
+        }
         this.at = Date.now();
     }
 
@@ -267,15 +273,14 @@ export default class Instrumentation {
     //     return this.spanStack[this.spanStack.length - 1].name;
     // }
 
-    createSpan(name: string, parent?: string) {
-        const span = new Span({
-            name, parent,
+    createSpan(name: string, parent?: string | null) {
+        return new Span({
+            name, parent: parent || null,
             attributes: {
                 host: document.location.hostname,
                 path: document.location.pathname
             }
         }).begin();
-        return span;
     }
 
     // endSpan(span: Span) {

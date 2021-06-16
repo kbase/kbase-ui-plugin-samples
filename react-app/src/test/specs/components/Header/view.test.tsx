@@ -1,22 +1,19 @@
 import Header from 'components/Header/view';
 import {render, waitFor, screen} from '@testing-library/react';
 
-import sampleWithVersionsData from '../../../data/sample-with-versions.json';
-import sampleData from '../../../data/sample-sesar.json';
-import formatData from '../../../data/sesar-format.json';
-
 import {Sample} from 'lib/ViewModel/ViewModel';
-import {Format} from "lib/client/Format";
+
+import sampleWithVersionsData from 'test/data/vm-samples/sample_768c9512-69c0-4057-ba0c-f9fd280996e6_1.json';
+import sampleData from 'test/data/vm-samples/sample-704986e6-a010-4c9d-883c-09ecdba1967b.json';
 
 const sample: Sample = (sampleData as unknown) as Sample;
 const sampleWithVersions: Sample = (sampleWithVersionsData as unknown) as Sample;
-const format: Format = (formatData as unknown) as Format;
 
 const TIMEOUT = 10000;
 
 describe('Header', () => {
     test('should render with a single version', async () => {
-        const header = render(<Header sample={sample} format={format}/>);
+        const header = render(<Header sample={sample}/>);
         const {getByTestId, getByText} = header;
 
         function checkField(label: string, content: string) {
@@ -36,7 +33,7 @@ describe('Header', () => {
             // Check the owner field
             checkField('Owner', sample.firstVersion.by.username);
             checkField('Owner', sample.firstVersion.by.realname);
-            checkField('Format', sample.format.info.shortTitle);
+            // checkField('Format', sample.format.info.shortTitle);
             checkField('ID', sample.sampleId);
             checkField('Name', sample.name);
             const dateDisplay = Intl.DateTimeFormat('en-US', {
@@ -51,7 +48,7 @@ describe('Header', () => {
     });
 
     test('should render with multiple versions', async () => {
-        const {getByTestId} = render(<Header sample={sampleWithVersions} format={format}/>);
+        const {getByTestId} = render(<Header sample={sampleWithVersions}/>);
         await waitFor(() => {
             const nameElement = getByTestId('name');
             expect(nameElement).toBeInTheDocument();
@@ -62,7 +59,7 @@ describe('Header', () => {
     });
 
     test('should select a different version', async () => {
-        const {getByText} = render(<Header sample={sampleWithVersions} format={format}/>);
+        const {getByText} = render(<Header sample={sampleWithVersions}/>);
         const button = getByText('Select a Version…');
         expect(button).toBeInTheDocument();
         button.click();
@@ -86,13 +83,11 @@ describe('Header', () => {
             timeout: TIMEOUT
         });
 
-        console.log('HERE');
-
         const versionButton = dialog.querySelector(buttonSelector);
         expect(versionButton).toHaveTextContent('4');
 
         const event = new MouseEvent('click', {
-            view: window,
+            // view: window,
             bubbles: true,
             cancelable: true
         });
@@ -111,7 +106,7 @@ describe('Header', () => {
     });
 
     test('should open and then cancel the dialog to switch versions', async () => {
-        const {getByText} = render(<Header sample={sampleWithVersions} format={format}/>);
+        const {getByText} = render(<Header sample={sampleWithVersions}/>);
         const button = getByText('Select a Version…');
         expect(button).toBeInTheDocument();
         button.click();
@@ -135,7 +130,7 @@ describe('Header', () => {
 
         const cancelButton = dialog.querySelector('button[aria-label="Close"]');
         const event = new MouseEvent('click', {
-            view: window,
+            // view: window,
             bubbles: true,
             cancelable: true
         });

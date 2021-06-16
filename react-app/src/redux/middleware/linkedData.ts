@@ -3,10 +3,9 @@ import {AsyncProxyFun} from "@kbase/ui-components/lib/redux/middleware/AsyncProx
 import {UPSTREAM_TIMEOUT} from "appConstants";
 import ViewModel from "lib/ViewModel/ViewModel";
 import {
-    ActionType
+    ActionType, fetchError
 } from "redux/actions/linkedData";
 import {StoreState} from "../store";
-import {FetchingAction} from "../actions/linkedData";
 
 const linkedDataFun: AsyncProxyFun<StoreState> = async (
     {state, dispatch, action, next},
@@ -27,6 +26,7 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
         category: 'linkedData',
         type: ActionType.FETCHING
     });
+    
     const {
         app: {
             config: {
@@ -39,9 +39,6 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
                     },
                     Workspace: {
                         url: workspaceURL,
-                    },
-                    ServiceWizard: {
-                        url: serviceWizardURL
                     }
                 },
             },
@@ -56,7 +53,6 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
     const {
         userAuthentication: {token}
     } = authentication;
-
 
     try {
         const viewModel = new ViewModel({
@@ -77,11 +73,18 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
             linkedData
         });
     } catch (ex) {
-        dispatch({
-            category: 'linkedData',
-            type: ActionType.FETCH_ERROR,
-            message: ex.message
-        });
+
+        const message = (() => {
+            if (ex instanceof Error) {
+                return ex.message;
+            } else {
+                return `Unknown error ${ex}`;
+            }
+        })();
+        dispatch(fetchError({
+            code: 'fetch-error',
+            message
+        }));
     }
     return true;
 };

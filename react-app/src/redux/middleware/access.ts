@@ -34,9 +34,6 @@ const accessFun: AsyncProxyFun<StoreState> = async (
                     },
                     Workspace: {
                         url: workspaceURL,
-                    },
-                    ServiceWizard: {
-                        url: serviceWizardURL
                     }
                 },
             },
@@ -73,11 +70,19 @@ const accessFun: AsyncProxyFun<StoreState> = async (
             accessList
         });
     } catch (ex) {
-        dispatch({
-            category: 'access',
-            type: ActionType.FETCH_ERROR,
-            message: ex.message
-        });
+        if (ex instanceof Error) {
+            dispatch({
+                category: 'access',
+                type: ActionType.FETCH_ERROR,
+                message: ex.message
+            });
+        } else {
+            dispatch({
+                category: 'access',
+                type: ActionType.FETCH_ERROR,
+                message: `Unknown error ${ex}`
+            });
+        }
     }
     return true;
 };

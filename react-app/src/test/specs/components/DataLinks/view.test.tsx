@@ -1,5 +1,7 @@
 import {render, waitFor} from '@testing-library/react';
 import DataLinks, {DataLinksProps} from 'components/DataLinks/view';
+
+// TODO: draw from mock data pool
 import testData from './view.test-data.json';
 
 const TIMEOUT = 10000;
@@ -8,7 +10,7 @@ describe('The LinkedData viewer', () => {
     test('renders data links with no links', async () => {
         const props: DataLinksProps = {
             linkedData: [],
-            baseURL: 'http://example.com'
+            baseURL: 'https://example.com'
         };
 
         const {getByTestId} = render(<DataLinks {...props} />);
@@ -25,7 +27,7 @@ describe('The LinkedData viewer', () => {
     test('renders one data link', async () => {
         const props: DataLinksProps = {
             linkedData: testData.slice(0, 1),
-            baseURL: 'http://example.com'
+            baseURL: 'https://example.com'
         };
 
         const {getByTestId, getByText} = render(<DataLinks {...props} />);
@@ -46,7 +48,7 @@ describe('The LinkedData viewer', () => {
     test('renders data links with links', async () => {
         const props: DataLinksProps = {
             linkedData: testData,
-            baseURL: 'http://example.com'
+            baseURL: 'https://example.com'
         };
 
         const {findByText, findByTestId} = render(<DataLinks {...props} />);

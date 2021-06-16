@@ -1,4 +1,6 @@
-export interface Format {
+import {JSONObject} from "@kbase/ui-lib/lib/json";
+
+export interface Format extends JSONObject {
     name: string;
     info: {
         title: string;
@@ -13,7 +15,7 @@ export interface Format {
     columns: Array<FormatColumn>
 }
 
-export interface FormatColumn {
+export interface FormatColumn extends JSONObject {
     title: string;
     aliases: Array<string>;
     sampleKey: string;

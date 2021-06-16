@@ -17,7 +17,7 @@ const sampleVersion3of4 = (sampleVersion3of4Data as unknown) as Sample;
 const sampleVersion4of4 = (sampleVersion4of4Data as unknown) as Sample;
 
 export default {
-    title: 'Versions',
+    title: 'Components / Versions',
     component: Versions
 }
 

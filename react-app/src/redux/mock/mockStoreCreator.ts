@@ -7,6 +7,8 @@ import {DevelopStatus} from "@kbase/ui-components/lib/redux/develop/store";
 import {SyncViewStatus} from "redux/store/view/SyncView";
 import {AsyncProcessStatus} from "redux/store/processing";
 
+const BASE_URL = 'http://localhost:3333';
+
 const state: StoreState = {
     root: {
         channelId: "",
@@ -32,45 +34,45 @@ const state: StoreState = {
             title: "",
         },
         config: {
-            baseUrl: "http://localhost:3000",
+            baseUrl: BASE_URL,
             defaultPath: "",
 
             services: {
                 Groups: {
-                    url: "/services/groups",
+                    url: `${BASE_URL}/services/groups`,
                 },
                 UserProfile: {
-                    url: "/services/user_profile/rpc",
+                    url: `${BASE_URL}/services/user_profile/rpc`,
                 },
                 Workspace: {
-                    url: "/services/ws",
+                    url: `${BASE_URL}/services/ws`,
                 },
                 SampleService: {
-                    url: '/services/sampleservice'
+                    url: `${BASE_URL}/services/sampleservice`
                 },
                 SearchAPI2: {
-                    url: `/services/searchapi2/rpc`,
+                    url: `${BASE_URL}/services/searchapi2/rpc`,
                 },
                 SearchAPI2Legacy: {
-                    url: `/services/searchapi2/legacy`,
+                    url: `${BASE_URL}/services/searchapi2/legacy`,
                 },
                 ServiceWizard: {
-                    url: "/services/service_wizard",
+                    url: `${BASE_URL}/services/service_wizard`,
                 },
                 Auth: {
-                    url: "/services/auth",
+                    url: `${BASE_URL}/services/auth`,
                 },
                 NarrativeMethodStore: {
-                    url: "/services/narrative_method_store/rpc",
+                    url: `${BASE_URL}/services/narrative_method_store/rpc`,
                 },
                 Catalog: {
-                    url: "/services/catalog/rpc",
+                    url: `${BASE_URL}/services/catalog/rpc`,
                 },
                 NarrativeJobService: {
-                    url: "/services/njs_wrapper",
+                    url: `${BASE_URL}/services/njs_wrapper`,
                 },
                 RelationEngine: {
-                    url: "/services/relation_engine_api",
+                    url: `${BASE_URL}/services/relation_engine_api`,
                 },
             },
             dynamicServices: {

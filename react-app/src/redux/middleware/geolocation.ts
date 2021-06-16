@@ -11,6 +11,7 @@ import SampleServiceClient from "../../lib/client/SampleServiceClient";
 const geolocationFun: AsyncProxyFun<StoreState> = async (
     {state, dispatch, action, next},
 ) => {
+
     if (!("category" in action)) {
         return false;
     }
@@ -22,6 +23,7 @@ const geolocationFun: AsyncProxyFun<StoreState> = async (
     if (action.type !== ActionType.FETCH) {
         return false;
     }
+
 
     dispatch({
         category: 'geolocation',
@@ -48,7 +50,6 @@ const geolocationFun: AsyncProxyFun<StoreState> = async (
         userAuthentication: {token}
     } = authentication;
 
-
     try {
         const sampleService = new SampleServiceClient({
             token,
@@ -63,11 +64,19 @@ const geolocationFun: AsyncProxyFun<StoreState> = async (
             fieldGroups: groups
         });
     } catch (ex) {
-        dispatch({
-            category: 'geolocation',
-            type: ActionType.FETCH_ERROR,
-            message: ex.message
-        });
+        if (ex instanceof Error) {
+            dispatch({
+                category: 'geolocation',
+                type: ActionType.FETCH_ERROR,
+                message: ex.message
+            });
+        } else {
+            dispatch({
+                category: 'geolocation',
+                type: ActionType.FETCH_ERROR,
+                message: `Unknown error ${ex}`
+            });
+        }
     }
     return true;
 };

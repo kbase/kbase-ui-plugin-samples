@@ -6,7 +6,7 @@ import ErrorView from 'components/ErrorView';
 import {AppError} from "@kbase/ui-components";
 
 export default {
-    title: 'Error View',
+    title: 'Components / ErrorView',
     component: ErrorView
 }
 

@@ -9,13 +9,13 @@ import {StoreState} from "../store";
 import {AsyncProcessStatus} from "../store/processing";
 import SampleServiceClient from "../../lib/client/SampleServiceClient";
 
+// TODO: action needs to be typed!
 const sampleFun: AsyncProxyFun<StoreState> = async (
     {state, dispatch, action},
 ) => {
     if (action.category !== "sample") {
         return false;
     }
-
     // This proxy fun handles the sample FETCH action.
     if (action.type !== ActionType.FETCH) {
         return false;
@@ -53,7 +53,6 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
 
     // Here we initiate indicate either a fresh fetch (fetching) or a
     // new fetch to replace an existing one (refetching).
-    console.log('sampleState:', sampleState);
     switch (sampleState.status) {
         case AsyncProcessStatus.NONE:
             dispatch({
@@ -81,6 +80,7 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
             timeout: UPSTREAM_TIMEOUT,
         });
 
+
         const sample = await viewModel.fetchSample({
             id: action.id,
             version: action.version,
@@ -101,10 +101,17 @@ const sampleFun: AsyncProxyFun<StoreState> = async (
         });
     } catch (ex) {
         console.error('ERROR!', ex);
-        dispatch(fetchError({
-            code: 'fetchSampleError',
-            message: ex.message
-        }));
+        if (ex instanceof Error) {
+            dispatch(fetchError({
+                code: 'fetchSampleError',
+                message: ex.message
+            }));
+        } else {
+            dispatch(fetchError({
+                code: 'fetchSampleError',
+                message: `Unknown error ${ex}`
+            }));
+        }
     }
 
     return true;

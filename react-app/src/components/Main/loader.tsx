@@ -62,8 +62,11 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
         if (this.props.sampleState.status === AsyncProcessStatus.NONE) {
             this.current = {
                 id: this.props.id,
-                version: this.props.version
+                // version: this.props.version
             };
+            if ('version' in this.props) {
+                this.current.version = this.props.version;
+            }
             this.props.load(this.props.id, this.props.version);
         }
     }
@@ -85,8 +88,11 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
                         this.current.version !== this.props.version)) {
                     this.current = {
                         id: this.props.id,
-                        version: this.props.version
+                        // version: this.props.version
                     };
+                    if ('version' in this.props) {
+                        this.current.version = this.props.version;
+                    }
                     this.props.load(this.props.id, this.props.version);
                 }
             }

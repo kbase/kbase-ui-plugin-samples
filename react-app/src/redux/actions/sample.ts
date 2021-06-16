@@ -61,10 +61,13 @@ export function fetchError(error: AppError): SampleFetchErrorAction {
 }
 
 export function fetch(id: string, version?: number): SampleFetchAction {
-    return {
+    const result: SampleFetchAction = {
         category: "sample",
         type: ActionType.FETCH,
-        id,
-        version,
+        id
     };
+    if (typeof version !== 'undefined') {
+        result.version = version;
+    }
+    return result;
 }

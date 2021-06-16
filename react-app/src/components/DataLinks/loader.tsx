@@ -49,6 +49,7 @@ export default class LoaderView extends React.Component<LoaderProps, LoaderState
     }
 
     renderError(error: AppError) {
+        console.log('ERROR!!!', error);
         return <div>
             Error! {error.message}
         </div>

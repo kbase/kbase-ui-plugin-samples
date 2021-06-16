@@ -12,11 +12,25 @@ import {ServiceClient} from "@kbase/ui-lib";
 import {JSONObject, objectToJSONObject} from "@kbase/ui-lib/lib/lib/json";
 import {ServiceClientParams} from "@kbase/ui-lib/lib/comm/JSONRPC11/ServiceClient";
 import {ControlledField} from "./ControlledField";
-import {Format} from "./Format";
+
+import groupsData from './data/groups/groups.json';
+import schemasData from './data/schemas/schemas.json';
+
+const groups = (groupsData as unknown) as Array<FieldGroup>;
+const schemas = (schemasData as unknown) as Array<ControlledField>;
+
+interface SchemaMap {
+    [k: string]: ControlledField
+}
+
+const schemasMap: SchemaMap = schemas.reduce<SchemaMap>((m, schema) => {
+    m[schema.kbase.sample.key] = schema;
+    return m;
+}, {});
 
 export type ControlledFieldKey = string;
 
-export interface FieldGroup {
+export interface FieldGroup extends JSONObject {
     name: string;
     title: string;
     fields: Array<ControlledFieldKey>;
@@ -104,33 +118,18 @@ export interface SampleACLs extends JSONObject {
 
 export type GetSampleACLsResult = SampleACLs;
 
-export interface GetFormatParams {
-    ids: Array<string>;
-    version?: number;
-}
-
-export interface FormatSource {
-    name: string;
-    url: string;
-    logoUrl: string;
-}
-
-export interface GetFormatResult {
-    formats: Array<Format>;
-}
-
-export interface GetFieldDefinitionsParams {
+export interface GetFieldDefinitionsParams extends JSONObject {
     keys: Array<string>;
 }
 
-export interface GetFieldDefinitionsResult {
+export interface GetFieldDefinitionsResult extends JSONObject {
     fields: Array<ControlledField>;
 }
 
 export interface GetFieldGroupsParams {
 }
 
-export interface GetFieldGroupsResult {
+export interface GetFieldGroupsResult extends JSONObject {
     groups: FieldGroups;
 }
 
@@ -181,79 +180,66 @@ export default class SampleServiceClient extends ServiceClient {
 
     // These are not part of the sample service api, but should be:
 
-    async get_formats(params: GetFormatParams): Promise<GetFormatResult> {
-        const formats = await Promise.all(params.ids.map(async (formatId) => {
-            const result = await fetch(
-                `${process.env.PUBLIC_URL}/mock-data/formats/${formatId.toLowerCase()}.json`,
-            );
-            if (result.status >= 300) {
-                throw new Error(`Error fetching format ${formatId} (${result.status})`);
-            }
-            const payload = await result.text();
-            try {
-                return JSON.parse(payload) as Format;
-            } catch (ex) {
-                throw new Error(
-                    `Invalid JSON schema for format "${formatId}": ${ex.message}`,
-                );
-            }
-        }));
-        return {
-            formats
-        };
-    }
-
-    async fetchSchema(schemaName: string): Promise<ControlledField> {
-        const result = await fetch(
-            `${process.env.PUBLIC_URL}/mock-data/schemas/${schemaName}.json`,
-        );
-
-        if (result.status >= 300) {
-            throw new Error(`Error fetching schema for ${schemaName} (${result.status})`);
-        }
-
-        return await (async () => {
-            const payload = await result.text();
-            try {
-                return JSON.parse(payload) as ControlledField;
-            } catch (ex) {
-                console.error('ERROR parsing field schema', ex, result.status);
-                throw new Error(
-                    `Invalid JSON schema for field "${schemaName}": ${ex.message}`,
-                );
-            }
-        })();
-    }
 
     async get_field_definitions(
         params: GetFieldDefinitionsParams,
     ): Promise<GetFieldDefinitionsResult> {
-        const fields = await Promise.all(params.keys.map(async (key) => {
-            const scrubbedKey = key.replace(/[:]/, "-");
-            return await this.fetchSchema(scrubbedKey);
-        }));
-        return {fields};
+        // TODO: pass through to back end.
+        // const [result] = await this.callFunc<[JSONObject],
+        //     [GetFieldDefinitionsResult]>("get_field_definitions", [params]);
+        // return result;
+
+        // return {
+        //     fields: schemas.filter((schema) => {
+        //         return (params.keys.includes(schema.kbase.sample.key));
+        //     })
+        // }
+
+        return {
+            fields: params.keys.map((key) => {
+                if (key in schemasMap) {
+                    return schemasMap[key];
+                } else {
+                    throw new Error(`Field key ${key} not found`);
+                }
+            })
+        }
+
+        // const fields = await Promise.all(params.keys.map(async (key) => {
+        //     const scrubbedKey = key.replace(/[:]/, "-");
+        //     return await this.fetchSchema(scrubbedKey);
+        // }));
+        // return {fields};
     }
 
     async get_field_groups(): Promise<GetFieldGroupsResult> {
-        const result = await fetch(
-            `${process.env.PUBLIC_URL}/mock-data/groups/groups.json`,
-        );
+        // TODO: pass through to back end.
+        // const [result] = await this.callFunc<[],
+        //     [GetFieldGroupsResult]>("get_field_groups", []);
+        // return result;
 
-        if (result.status >= 300) {
-            throw new Error(`Error fetching group definitions (${result.status})`);
+        return {
+            groups
         }
 
-        return await (async () => {
-            const payload = await result.text();
-            try {
-                const groups = JSON.parse(payload) as FieldGroups;
-                return {groups};
-            } catch (ex) {
-                throw new Error(
-                    `Invalid JSON for group definitions: ${ex.message}`,
-                );
-            }
-        })();
+        // const result = await fetch(
+        //     `${process.env.PUBLIC_URL}/mock-data/groups/groups.json`,
+        // );
+        //
+        // if (result.status >= 300) {
+        //     throw new Error(`Error fetching group definitions (${result.status})`);
+        // }
+        //
+        // return await (async () => {
+        //     const payload = await result.text();
+        //     try {
+        //         const groups = JSON.parse(payload) as FieldGroups;
+        //         return {groups};
+        //     } catch (ex) {
+        //         throw new Error(
+        //             `Invalid JSON for group definitions: ${ex.message}`,
+        //         );
+        //     }
+        // })();
     }
 }
