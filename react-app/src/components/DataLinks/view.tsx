@@ -127,6 +127,18 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                     return a.created - b.created;
                 }}
             />
+            <Table.Column
+                title="By"
+                dataIndex="createdby"
+                ellipsis={true}
+                width="10em"
+                render={(createdBy: string) => {
+                    if (!createdBy) {
+                        return <NoData/>;
+                    }
+                    return <a href={`/#people/${createdBy}`} target="_blank" rel="noreferrer">{createdBy}</a>
+                }}
+            />
         </Table>;
     }
 
