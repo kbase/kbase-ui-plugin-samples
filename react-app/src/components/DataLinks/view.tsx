@@ -1,10 +1,10 @@
 import React from 'react';
-import { Table, Tooltip, Empty } from 'antd';
-import { countedTerm } from '../../lib/utils';
-import { NoData } from '@kbase/ui-components';
+import {Table, Tooltip, Empty} from 'antd';
+import {countedTerm} from '../../lib/utils';
+import {NoData} from '@kbase/ui-components';
 import './style.css';
-import { DataLink2, LinkedData } from 'redux/store/linkedData';
-import { Span } from 'lib/instrumentation/core';
+import {DataLink2, LinkedData} from 'redux/store/linkedData';
+import {Span} from 'lib/instrumentation/core';
 
 export interface DataLinksProps {
     linkedData: LinkedData;
@@ -16,13 +16,16 @@ interface DataLinksState {
 
 export default class DataLinks extends React.Component<DataLinksProps, DataLinksState> {
     span: Span;
+
     constructor(props: DataLinksProps) {
         super(props);
-        this.span = new Span({ name: 'Component.DataLinks' }).begin();
+        this.span = new Span({name: 'Component.DataLinks'}).begin();
     }
+
     componentWillUnmount() {
         this.span.end();
     }
+
     renderDataLinks() {
         if (this.props.linkedData.length === 0) {
             return;
@@ -32,7 +35,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
             className="AntTable-FullHeight"
             rowKey="upa"
             size="small"
-            scroll={{ y: '100%' }}
+            scroll={{y: '100%'}}
             pagination={false}
         >
             <Table.Column
@@ -41,15 +44,16 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 dataIndex="upa"
                 width="8em"
                 ellipsis={true}
-                render={(upa: string, row: DataLink2) => {
+                render={(upa: string) => {
                     return <a href={`/#dataview/${upa}`} target="_blank" rel="noopener noreferrer">
                         {upa}
                     </a>;
-                }} />
+                }}/>
             <Table.Column
                 title="Name"
                 dataIndex="objectName"
-                width="10em"
+                // width="max(10em, )"
+                width="15em"
                 ellipsis={true}
                 sorter={(a: DataLink2, b: DataLink2) => {
                     return a.objectName.localeCompare(b.objectName);
@@ -60,7 +64,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                             {objectName}
                         </a>
                     </Tooltip>;
-                }} />
+                }}/>
 
             <Table.Column
                 title="Type"
@@ -84,14 +88,15 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 }}
             />
             <Table.Column
-                title='Sub-object'
+                title='Data ID'
                 dataIndex="dataid"
                 ellipsis={true}
+                width="10em"
                 render={(dataId: string) => {
                     if (dataId) {
                         return dataId;
                     }
-                    return <NoData />;
+                    return <NoData/>;
                 }}
 
             />
@@ -99,6 +104,7 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                 title="Linked"
                 dataIndex="created"
                 ellipsis={true}
+                width="10em"
                 render={(created: number) => {
                     const timestamp = Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
@@ -121,50 +127,13 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
                     return a.created - b.created;
                 }}
             />
-            <Table.Column
-                title="Expired"
-                dataIndex="expired"
-                ellipsis={true}
-                render={(expired: number) => {
-                    if (!expired) {
-                        return <NoData />;
-                    }
-                    const timestamp = Intl.DateTimeFormat('en-US', {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        timeZoneName: 'short'
-                    }).format(expired);
-                    const date = Intl.DateTimeFormat('en-US', {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric'
-                    }).format(expired);
-                    return <Tooltip title={timestamp}>
-                        <span>{date}</span>
-                    </Tooltip>;
-                }}
-            />
-            <Table.Column
-                title="Expired By"
-                dataIndex="expiredby"
-                ellipsis={true}
-                render={(expiredBy: string) => {
-                    if (!expiredBy) {
-                        return <NoData />;
-                    }
-                    return expiredBy;
-                }}
-            />
         </Table>;
     }
 
     renderSummary() {
         const count = this.props.linkedData.length;
         if (count === 0) {
-            return <Empty description="This sample is not linked to any data." />;
+            return <Empty description="This sample is not linked to any data."/>;
         }
         return <p className="-message">
             This sample is linked to {count} {countedTerm(count, 'data object')}.
