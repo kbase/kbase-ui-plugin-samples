@@ -1,20 +1,11 @@
-// import {
-//     setupMocks, teardownMocks
-// } from "../../../../../../_attic/mock/mock";
-// import {
-//     GET_DATA_LINKS_FROM_SAMPLE_RESULT_EMPTY,
-//     GET_FORMATS_RESULT_SUBSET,
-//     GET_METADATA_KEY_STATIC_METADATA_EMPTY,
-//     SAMPLE_ACLS,
-//     STATUS_RESULT, GET_SAMPLE_SAMPLES
-// } from "../../../../../../_attic/mock/sampleService";
 import SampleServiceClient, {
     GetDataLinksFromSampleParams,
     GetMetadataKeyStaticMetadataParams,
     GetSampleACLsParams,
     GetSampleParams
 } from "lib/client/SampleServiceClient";
-// import {TEST_FETCH_TIMEOUT} from "../../../../../../_attic/mock/common";
+
+const SAMPLE_ID = '5cdb2854-b194-4644-a4c6-6ff2ed24b9c8';
 
 const TEST_FETCH_TIMEOUT = 10000;
 
@@ -26,14 +17,6 @@ function makeSampleServiceClient() {
 }
 
 describe('SampleServiceClient', () => {
-    // beforeEach(() => {
-    //     setupMocks();
-    // });
-    //
-    // afterEach(() => {
-    //     teardownMocks();
-    // })
-
     test('It can be created without error', () => {
         const client = makeSampleServiceClient();
         expect(client).toBeDefined();
@@ -50,7 +33,7 @@ describe('SampleServiceClient', () => {
     test('Can successfully call the "get_sample_acls" method', async () => {
         const client = makeSampleServiceClient();
         const params: GetSampleACLsParams = {
-            id: '704986e6-a010-4c9d-883c-09ecdba1967b',
+            id: SAMPLE_ID,
             as_admin: 0
         }
         const result = await client.get_sample_acls(params);
@@ -61,7 +44,7 @@ describe('SampleServiceClient', () => {
     test('Can successfully call the "get_sample" method', async () => {
         const client = makeSampleServiceClient();
         const params: GetSampleParams = {
-            id: '768c9512-69c0-4057-ba0c-f9fd280996e6'
+            id: SAMPLE_ID
         }
         const result = await client.get_sample(params);
         expect(result).toBeDefined();
@@ -71,7 +54,7 @@ describe('SampleServiceClient', () => {
     test('Can successfully call the "get_data_links_from_sample" method', async () => {
         const client = makeSampleServiceClient();
         const params: GetDataLinksFromSampleParams = {
-            id: '768c9512-69c0-4057-ba0c-f9fd280996e6',
+            id: SAMPLE_ID,
             version: 1
         }
         const result = await client.get_data_links_from_sample(params);

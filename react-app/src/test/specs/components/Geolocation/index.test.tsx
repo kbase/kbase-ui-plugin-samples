@@ -7,7 +7,7 @@ import ComponentToTest from 'components/Geolocation';
 import mockStoreCreator from 'redux/mock/mockStoreCreator';
 
 // TODO: draw from mock data pool
-import sampleData from 'test/data/samples/sample_768c9512-69c0-4057-ba0c-f9fd280996e6_1.json';
+import sampleData from 'test/data/generated/sampleservice/generated/sample_5cdb2854-b194-4644-a4c6-6ff2ed24b9c8-1.json';
 
 const store = mockStoreCreator();
 const sample = (sampleData as unknown) as Sample;

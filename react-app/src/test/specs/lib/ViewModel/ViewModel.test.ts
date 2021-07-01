@@ -1,10 +1,8 @@
-import ViewModel from './ViewModel';
-
-// import {
-//     FETCH_ACL_RESULT, FETCH_ACL_RESULT_EMPTY, FETCH_USER_PROFILE_FOO_RESULT
-// } from "../../../../_attic/mock/viewModel";
+import ViewModel from '../../../../lib/ViewModel/ViewModel';
 
 const URL_BASE = 'http://localhost:3333';
+
+const sampleId = '5cdb2854-b194-4644-a4c6-6ff2ed24b9c8';
 
 function makeViewModel() {
     return new ViewModel({
@@ -36,7 +34,7 @@ describe('ViewModel', () => {
     test('Can fetch a user profile', async () => {
         const viewModel = makeViewModel();
 
-        const profile = await viewModel.fetchUsers({usernames: ['kbaseuitest']});
+        const profile = await viewModel.fetchUsers({usernames: ['eapearson']});
         expect(profile).toBeDefined();
         // TODO: test profile properties
         // expect(profile).toEqual([FETCH_USER_PROFILE_FOO_RESULT]);p
@@ -64,7 +62,7 @@ describe('ViewModel', () => {
         const viewModel = makeViewModel();
 
         const acl = await viewModel.fetchACL({
-            id: '768c9512-69c0-4057-ba0c-f9fd280996e6'
+            id: '5cdb2854-b194-4644-a4c6-6ff2ed24b9c8'
         });
         expect(acl).toBeDefined();
         // TODO: test properties
@@ -76,7 +74,7 @@ describe('ViewModel', () => {
 
         try {
             const sample = await viewModel.fetchSample({
-                id: '768c9512-69c0-4057-ba0c-f9fd280996e6'
+                id: sampleId
             });
             expect(sample).toBeDefined();
         } catch (ex) {

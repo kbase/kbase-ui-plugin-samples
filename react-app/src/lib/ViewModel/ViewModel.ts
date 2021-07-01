@@ -413,7 +413,7 @@ export default class ViewModel {
             return objectMap;
         }, new Map<string, ObjectInfo>());
 
-        return dataLinks.links.map(
+        const result = dataLinks.links.map(
             (dataLink) => {
                 const objectInfo = objectMap.get(dataLink.upa);
                 if (!objectInfo) {
@@ -427,6 +427,8 @@ export default class ViewModel {
                 };
             },
         );
+        console.log('linked data', JSON.stringify(result));
+        return result;
     }
 
     getACL(params: GetSampleACLsParams): Promise<GetSampleACLsResult> {
