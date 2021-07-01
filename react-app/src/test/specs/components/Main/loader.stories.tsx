@@ -6,7 +6,7 @@ import LoaderView from 'components/Main/loader';
 import {AsyncProcessStatus} from "redux/store/processing";
 import testSampleData from 'test/data/vm-samples/sample-704986e6-a010-4c9d-883c-09ecdba1967b.json';
 import {Sample} from "../../../../lib/ViewModel/ViewModel";
-import groupsData from 'test/data/groups/groups.json';
+import groupsData from 'test/data/generated/sampleservice/groups/groups.json';
 import {FieldGroups} from "../../../../lib/client/SampleServiceClient";
 import {Provider} from 'react-redux';
 import {createReduxStore} from "../../../../redux/mock/mockedStore";

@@ -2,7 +2,11 @@ import {render, waitFor} from '@testing-library/react';
 import DataLinks, {DataLinksProps} from 'components/DataLinks/view';
 
 // TODO: draw from mock data pool
-import testData from './view.test-data.json';
+import linkedObjectsData
+    from 'test/data/vm-samples/sample_data_links_152891ba-462f-4ead-9a83-71b0f1306161_1.json';
+import {LinkedData} from "../../../../redux/store/linkedData";
+
+const linkedData = (linkedObjectsData as unknown) as LinkedData;
 
 const TIMEOUT = 10000;
 
@@ -26,7 +30,7 @@ describe('The LinkedData viewer', () => {
 
     test('renders one data link', async () => {
         const props: DataLinksProps = {
-            linkedData: testData.slice(0, 1),
+            linkedData: linkedData.slice(0, 1),
             baseURL: 'https://example.com'
         };
 
@@ -47,7 +51,7 @@ describe('The LinkedData viewer', () => {
 
     test('renders data links with links', async () => {
         const props: DataLinksProps = {
-            linkedData: testData,
+            linkedData,
             baseURL: 'https://example.com'
         };
 
@@ -56,7 +60,7 @@ describe('The LinkedData viewer', () => {
         const linkElement = await findByTestId('linkeddata');
         expect(linkElement).toBeInTheDocument();
 
-        const message = await findByText('This sample is linked to 4 data objects.');
+        const message = await findByText('This sample is linked to 2 data objects.');
         expect(message).toBeInTheDocument();
 
         await waitFor(() => {
@@ -68,7 +72,7 @@ describe('The LinkedData viewer', () => {
 
             if (table) {
                 const rows = table.querySelectorAll('tr');
-                expect(rows.length).toEqual(5);
+                expect(rows.length).toEqual(3);
             }
 
         }, {

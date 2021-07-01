@@ -34,3 +34,7 @@ _attic
 _test_data/
 _coverage/
 _temp/
+
+/react-app/src/test/data/generated/*
+!/react-app/src/test/data/generated/README.md
+

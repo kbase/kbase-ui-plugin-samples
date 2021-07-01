@@ -1,0 +1,30 @@
+{
+  "admin": [
+    {
+      "username": "eaptest40",
+      "realname": "Erik \"Test 40\" Pearson",
+      "gravatarHash": "6a128ef5b4e0bec2be96a5f125d4e1ba"
+    }
+  ],
+  "write": [
+    {
+      "username": "eaptest20",
+      "realname": "Erik \"test 20\" Pearson",
+      "gravatarHash": "6d082b6127d0db3d41f21ad942a9e4a7"
+    }
+  ],
+  "read": [
+    {
+      "username": "eaptest30",
+      "realname": "Erik <b>Pearson</b>",
+      "gravatarHash": "d1d53732b22541149d7f1ef5565bb2ca"
+    },
+    {
+      "username": "jayrbolton",
+      "realname": "Jay Bolton",
+      "gravatarHash": "f5566303ee95cf08cdfc0cc21dc74707",
+      "gravatarDefault": "2",
+      "avatarOption": "0"
+    }
+  ]
+}

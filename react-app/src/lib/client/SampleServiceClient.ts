@@ -13,8 +13,8 @@ import {JSONObject, objectToJSONObject} from "@kbase/ui-lib/lib/lib/json";
 import {ServiceClientParams} from "@kbase/ui-lib/lib/comm/JSONRPC11/ServiceClient";
 import {ControlledField} from "./ControlledField";
 
-import groupsData from './data/groups/groups.json';
-import schemasData from './data/schemas/schemas.json';
+import groupsData from './data/groups.json';
+import schemasData from './data/schemas.json';
 
 const groups = (groupsData as unknown) as Array<FieldGroup>;
 const schemas = (schemasData as unknown) as Array<ControlledField>;

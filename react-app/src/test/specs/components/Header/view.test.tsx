@@ -3,6 +3,7 @@ import {render, waitFor, screen} from '@testing-library/react';
 
 import {Sample} from 'lib/ViewModel/ViewModel';
 
+// TODO: Use new generated data
 import sampleWithVersionsData from 'test/data/vm-samples/sample_768c9512-69c0-4057-ba0c-f9fd280996e6_1.json';
 import sampleData from 'test/data/vm-samples/sample-704986e6-a010-4c9d-883c-09ecdba1967b.json';
 

@@ -26,7 +26,7 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
         category: 'linkedData',
         type: ActionType.FETCHING
     });
-    
+
     const {
         app: {
             config: {
@@ -73,7 +73,6 @@ const linkedDataFun: AsyncProxyFun<StoreState> = async (
             linkedData
         });
     } catch (ex) {
-
         const message = (() => {
             if (ex instanceof Error) {
                 return ex.message;

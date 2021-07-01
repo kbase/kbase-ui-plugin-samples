@@ -26,19 +26,6 @@ describe('The Error View', () => {
         expect(getByText('Error')).toBeInTheDocument();
     });
 
-    test('renders minimal error correctly, explicit undefined title', async () => {
-        const error: AppError = {
-            code: 'abc',
-            message: 'error message',
-        }
-        const {getByText} = render(<ErrorView error={error} title={undefined}/>);
-
-        checkField(getByText('Code'), 'abc');
-
-        expect(getByText('error message')).toBeInTheDocument();
-        expect(getByText('Error')).toBeInTheDocument();
-    });
-
     test('renders slightly more complicated error correctly', async () => {
         const error: AppError = {
             code: 'abc123',
