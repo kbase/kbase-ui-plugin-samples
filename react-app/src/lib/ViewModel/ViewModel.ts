@@ -641,6 +641,6 @@ export default class ViewModel {
             },
         };
         // console.log('VIEW MODEL SAMPLE', JSON.stringify(sample))
-        return sample
+        return sample;
     }
 }
