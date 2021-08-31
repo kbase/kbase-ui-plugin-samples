@@ -6,7 +6,7 @@
     "devDependencies": {
         "bluebird": "3.7.2",
         "fs-extra": "9.1.0",
-        "tar": "6.1.0"
+        "tar": "6.1.9"
     },
     "scripts": {
         "build": "bash scripts/build-plugin.bash",
