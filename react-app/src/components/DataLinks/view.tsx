@@ -33,7 +33,9 @@ export default class DataLinks extends React.Component<DataLinksProps, DataLinks
         return <Table<DataLink2>
             dataSource={this.props.linkedData}
             className="AntTable-FullHeight"
-            rowKey="upa"
+            rowKey={(row: DataLink2) => {
+                return `${row.upa}-${row.dataid}`
+            }}
             size="small"
             scroll={{y: '100%'}}
             pagination={false}
