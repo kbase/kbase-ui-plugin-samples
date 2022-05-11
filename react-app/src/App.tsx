@@ -37,7 +37,7 @@ export default class App<AppProps, AppState> extends React.Component {
                 <ErrorBoundary>
                     <Provider store={store}>
                         <AppBase>
-                            <AuthGate required={true}>
+                            <AuthGate required={false}>
                                 <div className="App">
                                     <Switch>
                                         <Route path="/samples/about"
