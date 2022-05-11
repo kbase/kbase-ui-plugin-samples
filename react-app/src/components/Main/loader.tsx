@@ -19,115 +19,130 @@
  */
 
 // External imports
-import {AppError, Loading} from '@kbase/ui-components';
-import React from 'react';
+import { AppError, Loading } from "@kbase/ui-components";
+import React from "react";
 
 // Internal imports
-import ErrorView from 'components/ErrorView';
-import {Sample} from 'lib/ViewModel/ViewModel';
-import {AsyncProcessStatus} from 'redux/store/processing';
-import {SampleStoreState} from 'redux/store/sample';
+import ErrorView from "components/ErrorView";
+import { Sample } from "lib/ViewModel/ViewModel";
+import { AsyncProcessStatus } from "redux/store/processing";
+import { SampleStoreState } from "redux/store/sample";
 
 // Local imports
-import Main from './view';
-import {FieldGroups} from "../../lib/client/SampleServiceClient";
+import Main from "./view";
+import { FieldGroups } from "../../lib/client/SampleServiceClient";
 
 export interface LoaderProps {
-    id: string;
-    version?: number;
-    sampleState: SampleStoreState;
-    load: (id: string, version?: number) => void;
-    setTitle: (title: string) => void;
+  id: string;
+  version?: number;
+  sampleState: SampleStoreState;
+  load: (id: string, version?: number) => void;
+  setTitle: (title: string) => void;
 }
 
 interface LoaderState {
-    // dataVersion: number;
+  // dataVersion: number;
 }
 
-export default class LoaderView extends React.Component<LoaderProps, LoaderState> {
-    current: {
-        id: string;
-        version?: number;
-    } | null;
+export default class LoaderView extends React.Component<
+  LoaderProps,
+  LoaderState
+> {
+  current: {
+    id: string;
+    version?: number;
+  } | null;
 
-    constructor(props: LoaderProps) {
-        super(props);
-        this.state = {
-            // dataVersion: 1
-        };
-        this.current = null;
+  constructor(props: LoaderProps) {
+    super(props);
+    this.state = {
+      // dataVersion: 1
+    };
+    this.current = null;
+  }
+
+  componentDidMount() {
+    if (this.props.sampleState.status === AsyncProcessStatus.NONE) {
+      this.current = {
+        id: this.props.id,
+      };
+      if ("version" in this.props) {
+        this.current.version = this.props.version;
+      }
+      this.props.load(this.props.id, this.props.version);
     }
+  }
 
-    componentDidMount() {
-        if (this.props.sampleState.status === AsyncProcessStatus.NONE) {
-            this.current = {
-                id: this.props.id,
-                // version: this.props.version
-            };
-            if ('version' in this.props) {
-                this.current.version = this.props.version;
-            }
-            this.props.load(this.props.id, this.props.version);
+  componentDidUpdate(prevProps: LoaderProps, prevState: LoaderState) {
+    if (this.props.sampleState.status === AsyncProcessStatus.SUCCESS) {
+      if (prevProps.sampleState.status === AsyncProcessStatus.SUCCESS) {
+        if (
+          this.current == null ||
+          this.current.id !== this.props.id ||
+          this.current.version !== this.props.version
+        ) {
+          this.current = {
+            id: this.props.id,
+          };
+          if ("version" in this.props) {
+            this.current.version = this.props.version;
+          }
+          this.props.load(this.props.id, this.props.version);
         }
+      }
     }
+  }
 
-    componentDidUpdate(prevProps: LoaderProps, prevState: LoaderState) {
-        if (this.props.sampleState.status === AsyncProcessStatus.SUCCESS) {
-            if (prevProps.sampleState.status === AsyncProcessStatus.SUCCESS) {
-                // console.log(
-                //     'componentDidUpdate 2',
-                //     prevProps.sampleState.state.sample.id,
-                //     this.props.sampleState.state.sample.id,
-                //     this.props.id,
-                //     prevProps.sampleState.state.sample.currentVersion.version,
-                //     this.props.sampleState.state.sample.currentVersion.version,
-                //     this.props.version
-                // );
-                if (this.current == null ||
-                    (this.current.id !== this.props.id ||
-                        this.current.version !== this.props.version)) {
-                    this.current = {
-                        id: this.props.id,
-                        // version: this.props.version
-                    };
-                    if ('version' in this.props) {
-                        this.current.version = this.props.version;
-                    }
-                    this.props.load(this.props.id, this.props.version);
-                }
-            }
-        }
-    }
+  renderLoading() {
+    return (
+      <div className="FullyCenteredFLex">
+        <Loading message="Loading Sample..." />
+      </div>
+    );
+  }
 
-    renderLoading() {
-        return <div className="FullyCenteredFLex">
-            <Loading message="Loading Sample..."/>
-        </div>;
-    }
+  renderError(error: AppError) {
+    return <ErrorView error={error} />;
+  }
 
-    renderError(error: AppError) {
-        return <ErrorView error={error}/>;
-    }
+  renderSuccess(sample: Sample, fieldGroups: FieldGroups) {
+    return (
+      <Main
+        sample={sample}
+        fieldGroups={fieldGroups}
+        setTitle={this.props.setTitle}
+      />
+    );
+  }
 
-    renderSuccess(sample: Sample, fieldGroups: FieldGroups) {
-        return <Main sample={sample} fieldGroups={fieldGroups} setTitle={this.props.setTitle}/>;
-    }
+  renderReprocessing(sample: Sample, fieldGroups: FieldGroups) {
+    return (
+      <Main
+        sample={sample}
+        fieldGroups={fieldGroups}
+        setTitle={this.props.setTitle}
+        loading={true}
+      />
+    );
+  }
 
-    renderReprocessing(sample: Sample, fieldGroups: FieldGroups) {
-        return <Main sample={sample} fieldGroups={fieldGroups} setTitle={this.props.setTitle} loading={true}/>;
+  render() {
+    switch (this.props.sampleState.status) {
+      case AsyncProcessStatus.NONE:
+      case AsyncProcessStatus.PROCESSING:
+        return this.renderLoading();
+      case AsyncProcessStatus.ERROR:
+        return this.renderError(this.props.sampleState.error);
+      case AsyncProcessStatus.SUCCESS:
+        return this.renderSuccess(
+          this.props.sampleState.state.sample,
+          this.props.sampleState.state.fieldGroups
+        );
+      case AsyncProcessStatus.REPROCESSING:
+        return this.renderReprocessing(
+          this.props.sampleState.state.sample,
+          this.props.sampleState.state.fieldGroups
+        );
     }
-
-    render() {
-        switch (this.props.sampleState.status) {
-            case AsyncProcessStatus.NONE:
-            case AsyncProcessStatus.PROCESSING:
-                return this.renderLoading();
-            case AsyncProcessStatus.ERROR:
-                return this.renderError(this.props.sampleState.error);
-            case AsyncProcessStatus.SUCCESS:
-                return this.renderSuccess(this.props.sampleState.state.sample, this.props.sampleState.state.fieldGroups);
-            case AsyncProcessStatus.REPROCESSING:
-                return this.renderReprocessing(this.props.sampleState.state.sample, this.props.sampleState.state.fieldGroups);
-        }
-    }
+  }
 }

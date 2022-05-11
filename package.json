@@ -1,25 +1,26 @@
 {
-    "name": "kbase-ui-plugin-samples",
-    "version": "1.0.0",
-    "description": "description of your plugin",
-    "main": "index.js",
-    "devDependencies": {
-        "bluebird": "3.7.2",
-        "fs-extra": "10.0.0",
-        "tar": "6.1.11"
-    },
-    "scripts": {
-        "build": "bash scripts/build-plugin.bash",
-        "dist": "node scripts/build-dist.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/kbase/kbase-ui-plugin-samples.git"
-    },
-    "author": "KBase Developers",
-    "license": "SEE LICENSE IN LICENSE.md",
-    "bugs": {
-        "url": "https://github.com/kbase/kbase-ui-plugin-samples/issues"
-    },
-    "homepage": "https://github.com/kbase/kbase-ui-plugin-samples#readme"
+  "name": "kbase-ui-plugin-samples",
+  "version": "1.0.0",
+  "description": "description of your plugin",
+  "main": "index.js",
+  "devDependencies": {
+    "bluebird": "3.7.2",
+    "fs-extra": "10.0.0",
+    "tar": "~6.1.11",
+    "prettier": "2.6.2"
+  },
+  "scripts": {
+    "build": "bash scripts/build-plugin.bash",
+    "dist": "node scripts/build-dist.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kbase/kbase-ui-plugin-samples.git"
+  },
+  "author": "KBase Developers",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/kbase/kbase-ui-plugin-samples/issues"
+  },
+  "homepage": "https://github.com/kbase/kbase-ui-plugin-samples#readme"
 }

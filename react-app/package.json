@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.7.0",
-    "@kbase/ui-components": "0.5.17",
+    "@kbase/ui-components": "0.5.18",
     "@kbase/ui-lib": "0.4.12",
     "@types/leaflet": "1",
     "@types/react": "17",
@@ -51,7 +51,7 @@
     "nodemon": "2.0.10",
     "redux-mock-store": "1.5.4",
     "storybook-preset-craco": "0.0.4",
-    "typescript": "4.4.0-beta",
+    "typescript": "4.6.4",
     "webpack": "4.44.2"
   },
   "scripts": {

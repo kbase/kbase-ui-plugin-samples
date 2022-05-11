@@ -9,7 +9,7 @@ services:
     routes:
       - path: samples/view/:sampleId/:-sampleVersion
         view: view
-        authorization: true
+        authorization: false
       - path: samples/about
         view: about
         authorization: false
