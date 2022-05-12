@@ -152,6 +152,8 @@ export interface ACL {
   admin: Array<User>;
   write: Array<User>;
   read: Array<User>;
+  isPublic: boolean;
+  owner: User;
 }
 
 export interface DataLink2 extends DataLink {
@@ -172,6 +174,16 @@ export interface GetSampleResult {
     type: SampleNodeType;
     metadata: Array<MetadataField>;
     controlled: SimpleMap<MetadataControlledField>;
+  };
+}
+
+export function userToProfile(profile: UserProfile): User {
+  return {
+    username: profile.user.username,
+    realname: profile.user.realname,
+    gravatarHash: profile.profile.synced.gravatarHash,
+    gravatarDefault: profile.profile.userdata.gravatarDefault,
+    avatarOption: profile.profile.userdata.avatarOption,
   };
 }
 
@@ -336,7 +348,8 @@ export default class ViewModel {
 
     const usersToFetch: Array<Username> = aclResult.admin
       .concat(aclResult.read)
-      .concat(aclResult.write);
+      .concat(aclResult.write)
+      .concat([aclResult.owner]);
     const userProfileParams: ServiceClientParams = {
       url: this.userProfileURL,
       timeout: UPSTREAM_TIMEOUT,
@@ -356,15 +369,10 @@ export default class ViewModel {
     );
 
     return {
+      isPublic: aclResult.public_read !== 0,
+      owner: userToProfile(profileMap[aclResult.owner]),
       admin: aclResult.admin.map((username) => {
-        const profile = profileMap[username];
-        return {
-          username,
-          realname: profile.user.realname,
-          gravatarHash: profile.profile.synced.gravatarHash,
-          gravatarDefault: profile.profile.userdata.gravatarDefault,
-          avatarOption: profile.profile.userdata.avatarOption,
-        };
+        return userToProfile(profileMap[username]);
       }),
       write: aclResult.write.map((username) => {
         const profile = profileMap[username];
