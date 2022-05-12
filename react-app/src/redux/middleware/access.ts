@@ -5,9 +5,12 @@ import ViewModel from "lib/ViewModel/ViewModel";
 import { ActionType } from "redux/actions/access";
 import { StoreState } from "../store";
 
-const accessFun: AsyncProxyFun<StoreState> = async (
-  { state, dispatch, action, next },
-) => {
+const accessFun: AsyncProxyFun<StoreState> = async ({
+  state,
+  dispatch,
+  action,
+  next,
+}) => {
   if (!("category" in action)) {
     return false;
   }
@@ -24,15 +27,9 @@ const accessFun: AsyncProxyFun<StoreState> = async (
     app: {
       config: {
         services: {
-          SampleService: {
-            url: sampleServiceURL,
-          },
-          UserProfile: {
-            url: userProfileURL,
-          },
-          Workspace: {
-            url: workspaceURL,
-          },
+          SampleService: { url: sampleServiceURL },
+          UserProfile: { url: userProfileURL },
+          Workspace: { url: workspaceURL },
         },
       },
     },
@@ -61,6 +58,7 @@ const accessFun: AsyncProxyFun<StoreState> = async (
     });
 
     const accessList = await viewModel.fetchACL({ id: action.id });
+    console.log("access list??", accessList);
     dispatch({
       category: "access",
       type: ActionType.FETCHED,
