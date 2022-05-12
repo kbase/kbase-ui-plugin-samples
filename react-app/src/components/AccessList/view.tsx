@@ -48,8 +48,9 @@ export default class DataLinks extends React.Component<
         <div className="PublicPrivateMessage">
           <FontAwesomeIcon icon={faGlobe} size={"2x"} />
           <span className="-message">
-            This sample is <b>Public</b>. It may be viewed by anyone with the
-            link, without being logged into KBase.
+            This sample is <b>Public</b>. It may be accessed by the KBase users
+            listed below and viewed by anyone with the link, without being
+            logged into KBase.
           </span>
         </div>
       );
@@ -58,7 +59,7 @@ export default class DataLinks extends React.Component<
       <div className="PublicPrivateMessage">
         <FontAwesomeIcon icon={faUserLock} size={"2x"} />
         <span className="-message">
-          This sample is <b>Private</b>, it may only be viewed by KBase users
+          This sample is <b>Private</b>, it may only be accessed by KBase users
           listed below.
         </span>
       </div>
