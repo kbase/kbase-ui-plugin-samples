@@ -72,7 +72,7 @@ export default class DataLinks extends React.Component<
         <div className="Row" style={{ marginBottom: "1em" }}>
           <div className="Col -stretch">
             <div className="LabeledInfo">
-              <div className="-label">SAMPLE VISIBILITY</div>
+              <div className="-label">Sample Access</div>
               <div className="-info">
                 {this.renderPublicPrivate(this.props.acl)}
               </div>
