@@ -51,7 +51,7 @@
     "craco-antd": "git://github.com/eapearson/craco-antd#master",
     "less": "4.1.1",
     "less-loader": "7.3.0",
-    "nodemon": "2.0.10",
+    "nodemon": "2.0.20",
     "redux-mock-store": "1.5.4",
     "storybook-preset-craco": "0.0.4",
     "typescript": "4.6.4",
